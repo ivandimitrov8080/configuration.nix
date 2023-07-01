@@ -144,6 +144,12 @@
 			'';
 		};
 	};
+	xdg.configFile = {
+		nvim = {
+			source = ./config/nvim;
+			recursive = true;
+		};
+	};
 	home.packages = with pkgs; [
 		brave
 		bemenu
