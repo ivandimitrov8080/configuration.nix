@@ -58,6 +58,7 @@
 		mlocate
   	];
 	variables = {
+		EDITOR = "nvim";
 	};
 	shells = with pkgs; [ zsh ];
   };
@@ -111,6 +112,11 @@
   	programs = {
 		home-manager = {
 			enable = true;
+		};
+		git = {
+			enable = true;
+			userName = "Ivan Dimitrov";
+			userEmail = "ivan@idimitrov.dev";
 		};
 		kitty = {
 			enable = true;
