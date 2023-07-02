@@ -37,6 +37,8 @@
 
   time.timeZone = "Europe/Sofia";
 
+  fonts.fonts = with pkgs; [ nerdfonts ];
+
   environment = {
     systemPackages = with pkgs; [
       alejandra
