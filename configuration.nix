@@ -39,28 +39,28 @@
 
   environment = {
     systemPackages = with pkgs; [
-      home-manager
-      libgccjit
+      alejandra
       binutils
+      cmatrix
+      gimp
+      git
       glibc
+      gnome.cheese
+      gnumake
+      home-manager
+      jmtpfs
+      libgccjit
+      libmtp
+      mlocate
+      nodejs_20
+      pinentry-qt
+      rustup
+      unzip
       vim
       wget
-      git
-      cmatrix
-      zbar
-      gnome.cheese
-      gimp
-      libmtp
-      jmtpfs
-      pinentry-qt
-      gnumake
-      nodejs_20
-      zip
-      unzip
-      mlocate
-      rustup
-      alejandra
       xdg-user-dirs
+      zbar
+      zip
     ];
     variables = {
       EDITOR = "nvim";
@@ -116,12 +116,12 @@
         "sha256-vn+91iKXWo++4bi3m9cmdRAXFMeAqLij+SXaSChedow="
         "Bibata_Modern_Classic";
       activation.createXdgFolders = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        mkdir -p "$HOME/dt"
-        mkdir -p "$HOME/doc"
         mkdir -p "$HOME/dl"
-        mkdir -p "$HOME/snd"
+        mkdir -p "$HOME/doc"
+        mkdir -p "$HOME/dt"
         mkdir -p "$HOME/pic"
         mkdir -p "$HOME/pub"
+        mkdir -p "$HOME/snd"
         mkdir -p "$HOME/tp"
         mkdir -p "$HOME/vid"
       '';
@@ -187,8 +187,8 @@
       };
     };
     home.packages = with pkgs; [
-      brave
       bemenu
+      brave
       gopass
       gopass-jsonapi
       pavucontrol
