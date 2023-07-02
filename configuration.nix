@@ -49,20 +49,27 @@
       glibc
       gnome.cheese
       gnumake
+      grim
       home-manager
       jmtpfs
       libgccjit
       libmtp
+      mako
       mlocate
       nodejs_20
       pinentry-qt
       rustup
+      slurp
       tealdeer
       unzip
       vim
       vimPlugins.nvchad
+      wayland
+      wdisplays
       wget
+      wl-clipboard
       xdg-user-dirs
+      xdg-utils
       zbar
       zip
     ];
