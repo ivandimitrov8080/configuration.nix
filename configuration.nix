@@ -116,14 +116,14 @@
         "sha256-vn+91iKXWo++4bi3m9cmdRAXFMeAqLij+SXaSChedow="
         "Bibata_Modern_Classic";
       activation.createXdgFolders = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          mkdir -p "$HOME/dt"
-          mkdir -p "$HOME/doc"
-          mkdir -p "$HOME/dl"
-          mkdir -p "$HOME/snd"
-          mkdir -p "$HOME/pic"
-          mkdir -p "$HOME/pub"
-          mkdir -p "$HOME/tp"
-          mkdir -p "$HOME/vid"
+        mkdir -p "$HOME/dt"
+        mkdir -p "$HOME/doc"
+        mkdir -p "$HOME/dl"
+        mkdir -p "$HOME/snd"
+        mkdir -p "$HOME/pic"
+        mkdir -p "$HOME/pub"
+        mkdir -p "$HOME/tp"
+        mkdir -p "$HOME/vid"
       '';
     };
     programs = {
