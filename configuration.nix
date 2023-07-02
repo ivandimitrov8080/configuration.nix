@@ -39,6 +39,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      home-manager
       libgccjit
       binutils
       glibc
@@ -59,11 +60,17 @@
       mlocate
       rustup
       alejandra
+      xdg-user-dirs
     ];
     variables = {
       EDITOR = "nvim";
     };
     shells = with pkgs; [zsh];
+    etc = {
+      "xdg/user-dirs.conf".text = ''
+        enabled=True
+      '';
+    };
   };
 
   programs = {
@@ -86,7 +93,7 @@
     };
   };
 
-  home-manager.users.ivand = {
+  home-manager.users.ivand = {lib, ...}: {
     home = {
       stateVersion = "23.05";
       pointerCursor = let
@@ -108,6 +115,16 @@
         "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.3/Bibata-Modern-Classic.tar.gz"
         "sha256-vn+91iKXWo++4bi3m9cmdRAXFMeAqLij+SXaSChedow="
         "Bibata_Modern_Classic";
+      activation.createXdgFolders = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          mkdir -p "$HOME/dt"
+          mkdir -p "$HOME/doc"
+          mkdir -p "$HOME/dl"
+          mkdir -p "$HOME/snd"
+          mkdir -p "$HOME/pic"
+          mkdir -p "$HOME/pub"
+          mkdir -p "$HOME/tp"
+          mkdir -p "$HOME/vid"
+      '';
     };
     programs = {
       home-manager = {
@@ -127,6 +144,7 @@
       };
       neovim = {
         enable = true;
+        viAlias = true;
       };
       zsh = {
         enable = true;
@@ -154,6 +172,18 @@
       nvim = {
         source = ./config/nvim;
         recursive = true;
+      };
+      "user-dirs.dirs" = {
+        source = pkgs.writeText "user-dirs.dirs" ''
+          XDG_DESKTOP_DIR="$HOME/dt"
+          XDG_DOCUMENTS_DIR="$HOME/doc"
+          XDG_DOWNLOAD_DIR="$HOME/dl"
+          XDG_MUSIC_DIR="$HOME/snd"
+          XDG_PICTURES_DIR="$HOME/pic"
+          XDG_PUBLICSHARE_DIR="$HOME/pub"
+          XDG_TEMPLATES_DIR="$HOME/tp"
+          XDG_VIDEOS_DIR="$HOME/vid"
+        '';
       };
     };
     home.packages = with pkgs; [
