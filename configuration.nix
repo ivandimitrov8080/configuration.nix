@@ -192,7 +192,6 @@
       gopass
       gopass-jsonapi
       pavucontrol
-      vimPlugins.nvchad
     ];
   };
 }
