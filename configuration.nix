@@ -50,7 +50,6 @@
       gnome.cheese
       gnumake
       home-manager
-      vimPlugins.nvchad
       jmtpfs
       libgccjit
       libmtp
@@ -58,8 +57,10 @@
       nodejs_20
       pinentry-qt
       rustup
+      tealdeer
       unzip
       vim
+      vimPlugins.nvchad
       wget
       xdg-user-dirs
       zbar
