@@ -48,6 +48,7 @@
       gnome.cheese
       gnumake
       home-manager
+      vimPlugins.nvchad
       jmtpfs
       libgccjit
       libmtp
@@ -170,7 +171,11 @@
     };
     xdg.configFile = {
       nvim = {
-        source = ./config/nvim;
+        source = pkgs.vimPlugins.nvchad;
+        recursive = true;
+      };
+      "nvim/lua/custom" = {
+        source = ./cfg/nvim/custom;
         recursive = true;
       };
       "user-dirs.dirs" = {
