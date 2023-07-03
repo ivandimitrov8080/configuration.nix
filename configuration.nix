@@ -41,7 +41,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      alejandra
       binutils
       cmatrix
       gimp
@@ -54,6 +53,7 @@
       jmtpfs
       libgccjit
       libmtp
+      lua
       mako
       mlocate
       nodejs_20
@@ -131,6 +131,12 @@
       neovim = {
         enable = true;
         viAlias = true;
+        extraPackages = with pkgs; [
+          alejandra
+          lua-language-server
+          libclang
+          rnix-lsp
+        ];
       };
       zsh = {
         enable = true;
