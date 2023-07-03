@@ -11,7 +11,7 @@ output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_19
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+Shift+c kill
 
     # Start your launcher
     bindsym $mod+p exec $menu
@@ -24,10 +24,10 @@ output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_19
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Moving around:
 #
@@ -157,6 +157,13 @@ bar {
         background #323232
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
+}
+
+input "*"
+{
+    xkb_layout us,bg
+    xkb_options grp:win_space_toggle
+    xkb_variant ,phonetic
 }
 
 include /etc/sway/config.d/*
