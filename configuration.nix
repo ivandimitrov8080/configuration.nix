@@ -107,35 +107,10 @@
   home-manager.users.ivand = {lib, ...}: {
     home = {
       stateVersion = "23.05";
-      pointerCursor = let
-        getFrom = url: hash: name: {
-          gtk.enable = true;
-          x11.enable = true;
-          name = name;
-          size = 48;
-          package = pkgs.runCommand "moveUp" {} ''
-            mkdir -p $out/share/icons
-            ln -s ${pkgs.fetchzip {
-              url = url;
-              hash = hash;
-            }} $out/share/icons/${name}
-          '';
-        };
-      in
-        getFrom
-        "https://github.com/ful1e5/Bibata_Cursor/releases/download/v2.0.3/Bibata-Modern-Classic.tar.gz"
-        "sha256-vn+91iKXWo++4bi3m9cmdRAXFMeAqLij+SXaSChedow="
-        "Bibata_Modern_Classic";
-      activation.createXdgFolders = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        mkdir -p "$HOME/dl"
-        mkdir -p "$HOME/doc"
-        mkdir -p "$HOME/dt"
-        mkdir -p "$HOME/pic"
-        mkdir -p "$HOME/pub"
-        mkdir -p "$HOME/snd"
-        mkdir -p "$HOME/tp"
-        mkdir -p "$HOME/vid"
-      '';
+      pointerCursor = {
+        name = "Bibata-Modern-Amber";
+        package = pkgs.bibata-cursors;
+      };
     };
     programs = {
       home-manager = {
