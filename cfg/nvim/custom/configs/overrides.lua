@@ -37,7 +37,15 @@ M.mason = {
     -- c/cpp stuff
     "clangd",
     "clang-format",
+
+    -- NixOS stuff
+    "rnix-lsp"
   },
+}
+
+M.ui = {
+  transparency = true,
+  theme = "catppuccin"
 }
 
 -- git support in nvimtree
