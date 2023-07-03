@@ -43,6 +43,7 @@
     systemPackages = with pkgs; [
       binutils
       cmatrix
+      firefox-devedition-bin
       gimp
       git
       glibc
@@ -61,6 +62,7 @@
       rustup
       slurp
       tealdeer
+      ungoogled-chromium
       unzip
       vim
       vimPlugins.nvchad
