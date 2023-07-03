@@ -188,6 +188,9 @@
         source = ./cfg/nvim/custom;
         recursive = true;
       };
+      "sway/config" = {
+        source = ./cfg/sway/config;
+      };
       "user-dirs.dirs" = {
         source = pkgs.writeText "user-dirs.dirs" ''
           XDG_DESKTOP_DIR="$HOME/dt"
