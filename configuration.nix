@@ -37,7 +37,7 @@
 
   time.timeZone = "Europe/Sofia";
 
-  fonts.fonts = with pkgs; [ nerdfonts ];
+  fonts.fonts = with pkgs; [nerdfonts];
 
   environment = {
     systemPackages = with pkgs; [
@@ -159,21 +159,26 @@
       };
       zsh = {
         enable = true;
-        zplug = {
-          enable = true;
-          plugins = [
-            {name = "jeffreytse/zsh-vi-mode";}
-            {
-              name = "romkatv/powerlevel10k";
-              tags = [as:theme depth:1];
-            }
-            {name = "zsh-users/zsh-autosuggestions";}
-            {
-              name = "zsh-users/zsh-syntax-highlighting";
-              tags = [defer:2];
-            }
-          ];
+        enableSyntaxHighlighting = true;
+        enableAutosuggestions = true;
+        completionInit = '''';
+        history = {
+          size = 1000;
+          save = 1000;
+          expireDuplicatesFirst = true;
         };
+        plugins = [
+          {
+            name = "zsh-autoenv";
+            src = "${pkgs.zsh-autoenv}/share/zsh-autoenv";
+            file = "autoenv.plugin.zsh";
+          }
+          {
+            name = "zsh-powerlevel10k";
+            src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
+            file = "powerlevel10k.zsh-theme";
+          }
+        ];
         initExtra = ''
           source "$HOME/.p10k.zsh"
         '';
