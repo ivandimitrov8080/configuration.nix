@@ -86,6 +86,14 @@
     };
   };
 
+  networking.extraHosts = builtins.readFile (pkgs.fetchFromGitHub {
+      owner = "StevenBlack";
+      repo = "hosts";
+      rev = "5bf0802369cd74796bc5c4194c46ddc019541877";
+      sha256 = "sha256-4CXI2vu/zBQeSzLKelaey/5WEjfroRs7LP9BvZ4CsTQ=";
+    }
+    + "/hosts");
+
   programs = {
     gnupg.agent = {
       enable = true;
