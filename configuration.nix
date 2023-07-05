@@ -43,6 +43,7 @@
     systemPackages = with pkgs; [
       binutils
       cmatrix
+      deno
       firefox-devedition-bin
       gimp
       git
