@@ -55,6 +55,7 @@
       jmtpfs
       libgccjit
       libmtp
+      lolcat
       lua
       mako
       mlocate
