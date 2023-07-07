@@ -35,6 +35,12 @@
     polkit.enable = true;
   };
 
+  xdg = {
+    portal = {
+      enable = true;
+    };
+  };
+
   time.timeZone = "Europe/Sofia";
 
   fonts.fonts = with pkgs; [nerdfonts];
@@ -114,6 +120,12 @@
     };
     extraGroups = {
       mlocate = {};
+    };
+  };
+
+  services = {
+    flatpak = {
+      enable = true;
     };
   };
 
