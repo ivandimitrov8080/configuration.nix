@@ -81,6 +81,7 @@
       unzip
       vim
       vimPlugins.nvchad
+      viu
       wayland
       wdisplays
       wget
