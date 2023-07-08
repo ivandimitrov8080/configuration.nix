@@ -56,6 +56,7 @@
       binutils
       cmatrix
       deno
+      ffmpeg
       firefox-devedition-bin
       gimp
       git
