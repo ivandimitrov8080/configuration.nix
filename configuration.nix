@@ -78,6 +78,7 @@
       rustup
       slurp
       tealdeer
+      thunderbird
       ungoogled-chromium
       unzip
       vim
