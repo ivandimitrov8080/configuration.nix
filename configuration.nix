@@ -72,12 +72,14 @@
       lua
       mako
       mlocate
+      mupdf
       nodejs_20
       nodePackages_latest.pnpm
       pinentry-qt
       rustup
       slurp
       tealdeer
+      tectonic
       thunderbird
       ungoogled-chromium
       unzip
