@@ -69,6 +69,7 @@
       tealdeer
       tectonic
       thunderbird
+      tor-browser-bundle-bin
       ungoogled-chromium
       unzip
       vim
