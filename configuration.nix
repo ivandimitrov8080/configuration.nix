@@ -144,6 +144,7 @@
   home-manager.users.ivand = {lib, ...}: {
     home = {
       stateVersion = "23.05";
+      sessionPath = ["$HOME/.local/bin/"];
       pointerCursor = {
         name = "Bibata-Modern-Amber";
         package = pkgs.bibata-cursors;
