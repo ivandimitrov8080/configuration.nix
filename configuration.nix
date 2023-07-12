@@ -10,23 +10,11 @@
 
   system.stateVersion = "23.05";
 
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (pkgs.lib.getName pkg) [
-      "nvidia-x11"
-      "nvidia-settings"
-    ];
-
   hardware = {
     pulseaudio.enable = true;
     opengl = {
       enable = true;
       driSupport = true;
-      driSupport32Bit = true;
-    };
-    nvidia = {
-      modesetting.enable = true;
-      open = true;
-      nvidiaSettings = true;
     };
   };
 
@@ -138,7 +126,6 @@
     flatpak = {
       enable = true;
     };
-    xserver.videoDrivers = ["nvidia"];
   };
 
   home-manager.users.ivand = {lib, ...}: {
