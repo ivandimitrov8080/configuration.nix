@@ -86,6 +86,7 @@
     ];
     variables = {
       EDITOR = "nvim";
+      PNPM_HOME = "$HOME/.local/share/pnpm";
     };
     shells = with pkgs; [zsh];
     etc = {
@@ -132,7 +133,7 @@
   home-manager.users.ivand = {lib, ...}: {
     home = {
       stateVersion = "23.05";
-      sessionPath = ["$HOME/.local/bin/"];
+      sessionPath = ["$HOME/.local/bin/" "$HOME/.local/share/pnpm"];
       pointerCursor = {
         name = "Bibata-Modern-Amber";
         package = pkgs.bibata-cursors;
