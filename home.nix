@@ -42,26 +42,29 @@
       extraPackages = with pkgs; [
         alejandra
         libclang
-      	lua
+        lua
         lua-language-server
-	nodePackages_latest.typescript-language-server
-	python311Packages.python-lsp-black
-	python311Packages.python-lsp-server
+        nodePackages_latest.typescript-language-server
+        python311Packages.python-lsp-black
+        python311Packages.python-lsp-server
+        ripgrep
         rnix-lsp
-	stylua
+        stylua
       ];
       plugins = with pkgs.vimPlugins; [
-	autoclose-nvim
-	barbar-nvim
+        autoclose-nvim
+        barbar-nvim
         catppuccin-nvim
-	cmp-nvim-lsp
-	luasnip
-	nvim-cmp
+        cmp-nvim-lsp
+        luasnip
         nvim-cmp
-	nvim-lspconfig
+        nvim-cmp
+        nvim-lspconfig
         nvim-tree-lua
         nvim-treesitter.withAllGrammars
-	nvim-web-devicons
+        nvim-web-devicons
+        plenary-nvim
+        telescope-nvim
         telescope-nvim
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
