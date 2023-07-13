@@ -1,8 +1,10 @@
 vim.wo.number = true
 vim.o.scrolloff = 15
 vim.o.hlsearch = false
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 local nmap = function(keys, cmd)
 	vim.keymap.set("n", keys, cmd, { noremap = true, silent = true })
