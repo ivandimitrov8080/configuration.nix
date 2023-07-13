@@ -41,6 +41,8 @@
       viAlias = true;
       extraPackages = with pkgs; [
         alejandra
+      	lua
+	luaformatter
         lua-language-server
         libclang
         rnix-lsp
@@ -51,11 +53,10 @@
         nvim-tree-lua
         telescope-nvim
         catppuccin-nvim
+	nvim-web-devicons
+	barbar-nvim
       ];
-      extraLuaConfig = ''
-        require("nvim-tree").setup()
-        vim.cmd.colorscheme "catppuccin"
-      '';
+      extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
     };
     zsh = {
       enable = true;
@@ -90,10 +91,6 @@
     };
   };
   xdg.configFile = {
-    "nvim/lua/custom" = {
-      source = ./cfg/nvim/custom;
-      recursive = true;
-    };
     "sway/config" = {
       source = ./cfg/sway/config;
     };

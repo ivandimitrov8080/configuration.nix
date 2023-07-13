@@ -57,7 +57,6 @@
       libgccjit
       libmtp
       lolcat
-      lua
       mako
       mlocate
       mupdf
