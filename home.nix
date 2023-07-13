@@ -41,20 +41,28 @@
       viAlias = true;
       extraPackages = with pkgs; [
         alejandra
-      	lua
-	luaformatter
-        lua-language-server
         libclang
+      	lua
+        lua-language-server
+	nodePackages_latest.typescript-language-server
+	python311Packages.python-lsp-black
+	python311Packages.python-lsp-server
         rnix-lsp
+	stylua
       ];
       plugins = with pkgs.vimPlugins; [
-        nvim-cmp
-        nvim-treesitter.withAllGrammars
-        nvim-tree-lua
-        telescope-nvim
-        catppuccin-nvim
-	nvim-web-devicons
+	autoclose-nvim
 	barbar-nvim
+        catppuccin-nvim
+	cmp-nvim-lsp
+	luasnip
+	nvim-cmp
+        nvim-cmp
+	nvim-lspconfig
+        nvim-tree-lua
+        nvim-treesitter.withAllGrammars
+	nvim-web-devicons
+        telescope-nvim
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
     };
