@@ -95,6 +95,11 @@
           file = "nix-shell.plugin.zsh";
           src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
         }
+        {
+          name = "zsh-you-should-use";
+          file = "you-should-use.plugin.zsh";
+          src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
+        }
       ];
       initExtra = ''
         source "$HOME/.p10k.zsh"
