@@ -1,13 +1,12 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }: {
   home = {
     username = "ivand";
     homeDirectory = "/home/ivand";
     stateVersion = "23.05";
-    sessionPath = ["$HOME/.local/bin/" "$HOME/.local/share/pnpm"];
+    sessionPath = [ "$HOME/.local/bin/" "$HOME/.local/share/pnpm" ];
     pointerCursor = {
       name = "Bibata-Modern-Amber";
       package = pkgs.bibata-cursors;
@@ -56,7 +55,7 @@
         barbar-nvim
         cmp-nvim-lsp
         luasnip
-	nightfox-nvim
+        nightfox-nvim
         nvim-cmp
         nvim-cmp
         nvim-lspconfig
@@ -65,7 +64,7 @@
         plenary-nvim
         telescope-nvim
         telescope-nvim
-	vim-vinegar
+        vim-vinegar
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
     };

@@ -27,6 +27,7 @@ local servers = { tsserver = {}, pylsp = {}, lua_ls = {}, rnix = {} }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(_, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action)
+	nmap('<leader>l', function() vim.lsp.buf.format() end)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
 end
