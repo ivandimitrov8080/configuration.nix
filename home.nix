@@ -33,7 +33,7 @@
       enable = true;
       settings = {
         enable_tab_bar = false;
-        background_opacity = "0.9";
+        background_opacity = "0.95";
       };
     };
     neovim = {
@@ -54,7 +54,7 @@
       plugins = with pkgs.vimPlugins; [
         autoclose-nvim
         barbar-nvim
-        catppuccin-nvim
+	nightfox-nvim
         cmp-nvim-lsp
         luasnip
         nvim-cmp

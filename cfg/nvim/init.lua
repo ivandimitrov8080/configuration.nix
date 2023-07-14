@@ -1,10 +1,10 @@
-vim.wo.number = true
-vim.o.scrolloff = 15
-vim.o.hlsearch = false
+vim.wo.number = true -- show numbers
+vim.o.scrolloff = 15 -- scrll if n lines left
+vim.o.hlsearch = false -- highlight search
 
-vim.g.mapleader = " "
+vim.g.mapleader = " " -- leader space
 vim.g.maplocalleader = " "
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true }) -- nop leader
 
 local nmap = function(keys, cmd)
 	vim.keymap.set("n", keys, cmd, { noremap = true, silent = true })
@@ -56,5 +56,5 @@ require("autoclose").setup()
 
 require("nvim-tree").setup()
 
-require("catppuccin").setup({ flavour = "mocha", transparent_background = true })
-vim.cmd.colorscheme("catppuccin")
+require("nightfox").setup({ options = { transparent = true } })
+vim.cmd.colorscheme("nightfox")
