@@ -42,6 +42,7 @@
   environment = {
     systemPackages = with pkgs; [
       binutils
+      busybox
       cmatrix
       deno
       ffmpeg
@@ -63,6 +64,7 @@
       nodejs_20
       nodePackages_latest.pnpm
       pinentry-qt
+      piper
       rustup
       slurp
       tealdeer
@@ -125,8 +127,7 @@
   };
 
   services = {
-    flatpak = {
-      enable = true;
-    };
+    flatpak.enable = true;
+    ratbagd.enable = true;
   };
 }
