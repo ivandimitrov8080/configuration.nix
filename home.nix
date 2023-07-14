@@ -107,14 +107,14 @@
     };
     "user-dirs.dirs" = {
       source = pkgs.writeText "user-dirs.dirs" ''
-        XDG_DESKTOP_DIR="$HOME/dt"
-        XDG_DOCUMENTS_DIR="$HOME/doc"
-        XDG_DOWNLOAD_DIR="$HOME/dl"
-        XDG_MUSIC_DIR="$HOME/snd"
-        XDG_PICTURES_DIR="$HOME/pic"
-        XDG_PUBLICSHARE_DIR="$HOME/pub"
-        XDG_TEMPLATES_DIR="$HOME/tp"
-        XDG_VIDEOS_DIR="$HOME/vid"
+        XDG_DESKTOP_DIR="dt"
+        XDG_DOCUMENTS_DIR="doc"
+        XDG_DOWNLOAD_DIR="dl"
+        XDG_MUSIC_DIR="snd"
+        XDG_PICTURES_DIR="pic"
+        XDG_PUBLICSHARE_DIR="pub"
+        XDG_TEMPLATES_DIR="tp"
+        XDG_VIDEOS_DIR="vid"
       '';
     };
   };

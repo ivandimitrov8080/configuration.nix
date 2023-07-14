@@ -6,7 +6,7 @@ set $right l
 set $term kitty
 set $menu bemenu-run | xargs swaymsg exec --
 
-output * bg /run/current-system/sw/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg $HOME/pic/bg.png fill
     # Start a terminal
     bindsym $mod+Return exec $term
 
