@@ -54,9 +54,9 @@
       plugins = with pkgs.vimPlugins; [
         autoclose-nvim
         barbar-nvim
-	nightfox-nvim
         cmp-nvim-lsp
         luasnip
+	nightfox-nvim
         nvim-cmp
         nvim-cmp
         nvim-lspconfig
@@ -65,6 +65,7 @@
         plenary-nvim
         telescope-nvim
         telescope-nvim
+	vim-vinegar
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
     };
