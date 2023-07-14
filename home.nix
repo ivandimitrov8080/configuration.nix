@@ -35,6 +35,14 @@
         background_opacity = "0.98";
       };
     };
+    tmux = {
+      enable = true;
+      clock24 = true;
+      extraConfig = ''
+                set -g default-command "''${SHELL}"
+        	set -g default-terminal "tmux-256color"
+      '';
+    };
     neovim = {
       enable = true;
       viAlias = true;
