@@ -33,7 +33,7 @@
       enable = true;
       settings = {
         enable_tab_bar = false;
-        background_opacity = "0.95";
+        background_opacity = "0.98";
       };
     };
     neovim = {
@@ -60,7 +60,6 @@
         nvim-cmp
         nvim-cmp
         nvim-lspconfig
-        nvim-tree-lua
         nvim-treesitter.withAllGrammars
         nvim-web-devicons
         plenary-nvim

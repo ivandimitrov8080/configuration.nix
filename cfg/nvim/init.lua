@@ -14,12 +14,10 @@ nmap("<Tab>", "<cmd>BufferNext<cr>")
 nmap("<S-Tab>", "<cmd>BufferPrevious<cr>")
 nmap("<leader>x", "<cmd>BufferClose<cr>")
 
-nmap("<C-t>", "<cmd>NvimTreeToggle<cr>")
-
 nmap("<leader>ff", require("telescope.builtin").find_files)
 nmap("<leader>fw", require("telescope.builtin").live_grep)
 
-nmap('<leader>e', vim.diagnostic.open_float)
+nmap("<leader>e", vim.diagnostic.open_float)
 
 -- START LSP
 
@@ -28,7 +26,7 @@ local lspconfig = require("lspconfig")
 local servers = { tsserver = {}, pylsp = {}, lua_ls = {}, rnix = {} }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(_, bufnr)
-	nmap('<leader>ca', vim.lsp.buf.code_action)
+	nmap("<leader>ca", vim.lsp.buf.code_action)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
 end
@@ -57,7 +55,5 @@ end
 
 require("autoclose").setup()
 
-require("nvim-tree").setup()
-
 require("nightfox").setup({ options = { transparent = true } })
-vim.cmd.colorscheme("nightfox")
+vim.cmd.colorscheme("carbonfox")
