@@ -41,11 +41,20 @@ local servers = {
 	rnix = {},
 	gopls = {}
 }
+local formatters = {
+	tsserver = {
+		cmd = "silent !prettier --write '%'"
+	},
+	default = {
+		cmd = "silent lua vim.lsp.buf.format()"
+	}
+}
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action)
 	nmap("<leader>l", function()
-		vim.lsp.buf.format()
+		local fmt = formatters[client.name] or formatters.default
+		vim.cmd(fmt.cmd)
 	end)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
@@ -65,7 +74,7 @@ cmp.setup({
 
 for server, cfg in pairs(servers) do
 	lspconfig[server].setup({
-		cfg,
+		settings = cfg.settings,
 		capabilities = cmp_capabilities,
 		on_attach = on_attach,
 	})
