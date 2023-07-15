@@ -47,11 +47,14 @@
       enable = true;
       viAlias = true;
       extraPackages = with pkgs; [
+	nodePackages_latest.eslint
+	nodePackages_latest.prettier
+	nodePackages_latest.typescript
+	nodePackages_latest.typescript-language-server
         alejandra
         libclang
         lua
         lua-language-server
-        nodePackages_latest.typescript-language-server
         python311Packages.python-lsp-black
         python311Packages.python-lsp-server
         ripgrep
