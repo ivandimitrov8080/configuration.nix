@@ -1,7 +1,6 @@
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -9,6 +8,13 @@
   ];
 
   system.stateVersion = "23.05";
+
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+  };
 
   hardware = {
     pulseaudio.enable = true;
@@ -37,7 +43,7 @@
 
   time.timeZone = "Europe/Sofia";
 
-  fonts.fonts = with pkgs; [nerdfonts];
+  fonts.fonts = with pkgs; [ nerdfonts ];
 
   environment = {
     systemPackages = with pkgs; [
@@ -90,7 +96,7 @@
       EDITOR = "nvim";
       PNPM_HOME = "$HOME/.local/share/pnpm";
     };
-    shells = with pkgs; [zsh];
+    shells = with pkgs; [ zsh ];
     etc = {
       "xdg/user-dirs.conf".text = ''
         enabled=True
@@ -98,13 +104,14 @@
     };
   };
 
-  networking.extraHosts = builtins.readFile (pkgs.fetchFromGitHub {
+  networking.extraHosts = builtins.readFile (pkgs.fetchFromGitHub
+    {
       owner = "StevenBlack";
       repo = "hosts";
       rev = "5bf0802369cd74796bc5c4194c46ddc019541877";
       sha256 = "sha256-4CXI2vu/zBQeSzLKelaey/5WEjfroRs7LP9BvZ4CsTQ=";
     }
-    + "/hosts");
+  + "/hosts");
 
   programs = {
     gnupg.agent = {
@@ -120,10 +127,10 @@
     defaultUserShell = pkgs.zsh;
     users.ivand = {
       isNormalUser = true;
-      extraGroups = ["wheel" "audio" "mlocate"];
+      extraGroups = [ "wheel" "audio" "mlocate" ];
     };
     extraGroups = {
-      mlocate = {};
+      mlocate = { };
     };
   };
 
