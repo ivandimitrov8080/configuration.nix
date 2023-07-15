@@ -55,14 +55,15 @@
       grim
       home-manager
       jmtpfs
+      jq
       libgccjit
       libmtp
       lolcat
       mako
       mlocate
       mupdf
-      nodejs_20
       nodePackages_latest.pnpm
+      nodejs_20
       pinentry-qt
       piper
       rustup

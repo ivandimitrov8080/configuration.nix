@@ -47,10 +47,11 @@
       enable = true;
       viAlias = true;
       extraPackages = with pkgs; [
-	nodePackages_latest.eslint
-	nodePackages_latest.prettier
-	nodePackages_latest.typescript
-	nodePackages_latest.typescript-language-server
+        go
+        gopls
+        nodePackages_latest.prettier
+        nodePackages_latest.typescript
+        nodePackages_latest.typescript-language-server
         alejandra
         libclang
         lua

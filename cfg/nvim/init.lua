@@ -1,3 +1,4 @@
+-- START GLOBAL CONFIG
 vim.wo.number = true                                                -- show numbers
 vim.o.scrolloff = 15                                                -- scrll if n lines left
 vim.o.hlsearch = false                                              -- highlight search
@@ -21,23 +22,31 @@ nmap("<leader>fw", require("telescope.builtin").live_grep)
 
 nmap("<leader>e", vim.diagnostic.open_float)
 
+-- END GLOBAL CONFIG
+
 -- START LSP
 
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
 local servers = {
-	tsserver = {},
+	tsserver = {
+		settings = {
+			completions = {
+				completeFunctionCalls = true
+			}
+		}
+	},
 	pylsp = {},
 	lua_ls = {},
 	rnix = {},
-	eslint = {
-		cmd = { "eslint", "--stdin", "--stdin-filename", "%:p" }
-	}
+	gopls = {}
 }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action)
-	nmap('<leader>l', function() vim.lsp.buf.format() end)
+	nmap("<leader>l", function()
+		vim.lsp.buf.format()
+	end)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
 end
@@ -56,8 +65,7 @@ cmp.setup({
 
 for server, cfg in pairs(servers) do
 	lspconfig[server].setup({
-		cmd = cfg.cmd,
-		settings = cfg.settings,
+		cfg,
 		capabilities = cmp_capabilities,
 		on_attach = on_attach,
 	})
