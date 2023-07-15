@@ -45,16 +45,19 @@ local formatters = {
 	tsserver = {
 		cmd = "silent !prettier --write '%'"
 	},
-	default = {
-		cmd = "silent lua vim.lsp.buf.format()"
-	}
 }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action)
+	nmap('<leader>lr', vim.lsp.buf.rename)
+	nmap('gd', vim.lsp.buf.definition)
 	nmap("<leader>l", function()
-		local fmt = formatters[client.name] or formatters.default
-		vim.cmd(fmt.cmd)
+		local fmt = formatters[client.name]
+		if fmt ~= nil then
+			vim.cmd(fmt.cmd)
+			return
+		end
+		vim.lsp.buf.format()
 	end)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
