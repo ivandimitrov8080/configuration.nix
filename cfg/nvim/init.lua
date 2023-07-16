@@ -7,13 +7,15 @@ vim.g.mapleader = " "                                               -- leader sp
 vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true }) -- nop leader
 
-local nmap = function(keys, cmd)
-	vim.keymap.set("n", keys, cmd, { noremap = true, silent = true })
-end
+local nmap = function(keys, cmd) vim.keymap.set("n", keys, cmd, { noremap = true, silent = true }) end
+local tmap = function(keys, cmd) vim.keymap.set("t", keys, cmd, { noremap = true, silent = true }) end
 
 nmap("<Tab>", "<cmd>BufferNext<cr>")
 nmap("<S-Tab>", "<cmd>BufferPrevious<cr>")
 nmap("<leader>x", "<cmd>BufferClose<cr>")
+
+nmap("<A-h>", "<cmd>ToggleTerm<cr>")
+tmap("<A-h>", "<cmd>ToggleTerm<cr>")
 
 nmap("<leader>r", "<cmd>!%:p<cr>")
 
