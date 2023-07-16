@@ -36,7 +36,7 @@
       enable = true;
       settings = {
         enable_tab_bar = false;
-        background_opacity = "0.98";
+        background_opacity = "0.96";
       };
     };
     tmux = {
@@ -67,6 +67,7 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
+	toggleterm-nvim
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp
