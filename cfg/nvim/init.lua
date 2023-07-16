@@ -8,7 +8,11 @@ vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true }) -- nop leader
 
 local nmap = function(keys, cmd) vim.keymap.set("n", keys, cmd, { noremap = true, silent = true }) end
+local vmap = function(keys, cmd) vim.keymap.set("v", keys, cmd, { noremap = true, silent = true }) end
 local tmap = function(keys, cmd) vim.keymap.set("t", keys, cmd, { noremap = true, silent = true }) end
+
+nmap("<leader>/", require("Comment.api").toggle.linewise.current)
+vmap("<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
 
 nmap("<Tab>", "<cmd>BufferNext<cr>")
 nmap("<S-Tab>", "<cmd>BufferPrevious<cr>")
@@ -77,6 +81,7 @@ end
 
 -- END LSP
 
+require("Comment").setup()
 require("toggleterm").setup()
 require("autoclose").setup()
 

@@ -69,6 +69,7 @@
       plugins = with pkgs.vimPlugins; [
 	toggleterm-nvim
         autoclose-nvim
+	comment-nvim
         barbar-nvim
         cmp-nvim-lsp
         luasnip
