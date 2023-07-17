@@ -67,9 +67,9 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
-	toggleterm-nvim
+        toggleterm-nvim
         autoclose-nvim
-	comment-nvim
+        comment-nvim
         barbar-nvim
         cmp-nvim-lsp
         luasnip
@@ -90,7 +90,11 @@
       enable = true;
       enableSyntaxHighlighting = true;
       enableAutosuggestions = true;
-      completionInit = '''';
+      shellAliases = {
+        gad = "git add . && git diff --cached";
+        ga = "git add .";
+	gc = "git commit";
+      };
       history = {
         size = 1000;
         save = 1000;
@@ -111,11 +115,6 @@
           name = "zsh-nix-shell";
           file = "nix-shell.plugin.zsh";
           src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
-        }
-        {
-          name = "zsh-you-should-use";
-          file = "you-should-use.plugin.zsh";
-          src = "${pkgs.zsh-you-should-use}/share/zsh/plugins/you-should-use";
         }
       ];
       initExtra = ''
