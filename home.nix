@@ -14,6 +14,7 @@
     packages = with pkgs; [
       bemenu
       brave
+      direnv
       gopass
       gopass-jsonapi
       pavucontrol
@@ -51,15 +52,15 @@
       enable = true;
       viAlias = true;
       extraPackages = with pkgs; [
+        alejandra
         go
         gopls
-        nodePackages_latest.prettier
-        nodePackages_latest.typescript
-        nodePackages_latest.typescript-language-server
-        alejandra
         libclang
         lua
         lua-language-server
+        nodePackages_latest.prettier
+        nodePackages_latest.typescript
+        nodePackages_latest.typescript-language-server
         python311Packages.python-lsp-black
         python311Packages.python-lsp-server
         ripgrep
@@ -67,11 +68,10 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
-        toggleterm-nvim
         autoclose-nvim
-        comment-nvim
         barbar-nvim
         cmp-nvim-lsp
+        comment-nvim
         luasnip
         nightfox-nvim
         nvim-cmp
@@ -82,6 +82,7 @@
         plenary-nvim
         telescope-nvim
         telescope-nvim
+        toggleterm-nvim
         vim-vinegar
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
@@ -102,11 +103,6 @@
       };
       plugins = [
         {
-          name = "zsh-autoenv";
-          src = "${pkgs.zsh-autoenv}/share/zsh-autoenv";
-          file = "autoenv.plugin.zsh";
-        }
-        {
           name = "zsh-powerlevel10k";
           src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
           file = "powerlevel10k.zsh-theme";
@@ -119,6 +115,7 @@
       ];
       initExtra = ''
         source "$HOME/.p10k.zsh"
+	eval "$(direnv hook zsh)"
       '';
     };
   };
