@@ -43,6 +43,9 @@
     tmux = {
       enable = true;
       clock24 = true;
+      plugins = with pkgs.tmuxPlugins; [
+        tilish
+      ];
       extraConfig = ''
                 set -g default-command "''${SHELL}"
         	set -g default-terminal "tmux-256color"
@@ -94,7 +97,7 @@
       shellAliases = {
         gad = "git add . && git diff --cached";
         ga = "git add .";
-	gc = "git commit";
+        gc = "git commit";
       };
       history = {
         size = 1000;
@@ -114,8 +117,8 @@
         }
       ];
       initExtra = ''
-        source "$HOME/.p10k.zsh"
-	eval "$(direnv hook zsh)"
+                source "$HOME/.p10k.zsh"
+        	eval "$(direnv hook zsh)"
       '';
     };
   };
