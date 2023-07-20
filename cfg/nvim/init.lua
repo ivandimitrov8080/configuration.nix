@@ -18,8 +18,8 @@ nmap("<Tab>", "<cmd>BufferNext<cr>")
 nmap("<S-Tab>", "<cmd>BufferPrevious<cr>")
 nmap("<leader>x", "<cmd>BufferClose<cr>")
 
-nmap("<A-h>", "<cmd>ToggleTerm<cr>")
-tmap("<A-h>", "<cmd>ToggleTerm<cr>")
+nmap("<leader>h", "<cmd>ToggleTerm<cr>")
+tmap("<leader>h", "<cmd>ToggleTerm<cr>")
 
 nmap("<leader>r", "<cmd>!%:p<cr>")
 
