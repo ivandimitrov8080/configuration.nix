@@ -71,7 +71,6 @@
       mupdf
       nodePackages_latest.pnpm
       nodejs_20
-      pandoc
       pinentry-qt
       piper
       poetry
