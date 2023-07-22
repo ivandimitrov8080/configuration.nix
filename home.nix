@@ -58,6 +58,7 @@
       viAlias = true;
       extraPackages = with pkgs; [
         alejandra
+	black
         go
         gopls
         libclang
