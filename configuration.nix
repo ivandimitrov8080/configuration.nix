@@ -72,8 +72,8 @@
       nodePackages_latest.pnpm
       nodejs_20
       pinentry-qt
-      pipenv
       piper
+      poetry
       python311
       python311Packages.pip
       rustup
