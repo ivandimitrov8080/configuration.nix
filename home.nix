@@ -74,6 +74,7 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
+	null-ls-nvim
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp

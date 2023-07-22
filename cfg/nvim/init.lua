@@ -32,6 +32,8 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- START LSP
 
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
 local servers = {
@@ -78,6 +80,14 @@ for server, cfg in pairs(servers) do
 		on_attach = on_attach,
 	})
 end
+
+null_ls.setup({
+	sources = {
+		formatting.stylua,
+		formatting.black,
+		formatting.prettier
+	},
+})
 
 -- END LSP
 
