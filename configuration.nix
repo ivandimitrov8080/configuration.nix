@@ -51,6 +51,7 @@
       busybox
       cmatrix
       deno
+      fd
       ffmpeg
       firefox-devedition-bin
       gimp
