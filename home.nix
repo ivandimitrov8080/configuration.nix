@@ -98,6 +98,7 @@
       enableAutosuggestions = true;
       shellAliases = {
         gad = "git add . && git diff --cached";
+	gac = "ga && gc";
         ga = "git add .";
         gc = "git commit";
       };
