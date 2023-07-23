@@ -38,7 +38,7 @@
   xdg = {
     portal = {
       enable = true;
-      extraPortals = with pkgs;[ xdg-desktop-portal-wlr ];
+      wlr.enable = true;
     };
   };
 
@@ -124,7 +124,10 @@
       enable = true;
       enableSSHSupport = true;
     };
-    sway.enable = true;
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
     zsh.enable = true;
     nix-ld.enable = true;
   };
@@ -133,7 +136,7 @@
     defaultUserShell = pkgs.zsh;
     users.ivand = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "audio" "mlocate" ];
+      extraGroups = [ "wheel" "adm" "audio" "video" "kvm" "render" "flatpak" "bluetooth" "mlocate" ];
     };
     extraGroups = {
       mlocate = { };
@@ -141,6 +144,7 @@
   };
 
   services = {
+    dbus.enable = true;
     flatpak.enable = true;
     ratbagd.enable = true;
     pipewire = {

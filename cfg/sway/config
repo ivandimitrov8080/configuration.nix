@@ -173,4 +173,6 @@ input "*"
     xkb_variant ,phonetic
 }
 
+exec dbus-sway-environment
+
 include /etc/sway/config.d/*
