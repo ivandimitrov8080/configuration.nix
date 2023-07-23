@@ -17,7 +17,6 @@
       direnv
       gopass
       gopass-jsonapi
-      obs-studio
       pavucontrol
     ];
   };
@@ -59,7 +58,7 @@
       viAlias = true;
       extraPackages = with pkgs; [
         alejandra
-	black
+        black
         go
         gopls
         libclang
@@ -75,7 +74,7 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
-	null-ls-nvim
+        null-ls-nvim
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp
@@ -101,7 +100,7 @@
       enableAutosuggestions = true;
       shellAliases = {
         gad = "git add . && git diff --cached";
-	gac = "ga && gc";
+        gac = "ga && gc";
         ga = "git add .";
         gc = "git commit";
       };
@@ -126,6 +125,12 @@
                 source "$HOME/.p10k.zsh"
         	eval "$(direnv hook zsh)"
       '';
+    };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+      ];
     };
   };
   xdg.configFile = {
