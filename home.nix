@@ -17,6 +17,7 @@
       direnv
       gopass
       gopass-jsonapi
+      obs-studio
       pavucontrol
     ];
   };

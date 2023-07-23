@@ -17,7 +17,6 @@
   };
 
   hardware = {
-    pulseaudio.enable = true;
     opengl = {
       enable = true;
       driSupport = true;
@@ -99,6 +98,7 @@
     variables = {
       EDITOR = "nvim";
       PNPM_HOME = "$HOME/.local/share/pnpm";
+      QT_QPA_PLATFORM = "wayland";
     };
     shells = with pkgs; [ zsh ];
     etc = {
@@ -141,5 +141,10 @@
   services = {
     flatpak.enable = true;
     ratbagd.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+    };
   };
 }
