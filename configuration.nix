@@ -17,6 +17,11 @@
   };
 
   hardware = {
+    nvidia = {
+      modesetting.enable = true;
+      open = true;
+      nvidiaSettings = true;
+    };
     opengl = {
       enable = true;
       driSupport = true;
@@ -58,6 +63,7 @@
       gimp
       git
       glibc
+      glxinfo
       gnome.cheese
       gnumake
       grim
@@ -144,6 +150,7 @@
   };
 
   services = {
+    xserver.videoDrivers = [ "nouveau" ];
     dbus.enable = true;
     flatpak.enable = true;
     ratbagd.enable = true;
