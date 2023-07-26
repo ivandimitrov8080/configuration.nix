@@ -94,6 +94,7 @@ null_ls.setup({
 require("Comment").setup()
 require("toggleterm").setup()
 require("autoclose").setup()
+require('gitsigns').setup()
 
 require("nightfox").setup({ options = { transparent = true } })
 vim.cmd.colorscheme("carbonfox")

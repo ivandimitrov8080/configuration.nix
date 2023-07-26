@@ -74,13 +74,14 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
-        null-ls-nvim
+	gitsigns-nvim
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp
         comment-nvim
         luasnip
         nightfox-nvim
+        null-ls-nvim
         nvim-cmp
         nvim-cmp
         nvim-lspconfig
