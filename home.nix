@@ -134,6 +134,11 @@
     };
   };
   xdg.configFile = {
+    "nix/nix.conf" = {
+      text = ''
+        experimental-features = nix-command flakes
+      '';
+    };
     "sway/config" = {
       source = ./cfg/sway/config;
     };
