@@ -130,10 +130,6 @@
       enable = true;
       enableSSHSupport = true;
     };
-    sway = {
-      enable = true;
-      wrapperFeatures.gtk = true;
-    };
     zsh.enable = true;
     nix-ld.enable = true;
   };

@@ -53,6 +53,14 @@
         		set -g base-index 1
       '';
     };
+    swaylock = {
+      enable = true;
+      settings = {
+        color = "000000";
+        line-color = "ffffff";
+        show-failed-attempts = true;
+      };
+    };
     neovim = {
       enable = true;
       viAlias = true;
@@ -74,7 +82,7 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
-	gitsigns-nvim
+        gitsigns-nvim
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp
@@ -99,6 +107,9 @@
       enable = true;
       enableSyntaxHighlighting = true;
       enableAutosuggestions = true;
+      loginExtra = ''
+        [ "$(tty)" = "/dev/tty1" ] && exec sway
+      '';
       shellAliases = {
         gad = "git add . && git diff --cached";
         gac = "ga && gc";
@@ -134,14 +145,18 @@
       ];
     };
   };
+  wayland = {
+    windowManager.sway = {
+      enable = true;
+      config = null;
+      extraConfig = builtins.readFile ./cfg/sway/config;
+    };
+  };
   xdg.configFile = {
     "nix/nix.conf" = {
       text = ''
         experimental-features = nix-command flakes
       '';
-    };
-    "sway/config" = {
-      source = ./cfg/sway/config;
     };
     "user-dirs.dirs" = {
       source = pkgs.writeText "user-dirs.dirs" ''
