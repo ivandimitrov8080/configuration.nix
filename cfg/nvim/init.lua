@@ -1,15 +1,21 @@
 -- START GLOBAL CONFIG
-vim.wo.number = true                                                -- show numbers
-vim.o.scrolloff = 15                                                -- scrll if n lines left
-vim.o.hlsearch = false                                              -- highlight search
+vim.wo.number = true -- show numbers
+vim.o.scrolloff = 15 -- scrll if n lines left
+vim.o.hlsearch = false -- highlight search
 
-vim.g.mapleader = " "                                               -- leader space
+vim.g.mapleader = " " -- leader space
 vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true }) -- nop leader
 
-local nmap = function(keys, cmd) vim.keymap.set("n", keys, cmd, { noremap = true, silent = true }) end
-local vmap = function(keys, cmd) vim.keymap.set("v", keys, cmd, { noremap = true, silent = true }) end
-local tmap = function(keys, cmd) vim.keymap.set("t", keys, cmd, { noremap = true, silent = true }) end
+local nmap = function(keys, cmd)
+	vim.keymap.set("n", keys, cmd, { noremap = true, silent = true })
+end
+local vmap = function(keys, cmd)
+	vim.keymap.set("v", keys, cmd, { noremap = true, silent = true })
+end
+local tmap = function(keys, cmd)
+	vim.keymap.set("t", keys, cmd, { noremap = true, silent = true })
+end
 
 nmap("<leader>/", require("Comment.api").toggle.linewise.current)
 vmap("<leader>/", "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>")
@@ -32,28 +38,27 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- START LSP
 
-local null_ls = require("null-ls")
-local formatting = null_ls.builtins.formatting
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
 local servers = {
 	tsserver = {
 		settings = {
 			completions = {
-				completeFunctionCalls = true
-			}
-		}
+				completeFunctionCalls = true,
+			},
+		},
 	},
 	pylsp = {},
 	lua_ls = {},
 	rnix = {},
-	gopls = {}
+	gopls = {},
+	tailwindcss = {},
 }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
 	nmap("<leader>ca", vim.lsp.buf.code_action)
-	nmap('<leader>lr', vim.lsp.buf.rename)
-	nmap('gd', vim.lsp.buf.definition)
+	nmap("<leader>lr", vim.lsp.buf.rename)
+	nmap("gd", vim.lsp.buf.definition)
 	nmap("<leader>l", function()
 		vim.lsp.buf.format()
 	end)
@@ -81,20 +86,12 @@ for server, cfg in pairs(servers) do
 	})
 end
 
-null_ls.setup({
-	sources = {
-		formatting.stylua,
-		formatting.black,
-		formatting.prettier
-	},
-})
-
 -- END LSP
 
 require("Comment").setup()
 require("toggleterm").setup()
 require("autoclose").setup()
-require('gitsigns').setup()
+require("gitsigns").setup()
 
 require("nightfox").setup({ options = { transparent = true } })
 vim.cmd.colorscheme("carbonfox")

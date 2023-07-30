@@ -75,6 +75,7 @@
         nodePackages_latest.prettier
         nodePackages_latest.typescript
         nodePackages_latest.typescript-language-server
+        nodePackages_latest."@tailwindcss/language-server"
         python311Packages.python-lsp-black
         python311Packages.python-lsp-server
         ripgrep
@@ -89,7 +90,6 @@
         comment-nvim
         luasnip
         nightfox-nvim
-        null-ls-nvim
         nvim-cmp
         nvim-cmp
         nvim-lspconfig
