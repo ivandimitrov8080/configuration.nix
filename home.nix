@@ -116,6 +116,7 @@
         gac = "ga && gc";
         ga = "git add .";
         gc = "git commit";
+	dev = "nix develop --command $SHELL";
       };
       history = {
         size = 1000;
