@@ -1,9 +1,9 @@
 -- START GLOBAL CONFIG
-vim.wo.number = true -- show numbers
-vim.o.scrolloff = 15 -- scrll if n lines left
-vim.o.hlsearch = false -- highlight search
+vim.wo.number = true                                                -- show numbers
+vim.o.scrolloff = 15                                                -- scrll if n lines left
+vim.o.hlsearch = false                                              -- highlight search
 
-vim.g.mapleader = " " -- leader space
+vim.g.mapleader = " "                                               -- leader space
 vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true }) -- nop leader
 
@@ -87,6 +87,12 @@ for server, cfg in pairs(servers) do
 end
 
 -- END LSP
+
+require 'nvim-treesitter.configs'.setup {
+	autotag = {
+		enable = true,
+	}
+}
 
 require("Comment").setup()
 require("toggleterm").setup()
