@@ -76,6 +76,7 @@
         nodePackages_latest.typescript
         nodePackages_latest.typescript-language-server
         nodePackages_latest."@tailwindcss/language-server"
+        nodePackages_latest."@prisma/language-server"
         python311Packages.python-lsp-black
         python311Packages.python-lsp-server
         ripgrep
@@ -85,6 +86,7 @@
       plugins = with pkgs.vimPlugins; [
 	nvim-surround
 	nvim-ts-autotag
+	vim-prisma
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp
