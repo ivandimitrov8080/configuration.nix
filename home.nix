@@ -83,6 +83,7 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
+	nvim-surround
 	nvim-ts-autotag
         autoclose-nvim
         barbar-nvim
@@ -91,7 +92,6 @@
         gitsigns-nvim
         luasnip
         nightfox-nvim
-        nvim-cmp
         nvim-cmp
         nvim-lspconfig
         nvim-treesitter.withAllGrammars
