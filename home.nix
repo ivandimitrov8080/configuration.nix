@@ -51,6 +51,7 @@
                         set -g default-command "''${SHELL}"
                 	set -g default-terminal "tmux-256color"
         		set -g base-index 1
+			set -s escape-time 0
       '';
     };
     swaylock = {
