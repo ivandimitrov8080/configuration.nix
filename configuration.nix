@@ -56,6 +56,7 @@
       binutils
       busybox
       cmatrix
+      coreutils-full
       deno
       fd
       ffmpeg
