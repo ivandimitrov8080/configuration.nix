@@ -109,7 +109,6 @@
     };
     emacs = {
       enable = true;
-      package = pkgs.emacsGit;
     };
     zsh = {
       enable = true;
@@ -183,7 +182,6 @@
   services = {
     emacs = {
       enable = true;
-      package = pkgs.emacsGit;
     };
   };
 }
