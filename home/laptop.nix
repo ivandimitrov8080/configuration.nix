@@ -48,10 +48,10 @@
         catppuccin
       ];
       extraConfig = ''
-                        set -g default-command "''${SHELL}"
-                	set -g default-terminal "tmux-256color"
-        		set -g base-index 1
-			set -s escape-time 0
+                                set -g default-command "''${SHELL}"
+                        	set -g default-terminal "tmux-256color"
+                		set -g base-index 1
+        			set -s escape-time 0
       '';
     };
     swaylock = {
@@ -85,9 +85,9 @@
         stylua
       ];
       plugins = with pkgs.vimPlugins; [
-	nvim-surround
-	nvim-ts-autotag
-	vim-prisma
+        nvim-surround
+        nvim-ts-autotag
+        vim-prisma
         autoclose-nvim
         barbar-nvim
         cmp-nvim-lsp
@@ -107,6 +107,10 @@
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
     };
+    emacs = {
+      enable = true;
+      package = pkgs.emacsGit;
+    };
     zsh = {
       enable = true;
       syntaxHighlighting.enable = true;
@@ -119,7 +123,7 @@
         gac = "ga && gc";
         ga = "git add .";
         gc = "git commit";
-	dev = "nix develop --command $SHELL";
+        dev = "nix develop --command $SHELL";
       };
       history = {
         size = 1000;
@@ -174,6 +178,12 @@
         XDG_TEMPLATES_DIR="tp"
         XDG_VIDEOS_DIR="vid"
       '';
+    };
+  };
+  services = {
+    emacs = {
+      enable = true;
+      package = pkgs.emacsGit;
     };
   };
 }
