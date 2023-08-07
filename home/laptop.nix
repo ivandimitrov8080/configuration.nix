@@ -109,7 +109,7 @@
     };
     zsh = {
       enable = true;
-      enableSyntaxHighlighting = true;
+      syntaxHighlighting.enable = true;
       enableAutosuggestions = true;
       loginExtra = ''
         [ "$(tty)" = "/dev/tty1" ] && exec sway

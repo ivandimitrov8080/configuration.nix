@@ -2,11 +2,6 @@
 , pkgs
 , ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
-    <home-manager/nixos>
-  ];
-
   system.stateVersion = "23.05";
 
   nix = {
@@ -54,7 +49,7 @@
 
   time.timeZone = "Europe/Sofia";
 
-  fonts.fonts = with pkgs; [ nerdfonts ];
+  fonts.packages = with pkgs; [ nerdfonts ];
 
   environment = {
     systemPackages = with pkgs; [
