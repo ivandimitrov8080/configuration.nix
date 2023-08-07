@@ -107,8 +107,9 @@
       ];
       extraLuaConfig = lib.fileContents ./cfg/nvim/init.lua;
     };
-    emacs = {
+    doom-emacs = {
       enable = true;
+      doomPrivateDir = ./cfg/doom.d;
     };
     zsh = {
       enable = true;

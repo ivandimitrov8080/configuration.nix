@@ -5,9 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, ... }: {
+  outputs = { self, nixpkgs, home-manager, emacs-overlay, nix-doom-emacs, ... }: {
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -18,7 +19,7 @@
     };
     homeConfigurations = {
       ivand = home-manager.lib.homeManagerConfiguration {
-        modules = [ ./home/laptop.nix ];
+        modules = [ ./home/laptop.nix nix-doom-emacs.hmModule ];
         pkgs = import nixpkgs { system = "x86_64-linux"; };
       };
     };
