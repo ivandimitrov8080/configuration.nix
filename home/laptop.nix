@@ -26,6 +26,7 @@
       pavucontrol
       nixfmt
       ripgrep
+      sqlite
     ];
   };
   programs = {
@@ -113,6 +114,7 @@
     doom-emacs = {
       enable = true;
       doomPrivateDir = ./cfg/doom.d;
+      extraPackages = with pkgs.emacsPackages; [ prettier ];
     };
     zsh = {
       enable = true;
