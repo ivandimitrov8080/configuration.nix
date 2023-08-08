@@ -25,8 +25,8 @@
       gopass-jsonapi
       pavucontrol
       nixfmt
-      ripgrep
       sqlite
+      ripgrep
     ];
   };
   programs = {
@@ -114,7 +114,6 @@
     doom-emacs = {
       enable = true;
       doomPrivateDir = ./cfg/doom.d;
-      extraPackages = with pkgs.emacsPackages; [ prettier ];
     };
     zsh = {
       enable = true;
