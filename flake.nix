@@ -8,7 +8,7 @@
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
   };
 
-  outputs = { self, nixpkgs, home-manager, emacs-overlay, nix-doom-emacs, ... }: {
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, ... }: {
     nixosConfigurations = {
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
