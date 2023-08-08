@@ -1,7 +1,4 @@
-{ pkgs
-, lib
-, ...
-}: {
+{ pkgs, lib, ... }: {
   home = {
     username = "ivand";
     homeDirectory = "/home/ivand";
@@ -10,6 +7,15 @@
     pointerCursor = {
       name = "Bibata-Modern-Amber";
       package = pkgs.bibata-cursors;
+    };
+    file = {
+      ".local/bin/ec" = {
+        text = ''
+          #!/usr/bin/env bash
+          emacsclient -c -a 'emacs'
+        '';
+        executable = true;
+      };
     };
     packages = with pkgs; [
       bemenu
@@ -23,9 +29,7 @@
     ];
   };
   programs = {
-    home-manager = {
-      enable = true;
-    };
+    home-manager = { enable = true; };
     git = {
       enable = true;
       userName = "Ivan Dimitrov";
@@ -45,10 +49,7 @@
     tmux = {
       enable = true;
       clock24 = true;
-      plugins = with pkgs.tmuxPlugins; [
-        tilish
-        catppuccin
-      ];
+      plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
       extraConfig = ''
                                 set -g default-command "''${SHELL}"
                         	set -g default-terminal "tmux-256color"
@@ -151,9 +152,7 @@
     };
     obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-      ];
+      plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
     };
   };
   wayland = {
@@ -182,9 +181,5 @@
       '';
     };
   };
-  services = {
-    emacs = {
-      enable = true;
-    };
-  };
+  services = { emacs = { enable = true; }; };
 }
