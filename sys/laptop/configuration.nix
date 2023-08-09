@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   system.stateVersion = "23.05";
 
   nix = {
@@ -33,11 +30,7 @@
   security = {
     polkit.enable = true;
     rtkit.enable = true;
-    pam = {
-      services = {
-        swaylock = { };
-      };
-    };
+    pam = { services = { swaylock = { }; }; };
   };
 
   xdg = {
@@ -70,6 +63,7 @@
       vim
       wget
       zip
+      pinentry-qt
     ];
     variables = {
       EDITOR = "nvim";
@@ -83,14 +77,12 @@
     };
   };
 
-  networking.extraHosts = builtins.readFile (pkgs.fetchFromGitHub
-    {
-      owner = "StevenBlack";
-      repo = "hosts";
-      rev = "5bf0802369cd74796bc5c4194c46ddc019541877";
-      sha256 = "sha256-4CXI2vu/zBQeSzLKelaey/5WEjfroRs7LP9BvZ4CsTQ=";
-    }
-  + "/hosts");
+  networking.extraHosts = builtins.readFile (pkgs.fetchFromGitHub {
+    owner = "StevenBlack";
+    repo = "hosts";
+    rev = "5bf0802369cd74796bc5c4194c46ddc019541877";
+    sha256 = "sha256-4CXI2vu/zBQeSzLKelaey/5WEjfroRs7LP9BvZ4CsTQ=";
+  } + "/hosts");
 
   programs = {
     gnupg.agent = {
@@ -105,11 +97,19 @@
     defaultUserShell = pkgs.zsh;
     users.ivand = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "adm" "audio" "video" "kvm" "render" "flatpak" "bluetooth" "mlocate" ];
+      extraGroups = [
+        "wheel"
+        "adm"
+        "audio"
+        "video"
+        "kvm"
+        "render"
+        "flatpak"
+        "bluetooth"
+        "mlocate"
+      ];
     };
-    extraGroups = {
-      mlocate = { };
-    };
+    extraGroups = { mlocate = { }; };
   };
 
   services = {
