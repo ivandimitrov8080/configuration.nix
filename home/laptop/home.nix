@@ -1,5 +1,9 @@
 { pkgs, lib, ... }: {
+
   imports = [ ./programs ./packages ];
+
+  programs.home-manager = { enable = true; };
+
   home = {
     username = "ivand";
     homeDirectory = "/home/ivand";
@@ -19,7 +23,6 @@
       };
     };
   };
-  programs.home-manager = { enable = true; };
 
   wayland = {
     windowManager.sway = {

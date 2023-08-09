@@ -9,5 +9,31 @@
     nixfmt
     sqlite
     ripgrep
+    xdg-user-dirs
+    wl-clipboard
+    wayland
+    tectonic
+    slurp
+    pinentry-qt
+    mupdf
+    mako
+    grim
+    gnome.cheese
+    gimp
+    firefox-devedition-bin
+    ffmpeg
+    nodePackages_latest.pnpm
+    rustup
+    lolcat
+    deno
+    nodejs_20
+    python311
+    python311Packages.pip
+    piper
+    poetry
+    thunderbird
+    tor-browser-bundle-bin
+    ungoogled-chromium
+    xdg-utils
   ];
 }

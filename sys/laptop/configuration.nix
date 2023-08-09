@@ -57,57 +57,23 @@
       busybox
       cmatrix
       coreutils-full
-      deno
       fd
-      ffmpeg
-      firefox-devedition-bin
-      gimp
       git
       glibc
-      glxinfo
-      gnome.cheese
       gnumake
-      grim
       home-manager
-      jmtpfs
       jq
       libgccjit
-      libmtp
-      lolcat
-      mako
       mlocate
-      mupdf
-      nodePackages_latest.pnpm
-      nodejs_20
-      pinentry-qt
-      piper
-      poetry
-      python311
-      python311Packages.pip
-      rustup
-      slurp
       tealdeer
-      tectonic
-      thunderbird
-      tor-browser-bundle-bin
-      ungoogled-chromium
       unzip
       vim
-      vimPlugins.nvchad
-      viu
-      wayland
-      wdisplays
       wget
-      wl-clipboard
-      xdg-user-dirs
-      xdg-utils
-      zbar
       zip
     ];
     variables = {
       EDITOR = "nvim";
       PNPM_HOME = "$HOME/.local/share/pnpm";
-      QT_QPA_PLATFORM = "wayland";
     };
     shells = with pkgs; [ zsh ];
     etc = {
