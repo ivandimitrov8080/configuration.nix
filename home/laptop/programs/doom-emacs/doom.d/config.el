@@ -4,6 +4,4 @@
 ;;; Code:
 (setq doom-theme 'doom-tokyo-night)
 
-(use-package! lsp-tailwindcss)
-
 ;;; config.el ends here
