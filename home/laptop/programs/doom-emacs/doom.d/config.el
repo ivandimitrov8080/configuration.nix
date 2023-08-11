@@ -6,6 +6,8 @@
 
 (setq company-idle-delay 0.0)
 
+(setq +format-with-lsp nil)
+
 (advice-add 'json-parse-buffer :around
               (lambda (orig &rest rest)
                 (save-excursion
