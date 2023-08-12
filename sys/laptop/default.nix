@@ -59,6 +59,7 @@
       gnumake
       home-manager
       jq
+      openssl
       libgccjit
       mlocate
       tealdeer
