@@ -1,5 +1,18 @@
 { pkgs, ... }: {
 
+  nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
+  boot = {
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
   mailserver = {
     enable = true;
     fqdn = "mail.idimitrov.dev";
