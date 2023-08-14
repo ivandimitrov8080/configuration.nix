@@ -8,8 +8,8 @@
     nodePackages_latest."@prisma/language-server"
   ];
 
-  programs.doom-emacs = {
+  programs.emacs = {
     enable = true;
-    doomPrivateDir = ./doom.d;
+    package = pkgs.emacs29-pgtk;
   };
 }
