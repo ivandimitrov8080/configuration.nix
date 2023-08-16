@@ -10,6 +10,18 @@
 
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk;
+    package = with pkgs;
+      (emacsPackagesFor emacs-unstable).emacsWithPackages (epkgs:
+        with epkgs; [
+          treesit-grammars.with-all-grammars
+          treesit-auto
+          prisma-mode
+        ]);
+    extraConfig = ''
+      (use-package treesit-auto
+        :config
+        (global-treesit-auto-mode))
+      (use-package prisma-mode)
+    '';
   };
 }
