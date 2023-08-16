@@ -7,6 +7,8 @@
     nodePackages_latest."@tailwindcss/language-server"
     nodePackages_latest."@prisma/language-server"
 
+    ispell
+
     rnix-lsp
   ];
 
@@ -24,6 +26,7 @@
         :config
         (global-treesit-auto-mode))
       (use-package prisma-mode)
+      (add-hook 'prisma-mode-hook 'lsp)
     '';
   };
 }
