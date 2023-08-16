@@ -18,20 +18,42 @@
     package = with pkgs;
       (emacsPackagesFor emacs-unstable).emacsWithPackages (epkgs:
         with epkgs; [
+          general
+          doom-themes
           treesit-grammars.with-all-grammars
           treesit-auto
           prisma-mode
           lsp-tailwindcss
+          evil
+          evil-collection
+          flycheck
+          ivy
+          ivy-rich
+          counsel
+	  counsel-projectile
+	  magit
+	  forge
+	  rainbow-delimiters
+          ivy-prescient
+	  helpful
+	  hydra
+          projectile
+          lsp-mode
+          lsp-ui
+          lsp-treemacs
+          lsp-ivy
+          company
+          company-box
+          dired-single
+	  dired-open
+	  bind-key
+          all-the-icons
+          all-the-icons-dired
+	  smartparens
+          no-littering
+          command-log-mode
+          doom-modeline
         ]);
-    extraConfig = ''
-      (use-package treesit-auto
-        :config
-        (global-treesit-auto-mode))
-      (use-package prisma-mode)
-      (add-hook 'prisma-mode-hook 'lsp)
-      (use-package lsp-tailwindcss
-        :init
-        (setq lsp-tailwindcss-add-on-mode t))
-    '';
+    extraConfig = builtins.readFile ./init.el;
   };
 }
