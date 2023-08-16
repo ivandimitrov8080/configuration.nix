@@ -6,6 +6,8 @@
     nodePackages_latest.typescript-language-server
     nodePackages_latest."@tailwindcss/language-server"
     nodePackages_latest."@prisma/language-server"
+
+    rnix-lsp
   ];
 
   programs.emacs = {
