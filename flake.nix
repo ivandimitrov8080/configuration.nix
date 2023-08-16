@@ -11,10 +11,21 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-doom-emacs = {
+      url = "github:nix-community/nix-doom-emacs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, simple-nixos-mailserver
-    , emacs-overlay, ... }: {
+  outputs =
+    { self
+    , nixpkgs
+    , home-manager
+    , simple-nixos-mailserver
+    , emacs-overlay
+    , nix-doom-emacs
+    , ...
+    }: {
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -32,7 +43,7 @@
       };
       homeConfigurations = {
         ivand = home-manager.lib.homeManagerConfiguration {
-          modules = [ ./home/laptop ];
+          modules = [ ./home/laptop nix-doom-emacs.hmModule ];
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             overlays = [ emacs-overlay.overlay ];
