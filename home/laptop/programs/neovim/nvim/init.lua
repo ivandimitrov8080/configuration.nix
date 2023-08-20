@@ -2,6 +2,7 @@
 vim.wo.number = true                                                -- show numbers
 vim.o.scrolloff = 15                                                -- scrll if n lines left
 vim.o.hlsearch = false                                              -- highlight search
+vim.o.updatetime = 500
 
 vim.g.mapleader = " "                                               -- leader space
 vim.g.maplocalleader = " "
@@ -65,6 +66,12 @@ local on_attach = function(client, bufnr)
 	end)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
+	vim.api.nvim_create_autocmd("CursorHold", {
+		callback = vim.lsp.buf.document_highlight,
+	})
+	vim.api.nvim_create_autocmd("CursorMoved", {
+		callback = vim.lsp.buf.clear_references,
+	})
 end
 cmp.setup({
 	snippet = {
