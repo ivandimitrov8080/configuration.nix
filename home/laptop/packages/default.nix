@@ -20,6 +20,7 @@
     gopass
     gopass-jsonapi
     pavucontrol
+    bat
     # programming
     nixfmt
     sqlite
