@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  imports = [ ./neovim ./doom-emacs ./sway ./tmux.nix ./zsh.nix ];
+  imports = [ ./neovim ./sway ./tmux.nix ./zsh.nix ];
 
   programs = {
     thunderbird = {
