@@ -40,6 +40,7 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- Format on CursorHold
 
+local filetypes = { "*.ts", "*.tsx", "*.prisma", "*.js", "*.jsx", "*.html", "*.css", "*.json", "*.yaml", "*.lua" }
 
 local async = require("plenary.async")
 
@@ -50,7 +51,7 @@ end
 local async_format = async.void(format_file)
 vim.api.nvim_create_autocmd("CursorHold", {
 	callback = async_format,
-	pattern = { "*.*" }
+	pattern = filetypes
 })
 
 
@@ -87,11 +88,13 @@ local on_attach = function(client, bufnr)
 		callback = function()
 			vim.lsp.buf.document_highlight()
 		end,
+		pattern = filetypes
 	})
 	vim.api.nvim_create_autocmd("CursorMoved", {
 		callback = function()
 			vim.lsp.buf.clear_references()
 		end,
+		pattern = filetypes
 	})
 end
 cmp.setup({

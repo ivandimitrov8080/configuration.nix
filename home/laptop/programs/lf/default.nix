@@ -4,6 +4,7 @@
       enable = true;
       keybindings = {
         D = "delete";
+	R = "rename";
       };
     };
   };
