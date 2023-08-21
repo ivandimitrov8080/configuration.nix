@@ -3,6 +3,7 @@ vim.wo.number = true   -- show numbers
 vim.o.scrolloff = 15   -- scrll if n lines left
 vim.o.hlsearch = false -- highlight search
 vim.o.updatetime = 500
+vim.o.autoread = true
 
 vim.g.mapleader = " "                                               -- leader space
 vim.g.maplocalleader = " "
@@ -37,6 +38,22 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- END GLOBAL CONFIG
 
+-- Format on CursorHold
+
+
+local async = require("plenary.async")
+
+local format_file = function()
+	vim.cmd("silent !prettier % --write")
+	vim.cmd("checktime")
+end
+local async_format = async.void(format_file)
+vim.api.nvim_create_autocmd("CursorHold", {
+	callback = async_format,
+	pattern = { "*.*" }
+})
+
+
 -- START LSP
 
 local cmp = require("cmp")
@@ -67,12 +84,14 @@ local on_attach = function(client, bufnr)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
 	vim.api.nvim_create_autocmd("CursorHold", {
-		callback = vim.lsp.buf.document_highlight,
-		silent = true
+		callback = function()
+			vim.lsp.buf.document_highlight()
+		end,
 	})
 	vim.api.nvim_create_autocmd("CursorMoved", {
-		callback = vim.lsp.buf.clear_references,
-		silent = true
+		callback = function()
+			vim.lsp.buf.clear_references()
+		end,
 	})
 end
 cmp.setup({
