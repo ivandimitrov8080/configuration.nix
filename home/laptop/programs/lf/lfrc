@@ -1,0 +1,39 @@
+# Basic Settings
+set hidden true
+set ignorecase true
+set icons true
+
+# Custom Functions
+
+cmd trash ${{
+  files=$(printf "$fx" | tr '\n' ';')
+  while [ "$files" ]; do
+    file=${files%%;*}
+
+    trash "$(basename "$file")"
+    if [ "$files" = "$file" ]; then
+      files=''
+    else
+      files="${files#*;}"
+    fi
+  done
+}}
+
+cmd mkdir ${{
+  printf "Directory Name: "
+  read ans
+  mkdir "$ans"
+}}
+
+cmd touch ${{
+  printf "File Name: "
+  read ans
+  touch "$ans"
+}}
+
+cmd mv ${{
+  printf "Move to: "
+  read ans
+  mv "$f" "$ans"
+}}
+

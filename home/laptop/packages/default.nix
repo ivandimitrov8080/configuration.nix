@@ -21,6 +21,7 @@
     gopass-jsonapi
     pavucontrol
     bat
+    trashy
     # programming
     nixfmt
     sqlite

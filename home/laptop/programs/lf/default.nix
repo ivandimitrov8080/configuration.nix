@@ -2,9 +2,12 @@
   programs = {
     lf = {
       enable = true;
+      extraConfig = builtins.readFile ./lfrc;
       keybindings = {
-        D = "delete";
-	R = "rename";
+        D = "trash";
+	T = "touch";
+	M = "mkdir";
+	R = "mv";
       };
     };
   };
