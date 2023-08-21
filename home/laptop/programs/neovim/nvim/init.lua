@@ -44,7 +44,7 @@ nmap("<leader>e", vim.diagnostic.open_float)
 local async = require("plenary.async")
 
 local format_file = function()
-	vim.cmd("silent !prettier % --write")
+	vim.cmd("silent !prettier '%' --write")
 	vim.cmd("checktime")
 end
 local async_format = async.void(format_file)
