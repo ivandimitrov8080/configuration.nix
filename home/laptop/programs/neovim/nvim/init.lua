@@ -40,7 +40,7 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- Format on CursorHold
 
-local filetypes = { "*.ts", "*.tsx", "*.prisma", "*.js", "*.jsx", "*.html", "*.css", "*.json", "*.yaml", "*.lua" }
+local filetypes = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.html", "*.json", "*.yaml", "*.lua" }
 
 local async = require("plenary.async")
 
