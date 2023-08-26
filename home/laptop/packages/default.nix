@@ -1,5 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, rootPath, ... }: {
   home.packages = with pkgs; [
+    #scripts
+    (pkgs.buildEnv { name = "my-scripts"; paths = [ (rootPath + /scripts) ]; })
     # wayland/sway stuff
     bemenu
     wl-clipboard
@@ -13,6 +15,7 @@
     tor-browser-bundle-bin
     gnome.cheese
     gimp
+    mpv
     # cli utils
     direnv
     ripgrep
@@ -22,6 +25,7 @@
     pavucontrol
     bat
     trashy
+    yewtube
     # programming
     nixfmt
     sqlite

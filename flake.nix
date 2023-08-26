@@ -43,6 +43,7 @@
       };
       homeConfigurations = {
         ivand = home-manager.lib.homeManagerConfiguration {
+          extraSpecialArgs = { rootPath = ./.; };
           modules = [ ./home/laptop nix-doom-emacs.hmModule ];
           pkgs = import nixpkgs {
             system = "x86_64-linux";
