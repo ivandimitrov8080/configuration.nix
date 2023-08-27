@@ -45,7 +45,7 @@
 
   time.timeZone = "Europe/Sofia";
 
-  fonts.packages = with pkgs; [ nerdfonts noto-fonts ];
+  fonts.packages = with pkgs; [ nerdfonts noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
 
   environment = {
     systemPackages = with pkgs; [
