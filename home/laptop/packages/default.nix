@@ -16,6 +16,7 @@
     gnome.cheese
     gimp
     mpv
+    transmission
     # cli utils
     direnv
     ripgrep
