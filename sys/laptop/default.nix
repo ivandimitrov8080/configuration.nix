@@ -68,6 +68,7 @@
       wget
       zip
       pinentry-qt
+      ntfs3g
     ];
     variables = {
       EDITOR = "nvim";
