@@ -28,6 +28,8 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    kernelModules = [ "v4l2loopback" ];
   };
 
   security = {
@@ -69,6 +71,7 @@
       zip
       pinentry-qt
       ntfs3g
+      wf-recorder
     ];
     variables = {
       EDITOR = "nvim";
