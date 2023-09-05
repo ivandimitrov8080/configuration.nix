@@ -36,8 +36,8 @@
           modules = [
             (nixpkgs
               + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
-            ./sys/mailserver
             simple-nixos-mailserver.nixosModule
+            ./sys/mailserver
           ];
         };
       };
