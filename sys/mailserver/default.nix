@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    /etc/nixos/vpsadminos.nix
+    ./vpsadminos.nix
   ];
 
   services.openssh.enable = true;
