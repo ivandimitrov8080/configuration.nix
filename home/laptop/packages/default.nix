@@ -37,6 +37,7 @@
     poetry
     lolcat
     deno
+    bun
     nodejs_20
     python311
     python311Packages.pip
