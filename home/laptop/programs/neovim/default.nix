@@ -24,6 +24,7 @@
       # bash
       nodePackages_latest.bash-language-server
       shfmt
+      shellcheck
       # python
       python311Packages.python-lsp-black
       python311Packages.python-lsp-server
