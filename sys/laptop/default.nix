@@ -55,6 +55,7 @@
       busybox
       cmatrix
       coreutils-full
+      moreutils
       fd
       git
       glibc
