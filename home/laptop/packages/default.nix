@@ -27,15 +27,14 @@
     bat
     trashy
     yewtube
+    lolcat
     # programming
-    nixfmt
     sqlite
     tectonic
     ffmpeg
     nodePackages_latest.pnpm
     rustup
     poetry
-    lolcat
     deno
     bun
     nodejs_20

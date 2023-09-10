@@ -3,25 +3,36 @@
     enable = true;
     viAlias = true;
     extraPackages = with pkgs; [
+      # nix
+      rnix-lsp
       alejandra
-      black
+      #	go
       go
       gopls
+      # c/c++
       libclang
+      # lua
       lua
       lua-language-server
+      stylua
+      # js/ts
       nodePackages_latest.prettier
       nodePackages_latest.typescript
       nodePackages_latest.typescript-language-server
       nodePackages_latest."@tailwindcss/language-server"
       nodePackages_latest."@prisma/language-server"
+      # bash
+      nodePackages_latest.bash-language-server
+      shfmt
+      # python
       python311Packages.python-lsp-black
       python311Packages.python-lsp-server
-      ripgrep
-      rnix-lsp
-      stylua
-      haskell-language-server
+      black
+      # haskell
       ghc
+      haskell-language-server
+      # neovim
+      ripgrep
     ];
     plugins = with pkgs.vimPlugins; [
       nvim-surround
