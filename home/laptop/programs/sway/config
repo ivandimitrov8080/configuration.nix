@@ -7,7 +7,7 @@ set $term kitty
 set $menu bemenu-run | xargs swaymsg exec --
 
 exec swaymsg "workspace 1; exec kitty"
-exec swaymsg "workspace 2; exec firefox-devedition"
+exec swaymsg "workspace 2; exec brave"
 
 output * bg $HOME/pic/bg.png fill
     # Start a terminal
