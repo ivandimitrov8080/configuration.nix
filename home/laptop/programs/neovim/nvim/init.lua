@@ -2,7 +2,7 @@
 vim.wo.number = true   -- show numbers
 vim.o.scrolloff = 15   -- scrll if n lines left
 vim.o.hlsearch = false -- highlight search
-vim.o.updatetime = 500
+vim.o.updatetime = 20
 vim.o.autoread = true
 
 vim.g.mapleader = " "                                               -- leader space
@@ -38,24 +38,36 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- END GLOBAL CONFIG
 
--- Format on CursorHold
-
-local filetypes = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.html", "*.json", "*.yaml", "*.lua" }
-
-local async = require("plenary.async")
-
-local format_file = function()
-	vim.cmd("silent !prettier '%' --write")
-	vim.cmd("checktime")
-end
-local async_format = async.void(format_file)
-vim.api.nvim_create_autocmd("CursorHold", {
-	callback = async_format,
-	pattern = filetypes
-})
-
-
 -- START LSP
+
+local highlight_filetypes = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.html", "*.lua" }
+local prettier_filetypes = { "%.ts$", "%.tsx$", "%.js$", "%.jsx$", "%.html$", "%.json$", "%.css$" }
+
+local function matches_filetypes(file_path, filetypes)
+	for _, pattern in ipairs(filetypes) do
+		if file_path:match(pattern) then
+			return true
+		end
+	end
+	return false
+end
+
+
+local function str_to_table(str)
+	local t = {}
+	for line in string.gmatch(str, "([^\n]+)") do
+		table.insert(t, line)
+	end
+	return t
+end
+
+local function prettier_format(file_path, content)
+	local prettier_command = string.format("prettier --stdin-filepath '%s' <<< '%s'", file_path, content)
+	local output = io.popen(prettier_command, "r")
+	local result = output:read("*a")
+	output:close()
+	return result
+end
 
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
@@ -78,11 +90,23 @@ local servers = {
 }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
+	local format_buffer = function()
+		local file_path = vim.api.nvim_buf_get_name(bufnr)
+		if (matches_filetypes(file_path, prettier_filetypes)) then
+			local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+			local content = table.concat(lines, "\n")
+			local result = prettier_format(file_path, content)
+			vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, str_to_table(result))
+		else
+			vim.lsp.buf.format()
+		end
+	end
+
 	nmap("<leader>ca", vim.lsp.buf.code_action)
 	nmap("<leader>lr", vim.lsp.buf.rename)
 	nmap("gd", vim.lsp.buf.definition)
 	nmap("<leader>lf", function()
-		vim.lsp.buf.format()
+		format_buffer()
 	end)
 	nmap("K", vim.lsp.buf.hover)
 	nmap("gr", require("telescope.builtin").lsp_references)
@@ -90,13 +114,13 @@ local on_attach = function(client, bufnr)
 		callback = function()
 			vim.lsp.buf.document_highlight()
 		end,
-		pattern = filetypes
+		pattern = highlight_filetypes
 	})
 	vim.api.nvim_create_autocmd("CursorMoved", {
 		callback = function()
 			vim.lsp.buf.clear_references()
 		end,
-		pattern = filetypes
+		pattern = highlight_filetypes
 	})
 end
 cmp.setup({
