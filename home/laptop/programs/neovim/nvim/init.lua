@@ -43,7 +43,7 @@ nmap("<leader>e", vim.diagnostic.open_float)
 
 -- START LSP
 
-local highlight_filetypes = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.html", "*.lua" }
+local highlight_filetypes = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.html", "*.lua", "*.hs" }
 local prettier_filetypes = { "%.ts$", "%.tsx$", "%.js$", "%.jsx$", "%.html$", "%.json$", "%.css$" }
 
 local function matches_filetypes(file_path, filetypes)
