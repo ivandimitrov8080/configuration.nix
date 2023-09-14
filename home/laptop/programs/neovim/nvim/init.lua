@@ -4,6 +4,9 @@ vim.o.scrolloff = 15   -- scrll if n lines left
 vim.o.hlsearch = false -- highlight search
 vim.o.updatetime = 20
 vim.o.autoread = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
 
 vim.g.mapleader = " "                                               -- leader space
 vim.g.maplocalleader = " "
