@@ -2,6 +2,7 @@
 {
   imports = [
     ./vpsadminos.nix
+    ./web.nix
   ];
 
   services.openssh.enable = true;
