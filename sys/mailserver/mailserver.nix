@@ -39,6 +39,8 @@
     };
   };
 
+  networking.firewall.allowedTCPPorts = [ 80 ];
+
   mailserver = {
     enable = true;
     fqdn = "mail.idimitrov.dev";
