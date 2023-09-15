@@ -18,7 +18,7 @@
   mailserver = {
     enable = true;
     fqdn = "mail.idimitrov.dev";
-    domains = [ "idimitrov.dev" ];
+    domains = [ "idimitrov.dev" "mail.idimitrov.dev" ];
 
     loginAccounts = {
       "ivan@idimitrov.dev" = {
