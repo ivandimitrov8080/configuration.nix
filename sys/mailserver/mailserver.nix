@@ -25,13 +25,6 @@
             "/" = {
               proxyPass = "http://localhost:3000/"; # Pointing to Next.js app
               proxyWebsockets = true;
-              extraConfig = ''
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection 'upgrade';
-                proxy_set_header Host $host;
-                proxy_cache_bypass $http_upgrade;
-              '';
             };
           };
         };
@@ -39,7 +32,10 @@
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 ];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 80 ];
+  };
 
   mailserver = {
     enable = true;
