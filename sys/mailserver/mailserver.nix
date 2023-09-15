@@ -15,6 +15,17 @@
     '';
   };
 
+  services = {
+    nginx = {
+      virtualHosts = {
+        "idimitrov.dev" = {
+          addSSL = true;
+          enableACME = true;
+        };
+      };
+    };
+  };
+
   mailserver = {
     enable = true;
     fqdn = "mail.idimitrov.dev";
