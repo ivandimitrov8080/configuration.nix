@@ -18,7 +18,6 @@
     mpv
     transmission
     # cli utils
-    direnv
     ripgrep
     mupdf
     gopass

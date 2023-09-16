@@ -9,6 +9,7 @@
     shellAliases = {
       gad = "git add . && git diff --cached";
       gac = "ga && gc";
+      gach = "gac -C HEAD";
       ga = "git add .";
       gc = "git commit";
       dev = "nix develop --command $SHELL";
@@ -32,7 +33,6 @@
     ];
     initExtra = ''
       source "$HOME/.p10k.zsh"
-      eval "$(direnv hook zsh)"
     '';
   };
 }
