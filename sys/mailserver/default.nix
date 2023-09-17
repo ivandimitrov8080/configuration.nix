@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
 
-  imports = [ ./configuration.nix ];
+  imports = [ ./configuration.nix ./web.nix ];
 
   nix = {
     extraOptions = ''
