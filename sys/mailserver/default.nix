@@ -12,17 +12,20 @@
   mailserver = {
     enable = true;
     fqdn = "mail.idimitrov.dev";
-    domains = [ "idimitrov.dev" ];
+    domains = [ "idimitrov.dev" "mail.idimitrov.dev" ];
 
     loginAccounts = {
       "ivan@idimitrov.dev" = {
-        hashedPassword = "$2b$05$6Hs2OGVrY/swb5eAaRV0AOqmdWqlkdShIvd2SoIQHbxtirQyxnU3e";
+        hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
         aliases = [ "admin@idimitrov.dev" ];
       };
-      "security@idimitrov.dev" = { hashedPassword = "$2b$05$6Hs2OGVrY/swb5eAaRV0AOqmdWqlkdShIvd2SoIQHbxtirQyxnU3e"; };
+      "security@idimitrov.dev" = {
+        hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
+      };
     };
 
     certificateScheme = "acme-nginx";
+    hierarchySeparator = "/";
   };
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "security@idimitrov.dev";
@@ -43,6 +46,6 @@
   };
 
   environment = {
-    systemPackages = with pkgs; [ coreutils-full fd git vim mlocate ];
+    systemPackages = with pkgs; [ coreutils-full fd git vim mlocate busybox ];
   };
 }
