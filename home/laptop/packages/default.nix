@@ -27,18 +27,7 @@
     trashy
     yewtube
     lolcat
-    # programming
-    sqlite
-    tectonic
     ffmpeg
-    nodePackages_latest.pnpm
-    rustup
-    poetry
-    deno
-    bun
-    nodejs_20
-    python311
-    python311Packages.pip
     # misc
     piper
     xdg-utils
