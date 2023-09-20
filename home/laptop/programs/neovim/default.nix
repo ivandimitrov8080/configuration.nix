@@ -34,6 +34,8 @@
       haskell-language-server
       # neovim
       ripgrep
+      # html
+      nodePackages_latest.vscode-html-languageserver-bin
     ];
     plugins = with pkgs.vimPlugins; [
       nvim-surround

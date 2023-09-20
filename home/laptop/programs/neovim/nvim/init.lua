@@ -62,6 +62,9 @@ local servers = {
     prismals = {},
     hls = {},
     bashls = {},
+    html = {
+        cmd = {"html-languageserver", "--stdio"}
+    },
 }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
@@ -101,6 +104,7 @@ cmp.setup({
 
 for server, cfg in pairs(servers) do
     lspconfig[server].setup({
+        cmd = cfg.cmd,
         settings = cfg.settings,
         capabilities = cmp_capabilities,
         on_attach = on_attach,
