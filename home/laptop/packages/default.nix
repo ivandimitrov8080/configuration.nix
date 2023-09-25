@@ -13,11 +13,12 @@
     brave
     firefox-devedition-bin
     tor-browser-bundle-bin
-    gnome.cheese
+    libreoffice-qt
     gimp
     mpv
     imv
     transmission
+    gnome.cheese
     # cli utils
     ripgrep
     mupdf
