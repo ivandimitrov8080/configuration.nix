@@ -13,6 +13,7 @@
       ga = "git add .";
       gc = "git commit";
       dev = "nix develop --command $SHELL";
+      la = "ls -alh";
     };
     history = {
       size = 1000;
