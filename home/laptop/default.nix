@@ -8,7 +8,7 @@
     username = "ivand";
     homeDirectory = "/home/ivand";
     stateVersion = "23.11";
-    sessionPath = [ "$HOME/.local/bin/" "$HOME/.local/share/pnpm" ];
+    sessionPath = [ "$HOME/.local/bin/" ];
     pointerCursor = {
       name = "Bibata-Modern-Amber";
       package = pkgs.bibata-cursors;

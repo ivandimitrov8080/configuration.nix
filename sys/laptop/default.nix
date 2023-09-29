@@ -76,7 +76,6 @@
     ];
     variables = {
       EDITOR = "nvim";
-      PNPM_HOME = "$HOME/.local/share/pnpm";
     };
     shells = with pkgs; [ zsh ];
     etc = {
