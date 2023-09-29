@@ -13,15 +13,6 @@
       name = "Bibata-Modern-Amber";
       package = pkgs.bibata-cursors;
     };
-    file = {
-      ".local/bin/ec" = {
-        text = ''
-          #!/usr/bin/env bash
-          emacsclient -c -a 'emacs'
-        '';
-        executable = true;
-      };
-    };
   };
 
   xdg.configFile = {
@@ -43,5 +34,4 @@
       '';
     };
   };
-  services = { emacs = { enable = true; }; };
 }
