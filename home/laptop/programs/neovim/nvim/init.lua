@@ -63,7 +63,7 @@ local servers = {
     hls = {},
     bashls = {},
     html = {
-        cmd = {"html-languageserver", "--stdio"}
+        cmd = { "html-languageserver", "--stdio" }
     },
 }
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -124,6 +124,11 @@ require("toggleterm").setup()
 require("autoclose").setup()
 require("gitsigns").setup()
 require("nvim-surround").setup()
+require("telescope").setup {
+    defaults = {
+        file_ignore_patterns = { "hosts" },
+    }
+}
 
 require("nightfox").setup({ options = { transparent = true } })
 vim.cmd.colorscheme("carbonfox")
