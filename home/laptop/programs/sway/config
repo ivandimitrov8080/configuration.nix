@@ -86,10 +86,10 @@ bindsym $mod+v splitv
 bindsym $mod+f fullscreen
 
 # Toggle the current focus between tiling and floating mode
-bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+t floating toggle
 
 # Swap focus between the tiling area and the floating area
-bindsym $mod+space focus mode_toggle
+bindsym $mod+t focus mode_toggle
 
 # Move focus to the parent container
 bindsym $mod+a focus parent
@@ -140,7 +140,7 @@ client.urgent #2f343a #900000 #ffffff #900000
 input "*"
 {
     xkb_layout us,bg
-    xkb_options grp:ctrl_shift_toggle
+    xkb_options grp:win_space_toggle
     xkb_variant ,phonetic
 }
 
