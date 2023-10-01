@@ -47,7 +47,8 @@
       comment-nvim
       gitsigns-nvim
       luasnip
-      nightfox-nvim
+      #nightfox-nvim
+      catppuccin-nvim
       nvim-cmp
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
@@ -57,6 +58,7 @@
       telescope-nvim
       toggleterm-nvim
       vim-vinegar
+      lualine-nvim
     ];
     extraLuaConfig = lib.fileContents ./nvim/init.lua;
   };

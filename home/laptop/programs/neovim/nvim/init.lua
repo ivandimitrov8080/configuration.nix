@@ -130,5 +130,23 @@ require("telescope").setup {
     }
 }
 
-require("nightfox").setup({ options = { transparent = true } })
-vim.cmd.colorscheme("carbonfox")
+require("lualine").setup({
+    options = {
+        theme = "catppuccin"
+    }
+})
+require("catppuccin").setup({
+    flavour = "mocha",
+    transparent_background = true,
+    integrations = {
+        cmp = true,
+        gitsigns = true,
+        treesitter = true,
+        telescope = {
+            enabled = true,
+        },
+        markdown = true
+    },
+})
+
+vim.cmd.colorscheme("catppuccin")
