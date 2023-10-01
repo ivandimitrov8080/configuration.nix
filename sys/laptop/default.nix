@@ -9,6 +9,9 @@
       automatic = true;
       options = "--delete-older-than 7d";
     };
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
   };
 
   hardware = {
