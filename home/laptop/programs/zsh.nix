@@ -6,6 +6,9 @@
     loginExtra = ''
       [ "$(tty)" = "/dev/tty1" ] && exec sway
     '';
+    sessionVariables = {
+      PASSWORD_STORE_DIR = "$HOME/.password-store";
+    };
     shellAliases = {
       gad = "git add . && git diff --cached";
       gac = "ga && gc";

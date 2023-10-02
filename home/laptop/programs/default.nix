@@ -39,5 +39,6 @@
         pull.rebase = true;
       };
     };
+    browserpass.enable = true;
   };
 }

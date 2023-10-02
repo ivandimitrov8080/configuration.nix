@@ -23,7 +23,6 @@
     ripgrep
     mupdf
     gopass
-    gopass-jsonapi
     pavucontrol
     bat
     trashy
