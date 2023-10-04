@@ -62,6 +62,7 @@
       fd
       git
       glibc
+      gcc13
       gnumake
       home-manager
       jq
