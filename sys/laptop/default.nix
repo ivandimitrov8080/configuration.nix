@@ -77,7 +77,7 @@
       ntfs3g
       wf-recorder
       # int
-      python312
+      python311
       nodejs_20
     ];
     variables = {
