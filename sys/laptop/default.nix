@@ -76,6 +76,9 @@
       pinentry-qt
       ntfs3g
       wf-recorder
+      # int
+      python312
+      nodejs_20
     ];
     variables = {
       EDITOR = "nvim";
