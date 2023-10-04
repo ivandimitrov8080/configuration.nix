@@ -113,6 +113,7 @@
         "flatpak"
         "bluetooth"
         "mlocate"
+        "dialout"
       ];
     };
     extraGroups = { mlocate = { }; };
