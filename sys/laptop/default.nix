@@ -80,6 +80,7 @@
       # int
       python311
       nodejs_20
+      bun
     ];
     variables = {
       EDITOR = "nvim";
