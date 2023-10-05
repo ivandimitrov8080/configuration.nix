@@ -14,6 +14,26 @@
     };
   };
 
+  systemd.user = {
+    timers = {
+      bingwp = {
+        timerConfig = {
+          OnCalendar = "daily";
+          Persistent = true;
+        };
+      };
+    };
+    services = {
+      bingwp = {
+        Service = {
+          Type = "oneshot";
+          Environment = "PATH=${pkgs.nodejs_20}/bin";
+          ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.bun}/bin/bunx bingwp'";
+        };
+      };
+    };
+  };
+
   xdg.configFile = {
     "user-dirs.dirs" = {
       text = ''
@@ -25,3 +45,4 @@
     };
   };
 }
+
