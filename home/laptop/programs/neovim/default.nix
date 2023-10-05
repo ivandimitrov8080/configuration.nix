@@ -1,65 +1,48 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+let grammars = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+  diff
+  regex
+  vimdoc
+  comment
+  markdown
+  ungrammar
+  gitignore
+  gitcommit
+  git_rebase
+  git_config
+  gitattributes
+  dockerfile
+];
+in
+{
+  imports = [ ./bash.nix ./nix.nix ./lua.nix ./js.nix ./util.nix ];
+
   programs.neovim = {
     enable = true;
     viAlias = true;
     extraPackages = with pkgs; [
-      # nix
-      rnix-lsp
-      alejandra
-      #	go
-      go
-      gopls
-      # c/c++
-      libclang
-      # lua
-      lua
-      lua-language-server
-      stylua
-      # js/ts
-      nodePackages_latest.prettier
-      nodePackages_latest.typescript
-      nodePackages_latest.typescript-language-server
-      nodePackages_latest."@tailwindcss/language-server"
-      nodePackages_latest."@prisma/language-server"
-      # bash
-      nodePackages_latest.bash-language-server
-      shfmt
-      shellcheck
-      # python
-      python311Packages.python-lsp-black
-      python311Packages.python-lsp-server
-      black
-      # haskell
-      ghc
-      haskell-language-server
-      # neovim
       ripgrep
-      # html
-      nodePackages_latest.vscode-html-languageserver-bin
     ];
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; grammars ++ [
+      nvim-treesitter
       nvim-surround
       nvim-ts-autotag
-      vim-prisma
       autoclose-nvim
       barbar-nvim
       cmp-nvim-lsp
       comment-nvim
       gitsigns-nvim
       luasnip
-      #nightfox-nvim
       catppuccin-nvim
       nvim-cmp
       nvim-lspconfig
-      nvim-treesitter.withAllGrammars
       nvim-web-devicons
       plenary-nvim
-      telescope-nvim
       telescope-nvim
       toggleterm-nvim
       vim-vinegar
       lualine-nvim
     ];
-    extraLuaConfig = lib.fileContents ./nvim/init.lua;
+    extraLuaConfig = lib.fileContents ./nvim/default.lua;
   };
 }

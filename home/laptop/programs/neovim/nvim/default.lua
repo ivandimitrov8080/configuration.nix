@@ -1,14 +1,13 @@
--- START GLOBAL CONFIG
-vim.wo.number = true   -- show numbers
-vim.o.scrolloff = 15   -- scrll if n lines left
-vim.o.hlsearch = false -- highlight search
+vim.wo.number = true
+vim.o.scrolloff = 15
+vim.o.hlsearch = false
 vim.o.updatetime = 20
 vim.o.autoread = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
 
-vim.g.mapleader = " "                                               -- leader space
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true }) -- nop leader
 
@@ -36,36 +35,10 @@ nmap("<leader>r", "<cmd>!%:p<cr>")
 
 nmap("<leader>ff", require("telescope.builtin").find_files)
 nmap("<leader>fw", require("telescope.builtin").live_grep)
-
 nmap("<leader>e", vim.diagnostic.open_float)
 
--- END GLOBAL CONFIG
-
--- START LSP
-
-local highlight_filetypes = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.html", "*.lua", "*.hs" }
 local cmp = require("cmp")
 local lspconfig = require("lspconfig")
-local servers = {
-    tsserver = {
-        settings = {
-            completions = {
-                completeFunctionCalls = true,
-            },
-        },
-    },
-    pylsp = {},
-    lua_ls = {},
-    rnix = {},
-    gopls = {},
-    tailwindcss = {},
-    prismals = {},
-    hls = {},
-    bashls = {},
-    html = {
-        cmd = { "html-languageserver", "--stdio" }
-    },
-}
 local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local on_attach = function(client, bufnr)
     nmap("<leader>ca", vim.lsp.buf.code_action)
@@ -76,18 +49,18 @@ local on_attach = function(client, bufnr)
     end)
     nmap("K", vim.lsp.buf.hover)
     nmap("gr", require("telescope.builtin").lsp_references)
-    vim.api.nvim_create_autocmd("CursorHold", {
-        callback = function()
-            vim.lsp.buf.document_highlight()
-        end,
-        pattern = highlight_filetypes
-    })
-    vim.api.nvim_create_autocmd("CursorMoved", {
-        callback = function()
-            vim.lsp.buf.clear_references()
-        end,
-        pattern = highlight_filetypes
-    })
+    if client.server_capabilities.documentHighlightProvider then
+        vim.api.nvim_create_autocmd("CursorHold", {
+            callback = function()
+                vim.lsp.buf.document_highlight()
+            end,
+        })
+        vim.api.nvim_create_autocmd("CursorMoved", {
+            callback = function()
+                vim.lsp.buf.clear_references()
+            end,
+        })
+    end
 end
 cmp.setup({
     snippet = {
@@ -111,7 +84,6 @@ for server, cfg in pairs(servers) do
     })
 end
 
--- END LSP
 
 require 'nvim-treesitter.configs'.setup {
     autotag = {
