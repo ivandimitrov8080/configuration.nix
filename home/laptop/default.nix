@@ -17,10 +17,10 @@
   xdg.configFile = {
     "user-dirs.dirs" = {
       text = ''
-        XDG_DOCUMENTS_DIR="doc"
-        XDG_DOWNLOAD_DIR="dl"
-        XDG_PICTURES_DIR="pic"
-        XDG_VIDEOS_DIR="vid"
+        XDG_DOCUMENTS_DIR="$HOME/doc"
+        XDG_DOWNLOAD_DIR="$HOME/dl"
+        XDG_PICTURES_DIR="$HOME/pic"
+        XDG_VIDEOS_DIR="$HOME/vid"
       '';
     };
   };
