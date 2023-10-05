@@ -56,6 +56,7 @@
     systemPackages = with pkgs; [
       binutils
       busybox
+      file
       cmatrix
       coreutils-full
       moreutils
