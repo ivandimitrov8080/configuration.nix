@@ -18,6 +18,7 @@
       gc = "git commit";
       dev = "nix develop --command $SHELL";
       la = "ls -alh";
+      torrent = "transmission-remote";
     };
     history = {
       expireDuplicatesFirst = true;
