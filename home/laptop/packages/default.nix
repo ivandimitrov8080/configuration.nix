@@ -24,7 +24,7 @@
     gopass
     pavucontrol
     bat
-    trashy
+    transmission
     yewtube
     lolcat
     ffmpeg
