@@ -17,9 +17,12 @@
   systemd.user = {
     timers = {
       bingwp = {
-        timerConfig = {
+        Timer = {
           OnCalendar = "daily";
           Persistent = true;
+        };
+        Install = {
+          WantedBy = [ "timers.target" ];
         };
       };
     };
