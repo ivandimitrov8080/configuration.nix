@@ -4,7 +4,7 @@ vim.o.hlsearch = false
 vim.o.updatetime = 20
 vim.o.autoread = true
 vim.o.tabstop = 4
-vim.o.shiftwidth = 4
+vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
 vim.g.mapleader = " "
