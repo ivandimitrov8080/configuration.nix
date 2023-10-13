@@ -40,8 +40,8 @@
   xdg.configFile = {
     "user-dirs.dirs" = {
       text = ''
-        XDG_DOCUMENTS_DIR="$HOME/doc"
         XDG_DOWNLOAD_DIR="$HOME/dl"
+        XDG_DOCUMENTS_DIR="$HOME/doc"
         XDG_PICTURES_DIR="$HOME/pic"
         XDG_VIDEOS_DIR="$HOME/vid"
       '';
