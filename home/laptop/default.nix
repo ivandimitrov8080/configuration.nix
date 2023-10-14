@@ -28,10 +28,12 @@
     };
     services = {
       bingwp = {
-        Service = {
+        Unit = {
           Type = "oneshot";
-          Environment = "PATH=${pkgs.nodejs_20}/bin";
-          ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.bun}/bin/bunx bingwp'";
+        };
+        Service = {
+          Environment = [ "PATH=${pkgs.nodejs_20}/bin" ];
+          ExecStart = [ "${pkgs.bash}/bin/bash -c '${pkgs.bun}/bin/bunx bingwp'" ];
         };
       };
     };
