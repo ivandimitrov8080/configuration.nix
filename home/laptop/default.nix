@@ -8,6 +8,9 @@
     username = "ivand";
     homeDirectory = "/home/ivand";
     stateVersion = "23.11";
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
     pointerCursor = {
       name = "Catppuccin-Mocha-Green-Cursors";
       package = pkgs.catppuccin-cursors.mochaGreen;

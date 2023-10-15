@@ -1,6 +1,6 @@
 { config, pkgs, ... }: {
 
-  imports = [ ../../hardware-configuration.nix ];
+  imports = [ ../../hardware-configuration.nix ../../modules/nvidia.nix ];
 
   system.stateVersion = "23.11";
 
@@ -15,11 +15,6 @@
   };
 
   hardware = {
-    nvidia = {
-      modesetting.enable = true;
-      open = true;
-      nvidiaSettings = true;
-    };
     opengl = {
       enable = true;
       driSupport = true;
