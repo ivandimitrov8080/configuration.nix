@@ -33,5 +33,7 @@
     xdg-utils
     xdg-user-dirs
     woeusb
+    # games
+    minetest
   ];
 }
