@@ -6,6 +6,7 @@
     bemenu
     wl-clipboard
     wayland
+    xwayland
     mako
     grim
     slurp
