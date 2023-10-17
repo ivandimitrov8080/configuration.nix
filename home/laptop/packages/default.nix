@@ -19,6 +19,7 @@
     imv
     gnome.cheese
     # cli utils
+    shell_gpt
     ripgrep
     mupdf
     gopass
