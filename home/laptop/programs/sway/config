@@ -32,6 +32,9 @@ bindsym $mod+Shift+a exec grim - | wl-copy
 # Lock screen
 bindsym Alt+Shift+l exec swaylock
 
+# Toggle screen
+bindsym Alt+Shift+t output "eDP-1" toggle
+
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
