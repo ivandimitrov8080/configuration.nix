@@ -15,7 +15,7 @@ let grammars = with pkgs.vimPlugins.nvim-treesitter-parsers; [
 ];
 in
 {
-  imports = [ ./hs.nix ./bash.nix ./nix.nix ./lua.nix ./js.nix ./util.nix ];
+  imports = [ ./py.nix ./hs.nix ./bash.nix ./nix.nix ./lua.nix ./js.nix ./util.nix ];
 
   programs.neovim = {
     enable = true;
