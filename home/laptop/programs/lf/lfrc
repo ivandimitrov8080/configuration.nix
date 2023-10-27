@@ -10,7 +10,7 @@ cmd trash ${{
   while [ "$files" ]; do
     file=${files%%;*}
 
-    trash "$(basename "$file")"
+    rm -rf "$(basename "$file")"
     if [ "$files" = "$file" ]; then
       files=''
     else
