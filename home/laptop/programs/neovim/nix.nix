@@ -7,14 +7,14 @@ in
 {
   programs.neovim = {
     extraPackages = with pkgs; [
-      rnix-lsp
+      nixd
       alejandra
     ];
     plugins = with pkgs.vimPlugins; grammars ++ [
     ];
     extraLuaConfig = ''
       addServers({
-          rnix = {}
+          nixd = {}
       })
     '';
   };
