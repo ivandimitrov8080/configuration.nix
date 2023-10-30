@@ -8,7 +8,7 @@ in
   programs.neovim = {
     extraPackages = with pkgs; [
       nixd
-      alejandra
+      nixpkgs-fmt
     ];
     plugins = with pkgs.vimPlugins; grammars ++ [
     ];
