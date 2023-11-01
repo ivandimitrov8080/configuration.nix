@@ -5,12 +5,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hosts = {
+      url = "github:StevenBlack/hosts";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     { self
     , nixpkgs
     , home-manager
+    , hosts
     , ...
     }:
     let system = "x86_64-linux"; in
@@ -20,6 +25,7 @@
           inherit system;
           modules = [
             ./sys/laptop
+            hosts.nixosModule
           ];
         };
       };

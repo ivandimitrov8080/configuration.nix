@@ -89,7 +89,14 @@
     };
   };
 
-  networking.extraHosts = builtins.readFile ./hosts;
+  networking = {
+    stevenBlackHosts = {
+      enable = true;
+      blockFakenews = true;
+      blockGambling = true;
+      blockSocial = true;
+    };
+  };
 
   programs = {
     gnupg.agent = {
