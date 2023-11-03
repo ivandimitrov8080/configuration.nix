@@ -49,6 +49,10 @@
 
   environment = {
     systemPackages = with pkgs; [
+      #nix
+      nix-prefetch-github
+      nix-index
+      #
       binutils
       busybox
       file
