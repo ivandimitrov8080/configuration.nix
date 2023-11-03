@@ -1,5 +1,7 @@
 { pkgs, rootPath, ... }: {
   home.packages = with pkgs; [
+    #nix
+    nix-prefetch-github
     #scripts
     (pkgs.buildEnv { name = "my-scripts"; paths = [ (rootPath + /scripts) ]; })
     # wayland/sway stuff
