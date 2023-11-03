@@ -30,6 +30,8 @@
     yewtube
     lolcat
     ffmpeg
+    # AI
+    ollama
     # misc
     piper
     xdg-utils
