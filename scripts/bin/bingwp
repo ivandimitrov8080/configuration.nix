@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+img_url=$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')
+pic_dir="$(xdg-user-dir "PICTURES")"
+img_file="$pic_dir/bg.png"
+backup_dir="$pic_dir/oldbg"
+mkdir -p "$backup_dir"
+mkdir -p "$pic_dir"
+mv "$img_file" "$backup_dir/$(date +%Y-%m-%d).png"
+
+wget -O "$img_file" "$img_url"
+

@@ -18,7 +18,12 @@
     , hosts
     , ...
     }:
-    let system = "x86_64-linux"; in
+    let
+      system = "x86_64-linux";
+      my-overlay = self: super: {
+        scripts = (super.buildEnv { name = "scripts"; paths = [ ./scripts ]; });
+      };
+    in
     {
       nixosConfigurations = {
         laptop = nixpkgs.lib.nixosSystem {
@@ -31,12 +36,12 @@
       };
       homeConfigurations = {
         ivand = home-manager.lib.homeManagerConfiguration {
-          extraSpecialArgs = { rootPath = ./.; };
           modules = [
             ./home/laptop
           ];
           pkgs = import nixpkgs {
             inherit system;
+            overlays = [ my-overlay ];
           };
         };
       };

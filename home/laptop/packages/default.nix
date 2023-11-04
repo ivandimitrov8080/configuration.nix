@@ -1,7 +1,6 @@
-{ pkgs, rootPath, ... }: {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
-    #scripts
-    (pkgs.buildEnv { name = "my-scripts"; paths = [ (rootPath + /scripts) ]; })
+    scripts
     # wayland/sway stuff
     bemenu
     wl-clipboard
