@@ -21,7 +21,7 @@
     timers = {
       bingwp = {
         Timer = {
-          OnCalendar = "daily";
+          OnCalendar = "daily 10:00:00";
           Persistent = true;
         };
         Install = {
