@@ -31,7 +31,7 @@
           modules = [
             ./sys/laptop
             hosts.nixosModule
-            ./modules/gaming.nix
+            # ./modules/gaming.nix
             ./hardware-configuration.nix
           ];
         };
