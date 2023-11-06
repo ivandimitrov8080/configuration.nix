@@ -5,12 +5,16 @@ pic_dir="$ss_dir/$(date +%s).png"
 
 mkdir -p "$ss_dir"
 
+copy_image() {
+  wl-copy < "$pic_dir"
+}
+
 capture_area() {
-  grim -g "$(slurp)" "$pic_dir" && wl-copy "$pic_dir"
+  grim -g "$(slurp)" "$pic_dir" && copy_image
 }
 
 capture_screen() {
-  grim "$pic_dir" && wl-copy "$pic_dir"
+  grim "$pic_dir" && copy_image
 }
 
 if [[ "$1" = "area" ]]; then
