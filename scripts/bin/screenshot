@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+ss_dir="$(xdg-user-dir PICTURES)/ss"
+pic_dir="$ss_dir/$(date +%s).png"
+
+mkdir -p "$ss_dir"
+
+capture_area() {
+  grim -g "$(slurp)" "$pic_dir" && wl-copy "$pic_dir"
+}
+
+capture_screen() {
+  grim "$pic_dir" && wl-copy "$pic_dir"
+}
+
+if [[ "$1" = "area" ]]; then
+  capture_area
+else
+  capture_screen
+fi
+

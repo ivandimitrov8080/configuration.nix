@@ -26,8 +26,8 @@ floating_modifier $mod normal
 bindsym $mod+Shift+r reload
 
 # Take screenshot of area and screen respectively
-bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
-bindsym $mod+Shift+a exec grim - | wl-copy
+bindsym $mod+Shift+a exec screenshot area
+bindsym $mod+Shift+s exec screenshot
 
 # Lock screen
 bindsym Alt+Shift+l exec swaylock
