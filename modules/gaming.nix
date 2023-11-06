@@ -5,6 +5,10 @@
       "nvidia-settings"
       "nvidia-x11"
       "nvidia-persistenced"
+      "steam"
+      "steamcmd"
+      "steam-original"
+      "steam-run"
     ];
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -16,6 +20,16 @@
     };
     modesetting.enable = true;
     nvidiaSettings = true;
+  };
+
+  programs.steam = {
+    enable = true;
+  };
+  environment = {
+    systemPackages = with pkgs; [
+      steamcmd
+      steam-tui
+    ];
   };
 }
 

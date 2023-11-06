@@ -1,7 +1,5 @@
 { config, pkgs, ... }: {
 
-  imports = [ ../../hardware-configuration.nix ../../modules/nvidia.nix ];
-
   system.stateVersion = "23.11";
 
   nix = {
