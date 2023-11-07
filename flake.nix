@@ -29,10 +29,11 @@
         laptop = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            ./sys/laptop
-            hosts.nixosModule
-            # ./modules/gaming.nix
             ./hardware-configuration.nix
+            ./sys/laptop
+            ./modules/dnscrypt
+            hosts.nixosModule
+            # ./modules/gaming
           ];
         };
       };
