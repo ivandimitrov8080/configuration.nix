@@ -21,7 +21,7 @@
     let
       system = "x86_64-linux";
       my-overlay = self: super: {
-        scripts = (super.buildEnv { name = "scripts"; paths = [ ./scripts ]; });
+        scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
       };
     in
     {
