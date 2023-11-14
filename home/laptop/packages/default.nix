@@ -18,7 +18,6 @@
     mpv
     imv
     gnome.cheese
-    fluent-reader
     # cli utils
     shell_gpt
     ripgrep
