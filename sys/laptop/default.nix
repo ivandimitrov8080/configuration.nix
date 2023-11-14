@@ -110,20 +110,29 @@
 
   users = {
     defaultUserShell = pkgs.zsh;
-    users.ivand = {
-      isNormalUser = true;
-      extraGroups = [
-        "wheel"
-        "adm"
-        "audio"
-        "video"
-        "kvm"
-        "render"
-        "flatpak"
-        "bluetooth"
-        "mlocate"
-        "dialout"
-      ];
+    users = {
+      ivand = {
+        isNormalUser = true;
+        extraGroups = [
+          "wheel"
+          "adm"
+          "audio"
+          "video"
+          "kvm"
+          "render"
+          "flatpak"
+          "bluetooth"
+          "mlocate"
+          "dialout"
+        ];
+      };
+      vid = {
+        isNormalUser = true;
+        extraGroups = [
+          "video"
+          "mlocate"
+        ];
+      };
     };
     extraGroups = { mlocate = { }; };
   };

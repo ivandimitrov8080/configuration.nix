@@ -2,6 +2,7 @@
   imports = [ ./neovim ./neomutt ./sway ./tmux.nix ./zsh.nix ./lf ];
 
   programs = {
+    nv.enable = true;
     thunderbird = {
       enable = true;
       profiles = { ivan = { isDefault = true; }; };

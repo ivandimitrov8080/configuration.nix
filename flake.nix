@@ -40,7 +40,7 @@
       homeConfigurations = {
         ivand = home-manager.lib.homeManagerConfiguration {
           modules = [
-            ./home/laptop
+            ./home/ivand
           ];
           pkgs = import nixpkgs {
             inherit system;
