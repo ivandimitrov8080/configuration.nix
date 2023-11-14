@@ -30,8 +30,10 @@
     services = {
       bingwp = {
         Service = {
-          Type = "oneshot";
-          Environment = [ "PATH=${pkgs.curl}/bin:${pkgs.wget}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.jq}/bin:${pkgs.busybox}/bin:${pkgs.bash}/bin" ];
+          Environment = [
+            "PATH=${pkgs.curl}/bin:${pkgs.wget}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.jq}/bin:${pkgs.busybox}/bin:${pkgs.bash}/bin:${pkgs.swaybg}/bin"
+            "WAYLAND_DISPLAY=wayland-1"
+          ];
           ExecStart = [ "${pkgs.scripts}/bin/bingwp" ];
         };
       };

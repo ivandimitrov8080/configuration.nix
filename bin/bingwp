@@ -10,3 +10,4 @@ mv "$img_file" "$backup_dir/$(date +%Y-%m-%d).png"
 
 wget -O "$img_file" "$img_url"
 
+swaybg -i "$img_file"

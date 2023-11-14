@@ -13,7 +13,7 @@ in
       syntaxHighlighting.enable = true;
       enableAutosuggestions = true;
       loginExtra = ''
-        [ "$(tty)" = "/dev/tty1" ] && exec sway --unsupported-gpu
+        [ "$(tty)" = "/dev/tty1" ] && exec sway
       '';
       sessionVariables = {
         PASSWORD_STORE_DIR = "$HOME/.password-store";
