@@ -40,5 +40,10 @@
       };
     };
     browserpass.enable = true;
+    newsboat = {
+      enable = true;
+      autoReload = true;
+      reloadTime = 1;
+    };
   };
 }
