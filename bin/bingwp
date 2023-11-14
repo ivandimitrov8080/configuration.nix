@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-img_url=$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')
 pic_dir="$(xdg-user-dir "PICTURES")"
-img_file="$pic_dir/bg.png"
-backup_dir="$pic_dir/oldbg"
-mkdir -p "$backup_dir"
-mkdir -p "$pic_dir"
-mv "$img_file" "$backup_dir/$(date +%Y-%m-%d).png"
+bg_dir="$pic_dir/bg"
+img_file="$bg_dir/$(date +%Y-%m-%d).png"
+mkdir -p "$bg_dir"
 
-wget -O "$img_file" "$img_url"
+fetch() {
+  img_url=$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')
+  wget -O "$img_file" "$img_url"
+}
+
+[ -e "$img_file" ] || fetch
 
 swaybg -i "$img_file"
