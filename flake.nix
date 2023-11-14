@@ -33,7 +33,6 @@
             ./sys/laptop
             ./modules/dnscrypt
             hosts.nixosModule
-            # ./modules/gaming
           ];
         };
       };
@@ -41,10 +40,21 @@
         ivand = home-manager.lib.homeManagerConfiguration {
           modules = [
             ./home/ivand
+            ./modules/programs
+            ./modules/packages
           ];
           pkgs = import nixpkgs {
             inherit system;
             overlays = [ my-overlay ];
+          };
+        };
+        vid = home-manager.lib.homeManagerConfiguration {
+          modules = [
+            ./home/vid
+            ./modules/programs
+          ];
+          pkgs = import nixpkgs {
+            inherit system;
           };
         };
       };

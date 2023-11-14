@@ -1,7 +1,5 @@
 { pkgs, lib, ... }: {
 
-  imports = [ ./programs ./packages ];
-
   programs.home-manager = { enable = true; };
 
   home = {
@@ -38,6 +36,11 @@
         };
       };
     };
+  };
+
+  programs = {
+    nv.enable = true;
+    shell.enable = true;
   };
 
   xdg.configFile = {
