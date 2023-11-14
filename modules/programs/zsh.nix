@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  cfg = config.programs.nv;
+  cfg = config.programs.shell;
 in
 {
 
