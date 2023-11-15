@@ -17,7 +17,7 @@
 
   systemd.user = {
     timers = {
-      bingwp = {
+      rbingwp = {
         Timer = {
           OnCalendar = "*-*-* 10:00:00";
           Persistent = true;
@@ -35,6 +35,12 @@
             "WAYLAND_DISPLAY=wayland-1"
           ];
           ExecStart = [ "${pkgs.scripts}/bin/bingwp" ];
+        };
+      };
+      rbingwp = {
+        Service = {
+          Type = "oneshot";
+          ExecStart = [ "${pkgs.systemd}/bin/systemctl --user restart bingwp.service" ];
         };
       };
     };
