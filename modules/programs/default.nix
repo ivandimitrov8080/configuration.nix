@@ -1,53 +1,15 @@
-{ pkgs, ... }:
-let
-  lib = pkgs.lib;
-in
-{
-  imports = [ ./sway ./tmux.nix ./zsh.nix ./lf ];
+{ system, pkgs, ide, ... }: {
 
-  programs = {
-    thunderbird = {
-      enable = true;
-      profiles = { ivan = { isDefault = true; }; };
-    };
-    chromium = {
-      enable = true;
-      package = pkgs.ungoogled-chromium;
-    };
-    swaylock = {
-      enable = true;
-      settings = {
-        color = "000000";
-        line-color = "ffffff";
-        show-failed-attempts = true;
-      };
-    };
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
-    };
-    kitty = {
-      enable = true;
-      settings = {
-        enable_tab_bar = false;
-        background_opacity = "0.96";
-        cursor_shape = "beam";
-      };
-    };
-    git = {
-      enable = true;
-      userName = "Ivan Dimitrov";
-      userEmail = "ivan@idimitrov.dev";
-      extraConfig = {
-        color.ui = "auto";
-        pull.rebase = true;
-      };
-    };
-    browserpass.enable = true;
-    newsboat = {
-      enable = true;
-      autoReload = true;
-      reloadTime = 1;
-    };
+  nvim = import ./neovim {
+    nvim = ide.homeManagerModules.${system}.nvim;
   };
+  git = import ./git;
+  chromium = import ./chromium { inherit pkgs; };
+  kitty = import ./kitty;
+  lf = import ./lf;
+  obs-studio = import ./obs-studio { inherit pkgs; };
+  swaylock = import ./swaylock;
+  tmux = import ./tmux { inherit pkgs; };
+  zsh = import ./zsh { inherit pkgs; };
+  sway = import ./sway { inherit pkgs; };
 }

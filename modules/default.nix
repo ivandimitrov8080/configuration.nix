@@ -1,10 +1,7 @@
-{ system, nixpkgs, pkgs, ide, my-overlay, ... }:
+{ system, nixpkgs, pkgs, ide, ... }:
 {
   gaming = import ./gaming { inherit nixpkgs; };
   dnscrypt = import ./dnscrypt;
   packages = import ./packages { inherit pkgs; };
-  programs = import ./programs { inherit pkgs; };
-  nvim = import ./programs/neovim {
-    nvim = ide.homeManagerModules.${system}.nvim;
-  };
+  programs = import ./programs { inherit system pkgs ide; };
 }

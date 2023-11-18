@@ -14,7 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
   outputs = { self, nixpkgs, home-manager, hosts, ide, ... }:
     let
       system = "x86_64-linux";
@@ -43,5 +42,6 @@
         ivand = home.ivand;
         vid = home.vid;
       };
+      modules = modules;
     };
 }
