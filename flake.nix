@@ -28,6 +28,13 @@
       my-overlay = self: super: {
         scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
       };
+      home = import ./home/default.nix
+        {
+          inherit system nixpkgs my-overlay home-manager ide;
+          modules = import ./modules {
+            inherit system nixpkgs ide my-overlay;
+          };
+        };
     in
     {
       nixosConfigurations = {
@@ -42,32 +49,8 @@
         };
       };
       homeConfigurations = {
-        ivand = home-manager.lib.homeManagerConfiguration {
-          modules = [
-            ./home/ivand
-            ./modules/programs
-            ./modules/packages
-            (
-              import ./modules/programs/neovim
-                {
-                  nvim = ide.homeManagerModules.${system}.nvim;
-                }
-            )
-          ];
-          pkgs = import nixpkgs {
-            inherit system;
-            overlays = [ my-overlay ];
-          };
-        };
-        vid = home-manager.lib.homeManagerConfiguration {
-          modules = [
-            ./home/vid
-            ./modules/programs
-          ];
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-        };
+        ivand = home.ivand;
+        vid = home.vid;
       };
     };
 }

@@ -46,11 +46,6 @@
     };
   };
 
-  programs = {
-    shell.enable = true;
-    common.enable = true;
-  };
-
   xdg.configFile = {
     "user-dirs.dirs" = {
       text = ''
