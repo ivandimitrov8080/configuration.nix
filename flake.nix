@@ -15,14 +15,7 @@
     };
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , hosts
-    , ide
-    , ...
-    }:
+  outputs = { self, nixpkgs, home-manager, hosts, ide, ... }:
     let
       system = "x86_64-linux";
       my-overlay = self: super: {
@@ -33,7 +26,7 @@
         overlays = [ my-overlay ];
       };
       modules = import ./modules {
-        inherit system pkgs ide my-overlay;
+        inherit system nixpkgs pkgs ide my-overlay;
       };
       home = import ./home {
         inherit system pkgs modules home-manager;

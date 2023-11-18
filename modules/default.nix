@@ -1,6 +1,6 @@
-{ system, pkgs, ide, my-overlay, ... }:
+{ system, nixpkgs, pkgs, ide, my-overlay, ... }:
 {
-  gaming = import ./gaming { };
+  gaming = import ./gaming { inherit nixpkgs; };
   dnscrypt = import ./dnscrypt;
   packages = import ./packages { inherit pkgs; };
   programs = import ./programs { inherit pkgs; };

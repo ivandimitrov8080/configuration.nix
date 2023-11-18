@@ -5,6 +5,7 @@
       ../hardware-configuration.nix
       ./laptop
       modules.dnscrypt
+      # modules.gaming
       hosts.nixosModule
     ];
   };
