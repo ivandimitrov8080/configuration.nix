@@ -28,13 +28,16 @@
       my-overlay = self: super: {
         scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
       };
-      home = import ./home/default.nix
-        {
-          inherit system nixpkgs my-overlay home-manager ide;
-          modules = import ./modules {
-            inherit system nixpkgs ide my-overlay;
-          };
-        };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ my-overlay ];
+      };
+      modules = import ./modules {
+        inherit system pkgs ide my-overlay;
+      };
+      home = import ./home {
+        inherit system pkgs modules home-manager;
+      };
     in
     {
       nixosConfigurations = {

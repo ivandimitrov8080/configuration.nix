@@ -1,7 +1,4 @@
-{ system, nixpkgs, ide, my-overlay, ... }:
-let
-  pkgs = import nixpkgs { inherit system; overlays = [ my-overlay ]; };
-in
+{ system, pkgs, ide, my-overlay, ... }:
 {
   gaming = import ./gaming { };
   dnscrypt = import ./dnscrypt { };
