@@ -9,6 +9,10 @@
       url = "github:StevenBlack/hosts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ide = {
+      url = "github:ivandimitrov8080/xin-ide";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -16,6 +20,7 @@
     , nixpkgs
     , home-manager
     , hosts
+    , ide
     , ...
     }:
     let
@@ -42,6 +47,12 @@
             ./home/ivand
             ./modules/programs
             ./modules/packages
+            (
+              import ./modules/programs/neovim
+                {
+                  nvim = ide.homeManagerModules.${system}.nvim;
+                }
+            )
           ];
           pkgs = import nixpkgs {
             inherit system;

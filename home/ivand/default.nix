@@ -47,7 +47,6 @@
   };
 
   programs = {
-    nv.enable = true;
     shell.enable = true;
     common.enable = true;
   };

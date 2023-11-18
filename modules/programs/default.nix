@@ -3,7 +3,7 @@ let
   cfg = config.programs.common;
 in
 {
-  imports = [ ./neovim ./neomutt ./sway ./tmux.nix ./zsh.nix ./lf ];
+  imports = [ ./sway ./tmux.nix ./zsh.nix ./lf ];
 
   options.programs.common = {
     enable = lib.mkEnableOption "common";
