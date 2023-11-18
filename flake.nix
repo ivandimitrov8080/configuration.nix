@@ -38,18 +38,13 @@
       home = import ./home {
         inherit system pkgs modules home-manager;
       };
+      nixos = import ./nixos {
+        inherit system nixpkgs modules hosts;
+      };
     in
     {
       nixosConfigurations = {
-        laptop = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./hardware-configuration.nix
-            ./sys/laptop
-            ./modules/dnscrypt
-            hosts.nixosModule
-          ];
-        };
+        laptop = nixos.laptop;
       };
       homeConfigurations = {
         ivand = home.ivand;

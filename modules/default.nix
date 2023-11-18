@@ -1,7 +1,7 @@
 { system, pkgs, ide, my-overlay, ... }:
 {
   gaming = import ./gaming { };
-  dnscrypt = import ./dnscrypt { };
+  dnscrypt = import ./dnscrypt;
   packages = import ./packages { inherit pkgs; };
   programs = import ./programs { inherit pkgs; };
   nvim = import ./programs/neovim {

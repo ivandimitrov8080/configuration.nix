@@ -7,9 +7,5 @@
       "$HOME/.local/bin"
     ];
   };
-  programs = {
-    nv.enable = true;
-    shell.enable = true;
-  };
 }
 
