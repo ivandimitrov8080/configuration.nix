@@ -173,13 +173,13 @@
         "lastModified": 1700289697,
         "narHash": "sha256-/erb3yK7dVsqnZ8ehcpmHeWTm6f0hdoBcBNtbYQTwpQ=",
         "owner": "ivandimitrov8080",
-        "repo": "xin-ide",
+        "repo": "flake-ide",
         "rev": "907a557f480e1311e5ee6b38b94a0d2cb0cd3d2f",
         "type": "github"
       },
       "original": {
         "owner": "ivandimitrov8080",
-        "repo": "xin-ide",
+        "repo": "flake-ide",
         "type": "github"
       }
     },
