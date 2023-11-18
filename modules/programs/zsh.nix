@@ -30,6 +30,7 @@ in
         dev = "nix develop --command $SHELL";
         la = "ls -alh";
         torrent = "transmission-remote";
+        vi = "nvim";
       };
       history = {
         expireDuplicatesFirst = true;
