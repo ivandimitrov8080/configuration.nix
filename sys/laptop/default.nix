@@ -66,7 +66,7 @@
       openssl
       libgccjit
       mlocate
-      tealdeer
+      tldr
       unzip
       vim
       wget
