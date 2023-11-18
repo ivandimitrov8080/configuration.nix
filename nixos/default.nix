@@ -4,9 +4,9 @@
     modules = [
       ../hardware-configuration.nix
       ./laptop
-      # modules.dnscrypt
-      modules.wireguard
-      modules.gaming
+      modules.dnscrypt
+      # modules.wireguard
+      # modules.gaming
       hosts.nixosModule
     ];
   };
