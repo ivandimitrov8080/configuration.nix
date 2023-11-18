@@ -1,16 +1,16 @@
 { nixpkgs, ... }:
 {
   # Uses unfree shit
-  # nixpkgs.config.allowUnfreePredicate = pkg:
-  #   builtins.elem (nixpkgs.lib.getName pkg) [
-  #     "nvidia-settings"
-  #     "nvidia-x11"
-  #     "nvidia-persistenced"
-  #     "steam"
-  #     "steamcmd"
-  #     "steam-original"
-  #     "steam-run"
-  #   ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (nixpkgs.lib.getName pkg) [
+      "nvidia-settings"
+      "nvidia-x11"
+      "nvidia-persistenced"
+      "steam"
+      "steamcmd"
+      "steam-original"
+      "steam-run"
+    ];
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
