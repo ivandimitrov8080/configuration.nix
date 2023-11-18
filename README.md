@@ -1,8 +1,6 @@
 # My personal nixos config.
 
----
-
-# Usage
+### Usage
 
 To build the base system for my craptop:
 
