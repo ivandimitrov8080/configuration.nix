@@ -5,8 +5,6 @@
   };
   vid = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    modules = [
-      ./home/vid
-    ];
+    modules = with modules.programs; [ nvim zsh tmux ] ++ [ ./vid ];
   };
 }
