@@ -1,7 +1,7 @@
 { system, pkgs, ide, ... }: {
 
   nvim = import ./neovim {
-    nvim = ide.homeManagerModules.${system}.nvim;
+    nvim = ide.nvim.${system}.homeManagerModules.nvim;
   };
   git = import ./git;
   chromium = import ./chromium { inherit pkgs; };

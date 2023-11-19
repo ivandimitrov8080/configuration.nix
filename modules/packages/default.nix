@@ -19,6 +19,8 @@
     imv
     gnome.cheese
     pavucontrol
+    libsForQt5.kdenlive
+    glaxnimate
     # cli utils
     ripgrep
     bat
