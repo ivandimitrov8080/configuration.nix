@@ -55,6 +55,7 @@
       file
       cmatrix
       coreutils-full
+      dig
       moreutils
       fd
       git
