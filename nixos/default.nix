@@ -5,8 +5,9 @@
       ../hardware-configuration.nix
       ./laptop
       modules.dnscrypt
+      modules.gaming
       # modules.wireguard
-      # modules.gaming
+      # modules.nvidia
       hosts.nixosModule
     ];
   };
