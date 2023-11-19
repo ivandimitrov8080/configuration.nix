@@ -18,16 +18,18 @@
     mpv
     imv
     gnome.cheese
+    pavucontrol
     # cli utils
-    shell_gpt
     ripgrep
+    bat
+    bottom
+    procs
+    lolcat
+    shell_gpt
     mupdf
     gopass
-    pavucontrol
-    bat
     transmission
     yewtube
-    lolcat
     ffmpeg
     # AI
     ollama
