@@ -14,7 +14,7 @@
       compress = "ffmpeg -vcodec libx265 -crf 28 compressed.mp4 -i";
       cal = "cal $(date +%Y)";
       ssh = "TERM=xterm-256color ssh";
-      GG = "git add . && git commit -m 'GG' && git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)";
+      GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
       gad = "git add . && git diff --cached";
       gac = "ga && gc";
       gach = "gac -C HEAD";
