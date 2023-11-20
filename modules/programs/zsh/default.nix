@@ -11,7 +11,6 @@
       PASSWORD_STORE_DIR = "$HOME/.password-store";
     };
     shellAliases = {
-      compress = "ffmpeg -vcodec libx265 -crf 28 compressed.mp4 -i";
       cal = "cal $(date +%Y)";
       ssh = "TERM=xterm-256color ssh";
       GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
@@ -24,6 +23,9 @@
       la = "ls -alh";
       torrent = "transmission-remote";
       vi = "nvim";
+    };
+    shellGlobalAliases = {
+      comp = "-vcodec libx265 -crf 28";
     };
     history = {
       expireDuplicatesFirst = true;
