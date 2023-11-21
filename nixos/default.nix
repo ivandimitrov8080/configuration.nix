@@ -1,13 +1,13 @@
 { system, nixpkgs, modules, hosts }: {
   laptop = nixpkgs.lib.nixosSystem {
     inherit system;
-    modules = [
+    modules = with modules.nixos;[
       ../hardware-configuration.nix
       ./laptop
-      modules.dnscrypt
-      # modules.gaming
-      # modules.wireguard
-      # modules.nvidia
+      dnscrypt
+      # gaming
+      # wireguard
+      # nvidia
       hosts.nixosModule
     ];
   };

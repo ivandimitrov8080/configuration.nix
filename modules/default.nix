@@ -1,9 +1,13 @@
 { system, nixpkgs, pkgs, ide, ... }:
 {
-  gaming = import ./gaming { inherit nixpkgs; };
-  nvidia = import ./nvidia { inherit nixpkgs; };
-  dnscrypt = import ./dnscrypt;
-  wireguard = import ./wireguard;
-  packages = import ./packages { inherit pkgs; };
-  programs = import ./programs { inherit system pkgs ide; };
+  nixos = {
+    gaming = import ./nixos/gaming { inherit nixpkgs; };
+    nvidia = import ./nixos/nvidia { inherit nixpkgs; };
+    dnscrypt = import ./nixos/dnscrypt;
+    wireguard = import ./nixos/wireguard;
+  };
+  home = {
+    packages = import ./home/packages { inherit pkgs; };
+    programs = import ./home/programs { inherit system pkgs ide; };
+  };
 }
