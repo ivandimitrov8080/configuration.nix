@@ -1,10 +1,12 @@
-{ system, pkgs, home-manager, modules, ... }: {
+{ system, pkgs, home-manager, modules, ... }:
+with modules.home;
+{
   ivand = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    modules = with modules.home.programs; [ nvim zsh tmux git chromium kitty lf obs-studio sway swaylock browserpass ] ++ [ ./ivand modules.home.packages ];
+    modules = with programs; [ ./ivand packages nvim zsh tmux git chromium kitty lf obs-studio sway swaylock browserpass ];
   };
   vid = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    modules = with modules.home.programs; [ nvim zsh tmux ] ++ [ ./vid ];
+    modules = with programs; [ ./vid nvim zsh tmux ];
   };
 }
