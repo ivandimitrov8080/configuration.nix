@@ -75,6 +75,7 @@
       pinentry-qt
       ntfs3g
       wf-recorder
+      srm
       # int
       python311
       nodejs_20
