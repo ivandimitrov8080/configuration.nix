@@ -8,5 +8,6 @@
     glaxnimate
     transmission
     yewtube
+    audacity
   ];
 }
