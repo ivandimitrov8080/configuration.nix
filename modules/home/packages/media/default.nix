@@ -3,7 +3,6 @@
     gimp
     gnome.cheese
     pavucontrol
-    fluent-reader
     libsForQt5.kdenlive
     glaxnimate
     transmission
