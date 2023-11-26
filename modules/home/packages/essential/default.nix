@@ -13,7 +13,6 @@
     imv
     ripgrep
     bat
-    bottom
     procs
     mupdf
     gopass

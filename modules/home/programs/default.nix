@@ -13,4 +13,5 @@
   zsh = import ./zsh { inherit pkgs; };
   browserpass = { programs.browserpass.enable = true; };
   sway = import ./sway { inherit pkgs; };
+  bottom = import ./bottom;
 }
