@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }: rec {
 
   programs.home-manager = { enable = true; };
 
@@ -46,14 +46,18 @@
     };
   };
 
-  xdg.configFile = {
-    "user-dirs.dirs" = {
-      text = ''
-        XDG_DOWNLOAD_DIR="$HOME/dl"
-        XDG_DOCUMENTS_DIR="$HOME/doc"
-        XDG_PICTURES_DIR="$HOME/pic"
-        XDG_VIDEOS_DIR="$HOME/vid"
-      '';
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      desktop = "${home.homeDirectory}/dt";
+      documents = "${home.homeDirectory}/doc";
+      download = "${home.homeDirectory}/dl";
+      pictures = "${home.homeDirectory}/pic";
+      videos = "${home.homeDirectory}/vid";
+      templates = "${home.homeDirectory}/templates";
+      publicShare = "${home.homeDirectory}/pub";
+      music = "${home.homeDirectory}/mus";
     };
   };
 }
