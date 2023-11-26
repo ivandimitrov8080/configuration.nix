@@ -5,6 +5,7 @@
   };
   git = import ./git;
   chromium = import ./chromium { inherit pkgs; };
+  firefox = import ./firefox { inherit pkgs; };
   kitty = import ./kitty;
   lf = import ./lf;
   obs-studio = import ./obs-studio { inherit pkgs; };

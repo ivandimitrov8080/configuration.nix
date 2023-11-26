@@ -62,11 +62,11 @@
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "text/html" = "firefox-developer-edition.desktop";
-        "x-scheme-handler/http" = "firefox-developer-edition.desktop";
-        "x-scheme-handler/https" = "firefox-developer-edition.desktop";
-        "x-scheme-handler/about" = "firefox-developer-edition.desktop";
-        "x-scheme-handler/unknown" = "firefox-developer-edition.desktop";
+        "text/html" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "x-scheme-handler/about" = "firefox.desktop";
+        "x-scheme-handler/unknown" = "firefox.desktop";
         "x-scheme-handler/mailto" = "userapp-Thunderbird-LDALA2.desktop";
         "message/rfc822" = "userapp-Thunderbird-LDALA2.desktop";
         "x-scheme-handler/mid" = "userapp-Thunderbird-LDALA2.desktop";
