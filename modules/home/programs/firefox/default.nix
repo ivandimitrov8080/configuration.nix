@@ -14,17 +14,17 @@
         work = {
           color = "blue";
           icon = "briefcase";
-          id = 2;
+          id = 1;
         };
-        yt = {
+        vid = {
           color = "red";
           icon = "circle";
-          id = 3;
+          id = 2;
         };
-        testing = {
+        localhost = {
           color = "turquoise";
-          icon = "fruit";
-          id = 4;
+          icon = "dollar";
+          id = 3;
         };
       };
       settings = {
