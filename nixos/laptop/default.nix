@@ -109,6 +109,7 @@
     };
     zsh.enable = true;
     nix-ld.enable = true;
+    wshowkeys.enable = true;
   };
 
   users = {
