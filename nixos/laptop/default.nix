@@ -98,7 +98,7 @@
       enable = true;
       blockFakenews = true;
       blockGambling = true;
-      # blockSocial = true;
+      blockSocial = true;
     };
   };
 
