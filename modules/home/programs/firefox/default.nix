@@ -31,6 +31,7 @@
         "general.smoothScroll" = true;
         "signon.rememberSignons" = false;
         "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        "layout.frame_rate" = 120;
       };
     };
     policies = {
