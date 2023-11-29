@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ssh -n vpsfree-root 'cat /var/log/nginx/access.log' | goaccess --datetime-format='%d/%b/%Y:%H:%M:%S %z' --log-format='COMBINED'
