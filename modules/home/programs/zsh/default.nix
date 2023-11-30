@@ -9,6 +9,7 @@
     '';
     sessionVariables = {
       PASSWORD_STORE_DIR = "$HOME/.password-store";
+      PAGER = "bat";
     };
     shellAliases = {
       cal = "cal $(date +%Y)";
