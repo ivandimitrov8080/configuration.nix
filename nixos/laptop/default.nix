@@ -70,7 +70,6 @@
       nodejs_20
       ntfs3g
       openssl
-      pinentry-qt
       python311
       srm
       tealdeer
@@ -103,7 +102,7 @@
   programs = {
     gnupg.agent = {
       enable = true;
-      enableSSHSupport = true;
+      pinentryFlavor = "curses";
     };
     zsh.enable = true;
     nix-ld.enable = true;
