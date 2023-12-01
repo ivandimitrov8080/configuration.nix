@@ -100,10 +100,6 @@
   };
 
   programs = {
-    gnupg.agent = {
-      enable = true;
-      pinentryFlavor = "curses";
-    };
     zsh.enable = true;
     nix-ld.enable = true;
     wshowkeys.enable = true;

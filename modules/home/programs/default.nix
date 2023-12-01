@@ -4,6 +4,7 @@
     nvim = ide.nvim.${system}.homeManagerModules.nvim;
   };
   git = import ./git;
+  gpg = import ./gpg { inherit pkgs; };
   chromium = import ./chromium { inherit pkgs; };
   firefox = import ./firefox { inherit pkgs; };
   kitty = import ./kitty;
