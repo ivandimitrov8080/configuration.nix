@@ -48,39 +48,37 @@
 
   environment = {
     systemPackages = with pkgs; [
-      #nix
-      nix-prefetch-github
-      #
       binutils
+      bun
       busybox
-      file
       cmatrix
       coreutils-full
+      cryptsetup
       dig
-      moreutils
       fd
+      file
+      gcc13
       git
       glibc
-      gcc13
       gnumake
       home-manager
       jq
-      openssl
       libgccjit
       mlocate
+      moreutils
+      nix-prefetch-github
+      nodejs_20
+      ntfs3g
+      openssl
+      pinentry-qt
+      python311
+      srm
       tealdeer
       unzip
       vim
+      wf-recorder
       wget
       zip
-      pinentry-qt
-      ntfs3g
-      wf-recorder
-      srm
-      # int
-      python311
-      nodejs_20
-      bun
     ];
     variables = {
       EDITOR = "nvim";
