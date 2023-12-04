@@ -139,6 +139,7 @@
     dbus.enable = true;
     flatpak.enable = true;
     ratbagd.enable = true;
+    postgresql.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
