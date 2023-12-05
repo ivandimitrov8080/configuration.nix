@@ -7,7 +7,7 @@
   gpg = import ./gpg { inherit pkgs; };
   chromium = import ./chromium { inherit pkgs; };
   firefox = import ./firefox { inherit pkgs; };
-  kitty = import ./kitty;
+  kitty = import ./kitty { inherit pkgs; };
   lf = import ./lf;
   obs-studio = import ./obs-studio { inherit pkgs; };
   swaylock = import ./swaylock;
