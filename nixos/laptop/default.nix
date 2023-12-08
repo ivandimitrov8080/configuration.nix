@@ -140,6 +140,10 @@
     flatpak.enable = true;
     ratbagd.enable = true;
     postgresql.enable = true;
+    i2pd = {
+      enable = true;
+      proto.httpProxy.enable = true;
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
