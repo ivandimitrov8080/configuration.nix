@@ -1,7 +1,7 @@
 { system, nixpkgs, modules, hosts }: {
   laptop = nixpkgs.lib.nixosSystem {
     inherit system;
-    modules = with modules.nixos;[
+    modules = with modules.nixos; [
       ../hardware-configuration.nix
       ./laptop
       dnscrypt
