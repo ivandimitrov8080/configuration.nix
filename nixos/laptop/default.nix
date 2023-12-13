@@ -50,7 +50,7 @@
     systemPackages = with pkgs; [
       binutils
       bun
-      busybox
+      toybox
       cmatrix
       coreutils-full
       cryptsetup
