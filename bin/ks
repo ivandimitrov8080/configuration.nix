@@ -3,14 +3,21 @@
 doc_dir=$(xdg-user-dir DOCUMENTS)
 ks_dir="$doc_dir/ks"
 name="$1"
-full_path="$ks_dir/$name.md"
+full_path="$ks_dir/$name.md.gpg"
+tmpfile="/tmp/$name.md"
 
 mkdir -p "$ks_dir"
-
-touch "$full_path"
-
 cd "$ks_dir"
-$EDITOR "$full_path"
 
-git commit -a -m "editing $name" && git push --set-upstream origin HEAD
+if [ -f "$full_path" ]; then
+  gpg --decrypt -o "$tmpfile" "$full_path"
+else
+  touch "$tmpfile"
+fi
+
+$EDITOR "$tmpfile"
+
+gpg --encrypt -r ivan@idimitrov.dev -o "$full_path" "$tmpfile"
+
+git add . && git commit -m "editing $name" && git push --set-upstream origin HEAD
 
