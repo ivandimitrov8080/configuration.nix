@@ -19,4 +19,4 @@ $EDITOR "$tmpfile"
 
 gpg --encrypt -r ivan@idimitrov.dev -o "$full_path" "$tmpfile"
 
-git add . && git commit -m "editing $name" && git remote | xargs -L1 git push --all
+git add . && git commit -m "editing $name" && git push --set-upstream origin HEAD
