@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+doc_dir=$(xdg-user-dir DOCUMENTS)
+ks_dir="$doc_dir/ks"
+name="$1"
+full_path="$ks_dir/$name.md"
+
+mkdir -p "$ks_dir"
+
+touch "$full_path"
+
+cd "$ks_dir"
+$EDITOR "$full_path"
+
