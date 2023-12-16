@@ -12,3 +12,5 @@ touch "$full_path"
 cd "$ks_dir"
 $EDITOR "$full_path"
 
+git commit -a -m "editing $name" && git push --set-upstream origin HEAD
+
