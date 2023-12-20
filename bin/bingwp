@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-pic_dir="$(xdg-user-dir "PICTURES")"
-bg_dir="$pic_dir/bg"
+bg_dir="$(xdg-user-dir "PICTURES")/bg"
 img_file="$bg_dir/$(date +%Y-%m-%d).png"
 mkdir -p "$bg_dir"
 
 fetch() {
-  img_url=$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')
+  img_url="$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')"
   wget -O "$img_file" "$img_url"
 }
 
