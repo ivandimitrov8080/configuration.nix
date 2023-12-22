@@ -55,7 +55,7 @@
       download = "${home.homeDirectory}/dl";
       pictures = "${home.homeDirectory}/pic";
       videos = "${home.homeDirectory}/vid";
-      templates = "${home.homeDirectory}/templates";
+      templates = "${home.homeDirectory}/tpl";
       publicShare = "${home.homeDirectory}/pub";
       music = "${home.homeDirectory}/mus";
     };
