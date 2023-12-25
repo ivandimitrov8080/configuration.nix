@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cd "$HOME"
+
+rm -rf .visualvm .bin .npm .cache .cargo .librewolf .mupdf.history .ollama .psql_history .python_history .sbt .tldrc .zcompdump .viminfo .wireguard
