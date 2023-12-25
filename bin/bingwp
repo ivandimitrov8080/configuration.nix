@@ -4,11 +4,19 @@ bg_dir="$(xdg-user-dir "PICTURES")/bg"
 img_file="$bg_dir/$(date +%Y-%m-%d).png"
 mkdir -p "$bg_dir"
 
+isNew() {
+  if (( 10 <= 10#$(date +%H) )) && [[ ! -e "$img_file" ]]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 fetch() {
-  img_url="$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')"
+  img_url="$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&n=1" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')"
   wget -O "$img_file" "$img_url"
 }
 
-[ -e "$img_file" ] || fetch
+isNew && fetch
 
 swaybg -i "$img_file"
