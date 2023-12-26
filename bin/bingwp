@@ -8,6 +8,7 @@ isNew() {
   if (( 10 <= 10#$(date +%H) )) && [[ ! -e "$img_file" ]]; then
     return 0
   else
+    img_file="$bg_dir/$(date -d 'now - 1 days' +%Y-%m-%d).png"
     return 1
   fi
 }
