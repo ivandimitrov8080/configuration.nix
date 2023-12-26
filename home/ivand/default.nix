@@ -31,7 +31,7 @@
       bingwp = {
         Service = {
           Environment = [
-            "PATH=${pkgs.coreutils-full}/bin:${pkgs.curl}/bin:${pkgs.wget}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.jq}/bin:${pkgs.bash}/bin:${pkgs.swaybg}/bin"
+            "PATH=${pkgs.curl}/bin:${pkgs.jq}/bin:${pkgs.gnused}/bin:${pkgs.gawk}/bin:${pkgs.coreutils-full}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.bash}/bin:${pkgs.swaybg}/bin"
             "WAYLAND_DISPLAY=wayland-1"
           ];
           ExecStart = [ "${pkgs.scripts}/bin/bingwp" ];
