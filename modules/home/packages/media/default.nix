@@ -8,5 +8,6 @@
     transmission
     yewtube
     audacity
+    xonotic
   ];
 }
