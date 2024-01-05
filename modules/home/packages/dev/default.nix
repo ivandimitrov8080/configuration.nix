@@ -6,5 +6,6 @@
     woeusb
     ollama
     goaccess
+    comma
   ];
 }
