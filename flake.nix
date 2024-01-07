@@ -13,8 +13,12 @@
       url = "github:ivandimitrov8080/flake-ide";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nid = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, home-manager, hosts, ide, ... }:
+  outputs = { self, nixpkgs, home-manager, hosts, ide, nid, ... }:
     let
       system = "x86_64-linux";
       my-overlay = self: super: {
@@ -28,7 +32,7 @@
         inherit system nixpkgs pkgs ide my-overlay;
       };
       home = import ./home {
-        inherit system pkgs modules home-manager;
+        inherit system pkgs modules home-manager nid;
       };
       nixos = import ./nixos {
         inherit system nixpkgs modules hosts;

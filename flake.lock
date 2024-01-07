@@ -185,6 +185,26 @@
         "type": "github"
       }
     },
+    "nid": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1704596958,
+        "narHash": "sha256-BK3Ohsz7m8X6qVKFxDtr8KVcHipfr5hYE9PDIJevHbQ=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "f46800ac5a6e9f892fe36e50821c5d85794ecc62",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -281,6 +301,7 @@
         "home-manager": "home-manager",
         "hosts": "hosts",
         "ide": "ide",
+        "nid": "nid",
         "nixpkgs": "nixpkgs"
       }
     },
