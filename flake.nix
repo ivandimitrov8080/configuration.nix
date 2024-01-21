@@ -44,7 +44,6 @@
       };
       homeConfigurations = {
         ivand = home.ivand;
-        vid = home.vid;
       };
       modules = modules;
     };
