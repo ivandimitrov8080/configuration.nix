@@ -6,7 +6,7 @@
       ./laptop
       dnscrypt
       # gaming
-      # wireguard
+      wireguard
       # nvidia
       hosts.nixosModule
     ];
