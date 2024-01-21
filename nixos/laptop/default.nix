@@ -42,7 +42,7 @@
     };
   };
 
-  time.timeZone = "Europe/Sofia";
+  time.timeZone = "Europe/Dublin";
 
   fonts.packages = with pkgs; [ nerdfonts noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
 
