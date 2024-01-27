@@ -102,6 +102,7 @@
     zsh.enable = true;
     nix-ld.enable = true;
     wshowkeys.enable = true;
+    adb.enable = true;
   };
 
   users = {
@@ -110,16 +111,17 @@
       ivand = {
         isNormalUser = true;
         extraGroups = [
-          "wheel"
+          "adbusers"
           "adm"
           "audio"
-          "video"
-          "kvm"
-          "render"
-          "flatpak"
           "bluetooth"
-          "mlocate"
           "dialout"
+          "flatpak"
+          "kvm"
+          "mlocate"
+          "render"
+          "video"
+          "wheel"
         ];
       };
       vid = {
