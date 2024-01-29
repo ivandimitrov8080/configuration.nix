@@ -7,5 +7,11 @@
       color.ui = "auto";
       pull.rebase = true;
     };
+    aliases = {
+      a = "add .";
+      c = "commit";
+      d = "diff --cached";
+      p = "push";
+    };
   };
 }
