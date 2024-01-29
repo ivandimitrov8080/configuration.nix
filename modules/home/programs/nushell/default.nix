@@ -34,10 +34,6 @@
         )
       '';
     };
-    carapace = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
     starship = {
       enable = true;
       enableNushellIntegration = true;
