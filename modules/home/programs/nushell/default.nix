@@ -28,6 +28,9 @@
         append /usr/bin/env
         )
       '';
+      sessionVariables = {
+        PASSWORD_STORE_DIR = "$HOME/.password-store";
+      };
       shellAliases = {
         gcal = ''
           bash -c "cal $(date +%Y)"
