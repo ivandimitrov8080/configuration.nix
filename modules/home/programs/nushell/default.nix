@@ -2,6 +2,24 @@
   programs = {
     nushell = {
       enable = true;
+      environmentVariables = {
+        PASSWORD_STORE_DIR = "([$env.HOME, '.password-store'] | str join '/')";
+      };
+      shellAliases = {
+        gcal = ''
+          bash -c "cal $(date +%Y)"
+        '';
+        la = "ls -al";
+        ssh = "TERM=xterm-256color ssh";
+        dev = "nix develop --command $env.SHELL";
+        torrent = "transmission-remote";
+        vi = "nvim";
+      };
+      loginFile.text = ''
+        if (tty) == "/dev/tty1" {
+          sway
+        }
+      '';
       extraConfig = ''
         let carapace_completer = {|spans|
         carapace $spans.0 nushell $spans | from json
@@ -9,37 +27,17 @@
         $env.config = {
          show_banner: false,
          completions: {
-         case_sensitive: false # case-sensitive completions
-         quick: true    # set to false to prevent auto-selecting completions
-         partial: true    # set to false to prevent partial filling of the prompt
-         algorithm: "fuzzy"    # prefix or fuzzy
+         quick: true
+         partial: true
+         algorithm: "fuzzy"
          external: {
-         # set to false to prevent nushell looking into $env.PATH to find more suggestions
              enable: true 
-         # set to lower can improve completion performance at the cost of omitting some options
              max_results: 100 
-             completer: $carapace_completer # check 'carapace_completer' 
+             completer: $carapace_completer
            }
          }
-        } 
-        $env.PATH = ($env.PATH | 
-        split row (char esep) |
-        prepend /home/myuser/.apps |
-        append /usr/bin/env
-        )
+        }
       '';
-      sessionVariables = {
-        PASSWORD_STORE_DIR = "$HOME/.password-store";
-      };
-      shellAliases = {
-        gcal = ''
-          bash -c "cal $(date +%Y)"
-        '';
-        ssh = "TERM=xterm-256color ssh";
-        dev = "nix develop --command $env.SHELL";
-        torrent = "transmission-remote";
-        vi = "nvim";
-      };
     };
     carapace = {
       enable = true;
@@ -47,6 +45,7 @@
     };
     starship = {
       enable = true;
+      enableNushellIntegration = true;
       settings = {
         add_newline = true;
         character = {
