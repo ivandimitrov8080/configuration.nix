@@ -14,6 +14,7 @@
         dev = "nix develop --command $env.SHELL";
         torrent = "transmission-remote";
         vi = "nvim";
+        sc = "systemctl";
       };
       loginFile.text = ''
         if (tty) == "/dev/tty1" {
