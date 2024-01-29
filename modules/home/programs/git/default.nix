@@ -6,6 +6,7 @@
     extraConfig = {
       color.ui = "auto";
       pull.rebase = true;
+      push.autoSetupRemote = true;
     };
     aliases = {
       a = "add .";
