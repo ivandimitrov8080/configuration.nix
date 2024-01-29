@@ -37,6 +37,9 @@
            }
          }
         }
+        $env.PATH = ($env.PATH | split row (char esep) |
+          append ([$env.HOME, '.local', 'bin'] | str join '/')
+        )
       '';
     };
     carapace = {
