@@ -28,6 +28,15 @@
         append /usr/bin/env
         )
       '';
+      shellAliases = {
+        gcal = ''
+          bash -c "cal $(date +%Y)"
+        '';
+        ssh = "TERM=xterm-256color ssh";
+        dev = "nix develop --command $env.SHELL";
+        torrent = "transmission-remote";
+        vi = "nvim";
+      };
     };
     carapace = {
       enable = true;
