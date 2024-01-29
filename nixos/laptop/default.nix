@@ -124,13 +124,6 @@
           "wheel"
         ];
       };
-      vid = {
-        isNormalUser = true;
-        extraGroups = [
-          "video"
-          "mlocate"
-        ];
-      };
     };
     extraGroups = { mlocate = { }; };
   };
