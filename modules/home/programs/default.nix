@@ -12,6 +12,7 @@
   gpg = import ./gpg { inherit pkgs; };
   kitty = import ./kitty { inherit pkgs; };
   lf = import ./lf;
+  nushell = import ./nushell;
   obs-studio = import ./obs-studio { inherit pkgs; };
   sway = import ./sway { inherit pkgs; };
   swaylock = import ./swaylock;
