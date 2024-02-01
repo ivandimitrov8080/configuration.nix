@@ -9,7 +9,7 @@ set $menu bemenu-run | xargs swaymsg exec --
 exec swaymsg "workspace 1; exec kitty"
 exec swaymsg "workspace 2; exec firefox"
 
-exec systemctl --user restart bingwp.service
+exec systemctl --user restart wpd.service
 
 # Start a terminal
 bindsym $mod+Return exec $term
