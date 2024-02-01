@@ -1,25 +1,33 @@
-#!/usr/bin/env bash
+#!/usr/bin/env nu
 
-bg_dir="$(xdg-user-dir "PICTURES")/bg"
-img_file="$bg_dir/$(date +%Y-%m-%d).png"
-mkdir -p "$bg_dir"
+let today = (date now | format date '%Y-%m-%d')
+let bg_dir = (xdg-user-dir PICTURES) | path join "bg"
+let today_img_file = $bg_dir | path join ([$today, ".png"] | str join)
+let is_new = ((date now | format date "%H" | into int) >= 10)
+mkdir $bg_dir
 
-isNew() {
-  if (( 10 <= 10#$(date +%H) )) && [[ ! -e "$img_file" ]]; then
-    return 0
-  elif [ ! -s "$img_file" ]; then
-    img_file="$bg_dir/$(date -d 'now - 1 days' +%Y-%m-%d).png"
-    return 1
-  else
-    return 1
-  fi
+def exists [file: path] {
+  return ($file | path exists)
 }
 
-fetch() {
-  img_url="$(curl "https://www.bing.com/HPImageArchive.aspx?format=js&n=1" | jq ".images[0].url" | sed "s/\"//g" | awk '{printf "https://bing.com%s", $1 }')"
-  curl "$img_url" > "$img_file"
+def is_empty [file: path] {
+  return ((exists $file) and ((ls $file | get size | first | into int) == 0))
 }
 
-isNew && fetch
+def fetch [] {
+  curl ("https://bing.com" + ((curl "https://www.bing.com/HPImageArchive.aspx?format=js&n=1" | from json).images.0.url)) --output $today_img_file
+}
 
-swaybg -i "$img_file"
+def cleanup [] {
+  if (is_empty $today_img_file) {
+    rm -rf $today_img_file
+  }
+}
+
+cleanup
+
+if $is_new and (not (exists $today_img_file)) {
+  fetch
+}
+
+cleanup

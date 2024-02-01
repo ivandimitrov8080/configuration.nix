@@ -28,11 +28,19 @@
       };
     };
     services = {
-      bingwp = {
+      wpd = {
         Service = {
           Environment = [
-            "PATH=${pkgs.curl}/bin:${pkgs.jq}/bin:${pkgs.gnused}/bin:${pkgs.gawk}/bin:${pkgs.coreutils-full}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.bash}/bin:${pkgs.swaybg}/bin"
-            "WAYLAND_DISPLAY=wayland-1"
+            "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin"
+          ];
+          ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i (ls ((xdg-user-dir PICTURES) | path join 'bg') | get name | last)'" ];
+        };
+      };
+      bingwp = {
+        Service = {
+          Type = "oneshot";
+          Environment = [
+            "PATH=${pkgs.curl}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin"
           ];
           ExecStart = [ "${pkgs.scripts}/bin/bingwp" ];
         };
@@ -40,7 +48,7 @@
       rbingwp = {
         Service = {
           Type = "oneshot";
-          ExecStart = [ "${pkgs.systemd}/bin/systemctl --user restart bingwp.service" ];
+          ExecStart = [ "${pkgs.nushell}/bin/nu -c '${pkgs.systemd}/bin/systemctl --user restart bingwp.service; ${pkgs.systemd}/bin/systemctl --user restart wpd.service'" ];
         };
       };
     };
