@@ -1,22 +1,23 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    bemenu
-    wl-clipboard
-    wayland
-    xwayland
-    mako
-    grim
-    slurp
-    brave
-    mpv
-    imv
-    ripgrep
     bat
-    procs
-    mupdf
-    gopass
+    bemenu
+    brave
     ffmpeg
-    xdg-utils
+    gopass
+    grim
+    imv
+    libnotify
+    mako
+    mpv
+    mupdf
+    procs
+    ripgrep
+    slurp
+    wayland
+    wl-clipboard
     xdg-user-dirs
+    xdg-utils
+    xwayland
   ];
 }
