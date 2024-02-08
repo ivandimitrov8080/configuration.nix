@@ -8,6 +8,7 @@
     grim
     imv
     libnotify
+    libreoffice-qt
     mako
     mpv
     mupdf
