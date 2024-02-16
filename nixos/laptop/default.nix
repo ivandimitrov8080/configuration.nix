@@ -48,6 +48,7 @@
 
   environment = {
     systemPackages = with pkgs; [
+      acpi
       binutils
       bun
       cmatrix
