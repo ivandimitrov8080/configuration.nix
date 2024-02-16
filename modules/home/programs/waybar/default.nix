@@ -11,10 +11,10 @@
           "HDMI-A-1"
         ];
         modules-left = [ "sway/workspaces" ];
-        modules-right = [ "battery" "clock" ];
+        modules-right = [ "memory" "battery" "clock" ];
 
         clock = {
-          format = "{:%a %x %H:%M:%S}";
+          format = "{:%a %Y-%m-%d %H:%M:%S}";
           interval = 1;
           timezones = [ "Europe/Sofia" "Europe/Prague" ];
         };
