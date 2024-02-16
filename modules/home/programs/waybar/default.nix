@@ -14,7 +14,7 @@
         modules-right = [ "battery" "clock" ];
 
         clock = {
-          format = "{:%H:%M:%S}";
+          format = "{:%a %x %H:%M:%S}";
           interval = 1;
           timezones = [ "Europe/Sofia" "Europe/Prague" ];
         };
