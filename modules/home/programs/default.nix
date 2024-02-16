@@ -17,5 +17,6 @@
   sway = import ./sway { inherit pkgs; };
   swaylock = import ./swaylock;
   tmux = import ./tmux { inherit pkgs; };
+  waybar = import ./waybar { inherit pkgs; };
   zsh = import ./zsh { inherit pkgs; };
 }
