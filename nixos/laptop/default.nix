@@ -135,6 +135,7 @@
     flatpak.enable = true;
     ratbagd.enable = true;
     postgresql.enable = true;
+    upower.enable = true;
     i2pd = {
       enable = true;
       proto.httpProxy.enable = true;
