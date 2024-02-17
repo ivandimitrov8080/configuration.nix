@@ -14,9 +14,13 @@
         modules-right = [ "memory" "battery" "clock" ];
 
         clock = {
-          format = "{:%a %Y-%m-%d %H:%M:%S}";
+          format = "{:%a %Y-%m-%d %H:%M:%S %Z}";
           interval = 1;
           timezones = [ "Europe/Sofia" "Europe/Prague" ];
+          actions = {
+            on-scroll-up = "tz_up";
+            on-scroll-down = "tz_down";
+          };
         };
 
         "sway/workspaces" = {
