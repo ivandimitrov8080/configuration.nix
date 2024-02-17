@@ -33,7 +33,7 @@
           Environment = [
             "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin"
           ];
-          ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i (ls ((xdg-user-dir PICTURES) | path join 'bg') | get name | last)'" ];
+          ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i ((xdg-user-dir PICTURES) | path join 'bg.png')'" ];
         };
       };
       bingwp = {

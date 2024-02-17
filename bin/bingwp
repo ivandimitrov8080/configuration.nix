@@ -1,8 +1,9 @@
 #!/usr/bin/env nu
 
 let today = (date now | format date '%Y-%m-%d')
-let bg_dir = (xdg-user-dir PICTURES) | path join "bg"
-let today_img_file = $bg_dir | path join ([$today, ".png"] | str join)
+let pic_dir = (xdg-user-dir PICTURES)
+let bg_dir = $pic_dir | path join "bg"
+let today_img_file = $bg_dir | path join ( [ $today, ".png" ] | str join )
 let is_new = ((date now | format date "%H" | into int) >= 10)
 mkdir $bg_dir
 
@@ -28,6 +29,7 @@ cleanup
 
 if $is_new and (not (exists $today_img_file)) {
   fetch
+  /run/current-system/sw/bin/ln -sf $today_img_file ( $pic_dir | path join "bg.png" )
 }
 
 cleanup
