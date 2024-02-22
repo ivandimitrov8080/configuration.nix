@@ -91,6 +91,14 @@
   };
 
   networking = {
+    wireless = {
+      enable = true;
+      networks = {
+        "Smart-Hostel-2.4" = {
+          psk = "smarttrans.bg";
+        };
+      };
+    };
     stevenBlackHosts = {
       enable = true;
       blockFakenews = true;
