@@ -5,5 +5,7 @@
   services.gpg-agent = {
     enable = true;
     enableZshIntegration = true;
+    enableNushellIntegration = true;
+    pinentryPackage = pkgs.pinentry-qt;
   };
 }
