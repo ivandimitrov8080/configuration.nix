@@ -3,7 +3,7 @@
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     loginExtra = ''
       [ "$(tty)" = "/dev/tty1" ] && exec sway
     '';
