@@ -16,6 +16,7 @@
   obs-studio = import ./obs-studio { inherit pkgs; };
   sway = import ./sway { inherit pkgs; };
   swaylock = import ./swaylock;
+  tealdeer = import ./tealdeer;
   tmux = import ./tmux { inherit pkgs; };
   waybar = import ./waybar { inherit pkgs; };
   zsh = import ./zsh { inherit pkgs; };

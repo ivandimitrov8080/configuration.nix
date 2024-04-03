@@ -72,7 +72,6 @@
       openssl
       python311
       srm
-      tealdeer
       unzip
       vim
       wf-recorder
