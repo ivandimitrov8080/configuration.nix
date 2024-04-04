@@ -40,7 +40,7 @@
         Service = {
           Type = "oneshot";
           Environment = [
-            "PATH=${pkgs.curl}/bin:${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin"
+            "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin"
           ];
           ExecStart = [ "${pkgs.scripts}/bin/bingwp" ];
         };

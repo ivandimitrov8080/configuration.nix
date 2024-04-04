@@ -16,7 +16,7 @@ def is_empty [file: path] {
 }
 
 def fetch [] {
-  curl ("https://bing.com" + ((curl "https://www.bing.com/HPImageArchive.aspx?format=js&n=1" | from json).images.0.url)) --output $today_img_file
+  http get ("https://bing.com" + ((http get https://www.bing.com/HPImageArchive.aspx?format=js&n=1).images.0.url)) | save $today_img_file
 }
 
 def cleanup [] {
