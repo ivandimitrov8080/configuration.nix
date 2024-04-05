@@ -4,7 +4,7 @@
     modules = with modules.nixos; [
       ../hardware-configuration.nix
       ./laptop
-      dnscrypt
+      # dnscrypt
       # gaming
       wireguard
       # nvidia
