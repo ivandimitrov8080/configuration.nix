@@ -5,13 +5,13 @@
 To build the base system for my craptop:
 
 ```bash
-sudo nixos-rebuild switch --flake github:ivandimitrov8080/config#laptop
+sudo nixos-rebuild switch --flake github:ivandimitrov8080/configuration.nix#laptop
 ```
 
 To build ivand home:
 
 ```bash
-home-manager switch --flake github:ivandimitrov8080/config#ivand
+home-manager switch --flake github:ivandimitrov8080/configuration.nix#ivand
 ```
 
 To reuse modules:
@@ -19,7 +19,7 @@ To reuse modules:
 in your flake.nix:
 ```nix
 inputs.ivan-mods = {
-  url = "github:ivandimitrov8080/config";
+  url = "github:ivandimitrov8080/configuration.nix";
   inputs.nixpkgs.follows = "nixpkgs";
 };
 outputs = {self, nixpkgs, ivan-mods, ...}:{
