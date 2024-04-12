@@ -3,6 +3,7 @@
     goaccess
     ollama
     procs
+    pueue
     ripgrep
     scripts
     shell_gpt
