@@ -81,7 +81,7 @@
     variables = {
       EDITOR = "nvim";
     };
-    shells = with pkgs; [ zsh ];
+    shells = with pkgs; [ zsh nushell ];
     etc = {
       "xdg/user-dirs.conf".text = ''
         enabled=True
