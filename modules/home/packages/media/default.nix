@@ -1,13 +1,16 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    gimp
-    gnome.cheese
-    pavucontrol
-    libsForQt5.kdenlive
-    glaxnimate
-    transmission
-    yewtube
     audacity
+    ffmpeg
+    gimp
+    glaxnimate
+    gnome.cheese
+    libsForQt5.kdenlive
+    mpv
+    mupdf
+    pavucontrol
+    transmission
     xonotic
+    yewtube
   ];
 }

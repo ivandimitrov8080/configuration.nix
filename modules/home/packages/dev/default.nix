@@ -1,10 +1,12 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    scripts
-    tor-browser-bundle-bin
-    shell_gpt
-    woeusb
-    ollama
     goaccess
+    ollama
+    procs
+    ripgrep
+    scripts
+    shell_gpt
+    tor-browser-bundle-bin
+    woeusb
   ];
 }
