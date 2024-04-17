@@ -12,8 +12,8 @@
                    }
                   }
         '';
-        PASSWORD_STORE_DIR = "([$env.HOME, '.password-store'] | str join '/')";
-        PATH = "($env.PATH | split row (char esep) | append ([$env.HOME, '.local', 'bin'] | str join '/'))";
+        PASSWORD_STORE_DIR = "($env.HOME | path join .password-store)";
+        PATH = "($env.PATH | split row (char esep) | append ($env.HOME | path join .local bin))";
         EDITOR = "nvim";
       };
       shellAliases = {
