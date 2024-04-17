@@ -15,13 +15,13 @@
       PASSWORD_STORE_DIR = "($env.HOME | path join .password-store)";
       PATH = "($env.PATH | split row (char esep) | append ($env.HOME | path join .local bin))";
       EDITOR = "nvim";
+      TERM = "xterm-256color";
     };
     shellAliases = {
       gcal = ''
         bash -c "cal $(date +%Y)"
       '';
       la = "ls -al";
-      ssh = "TERM=xterm-256color ssh";
       dev = "nix develop --command $env.SHELL";
       torrent = "transmission-remote";
       vi = "nvim";

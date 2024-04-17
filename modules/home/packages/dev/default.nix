@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     goaccess
     ollama
+    openssh
     procs
     ripgrep
     scripts
