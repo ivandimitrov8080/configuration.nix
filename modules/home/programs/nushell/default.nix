@@ -3,7 +3,18 @@
     nushell = {
       enable = true;
       environmentVariables = {
+        config = ''{
+                   show_banner: false,
+                   completions: {
+                    quick: true
+                    partial: true
+                    algorithm: "fuzzy"
+                   }
+                  }
+        '';
         PASSWORD_STORE_DIR = "([$env.HOME, '.password-store'] | str join '/')";
+        PATH = "($env.PATH | split row (char esep) | append ([$env.HOME, '.local', 'bin'] | str join '/'))";
+        EDITOR = "nvim";
       };
       shellAliases = {
         gcal = ''
@@ -20,19 +31,6 @@
         if (tty) == "/dev/tty1" {
           sway
         }
-      '';
-      extraConfig = ''
-        $env.config = {
-         show_banner: false,
-         completions: {
-          quick: true
-          partial: true
-          algorithm: "fuzzy"
-         }
-        }
-        $env.PATH = ($env.PATH | split row (char esep) |
-          append ([$env.HOME, '.local', 'bin'] | str join '/')
-        )
       '';
     };
     starship = {
