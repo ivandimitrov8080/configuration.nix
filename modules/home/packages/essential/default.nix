@@ -1,12 +1,12 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    bat
     bemenu
     gopass
     grim
     libnotify
     libreoffice-qt
     mako
+    scripts
     slurp
     wayland
     wl-clipboard
