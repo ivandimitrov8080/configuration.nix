@@ -31,20 +31,5 @@
     history = {
       expireDuplicatesFirst = true;
     };
-    plugins = [
-      {
-        name = "zsh-powerlevel10k";
-        src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
-        file = "powerlevel10k.zsh-theme";
-      }
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = "${pkgs.zsh-nix-shell}/share/zsh-nix-shell";
-      }
-    ];
-    initExtra = ''
-      source "$HOME/.p10k.zsh"
-    '';
   };
 }

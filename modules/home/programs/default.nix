@@ -15,6 +15,7 @@
   nushell = import ./nushell;
   obs-studio = import ./obs-studio { inherit pkgs; };
   pueue = import ./pueue;
+  starship = import ./starship;
   sway = import ./sway { inherit pkgs; };
   swaylock = import ./swaylock;
   tealdeer = import ./tealdeer;
