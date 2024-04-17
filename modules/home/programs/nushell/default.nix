@@ -2,15 +2,16 @@
   programs.nushell = {
     enable = true;
     environmentVariables = {
-      config = ''{
-                   show_banner: false,
-                   completions: {
-                    quick: true
-                    partial: true
-                    algorithm: "fuzzy"
-                   }
-                  }
-        '';
+      config = ''
+        {
+          show_banner: false,
+          completions: {
+            quick: false
+            partial: false
+            algorithm: "prefix"
+          }
+        }
+      '';
       PASSWORD_STORE_DIR = "($env.HOME | path join .password-store)";
       PATH = "($env.PATH | split row (char esep) | append ($env.HOME | path join .local bin))";
       EDITOR = "nvim";

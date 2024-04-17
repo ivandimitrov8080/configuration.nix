@@ -1,26 +1,27 @@
 { system, pkgs, home-manager, modules, nid, ... }:
 let
   ivand-programs = with modules.home.programs; [
-    nvim
-    zsh
-    tmux
-    git
+    bottom
+    browserpass
+    carapace
     chromium
+    comma
     firefox
+    git
+    gpg
     kitty
     lf
-    obs-studio
-    sway
-    swaylock
-    browserpass
-    bottom
-    gpg
-    comma
     nushell
-    waybar
-    tealdeer
+    nvim
+    obs-studio
     pueue
     starship
+    sway
+    swaylock
+    tealdeer
+    tmux
+    waybar
+    zsh
   ];
   ivand-packages = with modules.home.packages; [
     dev

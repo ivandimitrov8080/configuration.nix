@@ -5,6 +5,7 @@
   };
   bottom = import ./bottom;
   browserpass = { programs.browserpass.enable = true; };
+  carapace = import ./carapace;
   chromium = import ./chromium { inherit pkgs; };
   comma = import ./comma;
   firefox = import ./firefox { inherit pkgs; };
