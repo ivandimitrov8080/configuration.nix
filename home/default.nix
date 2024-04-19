@@ -16,6 +16,7 @@ let
     nvim
     obs-studio
     pueue
+    rofi
     starship
     sway
     swaylock

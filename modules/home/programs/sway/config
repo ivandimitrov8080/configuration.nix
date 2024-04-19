@@ -18,6 +18,9 @@ bindsym $mod+Shift+c kill
 # Start your launcher
 bindsym $mod+p exec $menu
 
+# Start rofi calc
+bindsym $mod+r+c exec rofi -show calc
+
 # Resize windows with mod + mouse
 floating_modifier $mod normal
 
