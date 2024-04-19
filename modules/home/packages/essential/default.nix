@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    bemenu
+    rofi-wayland
     gopass
     grim
     libnotify
