@@ -6,11 +6,8 @@ set $right l
 set $term kitty
 set $menu bemenu-run | xargs swaymsg exec --
 
-exec waybar
 exec swaymsg "workspace 1; exec kitty"
 exec swaymsg "workspace 2; exec firefox"
-
-exec systemctl --user restart rbingwp.service
 
 # Start a terminal
 bindsym $mod+Return exec $term

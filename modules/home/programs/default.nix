@@ -7,6 +7,7 @@
   browserpass = { programs.browserpass.enable = true; };
   carapace = import ./carapace;
   chromium = import ./chromium { inherit pkgs; };
+  cliphist = import ./cliphist;
   comma = import ./comma;
   firefox = import ./firefox { inherit pkgs; };
   git = import ./git;

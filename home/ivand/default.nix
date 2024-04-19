@@ -46,6 +46,10 @@
         };
       };
       rbingwp = {
+        Unit = {
+          Description = "Restart bingwp and wpd services";
+          After = "sway-session.target";
+        };
         Service = {
           Type = "oneshot";
           ExecStart = [ "${pkgs.nushell}/bin/nu -c '${pkgs.systemd}/bin/systemctl --user restart bingwp.service; ${pkgs.systemd}/bin/systemctl --user restart wpd.service'" ];

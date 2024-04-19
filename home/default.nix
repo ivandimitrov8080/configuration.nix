@@ -5,6 +5,7 @@ let
     browserpass
     carapace
     chromium
+    cliphist
     comma
     firefox
     git
