@@ -16,6 +16,7 @@
         "${modifier}+p" = "exec ${menu}";
         "${modifier}+Shift+r" = "reload";
         "${modifier}+Shift+c" = "kill";
+        "${modifier}+Shift+q" = "exit";
         "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
         "XF86ScreenSaver" = "output 'eDP-1' toggle";
         "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
