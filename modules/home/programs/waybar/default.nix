@@ -11,7 +11,8 @@
           "HDMI-A-1"
         ];
         modules-left = [ "sway/workspaces" ];
-        modules-right = [ "network" "pulseaudio" "memory" "battery" "clock" ];
+        modules-center = [ "clock" ];
+        modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
         clock = {
           format = "{:%a %Y-%m-%d %H:%M:%S %Z}";
@@ -33,8 +34,12 @@
           };
         };
 
+        cpu = {
+          format = "   {usage}%";
+        };
+
         memory = {
-          format = " {percentage}%";
+          format = "   {percentage}%";
           interval = 5;
         };
 
@@ -42,10 +47,9 @@
           format = "{icon} {volume}% | {format_source}";
           format-source = "{volume}% ";
           format-source-muted = "";
-          format-muted = "";
           format-icons = {
             headphone = "";
-            default = [ "" "" ];
+            default = [ "" "" "" ];
           };
         };
 
@@ -67,5 +71,6 @@
       enable = true;
       target = "sway-session.target";
     };
+    style = builtins.readFile ./style.css;
   };
 }
