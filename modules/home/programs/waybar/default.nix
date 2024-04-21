@@ -15,13 +15,8 @@
         modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
         clock = {
-          format = "{:%a %Y-%m-%d %H:%M:%S %Z}";
+          format = "{:%a %Y-%m-%d %H:%M:%S}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
-          timezones = [ "Europe/Sofia" "Europe/Prague" ];
-          actions = {
-            on-scroll-up = "tz_up";
-            on-scroll-down = "tz_down";
-          };
           calendar = {
             mode = "year";
             mode-mon-col = 3;
