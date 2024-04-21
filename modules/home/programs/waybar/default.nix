@@ -24,7 +24,8 @@
         };
 
         battery = {
-          format = "{icon} {capacity}%";
+          format = "{icon} {capacity}% {time}";
+          format-time = " {H} h {M} m";
           format-icons = [ "" "" "" "" "" ];
           states = {
             warning = 30;
