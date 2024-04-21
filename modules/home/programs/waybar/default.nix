@@ -23,6 +23,15 @@
           };
         };
 
+        battery = {
+          format = "{icon} {capacity}%";
+          format-icons = [ "" "" "" "" "" ];
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+        };
+
         pulseaudio = {
           format = "{icon} {volume}% | {format_source}";
           format-source = "{volume}% ";
