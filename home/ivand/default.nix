@@ -46,9 +46,13 @@
         };
       };
       rbingwp = {
+        Install = {
+          WantedBy = [ "sway-session.target" ];
+        };
         Unit = {
           Description = "Restart bingwp and wpd services";
-          After = "sway-session.target";
+          After = "graphical-session-pre.target";
+          PartOf = "graphical-session.target";
         };
         Service = {
           Type = "oneshot";
