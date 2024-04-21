@@ -13,31 +13,23 @@
       url = "github:ivandimitrov8080/flake-ide";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    swhkd = {
-      url = "github:ivandimitrov8080/swhkd";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nid = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, home-manager, hosts, ide, swhkd, nid, ... }:
+  outputs = { self, nixpkgs, home-manager, hosts, ide, nid, ... }:
     let
       system = "x86_64-linux";
-      overlays = [
-        (
-          self: super: {
-            scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
-            swhkd = swhkd.overlays.${system}.default;
-          }
-        )
-      ];
+      my-overlay = self: super: {
+        scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
+      };
       pkgs = import nixpkgs {
-        inherit system overlays;
+        inherit system;
+        overlays = [ my-overlay ];
       };
       modules = import ./modules {
-        inherit system nixpkgs pkgs ide;
+        inherit system nixpkgs pkgs ide my-overlay;
       };
       home = import ./home {
         inherit system pkgs modules home-manager nid;
