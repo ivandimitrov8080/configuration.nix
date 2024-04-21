@@ -32,6 +32,11 @@
           };
         };
 
+        memory = {
+          format = " {percentage}%";
+          interval = 5;
+        };
+
         pulseaudio = {
           format = "{icon} {volume}% | {format_source}";
           format-source = "{volume}% ";
