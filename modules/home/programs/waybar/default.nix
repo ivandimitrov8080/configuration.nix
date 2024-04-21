@@ -11,7 +11,7 @@
           "HDMI-A-1"
         ];
         modules-left = [ "sway/workspaces" ];
-        modules-right = [ "pulseaudio" "memory" "battery" "clock" ];
+        modules-right = [ "network" "pulseaudio" "memory" "battery" "clock" ];
 
         clock = {
           format = "{:%a %Y-%m-%d %H:%M:%S %Z}";
@@ -46,6 +46,14 @@
             headphone = "";
             default = [ "" "" ];
           };
+        };
+
+        network = {
+          format-ethernet = "󰈁 |  {bandwidthUpBytes}   {bandwidthDownBytes}";
+          format-wifi = "{icon} |  {bandwidthUpBytes}   {bandwidthDownBytes}";
+          format-disconnected = "󰈂";
+          format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
+          interval = 1;
         };
 
         "sway/workspaces" = {
