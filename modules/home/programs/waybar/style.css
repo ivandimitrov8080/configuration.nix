@@ -103,7 +103,7 @@ button:hover {
     }
 }
 
-#battery:not(.charging) {
+#battery.warning:not(.charging) {
     background-color: rgba(69, 26, 3, .8);
     color: rgb(255, 251, 235);
 }
