@@ -11,7 +11,7 @@
           "HDMI-A-1"
         ];
         modules-left = [ "sway/workspaces" ];
-        modules-right = [ "memory" "battery" "clock" ];
+        modules-right = [ "pulseaudio" "memory" "battery" "clock" ];
 
         clock = {
           format = "{:%a %Y-%m-%d %H:%M:%S %Z}";
@@ -20,6 +20,17 @@
           actions = {
             on-scroll-up = "tz_up";
             on-scroll-down = "tz_down";
+          };
+        };
+
+        pulseaudio = {
+          format = "{icon} {volume}% | {format_source}";
+          format-source = "{volume}% ";
+          format-source-muted = "";
+          format-muted = "";
+          format-icons = {
+            headphone = "";
+            default = [ "" "" ];
           };
         };
 
