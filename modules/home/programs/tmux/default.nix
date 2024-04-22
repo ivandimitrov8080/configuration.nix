@@ -5,7 +5,7 @@
     plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
     extraConfig = ''
       set -g default-command "''${SHELL}"
-      set -g default-terminal "tmux-256color"
+      set -g default-terminal "xterm-256color"
       set -g base-index 1
       set -s escape-time 0
     '';
