@@ -4,5 +4,6 @@
     openssh
     procs
     ripgrep
+    fswatch
   ];
 }
