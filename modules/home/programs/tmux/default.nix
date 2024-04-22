@@ -2,12 +2,11 @@
   programs.tmux = {
     enable = true;
     clock24 = true;
+    baseIndex = 1;
+    escapeTime = 0;
+    keyMode = "vi";
+    shell = "\${SHELL}";
+    terminal = "screen-256color";
     plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
-    extraConfig = ''
-      set -g default-command "''${SHELL}"
-      set -g default-terminal "xterm-256color"
-      set -g base-index 1
-      set -s escape-time 0
-    '';
   };
 }
