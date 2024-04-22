@@ -10,10 +10,10 @@
     sessionVariables = {
       PASSWORD_STORE_DIR = "$HOME/.password-store";
       PAGER = "bat";
+      TERM = "screen-256color";
     };
     shellAliases = {
       cal = "cal $(date +%Y)";
-      ssh = "TERM=xterm-256color ssh";
       GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
       gad = "git add . && git diff --cached";
       gac = "ga && gc";

@@ -8,5 +8,8 @@
     shell = "\${SHELL}";
     terminal = "screen-256color";
     plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
+    extraConfig = ''
+      set-option -a terminal-features 'screen-256color:RGB'
+    '';
   };
 }
