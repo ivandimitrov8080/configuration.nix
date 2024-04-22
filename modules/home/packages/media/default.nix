@@ -6,6 +6,7 @@
     glaxnimate
     gnome.cheese
     libsForQt5.kdenlive
+    imv
     mpv
     mupdf
     pavucontrol
