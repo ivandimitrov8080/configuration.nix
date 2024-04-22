@@ -20,6 +20,12 @@
   };
 
   boot = {
+    kernel = {
+      sysctl = {
+        "fs.inotify.max_user_watches" = 100000;
+        "fs.inotify.max_queued_events" = 100000;
+      };
+    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
