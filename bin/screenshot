@@ -13,7 +13,7 @@ def copy_image [] {
 def prepare_screen [] {
   let grim_id = pueue add -i -p grim $tmp_img
   let imv_id = pueue add -a $grim_id -p imv -f $tmp_img
-  grim -g $"(slurp)" $pic_dir
+  grim -g $"(slurp -b '#FFFFFF00' -c '#FF0000FF')" $pic_dir
   pueue kill $imv_id $grim_id
   pueue wait
   pueue remove $imv_id $grim_id
