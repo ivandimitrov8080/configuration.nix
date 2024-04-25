@@ -28,7 +28,6 @@ let
   ivand-packages = with modules.home.packages; [
     dev
     essential
-    media
   ];
 in
 {

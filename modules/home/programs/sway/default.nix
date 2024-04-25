@@ -39,4 +39,22 @@
       enable = true;
     };
   };
+  home.packages = with pkgs; [
+    audacity
+    gimp
+    grim
+    imv
+    libnotify
+    libreoffice-qt
+    mako
+    mpv
+    mupdf
+    pavucontrol
+    scripts
+    slurp
+    wl-clipboard
+    xdg-user-dirs
+    xdg-utils
+    xwayland
+  ];
 }
