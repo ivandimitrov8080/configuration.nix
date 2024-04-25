@@ -3,10 +3,6 @@
   system.stateVersion = "23.11";
 
   nix = {
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -20,12 +16,6 @@
   };
 
   boot = {
-    kernel = {
-      sysctl = {
-        "fs.inotify.max_user_watches" = 100000;
-        "fs.inotify.max_queued_events" = 100000;
-      };
-    };
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -54,45 +44,26 @@
 
   environment = {
     systemPackages = with pkgs; [
-      acpi
-      binutils
-      bun
       cmatrix
       coreutils-full
       cryptsetup
       dig
       fd
       file
-      gcc13
       git
       glibc
       gnumake
-      home-manager
       jq
-      libgccjit
       mlocate
       moreutils
-      nix-prefetch-github
-      nodejs_20
       ntfs3g
       openssl
-      python311
       srm
       unzip
       vim
-      wf-recorder
-      wget
       zip
     ];
-    variables = {
-      EDITOR = "nvim";
-    };
     shells = with pkgs; [ zsh nushell ];
-    etc = {
-      "xdg/user-dirs.conf".text = ''
-        enabled=True
-      '';
-    };
   };
 
   networking = {
@@ -108,14 +79,12 @@
       enable = true;
       blockFakenews = true;
       blockGambling = true;
-      # blockSocial = true;
     };
   };
 
   programs = {
     zsh.enable = true;
     nix-ld.enable = true;
-    wshowkeys.enable = true;
     adb.enable = true;
   };
 
@@ -147,39 +116,10 @@
     xserver.videoDrivers = [ "nouveau" ];
     dbus.enable = true;
     flatpak.enable = true;
-    ratbagd.enable = true;
-    postgresql.enable = true;
-    upower.enable = true;
-    i2pd = {
-      enable = true;
-      proto.httpProxy.enable = true;
-    };
     pipewire = {
       enable = true;
       alsa.enable = true;
       pulse.enable = true;
     };
-  };
-
-  systemd = {
-    user.services = {
-      polkit-gnome-authentication-agent-1 = {
-        description = "polkit-gnome-authentication-agent-1";
-        wantedBy = [ "graphical-session.target" ];
-        wants = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
-    };
-  };
-
-  virtualisation = {
-    waydroid.enable = true;
   };
 }
