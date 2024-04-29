@@ -73,6 +73,9 @@
         "Smart-Hostel-2.4" = {
           psk = "smarttrans.bg";
         };
+        "Yohohostel2.4G" = {
+          psk = "kaskamaska";
+        };
       };
     };
     stevenBlackHosts = {
