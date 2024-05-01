@@ -76,6 +76,9 @@
         "Yohohostel2.4G" = {
           psk = "kaskamaska";
         };
+        "Nomado_Guest" = {
+          psk = "welcomehome";
+        };
       };
     };
     stevenBlackHosts = {
