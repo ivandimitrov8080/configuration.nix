@@ -27,7 +27,9 @@
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "XF86MonBrightnessUp" = "exec sudo ${pkgs.light}/bin/light -A 10";
         "XF86MonBrightnessDown" = "exec sudo ${pkgs.light}/bin/light -U 10";
-        "Mod1+c" = "exec rofi -show calc";
+        "XF86Calculator" = "exec rofi -show calc";
+        "End" = "exec systemctl poweroff";
+        "Insert" = "exec systemctl reboot";
       };
       input = {
         "*" = {
