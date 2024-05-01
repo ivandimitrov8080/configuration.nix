@@ -25,6 +25,15 @@
   };
 
   security = {
+    sudo = {
+      execWheelOnly = true;
+      extraRules = [
+        {
+          groups = [ "wheel" ];
+          commands = [{ command = "${pkgs.light}/bin/light"; options = [ "SETENV" "NOPASSWD" ]; }];
+        }
+      ];
+    };
     polkit.enable = true;
     rtkit.enable = true;
     pam = { services = { swaylock = { }; }; };

@@ -25,6 +25,8 @@
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86MonBrightnessUp" = "exec sudo ${pkgs.light}/bin/light -A 10";
+        "XF86MonBrightnessDown" = "exec sudo ${pkgs.light}/bin/light -U 10";
         "Mod1+c" = "exec rofi -show calc";
       };
       input = {
