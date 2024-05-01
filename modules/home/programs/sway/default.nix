@@ -13,25 +13,30 @@
       bars = [ ];
       window.titlebar = false;
       keybindings = pkgs.lib.mkOptionDefault {
-        "${modifier}+p" = "exec ${menu}";
-        "${modifier}+Shift+r" = "reload";
-        "${modifier}+Shift+c" = "kill";
-        "${modifier}+Shift+q" = "exit";
-        "${modifier}+Shift+a" = "exec screenshot area";
-        "${modifier}+Shift+s" = "exec screenshot";
-        "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
-        "XF86ScreenSaver" = "output 'eDP-1' toggle";
+        # System
+        "End" = "exec systemctl poweroff";
+        "Insert" = "exec systemctl reboot";
+        # Audio
         "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
         "Alt+XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
         "Alt+XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%";
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        # Display
+        "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock"; # Lock screen
+        "XF86ScreenSaver" = "output 'eDP-1' toggle"; # Turn screen off
         "XF86MonBrightnessUp" = "exec sudo ${pkgs.light}/bin/light -A 10";
         "XF86MonBrightnessDown" = "exec sudo ${pkgs.light}/bin/light -U 10";
+        # Programs
+        "${modifier}+p" = "exec ${menu}";
+        "${modifier}+Shift+a" = "exec screenshot area";
+        "${modifier}+Shift+s" = "exec screenshot";
         "XF86Calculator" = "exec rofi -show calc";
-        "End" = "exec systemctl poweroff";
-        "Insert" = "exec systemctl reboot";
+        # sway commands
+        "${modifier}+Shift+r" = "reload";
+        "${modifier}+Shift+c" = "kill";
+        "${modifier}+Shift+q" = "exit";
       };
       input = {
         "*" = {
