@@ -66,7 +66,7 @@
           format-wifi = "{icon} |  {bandwidthUpBytes}   {bandwidthDownBytes}";
           format-disconnected = "󰈂";
           format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
-          interval = 1;
+          interval = 5;
         };
 
         "sway/workspaces" = {
