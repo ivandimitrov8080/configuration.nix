@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   programs.nushell = {
     enable = true;
     environmentVariables = {
@@ -26,6 +26,7 @@
       torrent = "transmission-remote";
       vi = "nvim";
       sc = "systemctl";
+      neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
     };
     loginFile.text = ''
       if (tty) == "/dev/tty1" {

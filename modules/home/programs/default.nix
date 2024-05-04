@@ -14,7 +14,7 @@
   gpg = import ./gpg { inherit pkgs; };
   kitty = import ./kitty { inherit pkgs; };
   lf = import ./lf;
-  nushell = import ./nushell;
+  nushell = import ./nushell { inherit pkgs; };
   obs-studio = import ./obs-studio { inherit pkgs; };
   pueue = import ./pueue;
   rofi = import ./rofi { inherit pkgs; };
