@@ -88,6 +88,9 @@
         "Nomado_Guest" = {
           psk = "welcomehome";
         };
+        "HostelMusala Uni" = {
+          psk = "mhostelm";
+        };
       };
     };
     stevenBlackHosts = {
