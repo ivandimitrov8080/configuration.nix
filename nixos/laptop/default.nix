@@ -17,8 +17,17 @@
 
   boot = {
     loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
+      grub = {
+        enable = true;
+        catppuccin.enable = true;
+        useOSProber = true;
+        efiSupport = true;
+        device = "nodev";
+      };
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
     };
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelModules = [ "v4l2loopback" ];
