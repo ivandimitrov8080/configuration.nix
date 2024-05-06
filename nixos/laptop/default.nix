@@ -150,4 +150,5 @@
       pulse.enable = true;
     };
   };
+  catppuccin.enable = true;
 }

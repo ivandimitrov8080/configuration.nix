@@ -36,7 +36,7 @@
         inherit pkgs modules home-manager nid catppuccin;
       };
       nixos = import ./nixos {
-        inherit system nixpkgs modules hosts;
+        inherit system nixpkgs modules hosts catppuccin;
       };
     in
     {

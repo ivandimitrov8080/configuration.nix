@@ -1,4 +1,4 @@
-{ system, nixpkgs, modules, hosts }: {
+{ system, nixpkgs, modules, hosts, catppuccin, ... }: {
   laptop = nixpkgs.lib.nixosSystem {
     inherit system;
     modules = with modules.nixos; [
@@ -9,6 +9,7 @@
       wireguard
       # nvidia
       hosts.nixosModule
+      catppuccin.nixosModules.catppuccin
     ];
   };
 }
