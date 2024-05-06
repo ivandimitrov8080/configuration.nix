@@ -15,6 +15,11 @@
     };
   };
 
+  catppuccin = {
+    enable = true;
+    flavour = "mocha";
+  };
+
   boot = {
     loader = {
       grub = {
@@ -159,5 +164,4 @@
       pulse.enable = true;
     };
   };
-  catppuccin.enable = true;
 }

@@ -1,7 +1,12 @@
-{ pkgs, lib, ... }: rec {
+{ pkgs, ... }: rec {
 
   programs.home-manager = { enable = true; };
 
+
+  catppuccin = {
+    enable = true;
+    flavour = "mocha";
+  };
 
   gtk = {
     enable = true;
