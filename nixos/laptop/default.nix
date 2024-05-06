@@ -37,7 +37,10 @@
     };
     doas = {
       enable = true;
-      wheelNeedsPassword = false;
+      extraRules = [
+        # Allow wheel to run all commands without password and keep user env.
+        { groups = [ "wheel" ]; noPass = true; keepEnv = true; }
+      ];
     };
     polkit.enable = true;
     rtkit.enable = true;
@@ -51,6 +54,8 @@
       config.common.default = "*";
     };
   };
+
+  i18n.supportedLocales = [ "all" ];
 
   time.timeZone = "Europe/Sofia";
 
