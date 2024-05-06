@@ -1,6 +1,7 @@
 {
   programs.bottom = {
     enable = true;
+    catppuccin.enable = true;
     settings = {
       flags = {
         rate = "250ms";

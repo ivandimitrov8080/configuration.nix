@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   wayland.windowManager.sway = {
     enable = true;
+    catppuccin.enable = true;
     systemd.enable = true;
     config = rec {
       menu = "rofi -show run";
@@ -54,11 +55,8 @@
     audacity
     gimp
     grim
-    imv
     libnotify
     libreoffice-qt
-    mako
-    mpv
     mupdf
     pavucontrol
     scripts

@@ -1,6 +1,7 @@
-{ system, pkgs, home-manager, modules, nid, ... }:
+{ pkgs, home-manager, modules, nid, catppuccin, ... }:
 let
   ivand-programs = with modules.home.programs; [
+    bat
     bottom
     browserpass
     carapace
@@ -10,8 +11,11 @@ let
     firefox
     git
     gpg
+    imv
     kitty
     lf
+    mako
+    mpv
     nushell
     nvim
     obs-studio
@@ -33,6 +37,6 @@ in
 {
   ivand = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    modules = [ ./ivand nid.hmModules.nix-index ] ++ ivand-programs ++ ivand-packages;
+    modules = [ ./ivand nid.hmModules.nix-index ] ++ ivand-programs ++ ivand-packages ++ [ catppuccin.homeManagerModules.catppuccin ];
   };
 }

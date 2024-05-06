@@ -2,6 +2,12 @@
 
   programs.home-manager = { enable = true; };
 
+
+  gtk = {
+    enable = true;
+    catppuccin.enable = true;
+  };
+
   home = {
     username = "ivand";
     homeDirectory = "/home/ivand";
@@ -63,6 +69,7 @@
   };
 
   xdg = {
+    enable = true;
     userDirs = {
       enable = true;
       createDirectories = true;

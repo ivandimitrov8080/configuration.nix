@@ -17,8 +17,9 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
-  outputs = { self, nixpkgs, home-manager, hosts, ide, nid, ... }:
+  outputs = { nixpkgs, home-manager, hosts, ide, nid, catppuccin, ... }:
     let
       system = "x86_64-linux";
       my-overlay = self: super: {
@@ -32,7 +33,7 @@
         inherit system nixpkgs pkgs ide my-overlay;
       };
       home = import ./home {
-        inherit system pkgs modules home-manager nid;
+        inherit pkgs modules home-manager nid catppuccin;
       };
       nixos = import ./nixos {
         inherit system nixpkgs modules hosts;
