@@ -128,6 +128,7 @@
     zsh.enable = true;
     nix-ld.enable = true;
     adb.enable = true;
+    dconf.enable = true;
   };
 
   users = {
