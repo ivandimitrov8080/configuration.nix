@@ -26,6 +26,7 @@
 
   security = {
     sudo = {
+      enable = false;
       execWheelOnly = true;
       extraRules = [
         {
@@ -33,6 +34,10 @@
           commands = [{ command = "${pkgs.light}/bin/light"; options = [ "SETENV" "NOPASSWD" ]; }];
         }
       ];
+    };
+    doas = {
+      enable = true;
+      wheelNeedsPassword = false;
     };
     polkit.enable = true;
     rtkit.enable = true;
