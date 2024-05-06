@@ -26,8 +26,8 @@
         # Display
         "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock"; # Lock screen
         "XF86ScreenSaver" = "output 'eDP-1' toggle"; # Turn screen off
-        "XF86MonBrightnessUp" = "exec sudo ${pkgs.light}/bin/light -A 10";
-        "XF86MonBrightnessDown" = "exec sudo ${pkgs.light}/bin/light -U 10";
+        "XF86MonBrightnessUp" = "exec doas ${pkgs.light}/bin/light -A 10";
+        "XF86MonBrightnessDown" = "exec doas ${pkgs.light}/bin/light -U 10";
         # Programs
         "${modifier}+p" = "exec ${menu}";
         "${modifier}+Shift+a" = "exec screenshot area";
