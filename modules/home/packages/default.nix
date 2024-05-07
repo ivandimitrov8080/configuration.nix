@@ -1,4 +1,16 @@
-{ pkgs, ... }: {
-  dev = import ./dev { inherit pkgs; };
-  essential = import ./essential { inherit pkgs; };
+pkgs: with pkgs; {
+  dev = [
+    openssh
+    procs
+    ripgrep
+    fswatch
+  ];
+  essential = [
+    gopass
+    ffmpeg
+    transmission
+  ];
+  random = [
+    telegram-desktop
+  ];
 }

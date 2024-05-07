@@ -29,14 +29,13 @@ let
     waybar
     zsh
   ];
-  ivand-packages = with modules.home.packages; [
-    dev
-    essential
-  ];
+  ivand-packages = {
+    home.packages = with modules.home.packages; (dev ++ essential ++ random);
+  };
 in
 {
   ivand = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    modules = [ ./ivand nid.hmModules.nix-index ] ++ ivand-programs ++ ivand-packages ++ [ catppuccin.homeManagerModules.catppuccin ];
+    modules = [ ./ivand nid.hmModules.nix-index ivand-packages ] ++ ivand-programs ++ [ catppuccin.homeManagerModules.catppuccin ];
   };
 }

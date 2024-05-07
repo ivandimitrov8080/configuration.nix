@@ -7,7 +7,7 @@
     wireguard = import ./nixos/wireguard;
   };
   home = {
-    packages = import ./home/packages { inherit pkgs; };
+    packages = import ./home/packages pkgs;
     programs = import ./home/programs { inherit system pkgs ide; };
   };
 }
