@@ -12,5 +12,6 @@ pkgs: with pkgs; {
   ];
   random = [
     telegram-desktop
+    xonotic
   ];
 }
