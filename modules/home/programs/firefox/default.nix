@@ -10,23 +10,6 @@
           url = "https://nix-community.github.io/home-manager/options.xhtml";
         }
       ];
-      containers = {
-        work = {
-          color = "blue";
-          icon = "briefcase";
-          id = 1;
-        };
-        vid = {
-          color = "red";
-          icon = "circle";
-          id = 2;
-        };
-        localhost = {
-          color = "turquoise";
-          icon = "dollar";
-          id = 3;
-        };
-      };
       settings = {
         "general.smoothScroll" = true;
         "signon.rememberSignons" = false;
