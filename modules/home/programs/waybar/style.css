@@ -76,6 +76,10 @@ window#waybar {
     color: @green;
 }
 
+#battery.discharging {
+    color: @yellow;
+}
+
 @keyframes blink {
     to {
         background-color: #ffffff;
