@@ -54,25 +54,6 @@ button:hover {
     box-shadow: inset 0 -3px #ffffff;
 }
 
-.modules-center * {
-  margin: 0px;
-}
-
-.modules-center .week {
-  color: #d97706;
-  border-radius: 9999px 0px 0px 9999px;
-}
-
-.modules-center .year {
-  color: #ec4899;
-  border-radius: 0px;
-}
-
-.modules-center .time {
-  color: #0ea5e9;
-  border-radius: 0px 9999px 9999px 0px;
-}
-
 #clock,
 #battery,
 #cpu,
@@ -91,10 +72,29 @@ button:hover {
 #power-profiles-daemon,
 #mpd {
     padding: 0 10px;
-    color: rgb(2, 6, 23);
+    color: @text;
     margin: 0 .5em;
     border-radius: 9999px;
-    background-color: rgba(248, 250, 252, .8);
+    background-color: @base;
+}
+
+#clock.week {
+  margin-right: 0px;
+  color: @peach;
+  border-radius: 9999px 0px 0px 9999px;
+}
+
+#clock.year {
+  margin: 0px;
+  padding: 0px;
+  color: @pink;
+  border-radius: 0px;
+}
+
+#clock.time {
+  margin-left: 0px;
+  color: @sky;
+  border-radius: 0px 9999px 9999px 0px;
 }
 
 #window,
@@ -137,4 +137,3 @@ button:hover {
 label:focus {
     background-color: #000000;
 }
-
