@@ -44,19 +44,19 @@
         };
 
         cpu = {
-          format = "   {usage}%";
+          format = "<span color='#4f46e5'></span>  {usage}%";
         };
 
         memory = {
-          format = "   {percentage}%";
+          format = "<span color='#7c3aed'></span>  {percentage}%";
           interval = 5;
         };
 
         pulseaudio = {
-          format = "{icon} {volume}% | {format_source}";
-          format-muted = "󰝟 {volume}% | {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = "{volume}% ";
+          format = "<span color='#16a34a'>{icon}</span> {volume}% | {format_source}";
+          format-muted = "<span color='#b91c1c'>󰝟</span> {volume}% | {format_source}";
+          format-source = "{volume}% <span color='#16a34a'></span>";
+          format-source-muted = "{volume}% <span color='#b91c1c'></span>";
           format-icons = {
             headphone = "";
             default = [ "" "" "" ];
@@ -64,9 +64,9 @@
         };
 
         network = {
-          format-ethernet = "󰈁 |  {bandwidthUpBytes}   {bandwidthDownBytes}";
-          format-wifi = "{icon} |  {bandwidthUpBytes}   {bandwidthDownBytes}";
-          format-disconnected = "󰈂";
+          format-ethernet = "<span color='#06b6d4'>󰈁</span> | <span color='#ea580c'></span> {bandwidthUpBytes}  <span color='#ea580c'></span> {bandwidthDownBytes}";
+          format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#ea580c'></span> {bandwidthUpBytes}  <span color='#ea580c'></span> {bandwidthDownBytes}";
+          format-disconnected = "<span color='#b91c1c'>󰈂</span>";
           format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
           interval = 5;
         };
