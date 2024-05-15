@@ -51,7 +51,7 @@
           };
 
           battery = {
-            format = "{icon} {capacity}% {time}";
+            format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
             format-time = " {H} h {M} m";
             format-icons = [ "" "" "" "" "" ];
             states = {
@@ -61,19 +61,19 @@
           };
 
           cpu = {
-            format = "<span color='#4f46e5'></span>  {usage}%";
+            format = "<span color='#74c7ec'></span>  {usage}%";
           };
 
           memory = {
-            format = "<span color='#7c3aed'></span>  {percentage}%";
+            format = "<span color='#89b4fa'></span>  {percentage}%";
             interval = 5;
           };
 
           pulseaudio = {
-            format = "<span color='#16a34a'>{icon}</span> {volume}% | {format_source}";
-            format-muted = "<span color='#b91c1c'>󰝟</span> {volume}% | {format_source}";
-            format-source = "{volume}% <span color='#16a34a'></span>";
-            format-source-muted = "{volume}% <span color='#b91c1c'></span>";
+            format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
+            format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
+            format-source = "{volume}% <span color='#a6e3a1'></span>";
+            format-source-muted = "{volume}% <span color='#f38ba8'></span>";
             format-icons = {
               headphone = "";
               default = [ "" "" "" ];
@@ -81,9 +81,9 @@
           };
 
           network = {
-            format-ethernet = "<span color='#06b6d4'>󰈁</span> | <span color='#ea580c'></span> {bandwidthUpBytes}  <span color='#ea580c'></span> {bandwidthDownBytes}";
-            format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#ea580c'></span> {bandwidthUpBytes}  <span color='#ea580c'></span> {bandwidthDownBytes}";
-            format-disconnected = "<span color='#b91c1c'>󰈂</span>";
+            format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+            format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+            format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
             format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
             interval = 5;
           };
