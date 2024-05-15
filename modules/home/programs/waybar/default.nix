@@ -12,11 +12,20 @@
           "HDMI-A-1"
         ];
         modules-left = [ "sway/workspaces" ];
-        modules-center = [ "clock" ];
+        modules-center = [ "clock#week" "clock#year" "clock#time" ];
         modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
-        clock = {
-          format = "{:%a %Y-%m-%d %H:%M:%S}";
+        "clock#time" = {
+          format = "{:%H:%M:%S}";
+          interval = 1;
+        };
+
+        "clock#week" = {
+          format = "{:%a}";
+        };
+
+        "clock#year" = {
+          format = "{:%Y-%m-%d}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "year";
@@ -30,7 +39,6 @@
               today = "<span color='#ff6699'><b><u>{}</u></b></span>";
             };
           };
-          interval = 1;
         };
 
         battery = {
