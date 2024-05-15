@@ -92,10 +92,6 @@ button:hover {
     background-color: rgba(5, 46, 22, .8);
 }
 
-#pulseaudio.muted {
-  background-color: rgba(115, 115, 115, .8)
-}
-
 @keyframes blink {
     to {
         background-color: #ffffff;

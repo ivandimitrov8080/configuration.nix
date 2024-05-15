@@ -54,8 +54,9 @@
 
         pulseaudio = {
           format = "{icon} {volume}% | {format_source}";
+          format-muted = "󰝟 {volume}% | {format_source}";
           format-source = "{volume}% ";
-          format-source-muted = "";
+          format-source-muted = "{volume}% ";
           format-icons = {
             headphone = "";
             default = [ "" "" "" ];
