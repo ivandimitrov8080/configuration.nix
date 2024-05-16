@@ -26,7 +26,7 @@ window#waybar {
 }
 
 #workspaces button.urgent {
-    background-color: @maroon;
+    background-color: @red;
 }
 
 #clock,
@@ -93,7 +93,7 @@ window#waybar {
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-    background-color: @maroon;
+    background-color: @red;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
