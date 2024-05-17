@@ -9,6 +9,10 @@
           name = "home-options";
           url = "https://nix-community.github.io/home-manager/options.xhtml";
         }
+        {
+          name = "nixvim-docs";
+          url = "https://nix-community.github.io/nixvim/";
+        }
       ];
       settings = {
         "general.smoothScroll" = true;
