@@ -17,7 +17,7 @@
 
   catppuccin = {
     enable = true;
-    flavour = "mocha";
+    flavor = "mocha";
   };
 
   boot = {
@@ -73,7 +73,7 @@
 
   time.timeZone = "Europe/Sofia";
 
-  fonts.packages = with pkgs; [ nerdfonts noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
+  fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
 
   environment = {
     systemPackages = with pkgs; [
