@@ -115,6 +115,9 @@
         "HostelMusala Uni" = {
           psk = "mhostelm";
         };
+        "BOUTIQUE APARTMENTS" = {
+          psk = "boutique26";
+        };
       };
     };
     stevenBlackHosts = {
