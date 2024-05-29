@@ -118,6 +118,9 @@
         "BOUTIQUE APARTMENTS" = {
           psk = "boutique26";
         };
+        "Safestay" = {
+          psk = "AlldayrooftopBAR";
+        };
       };
     };
     stevenBlackHosts = {
