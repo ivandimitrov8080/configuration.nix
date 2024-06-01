@@ -1,8 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hosts = {
@@ -22,6 +22,7 @@
   outputs = { nixpkgs, home-manager, hosts, ide, nid, catppuccin, ... }:
     let
       system = "x86_64-linux";
+      stateVersion = "24.05";
       my-overlay = self: super: {
         scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
       };
@@ -33,10 +34,10 @@
         inherit system nixpkgs pkgs ide my-overlay;
       };
       home = import ./home {
-        inherit pkgs modules home-manager nid catppuccin;
+        inherit stateVersion pkgs modules home-manager nid catppuccin;
       };
       nixos = import ./nixos {
-        inherit system nixpkgs modules hosts catppuccin;
+        inherit stateVersion system nixpkgs modules hosts catppuccin;
       };
     in
     {

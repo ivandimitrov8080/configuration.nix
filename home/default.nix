@@ -1,4 +1,4 @@
-{ pkgs, home-manager, modules, nid, catppuccin, ... }:
+{ stateVersion, pkgs, home-manager, modules, nid, catppuccin, ... }:
 let
   ivand-programs = with modules.home.programs; [
     bat
@@ -36,6 +36,6 @@ in
 {
   ivand = home-manager.lib.homeManagerConfiguration {
     inherit pkgs;
-    modules = [ ./ivand nid.hmModules.nix-index ivand-packages ] ++ ivand-programs ++ [ catppuccin.homeManagerModules.catppuccin ];
+    modules = [{ home.stateVersion = stateVersion; } ./ivand nid.hmModules.nix-index ivand-packages] ++ ivand-programs ++ [ catppuccin.homeManagerModules.catppuccin ];
   };
 }

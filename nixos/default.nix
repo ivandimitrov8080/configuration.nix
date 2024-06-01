@@ -1,13 +1,11 @@
-{ system, nixpkgs, modules, hosts, catppuccin, ... }: {
+{ stateVersion, system, nixpkgs, modules, hosts, catppuccin, ... }: {
   laptop = nixpkgs.lib.nixosSystem {
     inherit system;
-    modules = with modules.nixos; [
+    modules = [
+      { system.stateVersion = stateVersion; }
       ../hardware-configuration.nix
       ./laptop
-      # dnscrypt
-      # gaming
-      wireguard
-      # nvidia
+      modules.nixos.wireguard
       hosts.nixosModule
       catppuccin.nixosModules.catppuccin
     ];
