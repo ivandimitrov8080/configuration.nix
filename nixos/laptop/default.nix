@@ -121,6 +121,9 @@
         "Safestay" = {
           psk = "AlldayrooftopBAR";
         };
+        "HOSTEL JASMIN 2" = {
+          psk = "Jasmin2024";
+        };
       };
     };
     stevenBlackHosts = {
