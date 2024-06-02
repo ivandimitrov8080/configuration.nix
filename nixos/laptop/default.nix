@@ -122,6 +122,9 @@
         "HOSTEL JASMIN 2" = {
           psk = "Jasmin2024";
         };
+        "HOME" = {
+          psk = "iloveprague";
+        };
       };
     };
     stevenBlackHosts = {
