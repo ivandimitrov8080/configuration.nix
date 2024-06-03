@@ -13,12 +13,18 @@
     catppuccin.enable = true;
   };
 
-  home = {
+  home = rec {
     username = "ivand";
     homeDirectory = "/home/ivand";
     sessionPath = [
       "$HOME/.local/bin"
     ];
+    sessionVariables = {
+      PASSWORD_STORE_DIR = "${homeDirectory}/.password-store";
+      EDITOR = "nvim";
+      PAGER = "bat";
+      TERM = "screen-256color";
+    };
     pointerCursor = {
       name = "Catppuccin-Mocha-Green-Cursors";
       package = pkgs.catppuccin-cursors.mochaGreen;

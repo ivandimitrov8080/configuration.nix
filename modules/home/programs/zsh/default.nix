@@ -7,11 +7,6 @@
     loginExtra = ''
       [ "$(tty)" = "/dev/tty1" ] && exec sway
     '';
-    sessionVariables = {
-      PASSWORD_STORE_DIR = "$HOME/.password-store";
-      PAGER = "bat";
-      TERM = "screen-256color";
-    };
     shellAliases = {
       cal = "cal $(date +%Y)";
       GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
@@ -25,6 +20,7 @@
       la = "${pkgs.nushell}/bin/nu -c 'ls -al'";
       torrent = "transmission-remote";
       vi = "nvim";
+      sc = "systemctl";
     };
     shellGlobalAliases = {
       comp = "-vcodec libx265 -crf 28";

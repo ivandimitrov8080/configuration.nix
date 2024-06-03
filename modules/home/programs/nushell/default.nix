@@ -12,10 +12,7 @@
           }
         }
       '';
-      PASSWORD_STORE_DIR = "($env.HOME | path join .password-store)";
       PATH = "($env.PATH | split row (char esep) | append ($env.HOME | path join .local bin))";
-      EDITOR = "nvim";
-      TERM = "screen-256color";
     };
     shellAliases = {
       gcal = ''
