@@ -21,7 +21,8 @@
       ga = "git add .";
       gc = "git commit";
       dev = "nix develop --command $SHELL";
-      la = "ls -alh";
+      ls = "${pkgs.nushell}/bin/nu -c 'ls'";
+      la = "${pkgs.nushell}/bin/nu -c 'ls -al'";
       torrent = "transmission-remote";
       vi = "nvim";
     };
