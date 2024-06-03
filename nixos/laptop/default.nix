@@ -145,7 +145,6 @@
     defaultUserShell = pkgs.zsh;
     users = {
       ivand = {
-        shell = pkgs.nushell;
         isNormalUser = true;
         extraGroups = [
           "adbusers"
