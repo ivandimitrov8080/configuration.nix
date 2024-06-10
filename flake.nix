@@ -23,42 +23,5 @@
     };
     catppuccin.url = "github:catppuccin/nix";
   };
-  outputs = inputs@{ parts, nixpkgs, ide, nid, home-manager, hosts, catppuccin, ... }:
-    parts.lib.mkFlake { inherit inputs; } {
-      flake =
-        let
-          stateVersion = "24.05";
-          my-overlay = self: super: {
-            scripts = (super.buildEnv { name = "scripts"; paths = [ ./. ]; });
-          };
-          pkgs = import nixpkgs {
-            overlays = [ my-overlay ];
-          };
-          modules = import ./modules {
-            inherit nixpkgs pkgs ide my-overlay;
-            system = "x86_64-linux";
-          };
-          home = import ./home {
-            inherit stateVersion pkgs modules home-manager nid catppuccin;
-            system = "x86_64-linux";
-          };
-          nixos = import ./nixos {
-            inherit stateVersion nixpkgs modules hosts catppuccin;
-            system = "x86_64-linux";
-          };
-        in
-        {
-          nixosConfigurations = {
-            nixos = nixos.laptop;
-          };
-          homeConfigurations = {
-            ivand = home.ivand;
-          };
-          modules = modules;
-        };
-      systems = [
-        "x86_64-linux"
-      ];
-      perSystem = { config, ... }: { };
-    };
+  outputs = inputs: inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./. ]; };
 }
