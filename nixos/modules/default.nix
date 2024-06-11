@@ -1,5 +1,4 @@
-{ inputs, ... }:
-let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
+{ moduleWithSystem, ... }: {
   flake.nixosModules = {
     wireguard = {
       networking.wg-quick.interfaces = {
@@ -43,7 +42,7 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
         kernelModules = [ "v4l2loopback" ];
       };
     };
-    security = {
+    security = moduleWithSystem (toplevel@{ ... }: nixos@{ pkgs, ... }: {
       security = {
         sudo = {
           enable = false;
@@ -66,8 +65,7 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
         rtkit.enable = true;
         pam = { services = { swaylock = { }; }; };
       };
-
-    };
+    });
     xdg = {
       xdg = {
         portal = {
@@ -118,7 +116,7 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
         };
       };
     };
-    users = {
+    users = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       users = {
         defaultUserShell = pkgs.zsh;
         users = {
@@ -141,7 +139,7 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
         };
         extraGroups = { mlocate = { }; };
       };
-    };
+    });
     services = {
       services = {
         xserver.videoDrivers = [ "nouveau" ];
@@ -162,7 +160,7 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
         dconf.enable = true;
       };
     };
-    env = {
+    env = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       environment = {
         systemPackages = with pkgs; [
           cmatrix
@@ -186,8 +184,8 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
         ];
         shells = with pkgs; [ zsh nushell ];
       };
-    };
-    rest = {
+    });
+    rest = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       nix = {
         extraOptions = ''
           experimental-features = nix-command flakes
@@ -202,6 +200,6 @@ let pkgs = import inputs.nixpkgs { system = "x86_64-linux"; }; in {
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
-    };
+    });
   };
 }

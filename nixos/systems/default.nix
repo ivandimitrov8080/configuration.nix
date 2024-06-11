@@ -1,11 +1,18 @@
-{ inputs, config, ... }: {
-  flake.nixosConfigurations = {
-    nixos = inputs.nixpkgs.lib.nixosSystem {
+toplevel@{ inputs, withSystem, ... }:
+let
+  system = "x86_64-linux";
+in
+{
+  flake.nixosConfigurations.nixos = withSystem system (ctx@{ config, inputs', ... }:
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs inputs';
+        packages = config.packages;
+      };
       modules = [
         ./laptop-hardware.nix
         inputs.hosts.nixosModule
         inputs.catppuccin.nixosModules.catppuccin
-      ] ++ (with config.flake.nixosModules; [ wireguard catppuccin boot security xdg networking users services programs env rest ]);
-    };
-  };
+      ] ++ (with toplevel.config.flake.nixosModules; [ wireguard catppuccin boot security xdg networking users services programs env rest ]);
+    });
 }
