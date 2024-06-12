@@ -59,7 +59,6 @@
     libreoffice-qt
     mupdf
     pavucontrol
-    scripts
     slurp
     wl-clipboard
     xdg-user-dirs

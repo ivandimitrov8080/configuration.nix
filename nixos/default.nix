@@ -1,3 +1,3 @@
 { ... }: {
-  imports = [ ./modules ./systems ];
+  imports = [ ./modules ./configs ];
 }
