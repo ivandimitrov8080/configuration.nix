@@ -107,6 +107,9 @@
             "Vodafone-B925" = {
               psk = "7aGh3FE6pN4p4cu6";
             };
+            "O2WIFIZ_EXT" = {
+              psk = "iloveprague";
+            };
           };
         };
         stevenBlackHosts = {
