@@ -26,4 +26,5 @@
     ./waybar
     ./zsh
   ];
+  programs.browserpass.enable = true;
 }
