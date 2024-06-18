@@ -16,6 +16,7 @@ toplevel@{ inputs, withSystem, ... }:
           mods.dev
           mods.essential
           mods.random
+          mods.reminders
           inputs.catppuccin.homeManagerModules.catppuccin
         ];
     });

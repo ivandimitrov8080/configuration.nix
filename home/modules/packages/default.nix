@@ -142,5 +142,32 @@
           };
         }
       );
+    reminders =
+      moduleWithSystem (
+        top@{ ... }:
+        perSystem@{ pkgs, ... }: {
+          systemd.user = {
+            timers = {
+              track-time = {
+                Timer = {
+                  OnCalendar = "Mon..Fri *-*-* 16:00:*";
+                  Persistent = true;
+                };
+                Install = {
+                  WantedBy = [ "timers.target" ];
+                };
+              };
+            };
+            services = {
+              track-time = {
+                Service = {
+                  Type = "oneshot";
+                  ExecStart = [ "${pkgs.libnotify}/bin/notify-send -u critical 'Reminder: Track time'" ];
+                };
+              };
+            };
+          };
+        }
+      );
   };
 }
