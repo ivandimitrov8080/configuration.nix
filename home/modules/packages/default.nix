@@ -169,5 +169,17 @@
           };
         }
       );
+    cust = moduleWithSystem (
+      top@{ ... }:
+      perSystem@{ pkgs, ... }: {
+        imports = [ ../programs/zsh ../programs/nushell ../programs/starship ../programs/carapace ../programs/bottom ../programs/firefox ];
+        home.packages = with pkgs; [
+          openssh
+          procs
+          ripgrep
+          fswatch
+        ];
+      }
+    );
   };
 }
