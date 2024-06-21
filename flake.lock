@@ -549,7 +549,31 @@
         "ide": "ide",
         "nid": "nid",
         "nixpkgs": "nixpkgs",
-        "parts": "parts"
+        "parts": "parts",
+        "sal": "sal"
+      }
+    },
+    "sal": {
+      "inputs": {
+        "ide": [
+          "ide"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1718992420,
+        "narHash": "sha256-jLA7dXSgma6absHIqfrbSXD0hDNLlaTMtlrfKKyqep8=",
+        "owner": "ivandimitrov8080",
+        "repo": "sal",
+        "rev": "2b9899c98f879f5bc7cf8256c7f323a786f33922",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ivandimitrov8080",
+        "repo": "sal",
+        "type": "github"
       }
     },
     "systems": {

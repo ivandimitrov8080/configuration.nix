@@ -15,6 +15,7 @@ top@{ inputs, ... }: {
             };
             scripts = (prev.buildEnv { name = "scripts"; paths = [ ./. ]; });
           })
+          inputs.sal.overlays.default
         ];
       };
       stateVersion = "24.05";

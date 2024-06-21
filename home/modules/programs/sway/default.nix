@@ -33,6 +33,7 @@
         "${modifier}+p" = "exec ${menu}";
         "${modifier}+Shift+a" = "exec screenshot area";
         "${modifier}+Shift+s" = "exec screenshot";
+        "${modifier}+c" = "exec ${pkgs.sal}/bin/sal";
         "XF86Calculator" = "exec rofi -show calc";
         # sway commands
         "${modifier}+Shift+r" = "reload";
