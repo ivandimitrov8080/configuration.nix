@@ -44,7 +44,6 @@
 
           gtk = {
             enable = true;
-            catppuccin.enable = true;
           };
 
           home = rec {

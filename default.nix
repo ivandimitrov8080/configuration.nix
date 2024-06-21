@@ -7,7 +7,7 @@ top@{ inputs, ... }: {
         inherit system;
         overlays = [
           (final: prev: {
-            nvim = inputs.ide.nvim.${system}.standalone {
+            nvim = inputs.ide.nvim.${system}.standalone.default {
               plugins.lsp.servers = {
                 bashls.enable = true;
                 nushell.enable = true;
