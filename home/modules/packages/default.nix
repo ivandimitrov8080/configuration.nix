@@ -28,6 +28,7 @@
       perSystem@{ pkgs, ... }: {
         home.packages = with pkgs; [
           xonotic
+          tor-browser
         ];
       }
     );
