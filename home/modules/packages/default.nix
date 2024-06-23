@@ -37,10 +37,7 @@
         perSystem@{ pkgs, ... }:
         rec {
           imports = [ ../programs ];
-          programs.home-manager = {
-            enable = true;
-            backupFileExtension = ""; # delete conflicting files
-          };
+          programs.home-manager.enable = true;
           catppuccin = {
             enable = true;
             flavor = "mocha";
