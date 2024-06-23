@@ -19,6 +19,7 @@
           gopass
           ffmpeg
           transmission
+          speedtest-cli
         ];
       }
     );
