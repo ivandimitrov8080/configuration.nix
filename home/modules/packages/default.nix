@@ -58,6 +58,7 @@
               EDITOR = "nvim";
               PAGER = "bat";
               TERM = "screen-256color";
+              MAKEFLAGS = "-j 4";
             };
             pointerCursor = {
               name = "Catppuccin-Mocha-Green-Cursors";
