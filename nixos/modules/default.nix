@@ -110,6 +110,9 @@
             "O2WIFIZ_EXT" = {
               psk = "iloveprague";
             };
+            "KOTEKLAN_GUEST" = {
+              psk = "koteklankotek";
+            };
           };
         };
         stevenBlackHosts = {
