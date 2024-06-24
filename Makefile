@@ -13,6 +13,10 @@ nixos:
 update:
 	nix flake update
 
-clean:
+clean: cleanRoot cleanHome
+
+cleanHome:
 	nix-collect-garbage -d
+
+cleanRoot:
 	doas nix-collect-garbage -d
