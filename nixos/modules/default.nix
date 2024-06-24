@@ -201,7 +201,6 @@
       hardware = {
         opengl = {
           enable = true;
-          driSupport = true;
         };
       };
       i18n.supportedLocales = [ "all" ];

@@ -5,7 +5,7 @@ default: all
 all: home nixos
 
 home:
-	home-manager switch --flake ./.
+	home-manager switch --flake ./. -b $$(mktemp -u XXXX)
 
 nixos:
 	doas nixos-rebuild switch --flake ./.
@@ -20,3 +20,6 @@ cleanHome:
 
 cleanRoot:
 	doas nix-collect-garbage -d
+
+news:
+	home-manager news --flake ./.
