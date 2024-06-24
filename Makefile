@@ -10,6 +10,9 @@ home:
 nixos:
 	doas nixos-rebuild switch --flake ./.
 
+update:
+	nix flake update
+
 clean:
 	nix-collect-garbage -d
 	doas nix-collect-garbage -d
