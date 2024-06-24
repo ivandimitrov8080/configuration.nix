@@ -1,4 +1,4 @@
-.PHONY: default all home nixos clean
+.PHONY: default all home nixos update clean
 
 default: all
 
