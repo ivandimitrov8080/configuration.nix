@@ -199,7 +199,7 @@
       };
       system.stateVersion = "24.05";
       hardware = {
-        opengl = {
+        graphics = {
           enable = true;
         };
       };
