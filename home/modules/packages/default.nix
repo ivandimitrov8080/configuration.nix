@@ -31,6 +31,7 @@
           tor-browser
           electrum
           monero-cli
+          bisq-desktop
         ];
       }
     );

@@ -206,9 +206,6 @@
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
-      services.monero = {
-        enable = true;
-      };
     });
   };
 }
