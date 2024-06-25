@@ -30,6 +30,7 @@
           xonotic
           tor-browser
           electrum
+          monero-cli
         ];
       }
     );
