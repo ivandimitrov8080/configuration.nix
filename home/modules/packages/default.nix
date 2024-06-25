@@ -62,8 +62,10 @@
               MAKEFLAGS = "-j 4";
             };
             pointerCursor = {
-              name = "Catppuccin-Mocha-Green-Cursors";
-              package = pkgs.catppuccin-cursors.mochaGreen;
+              name = "BreezeX-RosePine-Linux";
+              package = pkgs.rose-pine-cursor;
+              size = 24;
+              gtk.enable = true;
             };
           };
 
