@@ -64,9 +64,9 @@
               TERM = "screen-256color";
               MAKEFLAGS = "-j 4";
             };
-            pointerCursor = {
-              name = "BreezeX-RosePine-Linux";
-              package = pkgs.rose-pine-cursor;
+            pointerCursor = with pkgs; {
+              name = lib.mkForce "BreezeX-RosePine-Linux";
+              package = lib.mkForce rose-pine-cursor;
               size = 24;
               gtk.enable = true;
             };
