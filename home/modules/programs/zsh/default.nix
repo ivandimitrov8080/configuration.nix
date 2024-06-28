@@ -2,11 +2,17 @@
 {
   programs.zsh = {
     enable = true;
+    dotDir = ".config/zsh";
+    defaultKeymap = "viins";
+    enableVteIntegration = true;
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
     loginExtra = ''
       [ "$(tty)" = "/dev/tty1" ] && exec sway
     '';
+    sessionVariables = {
+      TERM = "screen-256color";
+    };
     shellAliases = {
       cal = "cal $(date +%Y)";
       GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
@@ -22,11 +28,8 @@
       vi = "nvim";
       sc = "systemctl";
     };
-    shellGlobalAliases = {
-      comp = "-vcodec libx265 -crf 28";
-    };
-    history = {
-      expireDuplicatesFirst = true;
-    };
+    shellGlobalAliases.comp = "-vcodec libx265 -crf 28";
+    history.expireDuplicatesFirst = true;
+    historySubstringSearch.enable = true;
   };
 }
