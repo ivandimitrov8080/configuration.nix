@@ -18,7 +18,7 @@
         home.packages = with pkgs; [
           gopass
           ffmpeg
-          transmission
+          transmission_4
           speedtest-cli
         ];
       }
