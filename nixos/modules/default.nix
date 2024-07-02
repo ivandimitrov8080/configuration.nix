@@ -36,7 +36,6 @@
           };
           efi = {
             canTouchEfiVariables = true;
-            efiSysMountPoint = "/boot/efi";
           };
         };
         kernelModules = [ "v4l2loopback" ];
