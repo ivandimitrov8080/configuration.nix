@@ -128,6 +128,7 @@
         users = {
           ivand = {
             isNormalUser = true;
+	    createHome = true;
             extraGroups = [
               "adbusers"
               "adm"
