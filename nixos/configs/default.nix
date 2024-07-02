@@ -10,7 +10,7 @@ in
         packages = config.packages;
       };
       modules = [
-        ./laptop-hardware.nix
+        ./nova-hardware.nix
         inputs.hosts.nixosModule
         inputs.catppuccin.nixosModules.catppuccin
       ] ++ (with toplevel.config.flake.nixosModules; [ wireguard catppuccin boot security xdg networking users services programs env rest ]);
