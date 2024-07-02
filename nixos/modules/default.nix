@@ -146,6 +146,7 @@
     });
     services = {
       services = {
+        ollama.enable = true;
         xserver.videoDrivers = [ "nouveau" ];
         dbus.enable = true;
         flatpak.enable = true;
