@@ -13,6 +13,7 @@
     settings = {
       background_opacity = "0.96";
       cursor_shape = "beam";
+      term = "screen-256color";
     };
   };
 }
