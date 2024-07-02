@@ -14,9 +14,6 @@
       bars = [ ];
       window.titlebar = false;
       keybindings = pkgs.lib.mkOptionDefault {
-        # System
-        "End" = "exec systemctl poweroff";
-        "Insert" = "exec systemctl reboot";
         # Audio
         "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
