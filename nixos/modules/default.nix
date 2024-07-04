@@ -70,6 +70,34 @@
         };
       };
     });
+    music = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      environment.systemPackages = with pkgs; [
+        (writeScriptBin "guitar" ''
+          ${jack2}/bin/jackd -dalsa -r96000 -p512 -n3 -D -Chw:U192k -Phw:U192k &
+          sleep 1
+          ${guitarix}/bin/guitarix
+        '')
+      ];
+      musnix = {
+        enable = true;
+        rtcqs.enable = true;
+        soundcardPciId = "00:1f.3";
+
+        kernel = {
+          realtime = true;
+          packages = pkgs.linuxPackages_6_8_rt;
+        };
+
+        # magic to me
+        rtirq = {
+          # highList = "snd_hrtimer";
+          resetAll = 1;
+          prioLow = 0;
+          enable = true;
+          nameList = "rtc0 snd";
+        };
+      };
+    });
     wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       hardware.graphics.enable = true;
       security.pam.services.swaylock = { };
