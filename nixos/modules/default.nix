@@ -22,7 +22,6 @@
           experimental-features = nix-command flakes
         '';
       };
-      hardware.graphics.enable = true;
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
@@ -71,6 +70,10 @@
         };
       };
     });
+    wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+      hardware.graphics.enable = true;
+      security.pam.services.swaylock = { };
+    });
     security = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       security = {
         sudo = {
@@ -91,7 +94,6 @@
         };
         polkit.enable = true;
         rtkit.enable = true;
-        pam = { services = { swaylock = { }; }; };
       };
     });
     wireguard = {

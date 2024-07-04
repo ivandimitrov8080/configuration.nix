@@ -14,7 +14,7 @@ in
           ./nova-hardware.nix
           inputs.hosts.nixosModule
           inputs.catppuccin.nixosModules.catppuccin
-        ] ++ (with toplevel.config.flake.nixosModules; [ grub base sound security ivand wireless wireguard style ]);
+        ] ++ (with toplevel.config.flake.nixosModules; [ grub base sound wayland security ivand wireless wireguard style ]);
       });
     vm = withSystem system (ctx@{ config, inputs', ... }:
       inputs.nixpkgs.lib.nixosSystem {
