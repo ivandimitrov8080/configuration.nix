@@ -18,7 +18,6 @@ top@{ inputs, ... }: {
           inputs.sal.overlays.default
         ];
       };
-      stateVersion = "24.05";
     };
   };
 }

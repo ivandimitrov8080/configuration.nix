@@ -1,5 +1,98 @@
 { moduleWithSystem, ... }: {
   flake.nixosModules = {
+    grub = {
+      boot = {
+        loader = {
+          grub = {
+            enable = true;
+            useOSProber = true;
+            efiSupport = true;
+            device = "nodev";
+          };
+          efi = {
+            canTouchEfiVariables = true;
+          };
+        };
+      };
+    };
+    base = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      system.stateVersion = "24.05";
+      nix = {
+        extraOptions = ''
+          experimental-features = nix-command flakes
+        '';
+      };
+      i18n.supportedLocales = [ "all" ];
+      time.timeZone = "Europe/Prague";
+      fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
+      environment = {
+        systemPackages = with pkgs; [
+          cmatrix
+          coreutils-full
+          cryptsetup
+          fd
+          file
+          git
+          glibc
+          gnumake
+          mlocate
+          moreutils
+          openssl
+          srm
+          unzip
+          vim
+          zip
+        ];
+        shells = with pkgs; [ zsh nushell ];
+      };
+      programs = {
+        zsh.enable = true;
+        nix-ld.enable = true;
+        dconf.enable = true;
+      };
+      services = {
+        dbus.enable = true;
+      };
+      networking = {
+        stevenBlackHosts = {
+          enable = true;
+          blockFakenews = true;
+          blockGambling = true;
+        };
+      };
+    });
+    sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+      services = {
+        pipewire = {
+          enable = true;
+          alsa.enable = true;
+          pulse.enable = true;
+        };
+      };
+    });
+    security = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+      security = {
+        sudo = {
+          enable = false;
+          execWheelOnly = true;
+          extraRules = [
+            {
+              groups = [ "wheel" ];
+            }
+          ];
+        };
+        doas = {
+          enable = true;
+          extraRules = [
+            # Allow wheel to run all commands without password and keep user env.
+            { groups = [ "wheel" ]; noPass = true; keepEnv = true; }
+          ];
+        };
+        polkit.enable = true;
+        rtkit.enable = true;
+        pam = { services = { swaylock = { }; }; };
+      };
+    });
     wireguard = {
       networking.wg-quick.interfaces = {
         wg0 = {
@@ -16,63 +109,7 @@
         };
       };
     };
-    catppuccin = {
-      catppuccin = {
-        enable = true;
-        flavor = "mocha";
-      };
-      boot.loader.grub.catppuccin.enable = true;
-    };
-    boot = {
-      boot = {
-        loader = {
-          grub = {
-            enable = true;
-            useOSProber = true;
-            efiSupport = true;
-            device = "nodev";
-          };
-          efi = {
-            canTouchEfiVariables = true;
-          };
-        };
-        kernelModules = [ "v4l2loopback" ];
-      };
-    };
-    security = moduleWithSystem (toplevel@{ ... }: nixos@{ pkgs, ... }: {
-      security = {
-        sudo = {
-          enable = false;
-          execWheelOnly = true;
-          extraRules = [
-            {
-              groups = [ "wheel" ];
-              commands = [{ command = "${pkgs.light}/bin/light"; options = [ "SETENV" "NOPASSWD" ]; }];
-            }
-          ];
-        };
-        doas = {
-          enable = true;
-          extraRules = [
-            # Allow wheel to run all commands without password and keep user env.
-            { groups = [ "wheel" ]; noPass = true; keepEnv = true; }
-          ];
-        };
-        polkit.enable = true;
-        rtkit.enable = true;
-        pam = { services = { swaylock = { }; }; };
-      };
-    });
-    xdg = {
-      xdg = {
-        portal = {
-          enable = true;
-          wlr.enable = true;
-          config.common.default = "*";
-        };
-      };
-    };
-    networking = {
+    wireless = {
       networking = {
         wireless = {
           enable = true;
@@ -112,14 +149,9 @@
             };
           };
         };
-        stevenBlackHosts = {
-          enable = true;
-          blockFakenews = true;
-          blockGambling = true;
-        };
       };
     };
-    users = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+    ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       users = {
         defaultUserShell = pkgs.zsh;
         users = {
@@ -144,67 +176,89 @@
         extraGroups = { mlocate = { }; };
       };
     });
-    services = {
-      services = {
-        ollama.enable = true;
-        xserver.videoDrivers = [ "nouveau" ];
-        dbus.enable = true;
-        flatpak.enable = true;
-        pipewire = {
-          enable = true;
-          alsa.enable = true;
-          pulse.enable = true;
+    testUser = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      users = {
+        defaultUserShell = pkgs.zsh;
+        users = {
+          test = {
+            isNormalUser = true;
+            createHome = true;
+            initialPassword = "test";
+            extraGroups = [
+              "adbusers"
+              "adm"
+              "audio"
+              "bluetooth"
+              "dialout"
+              "flatpak"
+              "kvm"
+              "mlocate"
+              "render"
+              "video"
+              "wheel"
+            ];
+          };
         };
-      };
-    };
-    programs = {
-      programs = {
-        zsh.enable = true;
-        nix-ld.enable = true;
-        adb.enable = true;
-        dconf.enable = true;
-      };
-    };
-    env = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      environment = {
-        systemPackages = with pkgs; [
-          cmatrix
-          coreutils-full
-          cryptsetup
-          dig
-          fd
-          file
-          git
-          glibc
-          gnumake
-          jq
-          mlocate
-          moreutils
-          ntfs3g
-          openssl
-          srm
-          unzip
-          vim
-          zip
-        ];
-        shells = with pkgs; [ zsh nushell ];
+        extraGroups = { mlocate = { }; };
       };
     });
-    rest = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      nix = {
-        extraOptions = ''
-          experimental-features = nix-command flakes
-        '';
+    style = {
+      catppuccin = {
+        enable = true;
+        flavor = "mocha";
       };
-      system.stateVersion = "24.05";
-      hardware = {
-        graphics = {
+      boot.loader.grub.catppuccin.enable = true;
+    };
+    flatpak = {
+      xdg = {
+        portal = {
           enable = true;
+          wlr.enable = true;
+          config.common.default = "*";
         };
       };
-      i18n.supportedLocales = [ "all" ];
-      time.timeZone = "Europe/Prague";
-      fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
+      services.flatpak.enable = true;
+    };
+    ai = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+      services = {
+        ollama.enable = true;
+      };
+    });
+    vm = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      nixpkgs.hostPlatform = "x86_64-linux";
+      virtualisation.vmVariant = {
+        # following configuration is added only when building VM with build-vm
+        virtualisation = {
+          memorySize = 8192;
+          cores = 4;
+          resolution = {
+            x = 1920;
+            y = 1080;
+          };
+          diskImage = "$HOME/doc/vm.qcow2";
+          qemu = {
+            options = [ "-vga qxl" "-spice port=5900,addr=127.0.0.1,disable-ticketing=on" ];
+          };
+        };
+        services = {
+          displayManager.sddm.enable = true;
+          xserver = {
+            enable = true;
+            desktopManager.xfce.enable = true;
+            videoDrivers = [ "qxl" ];
+          };
+          spice-autorandr.enable = true;
+          spice-vdagentd.enable = true;
+          spice-webdavd.enable = true;
+        };
+        environment = {
+          systemPackages = with pkgs; [
+            xorg.xf86videoqxl
+            tor-browser
+            gnupg
+          ];
+        };
+      };
     });
   };
 }
