@@ -22,6 +22,7 @@
           experimental-features = nix-command flakes
         '';
       };
+      hardware.graphics.enable = true;
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
