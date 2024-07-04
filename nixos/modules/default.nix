@@ -73,8 +73,8 @@
     music = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       environment.systemPackages = with pkgs; [
         (writeScriptBin "guitar" ''
-          ${jack2}/bin/jackd -dalsa -r96000 -p512 -n3 -D -Chw:U192k -Phw:U192k &
-          sleep 1
+          ${jack2}/bin/jackd -s -T -R -dalsa -r96000 -p128 -n3 -D -Chw:U192k -Phw:U192k &
+          sleep 2
           ${guitarix}/bin/guitarix
         '')
       ];
