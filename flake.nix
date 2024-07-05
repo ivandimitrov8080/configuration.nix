@@ -21,10 +21,6 @@
       url = "github:ivandimitrov8080/sal";
       inputs = { nixpkgs.follows = "nixpkgs"; ide.follows = "ide"; };
     };
-    nid = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";

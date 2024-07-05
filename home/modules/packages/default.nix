@@ -39,20 +39,8 @@
     shell = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, ... }: {
-        programs = {
-          zsh = {
-            enable = true;
-            dotDir = ".config/zsh";
-            defaultKeymap = "viins";
-            enableVteIntegration = true;
-            syntaxHighlighting.enable = true;
-            autosuggestion.enable = true;
-            loginExtra = ''
-              [ "$(tty)" = "/dev/tty1" ] && exec sway
-            '';
-            sessionVariables = {
-              TERM = "screen-256color";
-            };
+        programs =
+          let
             shellAliases = {
               cal = "cal $(date +%Y)";
               GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
@@ -67,78 +55,140 @@
               torrent = "transmission-remote";
               vi = "nvim";
               sc = "systemctl";
-            };
-            shellGlobalAliases.comp = "-vcodec libx265 -crf 28";
-            history.expireDuplicatesFirst = true;
-            historySubstringSearch.enable = true;
-          };
-          tmux = {
-            enable = true;
-            clock24 = true;
-            baseIndex = 1;
-            escapeTime = 0;
-            keyMode = "vi";
-            shell = "\${SHELL}";
-            terminal = "screen-256color";
-            plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
-            extraConfig = ''
-              set-option -a terminal-features 'screen-256color:RGB'
-            '';
-          };
-          nushell = {
-            enable = true;
-            environmentVariables = {
-              config = ''
-                {
-                  show_banner: false,
-                  completions: {
-                    quick: false
-                    partial: false
-                    algorithm: "prefix"
-                  }
-                }
-              '';
-              PATH = "($env.PATH | split row (char esep) | append ($env.HOME | path join .local bin))";
-            };
-            shellAliases = {
-              gcal = ''
-                bash -c "cal $(date +%Y)"
-              '';
-              la = "ls -al";
-              dev = "nix develop --command $env.SHELL";
-              torrent = "transmission-remote";
-              vi = "nvim";
-              sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
             };
-            loginFile.text = ''
-              if (tty) == "/dev/tty1" {
-                sway
-              }
-            '';
+            sessionVariables = {
+              TERM = "screen-256color";
+            };
+          in
+          {
+            bash = {
+              inherit shellAliases sessionVariables;
+              enable = true;
+              enableVteIntegration = true;
+              historyControl = [ "erasedups" ];
+              historyIgnore = [
+                "ls"
+                "cd"
+                "exit"
+              ];
+            };
+            zsh = {
+              inherit shellAliases sessionVariables;
+              enable = true;
+              dotDir = ".config/zsh";
+              defaultKeymap = "viins";
+              enableVteIntegration = true;
+              history.expireDuplicatesFirst = true;
+              historySubstringSearch.enable = true;
+            };
+            nushell = {
+              enable = true;
+              environmentVariables = {
+                config = ''
+                  {
+                    show_banner: false,
+                    completions: {
+                      quick: false
+                      partial: false
+                      algorithm: "prefix"
+                    }
+                  }
+                '';
+              };
+              shellAliases = shellAliases // {
+                gcal = ''
+                  bash -c "cal $(date +%Y)"
+                '';
+                la = "ls -al";
+                dev = "nix develop --command $env.SHELL";
+              };
+            };
+            programs.kitty.shellIntegration = {
+              enableBashIntegration = true;
+              enableZshIntegration = true;
+              enableNushellIntegration = true;
+            };
+            tmux = {
+              enable = true;
+              clock24 = true;
+              baseIndex = 1;
+              escapeTime = 0;
+              keyMode = "vi";
+              shell = "\${SHELL}";
+              terminal = "screen-256color";
+              plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
+              extraConfig = ''
+                set-option -a terminal-features 'screen-256color:RGB'
+              '';
+            };
+            starship = {
+              enable = true;
+              enableNushellIntegration = true;
+              enableZshIntegration = true;
+              enableBashIntegration = true;
+            };
           };
-          starship = {
-            enable = true;
-            enableNushellIntegration = true;
-            enableZshIntegration = true;
-            enableBashIntegration = true;
-          };
-        };
-        services.pueue.enable = true;
       }
     );
     base = moduleWithSystem (
-      top@{ ... }:
+      top@{ config, ... }:
       perSystem@{ pkgs, ... }: {
-        programs.home-manager.enable = true;
-        home.packages = with pkgs; [
-          gopass
-          ffmpeg
-          transmission_4
-          speedtest-cli
-        ];
-        bat = {
+        programs = {
+          home-manager.enable = true;
+          password-store = {
+            enable = true;
+            package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
+            settings = {
+              PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
+            };
+          };
+        };
+        home = {
+          username = "ivand";
+          homeDirectory = "/home/ivand";
+          sessionVariables = {
+            EDITOR = "nvim";
+            PAGER = "bat";
+            TERM = "screen-256color";
+            MAKEFLAGS = "-j 4";
+          };
+          pointerCursor = with pkgs; {
+            name = lib.mkForce "BreezeX-RosePine-Linux";
+            package = lib.mkForce rose-pine-cursor;
+            size = 24;
+            gtk.enable = true;
+          };
+          packages = with pkgs; [
+            transmission_4
+            speedtest-cli
+          ];
+        };
+        bat.enable = true;
+        xdg = {
           enable = true;
+          userDirs = with config; {
+            enable = true;
+            createDirectories = true;
+            desktop = "${home.homeDirectory}/dt";
+            documents = "${home.homeDirectory}/doc";
+            download = "${home.homeDirectory}/dl";
+            pictures = "${home.homeDirectory}/pic";
+            videos = "${home.homeDirectory}/vid";
+            templates = "${home.homeDirectory}/tpl";
+            publicShare = "${home.homeDirectory}/pub";
+            music = "${home.homeDirectory}/mus";
+          };
+          mimeApps = {
+            enable = true;
+            defaultApplications = {
+              "text/html" = "firefox.desktop";
+              "x-scheme-handler/http" = "firefox.desktop";
+              "x-scheme-handler/https" = "firefox.desktop";
+              "x-scheme-handler/about" = "firefox.desktop";
+              "x-scheme-handler/unknown" = "firefox.desktop";
+            };
+          };
         };
       }
     );
@@ -153,7 +203,7 @@
         ];
       }
     );
-    sway = moduleWithSystem (
+    swayland = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, ... }: {
         wayland.windowManager.sway = {
@@ -206,6 +256,221 @@
             enable = true;
           };
         };
+        waybar = {
+          enable = true;
+          catppuccin.enable = true;
+          settings = {
+            mainBar =
+              let
+              in
+              {
+                layer = "top";
+                position = "top";
+                height = 30;
+                output = [
+                  "eDP-1"
+                  "HDMI-A-1"
+                ];
+                modules-left = [ "sway/workspaces" ];
+                modules-center = [ "clock#week" "clock#year" "clock#time" ];
+                modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
+
+                "clock#time" = {
+                  format = "{:%H:%M:%S}";
+                  interval = 1;
+                };
+
+                "clock#week" = {
+                  format = "{:%a}";
+                };
+
+                "clock#year" = {
+                  format = "{:%Y-%m-%d}";
+                };
+
+                battery = {
+                  format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
+                  format-time = " {H} h {M} m";
+                  format-icons = [ "" "" "" "" "" ];
+                  states = {
+                    warning = 30;
+                    critical = 15;
+                  };
+                };
+
+                cpu = {
+                  format = "<span color='#74c7ec'></span>  {usage}%";
+                };
+
+                memory = {
+                  format = "<span color='#89b4fa'></span>  {percentage}%";
+                  interval = 5;
+                };
+
+                pulseaudio = {
+                  format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
+                  format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
+                  format-source = "{volume}% <span color='#a6e3a1'></span>";
+                  format-source-muted = "{volume}% <span color='#f38ba8'></span>";
+                  format-icons = {
+                    headphone = "";
+                    default = [ "" "" "" ];
+                  };
+                };
+
+                network = {
+                  format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+                  format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+                  format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
+                  format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
+                  interval = 5;
+                };
+
+                "sway/workspaces" = {
+                  disable-scroll = true;
+                  all-outputs = true;
+                };
+              };
+          };
+          systemd = {
+            enable = true;
+            target = "sway-session.target";
+          };
+          style = /* CSS */ ''
+            * {
+                font-family: FontAwesome, 'Fira Code';
+                font-size: 13px;
+            }
+
+            window#waybar {
+                background-color: rgba(43, 48, 59, 0.1);
+                border-bottom: 2px solid rgba(100, 114, 125, 0.5);
+                color: @rosewater;
+            }
+
+            #workspaces button {
+                padding: 0 5px;
+                background-color: @base;
+                color: @text;
+                border-radius: 6px;
+            }
+
+            #workspaces button:hover {
+                background: @mantle;
+            }
+
+            #workspaces button.focused {
+                background-color: @crust;
+                box-shadow: inset 0 -2px @sky;
+            }
+
+            #workspaces button.urgent {
+                background-color: @red;
+            }
+
+            #clock,
+            #battery,
+            #cpu,
+            #memory,
+            #disk,
+            #temperature,
+            #backlight,
+            #network,
+            #pulseaudio,
+            #wireplumber,
+            #custom-media,
+            #tray,
+            #mode,
+            #idle_inhibitor,
+            #scratchpad,
+            #power-profiles-daemon,
+            #mpd {
+                padding: 0 10px;
+                color: @text;
+                background-color: @base;
+                margin: 0 .5em;
+                border-radius: 9999px;
+            }
+
+            #clock.week {
+              margin-right: 0px;
+              color: @peach;
+              border-radius: 9999px 0px 0px 9999px;
+            }
+
+            #clock.year {
+              margin: 0px;
+              padding: 0px;
+              color: @pink;
+              border-radius: 0px;
+            }
+
+            #clock.time {
+              margin-left: 0px;
+              color: @sky;
+              border-radius: 0px 9999px 9999px 0px;
+            }
+
+            #battery.charging, #battery.plugged {
+                color: @green;
+            }
+
+            #battery.discharging {
+                color: @yellow;
+            }
+
+            @keyframes blink {
+                to {
+                    background-color: #ffffff;
+                    color: #000000;
+                }
+            }
+
+            #battery.warning:not(.charging) {
+                background-color: @red;
+            }
+
+            /* Using steps() instead of linear as a timing function to limit cpu usage */
+            #battery.critical:not(.charging) {
+                background-color: @red;
+                animation-name: blink;
+                animation-duration: 0.5s;
+                animation-timing-function: steps(12);
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+            }
+          '';
+        };
+        programs = {
+          kitty = {
+            enable = true;
+            catppuccin.enable = true;
+            font = {
+              package = pkgs.fira-code;
+              name = "FiraCodeNFM-Reg";
+            };
+            settings = {
+              background_opacity = "0.96";
+              cursor_shape = "beam";
+              term = "screen-256color";
+            };
+          };
+          imv.enable = true;
+          bash.profileExtra = ''
+            [ "$(tty)" = "/dev/tty1" ] && exec sway
+          '';
+          zsh.loginExtra = ''
+            [ "$(tty)" = "/dev/tty1" ] && exec sway
+          '';
+          nushell.loginFile.text = ''
+            if (tty) == "/dev/tty1" {
+              sway
+            }
+          '';
+        };
+        services = {
+          mako.enable = true;
+        };
         home.packages = with pkgs; [
           audacity
           gimp
@@ -232,26 +497,6 @@
             enable = true;
           };
 
-          home = rec {
-            username = "ivand";
-            homeDirectory = "/home/ivand";
-            sessionPath = [
-              "$HOME/.local/bin"
-            ];
-            sessionVariables = {
-              PASSWORD_STORE_DIR = "${homeDirectory}/.password-store";
-              EDITOR = "nvim";
-              PAGER = "bat";
-              TERM = "screen-256color";
-              MAKEFLAGS = "-j 4";
-            };
-            pointerCursor = with pkgs; {
-              name = lib.mkForce "BreezeX-RosePine-Linux";
-              package = lib.mkForce rose-pine-cursor;
-              size = 24;
-              gtk.enable = true;
-            };
-          };
 
           systemd.user = {
             timers = {
@@ -300,34 +545,6 @@
             };
           };
 
-          xdg = {
-            enable = true;
-            userDirs = {
-              enable = true;
-              createDirectories = true;
-              desktop = "${home.homeDirectory}/dt";
-              documents = "${home.homeDirectory}/doc";
-              download = "${home.homeDirectory}/dl";
-              pictures = "${home.homeDirectory}/pic";
-              videos = "${home.homeDirectory}/vid";
-              templates = "${home.homeDirectory}/tpl";
-              publicShare = "${home.homeDirectory}/pub";
-              music = "${home.homeDirectory}/mus";
-            };
-            mimeApps = {
-              enable = true;
-              defaultApplications = {
-                "text/html" = "firefox.desktop";
-                "x-scheme-handler/http" = "firefox.desktop";
-                "x-scheme-handler/https" = "firefox.desktop";
-                "x-scheme-handler/about" = "firefox.desktop";
-                "x-scheme-handler/unknown" = "firefox.desktop";
-                "x-scheme-handler/mailto" = "userapp-Thunderbird-LDALA2.desktop";
-                "message/rfc822" = "userapp-Thunderbird-LDALA2.desktop";
-                "x-scheme-handler/mid" = "userapp-Thunderbird-LDALA2.desktop";
-              };
-            };
-          };
         }
       );
     reminders =
