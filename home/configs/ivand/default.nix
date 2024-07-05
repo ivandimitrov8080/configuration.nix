@@ -1,15 +1,15 @@
-toplevel@{ inputs, withSystem, ... }:
+toplevel@{ inputs, withSystem, config, ... }:
 {
   flake.homeConfigurations.ivand = withSystem "x86_64-linux" (ctx@{ pkgs, ... }:
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules =
         let
-          mods = toplevel.config.flake.homeManagerModules;
+          mods = config.flake.homeManagerModules;
         in
         [
           {
-            home.stateVersion = "24.05";
+            home.stateVersion = config.flake.stateVersion;
           }
           inputs.nid.hmModules.nix-index
           inputs.catppuccin.homeManagerModules.catppuccin

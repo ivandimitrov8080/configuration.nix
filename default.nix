@@ -1,6 +1,7 @@
 top@{ inputs, ... }: {
   imports = [ ./nixos ./home ];
   systems = [ "x86_64-linux" ];
+  flake.stateVersion = "24.05";
   perSystem = perSystem@{ system, ... }: {
     config._module.args = {
       pkgs = import inputs.nixpkgs {

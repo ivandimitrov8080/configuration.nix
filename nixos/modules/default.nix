@@ -1,4 +1,4 @@
-{ moduleWithSystem, ... }: {
+top@{ moduleWithSystem, ... }: {
   flake.nixosModules = {
     grub = {
       boot = {
@@ -16,7 +16,7 @@
       };
     };
     base = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      system.stateVersion = "24.05";
+      system.stateVersion = top.config.flake.stateVersion;
       nix = {
         extraOptions = ''
           experimental-features = nix-command flakes
