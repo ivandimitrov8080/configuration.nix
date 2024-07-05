@@ -245,13 +245,6 @@ top@{ moduleWithSystem, ... }: {
         extraGroups = { mlocate = { }; };
       };
     });
-    style = {
-      catppuccin = {
-        enable = true;
-        flavor = "mocha";
-      };
-      boot.loader.grub.catppuccin.enable = true;
-    };
     flatpak = {
       xdg = {
         portal = {

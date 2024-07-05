@@ -13,9 +13,8 @@ in
         modules = [
           ./nova-hardware.nix
           inputs.hosts.nixosModule
-          inputs.catppuccin.nixosModules.catppuccin
           inputs.musnix.nixosModules.musnix
-        ] ++ (with toplevel.config.flake.nixosModules; [ grub base sound music wayland security ivand wireless wireguard style ]);
+        ] ++ (with toplevel.config.flake.nixosModules; [ grub base sound music wayland security ivand wireless wireguard ]);
       });
     vm = withSystem system (ctx@{ config, inputs', ... }:
       inputs.nixpkgs.lib.nixosSystem {

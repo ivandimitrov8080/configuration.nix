@@ -11,8 +11,6 @@ toplevel@{ inputs, withSystem, config, ... }:
           {
             home.stateVersion = config.flake.stateVersion;
           }
-          inputs.nid.hmModules.nix-index
-          inputs.catppuccin.homeManagerModules.catppuccin
           mods.all
           mods.dev
           mods.base
