@@ -37,7 +37,10 @@ top@{ moduleWithSystem, ... }: {
           gnumake
           mlocate
           moreutils
+          openssh
           openssl
+          procs
+          ripgrep
           srm
           unzip
           vim

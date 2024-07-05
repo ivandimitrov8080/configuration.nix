@@ -2,39 +2,7 @@
   flake.homeManagerModules = {
     dev = moduleWithSystem (
       top@{ ... }:
-      perSystem@{ pkgs, ... }: {
-        home.packages = with pkgs; [
-          openssh
-          procs
-          ripgrep
-          fswatch
-          nvim
-        ];
-        programs = {
-          git = {
-            enable = true;
-            delta.enable = true;
-            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
-            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
-            signing = {
-              signByDefault = true;
-              key = "ivan@idimitrov.dev";
-            };
-            extraConfig = {
-              color.ui = "auto";
-              pull.rebase = true;
-              push.autoSetupRemote = true;
-            };
-            aliases = {
-              a = "add .";
-              c = "commit";
-              d = "diff --cached";
-              p = "push";
-            };
-          };
-        };
-        services.pueue.enable = true;
-      }
+      perSystem@{ pkgs, ... }: { }
     );
     shell = moduleWithSystem (
       top@{ ... }:
@@ -143,6 +111,38 @@
               PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
             };
           };
+          git = {
+            enable = true;
+            delta.enable = true;
+            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
+            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
+            signing = {
+              signByDefault = true;
+              key = "ivan@idimitrov.dev";
+            };
+            extraConfig = {
+              color.ui = "auto";
+              pull.rebase = true;
+              push.autoSetupRemote = true;
+            };
+            aliases = {
+              a = "add .";
+              c = "commit";
+              d = "diff --cached";
+              p = "push";
+            };
+          };
+          gpg.enable = true;
+        };
+        services = {
+          pueue.enable = true;
+          gpg-agent = {
+            enable = true;
+            enableBashIntegration = true;
+            enableZshIntegration = true;
+            enableNushellIntegration = true;
+            pinentryPackage = pkgs.pinentry-qt;
+          };
         };
         home = {
           username = "ivand";
@@ -162,6 +162,7 @@
           packages = with pkgs; [
             transmission_4
             speedtest-cli
+            nvim
           ];
         };
         bat.enable = true;
@@ -192,23 +193,42 @@
         };
       }
     );
-    random = moduleWithSystem (
+    util = moduleWithSystem (
       top@{ ... }:
-      perSystem@{ pkgs, ... }: {
-        home.packages = with pkgs; [
-          xonotic
-          tor-browser
-          electrum
-          bisq-desktop
-        ];
+      perSystem@{ ... }: {
+        tealdeer = {
+          enable = true;
+          settings = {
+            display = {
+              compact = true;
+            };
+            updates = {
+              auto_update = true;
+            };
+          };
+        };
+        bottom = {
+          enable = true;
+          catppuccin.enable = true;
+          settings = {
+            flags = {
+              rate = "250ms";
+            };
+            row = [
+              { ratio = 40; child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }]; }
+              { ratio = 35; child = [{ type = "temp"; } { type = "disk"; }]; }
+              { ratio = 40; child = [{ type = "proc"; default = true; }]; }
+            ];
+          };
+        };
       }
     );
+
     swayland = moduleWithSystem (
-      top@{ ... }:
+      top@{ config, ... }:
       perSystem@{ pkgs, ... }: {
         wayland.windowManager.sway = {
           enable = true;
-          catppuccin.enable = true;
           systemd.enable = true;
           config = rec {
             menu = "rofi -show run";
@@ -256,195 +276,216 @@
             enable = true;
           };
         };
-        waybar = {
-          enable = true;
-          catppuccin.enable = true;
-          settings = {
-            mainBar =
-              let
-              in
-              {
-                layer = "top";
-                position = "top";
-                height = 30;
-                output = [
-                  "eDP-1"
-                  "HDMI-A-1"
-                ];
-                modules-left = [ "sway/workspaces" ];
-                modules-center = [ "clock#week" "clock#year" "clock#time" ];
-                modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
-
-                "clock#time" = {
-                  format = "{:%H:%M:%S}";
-                  interval = 1;
-                };
-
-                "clock#week" = {
-                  format = "{:%a}";
-                };
-
-                "clock#year" = {
-                  format = "{:%Y-%m-%d}";
-                };
-
-                battery = {
-                  format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
-                  format-time = " {H} h {M} m";
-                  format-icons = [ "" "" "" "" "" ];
-                  states = {
-                    warning = 30;
-                    critical = 15;
-                  };
-                };
-
-                cpu = {
-                  format = "<span color='#74c7ec'></span>  {usage}%";
-                };
-
-                memory = {
-                  format = "<span color='#89b4fa'></span>  {percentage}%";
-                  interval = 5;
-                };
-
-                pulseaudio = {
-                  format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
-                  format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
-                  format-source = "{volume}% <span color='#a6e3a1'></span>";
-                  format-source-muted = "{volume}% <span color='#f38ba8'></span>";
-                  format-icons = {
-                    headphone = "";
-                    default = [ "" "" "" ];
-                  };
-                };
-
-                network = {
-                  format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
-                  format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
-                  format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
-                  format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
-                  interval = 5;
-                };
-
-                "sway/workspaces" = {
-                  disable-scroll = true;
-                  all-outputs = true;
-                };
-              };
-          };
-          systemd = {
-            enable = true;
-            target = "sway-session.target";
-          };
-          style = /* CSS */ ''
-            * {
-                font-family: FontAwesome, 'Fira Code';
-                font-size: 13px;
-            }
-
-            window#waybar {
-                background-color: rgba(43, 48, 59, 0.1);
-                border-bottom: 2px solid rgba(100, 114, 125, 0.5);
-                color: @rosewater;
-            }
-
-            #workspaces button {
-                padding: 0 5px;
-                background-color: @base;
-                color: @text;
-                border-radius: 6px;
-            }
-
-            #workspaces button:hover {
-                background: @mantle;
-            }
-
-            #workspaces button.focused {
-                background-color: @crust;
-                box-shadow: inset 0 -2px @sky;
-            }
-
-            #workspaces button.urgent {
-                background-color: @red;
-            }
-
-            #clock,
-            #battery,
-            #cpu,
-            #memory,
-            #disk,
-            #temperature,
-            #backlight,
-            #network,
-            #pulseaudio,
-            #wireplumber,
-            #custom-media,
-            #tray,
-            #mode,
-            #idle_inhibitor,
-            #scratchpad,
-            #power-profiles-daemon,
-            #mpd {
-                padding: 0 10px;
-                color: @text;
-                background-color: @base;
-                margin: 0 .5em;
-                border-radius: 9999px;
-            }
-
-            #clock.week {
-              margin-right: 0px;
-              color: @peach;
-              border-radius: 9999px 0px 0px 9999px;
-            }
-
-            #clock.year {
-              margin: 0px;
-              padding: 0px;
-              color: @pink;
-              border-radius: 0px;
-            }
-
-            #clock.time {
-              margin-left: 0px;
-              color: @sky;
-              border-radius: 0px 9999px 9999px 0px;
-            }
-
-            #battery.charging, #battery.plugged {
-                color: @green;
-            }
-
-            #battery.discharging {
-                color: @yellow;
-            }
-
-            @keyframes blink {
-                to {
-                    background-color: #ffffff;
-                    color: #000000;
-                }
-            }
-
-            #battery.warning:not(.charging) {
-                background-color: @red;
-            }
-
-            /* Using steps() instead of linear as a timing function to limit cpu usage */
-            #battery.critical:not(.charging) {
-                background-color: @red;
-                animation-name: blink;
-                animation-duration: 0.5s;
-                animation-timing-function: steps(12);
-                animation-iteration-count: infinite;
-                animation-direction: alternate;
-            }
-          '';
-        };
         programs = {
+          waybar = {
+            enable = true;
+            settings = {
+              mainBar =
+                let
+                in
+                {
+                  layer = "top";
+                  position = "top";
+                  height = 30;
+                  output = [
+                    "eDP-1"
+                    "HDMI-A-1"
+                  ];
+                  modules-left = [ "sway/workspaces" ];
+                  modules-center = [ "clock#week" "clock#year" "clock#time" ];
+                  modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
+
+                  "clock#time" = {
+                    format = "{:%H:%M:%S}";
+                    interval = 1;
+                  };
+
+                  "clock#week" = {
+                    format = "{:%a}";
+                  };
+
+                  "clock#year" = {
+                    format = "{:%Y-%m-%d}";
+                  };
+
+                  battery = {
+                    format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
+                    format-time = " {H} h {M} m";
+                    format-icons = [ "" "" "" "" "" ];
+                    states = {
+                      warning = 30;
+                      critical = 15;
+                    };
+                  };
+
+                  cpu = {
+                    format = "<span color='#74c7ec'></span>  {usage}%";
+                  };
+
+                  memory = {
+                    format = "<span color='#89b4fa'></span>  {percentage}%";
+                    interval = 5;
+                  };
+
+                  pulseaudio = {
+                    format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
+                    format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
+                    format-source = "{volume}% <span color='#a6e3a1'></span>";
+                    format-source-muted = "{volume}% <span color='#f38ba8'></span>";
+                    format-icons = {
+                      headphone = "";
+                      default = [ "" "" "" ];
+                    };
+                  };
+
+                  network = {
+                    format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+                    format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+                    format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
+                    format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
+                    interval = 5;
+                  };
+
+                  "sway/workspaces" = {
+                    disable-scroll = true;
+                    all-outputs = true;
+                  };
+                };
+            };
+            systemd = {
+              enable = true;
+              target = "sway-session.target";
+            };
+            style = /* CSS */ ''
+              * {
+                  font-family: FontAwesome, 'Fira Code';
+                  font-size: 13px;
+              }
+
+              window#waybar {
+                  background-color: rgba(43, 48, 59, 0.1);
+                  border-bottom: 2px solid rgba(100, 114, 125, 0.5);
+                  color: @rosewater;
+              }
+
+              #workspaces button {
+                  padding: 0 5px;
+                  background-color: @base;
+                  color: @text;
+                  border-radius: 6px;
+              }
+
+              #workspaces button:hover {
+                  background: @mantle;
+              }
+
+              #workspaces button.focused {
+                  background-color: @crust;
+                  box-shadow: inset 0 -2px @sky;
+              }
+
+              #workspaces button.urgent {
+                  background-color: @red;
+              }
+
+              #clock,
+              #battery,
+              #cpu,
+              #memory,
+              #disk,
+              #temperature,
+              #backlight,
+              #network,
+              #pulseaudio,
+              #wireplumber,
+              #custom-media,
+              #tray,
+              #mode,
+              #idle_inhibitor,
+              #scratchpad,
+              #power-profiles-daemon,
+              #mpd {
+                  padding: 0 10px;
+                  color: @text;
+                  background-color: @base;
+                  margin: 0 .5em;
+                  border-radius: 9999px;
+              }
+
+              #clock.week {
+                margin-right: 0px;
+                color: @peach;
+                border-radius: 9999px 0px 0px 9999px;
+              }
+
+              #clock.year {
+                margin: 0px;
+                padding: 0px;
+                color: @pink;
+                border-radius: 0px;
+              }
+
+              #clock.time {
+                margin-left: 0px;
+                color: @sky;
+                border-radius: 0px 9999px 9999px 0px;
+              }
+
+              #battery.charging, #battery.plugged {
+                  color: @green;
+              }
+
+              #battery.discharging {
+                  color: @yellow;
+              }
+
+              @keyframes blink {
+                  to {
+                      background-color: #ffffff;
+                      color: #000000;
+                  }
+              }
+
+              #battery.warning:not(.charging) {
+                  background-color: @red;
+              }
+
+              /* Using steps() instead of linear as a timing function to limit cpu usage */
+              #battery.critical:not(.charging) {
+                  background-color: @red;
+                  animation-name: blink;
+                  animation-duration: 0.5s;
+                  animation-timing-function: steps(12);
+                  animation-iteration-count: infinite;
+                  animation-direction: alternate;
+              }
+            '';
+          };
+          swaylock = {
+            enable = true;
+            settings = {
+              show-failed-attempts = true;
+              image = config.home.homeDirectory + "/pic/bg.png";
+            };
+          };
+          rofi = {
+            enable = true;
+            package = pkgs.rofi-wayland.override {
+              plugins = with pkgs; [
+                (
+                  rofi-calc.override
+                    {
+                      rofi-unwrapped = rofi-wayland-unwrapped;
+                    }
+                )
+              ];
+            };
+            extraConfig = {
+              modi = "window,drun,run,ssh,calc";
+            };
+          };
           kitty = {
             enable = true;
-            catppuccin.enable = true;
             font = {
               package = pkgs.fira-code;
               name = "FiraCodeNFM-Reg";
@@ -456,6 +497,7 @@
             };
           };
           imv.enable = true;
+          mpv.enable = true;
           bash.profileExtra = ''
             [ "$(tty)" = "/dev/tty1" ] && exec sway
           '';
@@ -470,6 +512,34 @@
         };
         services = {
           mako.enable = true;
+          cliphist = {
+            enable = true;
+            systemdTarget = "sway-session.target";
+          };
+        };
+        systemd.user = {
+          timers = { rbingwp = { Timer = { OnCalendar = "*-*-* 10:00:00"; Persistent = true; }; Install = { WantedBy = [ "timers.target" ]; }; }; };
+          services = {
+            wpd = {
+              Service = {
+                Environment = [
+                  "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin"
+                ];
+                ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i ((xdg-user-dir PICTURES) | path split | path join bg.png)'" ];
+              };
+            };
+            bingwp = {
+              Service = { Type = "oneshot"; Environment = [ "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin" ]; ExecStart = [ "${pkgs.scripts}/bin/bingwp" ]; };
+            };
+            rbingwp = {
+              Install = { WantedBy = [ "sway-session.target" ]; };
+              Unit = { Description = "Restart bingwp and wpd services"; After = "graphical-session-pre.target"; PartOf = "graphical-session.target"; };
+              Service = {
+                Type = "oneshot";
+                ExecStart = [ "${pkgs.nushell}/bin/nu -c '${pkgs.systemd}/bin/systemctl --user restart bingwp.service; ${pkgs.systemd}/bin/systemctl --user restart wpd.service'" ];
+              };
+            };
+          };
         };
         home.packages = with pkgs; [
           audacity
@@ -483,106 +553,6 @@
           xdg-user-dirs
           xdg-utils
           xwayland
-        ];
-      }
-    );
-    all = moduleWithSystem
-      (
-        top@{ ... }:
-        perSystem@{ pkgs, ... }:
-        rec {
-          imports = [ ../programs ];
-
-          gtk = {
-            enable = true;
-          };
-
-
-          systemd.user = {
-            timers = {
-              rbingwp = {
-                Timer = {
-                  OnCalendar = "*-*-* 10:00:00";
-                  Persistent = true;
-                };
-                Install = {
-                  WantedBy = [ "timers.target" ];
-                };
-              };
-            };
-            services = {
-              wpd = {
-                Service = {
-                  Environment = [
-                    "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin"
-                  ];
-                  ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i ((xdg-user-dir PICTURES) | path split | path join bg.png)'" ];
-                };
-              };
-              bingwp = {
-                Service = {
-                  Type = "oneshot";
-                  Environment = [
-                    "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin"
-                  ];
-                  ExecStart = [ "${pkgs.scripts}/bin/bingwp" ];
-                };
-              };
-              rbingwp = {
-                Install = {
-                  WantedBy = [ "sway-session.target" ];
-                };
-                Unit = {
-                  Description = "Restart bingwp and wpd services";
-                  After = "graphical-session-pre.target";
-                  PartOf = "graphical-session.target";
-                };
-                Service = {
-                  Type = "oneshot";
-                  ExecStart = [ "${pkgs.nushell}/bin/nu -c '${pkgs.systemd}/bin/systemctl --user restart bingwp.service; ${pkgs.systemd}/bin/systemctl --user restart wpd.service'" ];
-                };
-              };
-            };
-          };
-
-        }
-      );
-    reminders =
-      moduleWithSystem (
-        top@{ ... }:
-        perSystem@{ pkgs, ... }: {
-          systemd.user = {
-            timers = {
-              track-time = {
-                Timer = {
-                  OnCalendar = "Mon..Fri *-*-* 16:00:*";
-                  Persistent = true;
-                };
-                Install = {
-                  WantedBy = [ "timers.target" ];
-                };
-              };
-            };
-            services = {
-              track-time = {
-                Service = {
-                  Type = "oneshot";
-                  ExecStart = [ "${pkgs.libnotify}/bin/notify-send -u critical 'Reminder: Track time'" ];
-                };
-              };
-            };
-          };
-        }
-      );
-    cust = moduleWithSystem (
-      top@{ ... }:
-      perSystem@{ pkgs, ... }: {
-        imports = [ ../programs/zsh ../programs/nushell ../programs/starship ../programs/carapace ../programs/bottom ../programs/firefox ];
-        home.packages = with pkgs; [
-          openssh
-          procs
-          ripgrep
-          fswatch
         ];
       }
     );
