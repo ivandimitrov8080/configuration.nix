@@ -1,7 +1,6 @@
-{ pkgs, ... }: {
+perSystem@{ pkgs, ... }: {
   wayland.windowManager.sway = {
     enable = true;
-    catppuccin.enable = true;
     systemd.enable = true;
     config = rec {
       menu = "rofi -show run";

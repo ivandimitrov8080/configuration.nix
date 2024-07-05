@@ -8,9 +8,6 @@ toplevel@{ inputs, withSystem, config, ... }:
           mods = config.flake.homeManagerModules;
         in
         [
-          {
-            home.stateVersion = config.flake.stateVersion;
-          }
           inputs.nid.hmModules.nix-index
           inputs.catppuccin.homeManagerModules.catppuccin
           mods.all

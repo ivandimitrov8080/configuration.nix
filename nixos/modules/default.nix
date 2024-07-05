@@ -191,31 +191,36 @@ top@{ moduleWithSystem, ... }: {
         };
       };
     };
-    ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      users = {
-        defaultUserShell = pkgs.zsh;
+    ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }:
+      let
+        mods = top.config.flake.homeManagerModules;
+      in
+      {
+        imports = [ mods.ivand-nixos-home ];
         users = {
-          ivand = {
-            isNormalUser = true;
-            createHome = true;
-            extraGroups = [
-              "adbusers"
-              "adm"
-              "audio"
-              "bluetooth"
-              "dialout"
-              "flatpak"
-              "kvm"
-              "mlocate"
-              "render"
-              "video"
-              "wheel"
-            ];
+          defaultUserShell = pkgs.zsh;
+          users = {
+            ivand = {
+              isNormalUser = true;
+              createHome = true;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "flatpak"
+                "kvm"
+                "mlocate"
+                "render"
+                "video"
+                "wheel"
+              ];
+            };
           };
+          extraGroups = { mlocate = { }; };
         };
-        extraGroups = { mlocate = { }; };
-      };
-    });
+      });
     testUser = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       users = {
         defaultUserShell = pkgs.zsh;

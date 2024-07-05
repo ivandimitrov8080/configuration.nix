@@ -1,5 +1,5 @@
-{ moduleWithSystem, ... }: {
-  flake.homeManagerModules = {
+{ moduleWithSystem, config, inputs, ... }: {
+  flake.homeManagerModules = rec {
     dev = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, ... }: {
@@ -34,23 +34,20 @@
         ];
       }
     );
-    all = moduleWithSystem
+    general = moduleWithSystem
       (
         top@{ ... }:
         perSystem@{ pkgs, ... }:
         rec {
           imports = [ ../programs ];
           programs.home-manager.enable = true;
-          catppuccin = {
-            enable = true;
-            flavor = "mocha";
-          };
 
           gtk = {
             enable = true;
           };
 
           home = rec {
+            stateVersion = config.flake.stateVersion;
             username = "ivand";
             homeDirectory = "/home/ivand";
             sessionPath = [
@@ -120,6 +117,7 @@
 
           xdg = {
             enable = true;
+            cacheHome = "${home.homeDirectory}/.cache";
             userDirs = {
               enable = true;
               createDirectories = true;
@@ -185,6 +183,29 @@
           ripgrep
           fswatch
         ];
+      }
+    );
+    ivand-nixos-home = moduleWithSystem (
+      top@{ ... }:
+      perSystem@{ ... }:
+      let
+        home-manager = inputs.home-manager.nixosModules.home-manager;
+      in
+      {
+        imports = [ home-manager ];
+        home-manager = {
+          useUserPackages = true;
+          useGlobalPkgs = true;
+        };
+        home-manager.users.ivand = {
+          imports = [
+            general
+            dev
+            essential
+            random
+            reminders
+          ];
+        };
       }
     );
   };

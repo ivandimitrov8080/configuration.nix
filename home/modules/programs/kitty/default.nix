@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   programs.kitty = {
     enable = true;
-    catppuccin.enable = true;
     font = {
       package = pkgs.fira-code;
       name = "FiraCodeNFM-Reg";
