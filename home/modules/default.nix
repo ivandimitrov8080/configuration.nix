@@ -253,8 +253,8 @@ toplevel@{ moduleWithSystem, ... }: {
               "XF86MonBrightnessDown" = "exec doas ${pkgs.light}/bin/light -U 10";
               # Programs
               "${modifier}+p" = "exec ${menu}";
-              "${modifier}+Shift+a" = "exec screenshot area";
-              "${modifier}+Shift+s" = "exec screenshot";
+              "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
+              "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot";
               "${modifier}+c" = "exec ${pkgs.sal}/bin/sal";
               "End" = "exec rofi -show calc";
               # sway commands
@@ -553,7 +553,7 @@ toplevel@{ moduleWithSystem, ... }: {
               };
             };
             bingwp = {
-              Service = { Type = "oneshot"; Environment = [ "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin" ]; ExecStart = [ "${pkgs.scripts}/bin/bingwp" ]; };
+              Service = { Type = "oneshot"; Environment = [ "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin" ]; ExecStart = [ "${pkgs.bingwp}/bin/bingwp" ]; };
             };
             rbingwp = {
               Install = { WantedBy = [ "sway-session.target" ]; };
