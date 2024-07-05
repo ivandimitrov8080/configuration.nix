@@ -137,6 +137,8 @@ toplevel@{ moduleWithSystem, ... }: {
               dotDir = ".config/zsh";
               defaultKeymap = "viins";
               enableVteIntegration = true;
+              syntaxHighlighting.enable = true;
+              autosuggestion.enable = true;
               history.expireDuplicatesFirst = true;
               historySubstringSearch.enable = true;
             };
