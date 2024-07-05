@@ -56,7 +56,6 @@
     libnotify
     libreoffice-qt
     mupdf
-    pavucontrol
     slurp
     wl-clipboard
     xdg-user-dirs

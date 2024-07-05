@@ -61,7 +61,7 @@
         };
       };
     });
-    sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+    sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       services = {
         pipewire = {
           enable = true;
@@ -69,6 +69,9 @@
           pulse.enable = true;
         };
       };
+      environment.systemPackages = with pkgs; [
+        pwvucontrol
+      ];
     });
     music = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       environment.systemPackages = with pkgs; [
