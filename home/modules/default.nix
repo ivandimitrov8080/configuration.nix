@@ -1,8 +1,8 @@
 toplevel@{ moduleWithSystem, ... }: {
   flake.homeManagerModules = {
     base = moduleWithSystem (
-      top@{ config, ... }:
-      perSystem@{ pkgs, ... }: {
+      top@{ ... }:
+      perSystem@{ pkgs, config, ... }: {
         programs = {
           home-manager.enable = true;
           password-store = {
@@ -221,8 +221,8 @@ toplevel@{ moduleWithSystem, ... }: {
       }
     );
     swayland = moduleWithSystem (
-      top@{ config, ... }:
-      perSystem@{ pkgs, ... }: {
+      top@{ ... }:
+      perSystem@{ pkgs, config, ... }: {
         wayland.windowManager.sway = {
           enable = true;
           systemd.enable = true;
