@@ -1,5 +1,99 @@
-{ moduleWithSystem, ... }: {
+toplevel@{ moduleWithSystem, ... }: {
   flake.homeManagerModules = {
+    base = moduleWithSystem (
+      top@{ config, ... }:
+      perSystem@{ pkgs, ... }: {
+        programs = {
+          home-manager.enable = true;
+          password-store = {
+            enable = true;
+            package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
+            settings = {
+              PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
+            };
+          };
+          git = {
+            enable = true;
+            delta.enable = true;
+            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
+            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
+            signing = {
+              signByDefault = true;
+              key = "ivan@idimitrov.dev";
+            };
+            extraConfig = {
+              color.ui = "auto";
+              pull.rebase = true;
+              push.autoSetupRemote = true;
+            };
+            aliases = {
+              a = "add .";
+              c = "commit";
+              d = "diff --cached";
+              p = "push";
+            };
+          };
+          gpg.enable = true;
+        };
+        services = {
+          pueue.enable = true;
+          gpg-agent = {
+            enable = true;
+            enableBashIntegration = true;
+            enableZshIntegration = true;
+            enableNushellIntegration = true;
+            pinentryPackage = pkgs.pinentry-qt;
+          };
+        };
+        home = {
+          stateVersion = toplevel.config.flake.stateVersion;
+          username = "ivand";
+          homeDirectory = "/home/ivand";
+          sessionVariables = {
+            EDITOR = "nvim";
+            PAGER = "bat";
+            TERM = "screen-256color";
+            MAKEFLAGS = "-j 4";
+          };
+          pointerCursor = with pkgs; {
+            name = lib.mkForce "BreezeX-RosePine-Linux";
+            package = lib.mkForce rose-pine-cursor;
+            size = 24;
+            gtk.enable = true;
+          };
+          packages = with pkgs; [
+            transmission_4
+            speedtest-cli
+            nvim
+          ];
+        };
+        xdg = {
+          enable = true;
+          userDirs = with config; {
+            enable = true;
+            createDirectories = true;
+            desktop = "${home.homeDirectory}/dt";
+            documents = "${home.homeDirectory}/doc";
+            download = "${home.homeDirectory}/dl";
+            pictures = "${home.homeDirectory}/pic";
+            videos = "${home.homeDirectory}/vid";
+            templates = "${home.homeDirectory}/tpl";
+            publicShare = "${home.homeDirectory}/pub";
+            music = "${home.homeDirectory}/mus";
+          };
+          mimeApps = {
+            enable = true;
+            defaultApplications = {
+              "text/html" = "firefox.desktop";
+              "x-scheme-handler/http" = "firefox.desktop";
+              "x-scheme-handler/https" = "firefox.desktop";
+              "x-scheme-handler/about" = "firefox.desktop";
+              "x-scheme-handler/unknown" = "firefox.desktop";
+            };
+          };
+        };
+      }
+    );
     shell = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, ... }: {
@@ -68,10 +162,9 @@
                 dev = "nix develop --command $env.SHELL";
               };
             };
-            programs.kitty.shellIntegration = {
+            kitty.shellIntegration = {
               enableBashIntegration = true;
               enableZshIntegration = true;
-              enableNushellIntegration = true;
             };
             tmux = {
               enable = true;
@@ -95,126 +188,35 @@
           };
       }
     );
-    base = moduleWithSystem (
-      top@{ config, ... }:
-      perSystem@{ pkgs, ... }: {
-        programs = {
-          home-manager.enable = true;
-          password-store = {
-            enable = true;
-            package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
-            settings = {
-              PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
-            };
-          };
-          git = {
-            enable = true;
-            delta.enable = true;
-            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
-            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
-            signing = {
-              signByDefault = true;
-              key = "ivan@idimitrov.dev";
-            };
-            extraConfig = {
-              color.ui = "auto";
-              pull.rebase = true;
-              push.autoSetupRemote = true;
-            };
-            aliases = {
-              a = "add .";
-              c = "commit";
-              d = "diff --cached";
-              p = "push";
-            };
-          };
-          gpg.enable = true;
-        };
-        services = {
-          pueue.enable = true;
-          gpg-agent = {
-            enable = true;
-            enableBashIntegration = true;
-            enableZshIntegration = true;
-            enableNushellIntegration = true;
-            pinentryPackage = pkgs.pinentry-qt;
-          };
-        };
-        home = {
-          username = "ivand";
-          homeDirectory = "/home/ivand";
-          sessionVariables = {
-            EDITOR = "nvim";
-            PAGER = "bat";
-            TERM = "screen-256color";
-            MAKEFLAGS = "-j 4";
-          };
-          pointerCursor = with pkgs; {
-            name = lib.mkForce "BreezeX-RosePine-Linux";
-            package = lib.mkForce rose-pine-cursor;
-            size = 24;
-            gtk.enable = true;
-          };
-          packages = with pkgs; [
-            transmission_4
-            speedtest-cli
-            nvim
-          ];
-        };
-        bat.enable = true;
-        xdg = {
-          enable = true;
-          userDirs = with config; {
-            enable = true;
-            createDirectories = true;
-            desktop = "${home.homeDirectory}/dt";
-            documents = "${home.homeDirectory}/doc";
-            download = "${home.homeDirectory}/dl";
-            pictures = "${home.homeDirectory}/pic";
-            videos = "${home.homeDirectory}/vid";
-            templates = "${home.homeDirectory}/tpl";
-            publicShare = "${home.homeDirectory}/pub";
-            music = "${home.homeDirectory}/mus";
-          };
-          mimeApps = {
-            enable = true;
-            defaultApplications = {
-              "text/html" = "firefox.desktop";
-              "x-scheme-handler/http" = "firefox.desktop";
-              "x-scheme-handler/https" = "firefox.desktop";
-              "x-scheme-handler/about" = "firefox.desktop";
-              "x-scheme-handler/unknown" = "firefox.desktop";
-            };
-          };
-        };
-      }
-    );
     util = moduleWithSystem (
       top@{ ... }:
       perSystem@{ ... }: {
-        tealdeer = {
-          enable = true;
-          settings = {
-            display = {
-              compact = true;
-            };
-            updates = {
-              auto_update = true;
+        programs = {
+          tealdeer = {
+            enable = true;
+            settings = {
+              display = {
+                compact = true;
+              };
+              updates = {
+                auto_update = true;
+              };
             };
           };
-        };
-        bottom = {
-          enable = true;
-          settings = {
-            flags = {
-              rate = "250ms";
+          bottom = {
+            enable = true;
+            settings = {
+              flags = {
+                rate = "250ms";
+              };
+              row = [
+                { ratio = 40; child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }]; }
+                { ratio = 35; child = [{ type = "temp"; } { type = "disk"; }]; }
+                { ratio = 40; child = [{ type = "proc"; default = true; }]; }
+              ];
             };
-            row = [
-              { ratio = 40; child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }]; }
-              { ratio = 35; child = [{ type = "temp"; } { type = "disk"; }]; }
-              { ratio = 40; child = [{ type = "proc"; default = true; }]; }
-            ];
           };
+          bat.enable = true;
         };
       }
     );

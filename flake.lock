@@ -1,20 +1,5 @@
 {
   "nodes": {
-    "catppuccin": {
-      "locked": {
-        "lastModified": 1719915848,
-        "narHash": "sha256-zq+CMkdT8A9z74HonwspXp8HsX4OvP4uaVdD98AO6as=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "9345073d27d91ab66c1b6ab65df322906992aa59",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
-        "type": "github"
-      }
-    },
     "devshell": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -568,7 +553,6 @@
     },
     "root": {
       "inputs": {
-        "catppuccin": "catppuccin",
         "home-manager": "home-manager",
         "hosts": "hosts",
         "ide": "ide",

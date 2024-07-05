@@ -8,14 +8,11 @@ toplevel@{ inputs, withSystem, config, ... }:
           mods = config.flake.homeManagerModules;
         in
         [
-          {
-            home.stateVersion = config.flake.stateVersion;
-          }
-          mods.all
-          mods.dev
           mods.base
-          mods.random
-          mods.reminders
+          mods.shell
+          mods.util
+          mods.swayland
+          mods.web
         ];
     });
 }
