@@ -67,6 +67,7 @@
           enable = true;
           alsa.enable = true;
           pulse.enable = true;
+          jack.enable = true;
         };
       };
       environment.systemPackages = with pkgs; [
@@ -75,11 +76,7 @@
     });
     music = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       environment.systemPackages = with pkgs; [
-        (writeScriptBin "guitar" ''
-          ${jack2}/bin/jackd -s -T -R -dalsa -r96000 -p128 -n3 -D -Chw:U192k -Phw:U192k &
-          sleep 2
-          ${guitarix}/bin/guitarix
-        '')
+        guitarix
       ];
       musnix = {
         enable = true;
