@@ -19,10 +19,10 @@ update:
 clean: cleanRoot cleanHome
 
 cleanHome:
-	nix-collect-garbage -d
+	nix-collect-garbage --delete-older-than 30d
 
 cleanRoot:
-	doas nix-collect-garbage -d
+	doas nix-collect-garbage --delete-older-than 30d
 
 news:
 	home-manager news --flake ./.
