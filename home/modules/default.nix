@@ -489,7 +489,7 @@ toplevel@{ moduleWithSystem, ... }: {
               name = "FiraCodeNFM-Reg";
             };
             settings = {
-              background_opacity = "0.96";
+              background_opacity = "0.90";
               cursor_shape = "beam";
               term = "screen-256color";
             };
