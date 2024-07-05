@@ -10,17 +10,136 @@
           fswatch
           nvim
         ];
+        programs = {
+          git = {
+            enable = true;
+            delta.enable = true;
+            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
+            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
+            signing = {
+              signByDefault = true;
+              key = "ivan@idimitrov.dev";
+            };
+            extraConfig = {
+              color.ui = "auto";
+              pull.rebase = true;
+              push.autoSetupRemote = true;
+            };
+            aliases = {
+              a = "add .";
+              c = "commit";
+              d = "diff --cached";
+              p = "push";
+            };
+          };
+        };
+        services.pueue.enable = true;
       }
     );
-    essential = moduleWithSystem (
+    shell = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, ... }: {
+        programs = {
+          zsh = {
+            enable = true;
+            dotDir = ".config/zsh";
+            defaultKeymap = "viins";
+            enableVteIntegration = true;
+            syntaxHighlighting.enable = true;
+            autosuggestion.enable = true;
+            loginExtra = ''
+              [ "$(tty)" = "/dev/tty1" ] && exec sway
+            '';
+            sessionVariables = {
+              TERM = "screen-256color";
+            };
+            shellAliases = {
+              cal = "cal $(date +%Y)";
+              GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
+              gad = "git add . && git diff --cached";
+              gac = "ga && gc";
+              gach = "gac -C HEAD";
+              ga = "git add .";
+              gc = "git commit";
+              dev = "nix develop --command $SHELL";
+              ls = "${pkgs.nushell}/bin/nu -c 'ls'";
+              la = "${pkgs.nushell}/bin/nu -c 'ls -al'";
+              torrent = "transmission-remote";
+              vi = "nvim";
+              sc = "systemctl";
+            };
+            shellGlobalAliases.comp = "-vcodec libx265 -crf 28";
+            history.expireDuplicatesFirst = true;
+            historySubstringSearch.enable = true;
+          };
+          tmux = {
+            enable = true;
+            clock24 = true;
+            baseIndex = 1;
+            escapeTime = 0;
+            keyMode = "vi";
+            shell = "\${SHELL}";
+            terminal = "screen-256color";
+            plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
+            extraConfig = ''
+              set-option -a terminal-features 'screen-256color:RGB'
+            '';
+          };
+          nushell = {
+            enable = true;
+            environmentVariables = {
+              config = ''
+                {
+                  show_banner: false,
+                  completions: {
+                    quick: false
+                    partial: false
+                    algorithm: "prefix"
+                  }
+                }
+              '';
+              PATH = "($env.PATH | split row (char esep) | append ($env.HOME | path join .local bin))";
+            };
+            shellAliases = {
+              gcal = ''
+                bash -c "cal $(date +%Y)"
+              '';
+              la = "ls -al";
+              dev = "nix develop --command $env.SHELL";
+              torrent = "transmission-remote";
+              vi = "nvim";
+              sc = "systemctl";
+              neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+            };
+            loginFile.text = ''
+              if (tty) == "/dev/tty1" {
+                sway
+              }
+            '';
+          };
+          starship = {
+            enable = true;
+            enableNushellIntegration = true;
+            enableZshIntegration = true;
+            enableBashIntegration = true;
+          };
+        };
+        services.pueue.enable = true;
+      }
+    );
+    base = moduleWithSystem (
+      top@{ ... }:
+      perSystem@{ pkgs, ... }: {
+        programs.home-manager.enable = true;
         home.packages = with pkgs; [
           gopass
           ffmpeg
           transmission_4
           speedtest-cli
         ];
+        bat = {
+          enable = true;
+        };
       }
     );
     random = moduleWithSystem (
@@ -34,17 +153,80 @@
         ];
       }
     );
+    sway = moduleWithSystem (
+      top@{ ... }:
+      perSystem@{ pkgs, ... }: {
+        wayland.windowManager.sway = {
+          enable = true;
+          catppuccin.enable = true;
+          systemd.enable = true;
+          config = rec {
+            menu = "rofi -show run";
+            terminal = "kitty";
+            modifier = "Mod4";
+            startup = [
+              { command = "swaymsg 'workspace 1; exec kitty'"; }
+              { command = "swaymsg 'workspace 2; exec firefox'"; }
+            ];
+            bars = [ ];
+            window.titlebar = false;
+            keybindings = pkgs.lib.mkOptionDefault {
+              # Audio
+              "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+              "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
+              "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
+              "Alt+XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
+              "Alt+XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%";
+              "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+              # Display
+              "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock"; # Lock screen
+              "XF86ScreenSaver" = "output 'eDP-1' toggle"; # Turn screen off
+              "XF86MonBrightnessUp" = "exec doas ${pkgs.light}/bin/light -A 10";
+              "XF86MonBrightnessDown" = "exec doas ${pkgs.light}/bin/light -U 10";
+              # Programs
+              "${modifier}+p" = "exec ${menu}";
+              "${modifier}+Shift+a" = "exec screenshot area";
+              "${modifier}+Shift+s" = "exec screenshot";
+              "${modifier}+c" = "exec ${pkgs.sal}/bin/sal";
+              "End" = "exec rofi -show calc";
+              # sway commands
+              "${modifier}+Shift+r" = "reload";
+              "${modifier}+Shift+c" = "kill";
+              "${modifier}+Shift+q" = "exit";
+            };
+            input = {
+              "*" = {
+                xkb_layout = "us,bg";
+                xkb_options = "grp:win_space_toggle";
+                xkb_variant = ",phonetic";
+              };
+            };
+          };
+          swaynag = {
+            enable = true;
+          };
+        };
+        home.packages = with pkgs; [
+          audacity
+          gimp
+          grim
+          libnotify
+          libreoffice-qt
+          mupdf
+          slurp
+          wl-clipboard
+          xdg-user-dirs
+          xdg-utils
+          xwayland
+        ];
+      }
+    );
     all = moduleWithSystem
       (
         top@{ ... }:
         perSystem@{ pkgs, ... }:
         rec {
           imports = [ ../programs ];
-          programs.home-manager.enable = true;
-          catppuccin = {
-            enable = true;
-            flavor = "mocha";
-          };
 
           gtk = {
             enable = true;

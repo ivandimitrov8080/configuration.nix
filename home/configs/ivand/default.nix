@@ -15,7 +15,7 @@ toplevel@{ inputs, withSystem, config, ... }:
           inputs.catppuccin.homeManagerModules.catppuccin
           mods.all
           mods.dev
-          mods.essential
+          mods.base
           mods.random
           mods.reminders
         ];
