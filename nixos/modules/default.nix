@@ -78,6 +78,13 @@
       environment.systemPackages = with pkgs; [
         guitarix
       ];
+      services.pipewire.extraConfig = {
+        jack."69-low-latency" = {
+          "jack.properties" = {
+            "node.latency" = "64/48000";
+          };
+        };
+      };
       musnix = {
         enable = true;
         rtcqs.enable = true;
