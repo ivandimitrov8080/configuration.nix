@@ -67,7 +67,6 @@
           enable = true;
           alsa.enable = true;
           pulse.enable = true;
-          jack.enable = true;
         };
       };
       environment.systemPackages = with pkgs; [
@@ -78,10 +77,13 @@
       environment.systemPackages = with pkgs; [
         guitarix
       ];
-      services.pipewire.extraConfig = {
-        jack."69-low-latency" = {
-          "jack.properties" = {
-            "node.latency" = "64/48000";
+      services.pipewire = {
+        jack.enable = true;
+        extraConfig = {
+          jack."69-low-latency" = {
+            "jack.properties" = {
+              "node.latency" = "64/48000";
+            };
           };
         };
       };
