@@ -26,3 +26,6 @@ cleanRoot:
 
 news:
 	home-manager news --flake ./.
+
+music:
+	doas nixos-rebuild switch --flake ./#music
