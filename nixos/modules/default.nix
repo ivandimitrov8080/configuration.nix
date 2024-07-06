@@ -3,16 +3,21 @@ top@{ moduleWithSystem, ... }: {
     grub = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       boot = {
         loader = {
-          grub = {
-            enable = true;
-            useOSProber = true;
-            efiSupport = true;
-            device = "nodev";
-            theme = pkgs.sleek-grub-theme.override {
-              withBanner = "Hello Ivan";
-              withStyle = "orange";
+          grub =
+            let
+              theme = pkgs.sleek-grub-theme.override {
+                withBanner = "Hello Ivan";
+                withStyle = "bigSur";
+              };
+            in
+            {
+              enable = true;
+              useOSProber = true;
+              efiSupport = true;
+              device = "nodev";
+              theme = theme;
+              splashImage = "${theme}/background.png";
             };
-          };
           efi = {
             canTouchEfiVariables = true;
           };
