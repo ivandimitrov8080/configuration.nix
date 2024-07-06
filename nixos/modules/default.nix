@@ -1,6 +1,6 @@
 top@{ moduleWithSystem, ... }: {
   flake.nixosModules = {
-    grub = {
+    grub = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       boot = {
         loader = {
           grub = {
@@ -8,13 +8,17 @@ top@{ moduleWithSystem, ... }: {
             useOSProber = true;
             efiSupport = true;
             device = "nodev";
+            theme = pkgs.sleek-grub-theme.override {
+              withBanner = "Hello Ivan";
+              withStyle = "orange";
+            };
           };
           efi = {
             canTouchEfiVariables = true;
           };
         };
       };
-    };
+    });
     base = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       system.stateVersion = top.config.flake.stateVersion;
       nix = {
