@@ -44,15 +44,5 @@ in
         };
         modules = minimal ++ [ inputs.musnix.nixosModules.musnix ] ++ (with nixosModules; [ music ]);
       });
-    vm = withSystem system (ctx@{ config, inputs', ... }:
-      inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs inputs';
-          packages = config.packages;
-        };
-        modules = [
-          inputs.hosts.nixosModule
-        ] ++ (with nixosModules; [ vm base security testUser ]);
-      });
   };
 }

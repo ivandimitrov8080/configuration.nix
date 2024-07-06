@@ -269,41 +269,5 @@ top@{ moduleWithSystem, ... }: {
         ollama.enable = true;
       };
     });
-    vm = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      nixpkgs.hostPlatform = "x86_64-linux";
-      virtualisation.vmVariant = {
-        # following configuration is added only when building VM with build-vm
-        virtualisation = {
-          memorySize = 8192;
-          cores = 4;
-          resolution = {
-            x = 1920;
-            y = 1080;
-          };
-          diskImage = "$HOME/doc/vm.qcow2";
-          qemu = {
-            options = [ "-vga qxl" "-spice port=5900,addr=127.0.0.1,disable-ticketing=on" ];
-          };
-        };
-        services = {
-          displayManager.sddm.enable = true;
-          xserver = {
-            enable = true;
-            desktopManager.xfce.enable = true;
-            videoDrivers = [ "qxl" ];
-          };
-          spice-autorandr.enable = true;
-          spice-vdagentd.enable = true;
-          spice-webdavd.enable = true;
-        };
-        environment = {
-          systemPackages = with pkgs; [
-            xorg.xf86videoqxl
-            tor-browser
-            gnupg
-          ];
-        };
-      };
-    });
   };
 }

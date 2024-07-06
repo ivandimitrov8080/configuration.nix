@@ -1,4 +1,4 @@
-.PHONY: default all home nixos vm update clean
+.PHONY: default all home nixos update clean
 
 default: all
 
@@ -9,9 +9,6 @@ home:
 
 nixos:
 	doas nixos-rebuild switch --flake ./.
-
-vm:
-	nixos-rebuild build-vm --flake ./.#vm
 
 update:
 	nix flake update
