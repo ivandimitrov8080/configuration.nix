@@ -1,4 +1,4 @@
-.PHONY: default all home nixos update clean
+.PHONY: default all home nixos update clean music nonya
 
 default: all
 
@@ -26,3 +26,6 @@ news:
 
 music:
 	doas nixos-rebuild switch --flake ./#music
+
+nonya:
+	doas nixos-rebuild switch --flake ./#nonya

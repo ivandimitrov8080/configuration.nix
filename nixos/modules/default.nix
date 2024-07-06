@@ -269,5 +269,19 @@ top@{ moduleWithSystem, ... }: {
         ollama.enable = true;
       };
     });
+    nonya = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      environment.systemPackages = with pkgs; [
+        tor-browser
+        electrum
+        monero-cli
+      ];
+      services.monero = {
+        enable = true;
+        mining = {
+          enable = true;
+          address = "48e9t9xvq4M4HBWomz6whiY624YRCPwgJ7LPXngcc8pUHk6hCuR3k6ENpLGDAhPEHWaju8Z4btxkbENpcwaqWcBvLxyh5cn";
+        };
+      };
+    });
   };
 }

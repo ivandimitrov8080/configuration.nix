@@ -24,25 +24,30 @@ let
       hardware.cpu.intel.updateMicrocode = lib.mkForce false;
     };
   };
-  minimal = [ hardwareConfigurations.nova inputs.hosts.nixosModule ] ++ (with nixosModules; [ grub base sound wayland security ivand wireless wireguard ]);
+  essential = [ hardwareConfigurations.nova inputs.hosts.nixosModule ] ++ (with nixosModules; [ grub base sound wayland security ivand wireless wireguard ]);
 in
 {
   flake.nixosConfigurations = {
-    nixos = withSystem system (ctx@{ config, inputs', ... }:
-      inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs inputs';
-          packages = config.packages;
-        };
-        modules = minimal;
-      });
-    music = withSystem system (ctx@{ config, inputs', ... }:
-      inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs inputs';
-          packages = config.packages;
-        };
-        modules = minimal ++ [ inputs.musnix.nixosModules.musnix ] ++ (with nixosModules; [ music ]);
-      });
+    nixos = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs inputs';
+        packages = config.packages;
+      };
+      modules = essential;
+    });
+    music = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs inputs';
+        packages = config.packages;
+      };
+      modules = essential ++ [ inputs.musnix.nixosModules.musnix ] ++ (with nixosModules; [ music ]);
+    });
+    nonya = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs inputs';
+        packages = config.packages;
+      };
+      modules = essential ++ [ nixosModules.nonya ];
+    });
   };
 }
