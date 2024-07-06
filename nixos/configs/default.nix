@@ -16,7 +16,7 @@ let
       };
       fileSystems = {
         "/" = { device = "/dev/disk/by-uuid/47536cbe-7265-493b-a2e3-bbd376a6f9af"; fsType = "btrfs"; };
-        "boot" = { device = "/dev/disk/by-uuid/4C3C-993A"; fsType = "vfat"; };
+        "/boot" = { device = "/dev/disk/by-uuid/4C3C-993A"; fsType = "vfat"; };
       };
       swapDevices = [ ];
       networking.useDHCP = lib.mkDefault true;
