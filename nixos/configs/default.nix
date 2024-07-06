@@ -3,7 +3,7 @@ let
   system = "x86_64-linux";
   nixosModules = toplevel.config.flake.nixosModules;
   hardwareConfigurations = {
-    nova = { config, lib, modulesPath, ... }: {
+    nova = { lib, modulesPath, ... }: {
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
       boot = {
         initrd = {
@@ -14,18 +14,14 @@ let
         kernelModules = [ "kvm-intel" ];
         extraModulePackages = [ ];
       };
-
       fileSystems = {
         "/" = { device = "/dev/disk/by-uuid/47536cbe-7265-493b-a2e3-bbd376a6f9af"; fsType = "btrfs"; };
         "boot" = { device = "/dev/disk/by-uuid/4C3C-993A"; fsType = "vfat"; };
       };
       swapDevices = [ ];
       networking.useDHCP = lib.mkDefault true;
-      # networking.interfaces.enp0s20f0u6.useDHCP = lib.mkDefault true;
-      # networking.interfaces.enp47s0.useDHCP = lib.mkDefault true;
-      # networking.interfaces.wlp45s0.useDHCP = lib.mkDefault true;
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-      hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      hardware.cpu.intel.updateMicrocode = lib.mkForce false;
     };
   };
   minimal = [ hardwareConfigurations.nova inputs.hosts.nixosModule ] ++ (with nixosModules; [ grub base sound wayland security ivand wireless wireguard ]);
