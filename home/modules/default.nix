@@ -56,7 +56,7 @@ toplevel@{ moduleWithSystem, ... }: {
             MAKEFLAGS = "-j 4";
           };
           pointerCursor = with pkgs; {
-            name = lib.mkForce "BreezeX-RosePine-Linux";
+            name = lib.mkForce "BreezeX-RosePineDawn-Linux";
             package = lib.mkForce rose-pine-cursor;
             size = 24;
             gtk.enable = true;
