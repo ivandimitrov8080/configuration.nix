@@ -5,135 +5,49 @@ top@{ moduleWithSystem, ... }: {
         loader = {
           grub =
             let
-              theme = pkgs.sleek-grub-theme.override {
-                withBanner = "Hello Ivan";
-                withStyle = "bigSur";
-              };
+              theme = pkgs.sleek-grub-theme.override { withBanner = "Hello Ivan"; withStyle = "bigSur"; };
             in
-            {
-              enable = true;
-              useOSProber = true;
-              efiSupport = true;
-              device = "nodev";
-              theme = theme;
-              splashImage = "${theme}/background.png";
-            };
-          efi = {
-            canTouchEfiVariables = true;
-          };
+            { enable = true; useOSProber = true; efiSupport = true; device = "nodev"; theme = theme; splashImage = "${theme}/background.png"; };
+          efi = { canTouchEfiVariables = true; };
         };
       };
     });
     base = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       system.stateVersion = top.config.flake.stateVersion;
-      nix = {
-        extraOptions = ''
-          experimental-features = nix-command flakes
-        '';
-      };
+      nix = { extraOptions = ''experimental-features = nix-command flakes''; };
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
       environment = {
-        systemPackages = with pkgs; [
-          cmatrix
-          coreutils-full
-          cryptsetup
-          fd
-          file
-          git
-          glibc
-          gnumake
-          mlocate
-          moreutils
-          openssh
-          openssl
-          procs
-          ripgrep
-          srm
-          unzip
-          vim
-          zip
-        ];
+        systemPackages = with pkgs; [ cmatrix coreutils-full cryptsetup fd file git glibc gnumake mlocate moreutils openssh openssl procs ripgrep srm unzip vim zip ];
         shells = with pkgs; [ zsh nushell ];
       };
-      programs = {
-        zsh.enable = true;
-        nix-ld.enable = true;
-        dconf.enable = true;
-      };
-      services = {
-        dbus.enable = true;
-      };
-      networking = {
-        stevenBlackHosts = {
-          enable = true;
-          blockFakenews = true;
-          blockGambling = true;
-        };
-      };
+      programs = { zsh.enable = true; nix-ld.enable = true; dconf.enable = true; };
+      services = { dbus.enable = true; };
+      networking = { stevenBlackHosts = { enable = true; blockFakenews = true; blockGambling = true; }; };
     });
     sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      services = {
-        pipewire = {
-          enable = true;
-          alsa.enable = true;
-          pulse.enable = true;
-        };
-      };
-      environment.systemPackages = with pkgs; [
-        pwvucontrol
-      ];
+      services = { pipewire = { enable = true; alsa.enable = true; pulse.enable = true; }; };
+      environment.systemPackages = with pkgs; [ pwvucontrol ];
     });
     music = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      environment.systemPackages = with pkgs; [
-        guitarix
-      ];
+      environment.systemPackages = with pkgs; [ guitarix ];
       services.pipewire = {
         jack.enable = true;
-        extraConfig = {
-          jack."69-low-latency" = {
-            "jack.properties" = {
-              "node.latency" = "64/48000";
-            };
-          };
-        };
+        extraConfig = { jack."69-low-latency" = { "jack.properties" = { "node.latency" = "64/48000"; }; }; };
       };
       musnix = {
         enable = true;
         rtcqs.enable = true;
         soundcardPciId = "00:1f.3";
-
-        kernel = {
-          realtime = true;
-          packages = pkgs.linuxPackages_6_8_rt;
-        };
-
-        # magic to me
-        rtirq = {
-          # highList = "snd_hrtimer";
-          resetAll = 1;
-          prioLow = 0;
-          enable = true;
-          nameList = "rtc0 snd";
-        };
+        kernel = { realtime = true; packages = pkgs.linuxPackages_6_8_rt; };
+        rtirq = { resetAll = 1; prioLow = 0; enable = true; nameList = "rtc0 snd"; };
       };
     });
-    wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
-      hardware.graphics.enable = true;
-      security.pam.services.swaylock = { };
-    });
+    wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: { hardware.graphics.enable = true; security.pam.services.swaylock = { }; });
     security = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       security = {
-        sudo = {
-          enable = false;
-          execWheelOnly = true;
-          extraRules = [
-            {
-              groups = [ "wheel" ];
-            }
-          ];
-        };
+        sudo = { enable = false; execWheelOnly = true; extraRules = [{ groups = [ "wheel" ]; }]; };
         doas = {
           enable = true;
           extraRules = [
@@ -228,60 +142,16 @@ top@{ moduleWithSystem, ... }: {
         extraGroups = { mlocate = { }; };
       };
     });
-    testUser = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      users = {
-        defaultUserShell = pkgs.zsh;
-        users = {
-          test = {
-            isNormalUser = true;
-            createHome = true;
-            initialPassword = "test";
-            extraGroups = [
-              "adbusers"
-              "adm"
-              "audio"
-              "bluetooth"
-              "dialout"
-              "flatpak"
-              "kvm"
-              "mlocate"
-              "render"
-              "video"
-              "wheel"
-            ];
-          };
-        };
-        extraGroups = { mlocate = { }; };
-      };
-    });
     flatpak = {
-      xdg = {
-        portal = {
-          enable = true;
-          wlr.enable = true;
-          config.common.default = "*";
-        };
-      };
+      xdg = { portal = { enable = true; wlr.enable = true; config.common.default = "*"; }; };
       services.flatpak.enable = true;
     };
     ai = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
-      services = {
-        ollama.enable = true;
-      };
+      services = { ollama.enable = true; };
     });
     nonya = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      environment.systemPackages = with pkgs; [
-        tor-browser
-        electrum
-        monero-cli
-      ];
-      services.monero = {
-        enable = true;
-        mining = {
-          enable = true;
-          address = "48e9t9xvq4M4HBWomz6whiY624YRCPwgJ7LPXngcc8pUHk6hCuR3k6ENpLGDAhPEHWaju8Z4btxkbENpcwaqWcBvLxyh5cn";
-        };
-      };
+      environment.systemPackages = with pkgs; [ tor-browser electrum monero-cli ];
+      services.monero = { enable = true; };
     });
   };
 }
