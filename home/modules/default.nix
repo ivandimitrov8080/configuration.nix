@@ -111,7 +111,7 @@ toplevel@{ moduleWithSystem, ... }: {
             nushell = {
               enable = true;
               environmentVariables = { config = '' { show_banner: false, completions: { quick: false partial: false algorithm: "prefix" } } ''; };
-              shellAliases = shellAliases // { gcal = '' bash -c "cal $(date +%Y)" ''; la = "ls -al"; dev = "nix develop --command $env.SHELL"; };
+              shellAliases = { gcal = '' bash -c "cal $(date +%Y)" ''; la = "ls -al"; dev = "nix develop --command $env.SHELL"; };
             };
             kitty.shellIntegration = { enableBashIntegration = true; enableZshIntegration = true; };
             tmux = {
