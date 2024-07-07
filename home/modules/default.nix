@@ -19,10 +19,6 @@ toplevel@{ moduleWithSystem, ... }: {
             extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
             aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; };
           };
-          vim = {
-            enable = true;
-            plugins = with pkgs.vimPlugins; [ vim-gnupg ];
-          };
           gpg.enable = true;
         };
         services = {
