@@ -8,42 +8,22 @@ toplevel@{ moduleWithSystem, ... }: {
           password-store = {
             enable = true;
             package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
-            settings = {
-              PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
-            };
+            settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; };
           };
           git = {
             enable = true;
             delta.enable = true;
             userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
             userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
-            signing = {
-              signByDefault = true;
-              key = "ivan@idimitrov.dev";
-            };
-            extraConfig = {
-              color.ui = "auto";
-              pull.rebase = true;
-              push.autoSetupRemote = true;
-            };
-            aliases = {
-              a = "add .";
-              c = "commit";
-              d = "diff --cached";
-              p = "push";
-            };
+            signing = { signByDefault = true; key = "ivan@idimitrov.dev"; };
+            extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
+            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; };
           };
           gpg.enable = true;
         };
         services = {
           pueue.enable = true;
-          gpg-agent = {
-            enable = true;
-            enableBashIntegration = true;
-            enableZshIntegration = true;
-            enableNushellIntegration = true;
-            pinentryPackage = pkgs.pinentry-qt;
-          };
+          gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; };
         };
         home = {
           stateVersion = toplevel.config.flake.stateVersion;
@@ -55,17 +35,8 @@ toplevel@{ moduleWithSystem, ... }: {
             TERM = "screen-256color";
             MAKEFLAGS = "-j 4";
           };
-          pointerCursor = with pkgs; {
-            name = "catppuccin-mocha-green-cursors";
-            package = catppuccin-cursors.mochaGreen;
-            size = 24;
-            gtk.enable = true;
-          };
-          packages = with pkgs; [
-            transmission_4
-            speedtest-cli
-            nvim
-          ];
+          pointerCursor = with pkgs; { name = "catppuccin-mocha-green-cursors"; package = catppuccin-cursors.mochaGreen; size = 24; gtk.enable = true; };
+          packages = with pkgs; [ transmission_4 speedtest-cli nvim ];
         };
         xdg = {
           enable = true;
@@ -111,13 +82,12 @@ toplevel@{ moduleWithSystem, ... }: {
               ls = "${pkgs.nushell}/bin/nu -c 'ls'";
               la = "${pkgs.nushell}/bin/nu -c 'ls -al'";
               torrent = "transmission-remote";
+              torrent-start = "transmission-daemon";
               vi = "nvim";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
             };
-            sessionVariables = {
-              TERM = "screen-256color";
-            };
+            sessionVariables = { TERM = "screen-256color"; };
           in
           {
             bash = {
@@ -125,11 +95,7 @@ toplevel@{ moduleWithSystem, ... }: {
               enable = true;
               enableVteIntegration = true;
               historyControl = [ "erasedups" ];
-              historyIgnore = [
-                "ls"
-                "cd"
-                "exit"
-              ];
+              historyIgnore = [ "ls" "cd" "exit" ];
             };
             zsh = {
               inherit shellAliases sessionVariables;
@@ -144,30 +110,10 @@ toplevel@{ moduleWithSystem, ... }: {
             };
             nushell = {
               enable = true;
-              environmentVariables = {
-                config = ''
-                  {
-                    show_banner: false,
-                    completions: {
-                      quick: false
-                      partial: false
-                      algorithm: "prefix"
-                    }
-                  }
-                '';
-              };
-              shellAliases = shellAliases // {
-                gcal = ''
-                  bash -c "cal $(date +%Y)"
-                '';
-                la = "ls -al";
-                dev = "nix develop --command $env.SHELL";
-              };
+              environmentVariables = { config = '' { show_banner: false, completions: { quick: false partial: false algorithm: "prefix" } } ''; };
+              shellAliases = shellAliases // { gcal = '' bash -c "cal $(date +%Y)" ''; la = "ls -al"; dev = "nix develop --command $env.SHELL"; };
             };
-            kitty.shellIntegration = {
-              enableBashIntegration = true;
-              enableZshIntegration = true;
-            };
+            kitty.shellIntegration = { enableBashIntegration = true; enableZshIntegration = true; };
             tmux = {
               enable = true;
               clock24 = true;
@@ -181,12 +127,7 @@ toplevel@{ moduleWithSystem, ... }: {
                 set-option -a terminal-features 'screen-256color:RGB'
               '';
             };
-            starship = {
-              enable = true;
-              enableNushellIntegration = true;
-              enableZshIntegration = true;
-              enableBashIntegration = true;
-            };
+            starship = { enable = true; enableNushellIntegration = true; enableZshIntegration = true; enableBashIntegration = true; };
           };
       }
     );
@@ -196,21 +137,12 @@ toplevel@{ moduleWithSystem, ... }: {
         programs = {
           tealdeer = {
             enable = true;
-            settings = {
-              display = {
-                compact = true;
-              };
-              updates = {
-                auto_update = true;
-              };
-            };
+            settings = { display = { compact = true; }; updates = { auto_update = true; }; };
           };
           bottom = {
             enable = true;
             settings = {
-              flags = {
-                rate = "250ms";
-              };
+              flags = { rate = "250ms"; };
               row = [
                 { ratio = 40; child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }]; }
                 { ratio = 35; child = [{ type = "temp"; } { type = "disk"; }]; }
@@ -233,46 +165,34 @@ toplevel@{ moduleWithSystem, ... }: {
             terminal = "kitty";
             modifier = "Mod4";
             startup = [
-              { command = "swaymsg 'workspace 1; exec kitty'"; }
               { command = "swaymsg 'workspace 2; exec firefox'"; }
+              { command = "swaymsg 'workspace 1; exec kitty'"; }
             ];
             bars = [ ];
             window.titlebar = false;
             keybindings = pkgs.lib.mkOptionDefault {
-              # Audio
               "XF86AudioMicMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
               "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
               "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
               "Alt+XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
               "Alt+XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%";
               "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-              # Display
-              "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock"; # Lock screen
-              "XF86ScreenSaver" = "output 'eDP-1' toggle"; # Turn screen off
+              "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
+              "XF86ScreenSaver" = "output 'eDP-1' toggle";
               "XF86MonBrightnessUp" = "exec doas ${pkgs.light}/bin/light -A 10";
               "XF86MonBrightnessDown" = "exec doas ${pkgs.light}/bin/light -U 10";
-              # Programs
               "${modifier}+p" = "exec ${menu}";
               "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
               "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot";
               "${modifier}+c" = "exec ${pkgs.sal}/bin/sal";
               "End" = "exec rofi -show calc";
-              # sway commands
               "${modifier}+Shift+r" = "reload";
               "${modifier}+Shift+c" = "kill";
               "${modifier}+Shift+q" = "exit";
             };
-            input = {
-              "*" = {
-                xkb_layout = "us,bg";
-                xkb_options = "grp:win_space_toggle";
-                xkb_variant = ",phonetic";
-              };
-            };
+            input = { "*" = { xkb_layout = "us,bg"; xkb_options = "grp:win_space_toggle"; xkb_variant = ",phonetic"; }; };
           };
-          swaynag = {
-            enable = true;
-          };
+          swaynag = { enable = config.wayland.windowManager.sway.enable; };
         };
         programs = {
           waybar = {
@@ -285,55 +205,33 @@ toplevel@{ moduleWithSystem, ... }: {
                   layer = "top";
                   position = "top";
                   height = 30;
-                  output = [
-                    "eDP-1"
-                    "HDMI-A-1"
-                  ];
+                  output = [ "eDP-1" "HDMI-A-1" ];
+
                   modules-left = [ "sway/workspaces" ];
                   modules-center = [ "clock#week" "clock#year" "clock#time" ];
                   modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
-                  "clock#time" = {
-                    format = "{:%H:%M:%S}";
-                    interval = 1;
-                  };
-
-                  "clock#week" = {
-                    format = "{:%a}";
-                  };
-
-                  "clock#year" = {
-                    format = "{:%Y-%m-%d}";
-                  };
+                  "clock#time" = { format = "{:%H:%M:%S}"; interval = 1; };
+                  "clock#week" = { format = "{:%a}"; };
+                  "clock#year" = { format = "{:%Y-%m-%d}"; };
 
                   battery = {
                     format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
                     format-time = " {H} h {M} m";
                     format-icons = [ "" "" "" "" "" ];
-                    states = {
-                      warning = 30;
-                      critical = 15;
-                    };
+                    states = { warning = 30; critical = 15; };
                   };
 
-                  cpu = {
-                    format = "<span color='#74c7ec'></span>  {usage}%";
-                  };
+                  cpu = { format = "<span color='#74c7ec'></span>  {usage}%"; };
 
-                  memory = {
-                    format = "<span color='#89b4fa'></span>  {percentage}%";
-                    interval = 5;
-                  };
+                  memory = { format = "<span color='#89b4fa'></span>  {percentage}%"; interval = 5; };
 
                   pulseaudio = {
                     format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
                     format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
                     format-source = "{volume}% <span color='#a6e3a1'></span>";
                     format-source-muted = "{volume}% <span color='#f38ba8'></span>";
-                    format-icons = {
-                      headphone = "";
-                      default = [ "" "" "" ];
-                    };
+                    format-icons = { headphone = ""; default = [ "" "" "" ]; };
                   };
 
                   network = {
@@ -344,153 +242,146 @@ toplevel@{ moduleWithSystem, ... }: {
                     interval = 5;
                   };
 
-                  "sway/workspaces" = {
-                    disable-scroll = true;
-                    all-outputs = true;
-                  };
+                  "sway/workspaces" = { disable-scroll = true; all-outputs = true; };
                 };
             };
-            systemd = {
-              enable = true;
-              target = "sway-session.target";
-            };
-            style = /* CSS */ ''
-              @define-color rosewater #f5e0dc;
-              @define-color flamingo #f2cdcd;
-              @define-color pink #f5c2e7;
-              @define-color mauve #cba6f7;
-              @define-color red #f38ba8;
-              @define-color maroon #eba0ac;
-              @define-color peach #fab387;
-              @define-color yellow #f9e2af;
-              @define-color green #a6e3a1;
-              @define-color teal #94e2d5;
-              @define-color sky #89dceb;
-              @define-color sapphire #74c7ec;
-              @define-color blue #89b4fa;
-              @define-color lavender #b4befe;
-              @define-color text #cdd6f4;
-              @define-color subtext1 #bac2de;
-              @define-color subtext0 #a6adc8;
-              @define-color overlay2 #9399b2;
-              @define-color overlay1 #7f849c;
-              @define-color overlay0 #6c7086;
-              @define-color surface2 #585b70;
-              @define-color surface1 #45475a;
-              @define-color surface0 #313244;
-              @define-color base #1e1e2e;
-              @define-color mantle #181825;
-              @define-color crust #11111b;
-              * {
-                  font-family: FontAwesome, 'Fira Code';
-                  font-size: 13px;
-              }
+            systemd = { enable = true; target = "sway-session.target"; };
+            style = /* CSS */
+              ''
+                @define-color rosewater #f5e0dc;
+                @define-color flamingo #f2cdcd;
+                @define-color pink #f5c2e7;
+                @define-color mauve #cba6f7;
+                @define-color red #f38ba8;
+                @define-color maroon #eba0ac;
+                @define-color peach #fab387;
+                @define-color yellow #f9e2af;
+                @define-color green #a6e3a1;
+                @define-color teal #94e2d5;
+                @define-color sky #89dceb;
+                @define-color sapphire #74c7ec;
+                @define-color blue #89b4fa;
+                @define-color lavender #b4befe;
+                @define-color text #cdd6f4;
+                @define-color subtext1 #bac2de;
+                @define-color subtext0 #a6adc8;
+                @define-color overlay2 #9399b2;
+                @define-color overlay1 #7f849c;
+                @define-color overlay0 #6c7086;
+                @define-color surface2 #585b70;
+                @define-color surface1 #45475a;
+                @define-color surface0 #313244;
+                @define-color base #1e1e2e;
+                @define-color mantle #181825;
+                @define-color crust #11111b;
+                * {
+                    font-family: FontAwesome, 'Fira Code';
+                    font-size: 13px;
+                }
 
-              window#waybar {
-                  background-color: rgba(43, 48, 59, 0.1);
-                  border-bottom: 2px solid rgba(100, 114, 125, 0.5);
-                  color: @rosewater;
-              }
+                window#waybar {
+                    background-color: rgba(43, 48, 59, 0.1);
+                    border-bottom: 2px solid rgba(100, 114, 125, 0.5);
+                    color: @rosewater;
+                }
 
-              #workspaces button {
-                  padding: 0 5px;
-                  background-color: @base;
-                  color: @text;
-                  border-radius: 6px;
-              }
+                #workspaces button {
+                    padding: 0 5px;
+                    background-color: @base;
+                    color: @text;
+                    border-radius: 6px;
+                }
 
-              #workspaces button:hover {
-                  background: @mantle;
-              }
+                #workspaces button:hover {
+                    background: @mantle;
+                }
 
-              #workspaces button.focused {
-                  background-color: @crust;
-                  box-shadow: inset 0 -2px @sky;
-              }
+                #workspaces button.focused {
+                    background-color: @crust;
+                    box-shadow: inset 0 -2px @sky;
+                }
 
-              #workspaces button.urgent {
-                  background-color: @red;
-              }
+                #workspaces button.urgent {
+                    background-color: @red;
+                }
 
-              #clock,
-              #battery,
-              #cpu,
-              #memory,
-              #disk,
-              #temperature,
-              #backlight,
-              #network,
-              #pulseaudio,
-              #wireplumber,
-              #custom-media,
-              #tray,
-              #mode,
-              #idle_inhibitor,
-              #scratchpad,
-              #power-profiles-daemon,
-              #mpd {
-                  padding: 0 10px;
-                  color: @text;
-                  background-color: @base;
-                  margin: 0 .5em;
-                  border-radius: 9999px;
-              }
+                #clock,
+                #battery,
+                #cpu,
+                #memory,
+                #disk,
+                #temperature,
+                #backlight,
+                #network,
+                #pulseaudio,
+                #wireplumber,
+                #custom-media,
+                #tray,
+                #mode,
+                #idle_inhibitor,
+                #scratchpad,
+                #power-profiles-daemon,
+                #mpd {
+                    padding: 0 10px;
+                    color: @text;
+                    background-color: @base;
+                    margin: 0 .5em;
+                    border-radius: 9999px;
+                }
 
-              #clock.week {
-                margin-right: 0px;
-                color: @peach;
-                border-radius: 9999px 0px 0px 9999px;
-              }
+                #clock.week {
+                  margin-right: 0px;
+                  color: @peach;
+                  border-radius: 9999px 0px 0px 9999px;
+                }
 
-              #clock.year {
-                margin: 0px;
-                padding: 0px;
-                color: @pink;
-                border-radius: 0px;
-              }
+                #clock.year {
+                  margin: 0px;
+                  padding: 0px;
+                  color: @pink;
+                  border-radius: 0px;
+                }
 
-              #clock.time {
-                margin-left: 0px;
-                color: @sky;
-                border-radius: 0px 9999px 9999px 0px;
-              }
+                #clock.time {
+                  margin-left: 0px;
+                  color: @sky;
+                  border-radius: 0px 9999px 9999px 0px;
+                }
 
-              #battery.charging, #battery.plugged {
-                  color: @green;
-              }
+                #battery.charging, #battery.plugged {
+                    color: @green;
+                }
 
-              #battery.discharging {
-                  color: @yellow;
-              }
+                #battery.discharging {
+                    color: @yellow;
+                }
 
-              @keyframes blink {
-                  to {
-                      background-color: #ffffff;
-                      color: #000000;
-                  }
-              }
+                @keyframes blink {
+                    to {
+                        background-color: #ffffff;
+                        color: #000000;
+                    }
+                }
 
-              #battery.warning:not(.charging) {
-                  background-color: @red;
-              }
+                #battery.warning:not(.charging) {
+                    background-color: @red;
+                }
 
-              /* Using steps() instead of linear as a timing function to limit cpu usage */
-              #battery.critical:not(.charging) {
-                  background-color: @red;
-                  animation-name: blink;
-                  animation-duration: 0.5s;
-                  animation-timing-function: steps(12);
-                  animation-iteration-count: infinite;
-                  animation-direction: alternate;
-              }
-            '';
+                /* Using steps() instead of linear as a timing function to limit cpu usage */
+                #battery.critical:not(.charging) {
+                    background-color: @red;
+                    animation-name: blink;
+                    animation-duration: 0.5s;
+                    animation-timing-function: steps(12);
+                    animation-iteration-count: infinite;
+                    animation-direction: alternate;
+                }
+              ''
+            ;
           };
           swaylock = {
             enable = true;
-            settings = {
-              show-failed-attempts = true;
-              image = config.home.homeDirectory + "/pic/bg.png";
-            };
+            settings = { show-failed-attempts = true; image = config.home.homeDirectory + "/pic/bg.png"; };
           };
           rofi = {
             enable = true;
@@ -510,45 +401,22 @@ toplevel@{ moduleWithSystem, ... }: {
           };
           kitty = {
             enable = true;
-            font = {
-              package = pkgs.fira-code;
-              name = "FiraCodeNFM-Reg";
-            };
-            settings = {
-              background_opacity = "0.90";
-              cursor_shape = "beam";
-              term = "screen-256color";
-            };
+            font = { package = pkgs.fira-code; name = "FiraCodeNFM-Reg"; };
+            settings = { background_opacity = "0.90"; cursor_shape = "beam"; term = "screen-256color"; };
           };
           imv.enable = true;
           mpv.enable = true;
-          bash.profileExtra = ''
-            [ "$(tty)" = "/dev/tty1" ] && exec sway
-          '';
-          zsh.loginExtra = ''
-            [ "$(tty)" = "/dev/tty1" ] && exec sway
-          '';
-          nushell.loginFile.text = ''
-            if (tty) == "/dev/tty1" {
-              sway
-            }
-          '';
+          bash.profileExtra = '' [ "$(tty)" = "/dev/tty1" ] && exec sway '';
+          zsh.loginExtra = '' [ "$(tty)" = "/dev/tty1" ] && exec sway '';
+          nushell.loginFile.text = '' if (tty) == "/dev/tty1" { sway } '';
         };
-        services = {
-          mako.enable = true;
-          cliphist = {
-            enable = true;
-            systemdTarget = "sway-session.target";
-          };
-        };
+        services = { mako.enable = true; cliphist = { enable = true; systemdTarget = "sway-session.target"; }; };
         systemd.user = {
           timers = { rbingwp = { Timer = { OnCalendar = "*-*-* 10:00:00"; Persistent = true; }; Install = { WantedBy = [ "timers.target" ]; }; }; };
           services = {
             wpd = {
               Service = {
-                Environment = [
-                  "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin"
-                ];
+                Environment = [ "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin" ];
                 ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i ((xdg-user-dir PICTURES) | path split | path join bg.png)'" ];
               };
             };
@@ -565,19 +433,7 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
         };
-        home.packages = with pkgs; [
-          audacity
-          gimp
-          grim
-          libnotify
-          libreoffice-qt
-          mupdf
-          slurp
-          wl-clipboard
-          xdg-user-dirs
-          xdg-utils
-          xwayland
-        ];
+        home.packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp wl-clipboard xdg-user-dirs xdg-utils xwayland ];
       }
     );
     web = moduleWithSystem (
@@ -591,14 +447,8 @@ toplevel@{ moduleWithSystem, ... }: {
               id = 0;
               search.default = "DuckDuckGo";
               bookmarks = [
-                {
-                  name = "home-options";
-                  url = "https://nix-community.github.io/home-manager/options.xhtml";
-                }
-                {
-                  name = "nixvim-docs";
-                  url = "https://nix-community.github.io/nixvim/";
-                }
+                { name = "home-options"; url = "https://nix-community.github.io/home-manager/options.xhtml"; }
+                { name = "nixvim-docs"; url = "https://nix-community.github.io/nixvim/"; }
               ];
               settings = {
                 "general.smoothScroll" = true;
@@ -617,31 +467,13 @@ toplevel@{ moduleWithSystem, ... }: {
               OfferToSaveLoginsDefault = false;
               PasswordManagerEnabled = false;
 
-              FirefoxHome = {
-                Search = true;
-                Pocket = false;
-                Snippets = false;
-                TopSites = false;
-                Highlights = false;
-              };
+              FirefoxHome = { Search = true; Pocket = false; Snippets = false; TopSites = false; Highlights = false; };
 
-              UserMessaging = {
-                ExtensionRecommendations = false;
-                SkipOnboarding = true;
-              };
+              UserMessaging = { ExtensionRecommendations = false; SkipOnboarding = true; };
 
               Handlers = {
                 schemes = {
-                  mailto = {
-                    action = "useHelperApp";
-                    ask = false;
-                    handlers = [
-                      {
-                        name = "RoundCube";
-                        uriTemplate = "https://mail.idimitrov.dev/?_task=mail&_action=compose&_to=%s";
-                      }
-                    ];
-                  };
+                  mailto = { action = "useHelperApp"; ask = false; handlers = [{ name = "RoundCube"; uriTemplate = "https://mail.idimitrov.dev/?_task=mail&_action=compose&_to=%s"; }]; };
                 };
               };
             };
@@ -653,9 +485,7 @@ toplevel@{ moduleWithSystem, ... }: {
             description = "Integration with GnuPG";
             path = "${pkgs.gpgme.dev}/bin/gpgme-json";
             type = "stdio";
-            allowed_extensions = [
-              "jid1-AQqSMBYb0a8ADg@jetpack"
-            ];
+            allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
           };
         };
       }
@@ -663,10 +493,7 @@ toplevel@{ moduleWithSystem, ... }: {
     work = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, ... }: {
-        programs.chromium = {
-          enable = true;
-          package = pkgs.ungoogled-chromium;
-        };
+        programs.chromium = { enable = true; package = pkgs.ungoogled-chromium; };
       }
     );
   };

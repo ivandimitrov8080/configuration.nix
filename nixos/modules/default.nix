@@ -48,13 +48,7 @@ top@{ moduleWithSystem, ... }: {
     security = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       security = {
         sudo = { enable = false; execWheelOnly = true; extraRules = [{ groups = [ "wheel" ]; }]; };
-        doas = {
-          enable = true;
-          extraRules = [
-            # Allow wheel to run all commands without password and keep user env.
-            { groups = [ "wheel" ]; noPass = true; keepEnv = true; }
-          ];
-        };
+        doas = { enable = true; extraRules = [{ groups = [ "wheel" ]; noPass = true; keepEnv = true; }]; };
         polkit.enable = true;
         rtkit.enable = true;
       };
