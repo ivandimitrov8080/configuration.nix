@@ -19,7 +19,7 @@ top@{ inputs, ... }: {
         extraPlugins = with pkgs.vimPlugins; [ otter-nvim ];
       };
       bingwp = pkgs.writers.writeNuBin "bingwp" ''
-        http get "https://pic.idimitrov.dev/latest.png" | save ([(xdg-user-dir PICTURES), "bg.png"] | str join "/")
+        http get "https://pic.idimitrov.dev/latest.png" | save -f ([(xdg-user-dir PICTURES), "bg.png"] | str join "/")
       '';
       screenshot = pkgs.writers.writeNuBin "screenshot" ''
         let tmp_img = "/tmp/screen.png" | path join
