@@ -2,38 +2,19 @@
 
 ### Usage
 
-To build the base system for my craptop:
+To build the nixos system:
 
 ```bash
-sudo nixos-rebuild switch --flake github:ivandimitrov8080/configuration.nix#laptop
+make nixos
 ```
 
 To build ivand home:
 
 ```bash
-home-manager switch --flake github:ivandimitrov8080/configuration.nix#ivand
+make home
 ```
 
-To reuse modules:
-
-in your flake.nix:
-```nix
-inputs.ivan-mods = {
-  url = "github:ivandimitrov8080/configuration.nix";
-  inputs.nixpkgs.follows = "nixpkgs";
-};
-outputs = {self, nixpkgs, ivan-mods, ...}:{
-...
-    homeConfigurations = {
-        my-user = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          modules = with ivan-mods.modules.home; [
-            programs.nvim
-            programs.zsh
-          ];
-        };
-      };
-...
-};
+To make music:
+```bash
+make music # this will compile the realtime kernel
 ```
-
