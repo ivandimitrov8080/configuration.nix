@@ -11,6 +11,7 @@ top@{ inputs, ... }: {
             nvim = config.packages.nvim;
             bingwp = config.packages.bingwp;
             screenshot = config.packages.screenshot;
+            cursors = config.packages.cursors;
           })
           inputs.sal.overlays.default
         ];

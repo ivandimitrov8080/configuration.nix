@@ -56,8 +56,8 @@ toplevel@{ moduleWithSystem, ... }: {
             MAKEFLAGS = "-j 4";
           };
           pointerCursor = with pkgs; {
-            name = lib.mkForce "BreezeX-RosePineDawn-Linux";
-            package = lib.mkForce rose-pine-cursor;
+            name = "catppuccin-mocha-green-cursors";
+            package = catppuccin-cursors.mochaGreen;
             size = 24;
             gtk.enable = true;
           };
