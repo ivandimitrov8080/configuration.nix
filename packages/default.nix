@@ -24,7 +24,7 @@ top@{ inputs, ... }: {
       screenshot = pkgs.writers.writeNuBin "screenshot" ''
         let tmp_img = "/tmp/screen.png" | path join
         let ss_dir = ((xdg-user-dir PICTURES | str trim) | path join "ss")
-        let pic_dir = ($ss_dir | path join ((date now | format date) | str join ".png"))
+        let pic_dir = ($ss_dir | path join (([(date now | format date "%Y-%m-%d_%H-%M-%S"), ".png"] | str join)))
 
         mkdir $ss_dir
 
