@@ -2,21 +2,11 @@ top@{ inputs, ... }: {
   perSystem = perSystem@{ system, pkgs, ... }: {
     config.packages = {
       nvim = inputs.ide.nvim.${system}.standalone.default {
-        autoCmd = [
-          {
-            callback.__raw = /*lua*/ '' 
-              function() require("otter").activate() end
-            '';
-            event = [ "BufEnter" "BufWinEnter" "BufWritePost" ];
-            pattern = [ "*.nix" ];
-          }
-        ];
         plugins.lsp.servers = {
           bashls.enable = true;
           pylsp.enable = true;
           lua-ls.enable = true;
         };
-        extraPlugins = with pkgs.vimPlugins; [ otter-nvim ];
       };
       bingwp = pkgs.writers.writeNuBin "bingwp" ''
         http get "https://pic.idimitrov.dev/latest.png" | save -f ([(xdg-user-dir PICTURES), "bg.png"] | str join "/")
