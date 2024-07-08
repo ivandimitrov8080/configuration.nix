@@ -79,8 +79,9 @@ toplevel@{ moduleWithSystem, ... }: {
               ga = "git add .";
               gc = "git commit";
               dev = "nix develop --command $SHELL";
-              ls = "${pkgs.nushell}/bin/nu -c 'ls'";
-              la = "${pkgs.nushell}/bin/nu -c 'ls -al'";
+              ls = "${pkgs.eza}/bin/eza";
+              la = "${pkgs.eza}/bin/eza -al";
+              lt = "${pkgs.eza}/bin/eza --long --tree --level=10";
               torrent = "transmission-remote";
               torrent-start = "transmission-daemon";
               vi = "nvim";
