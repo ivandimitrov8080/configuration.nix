@@ -129,6 +129,19 @@ toplevel@{ moduleWithSystem, ... }: {
               '';
             };
             starship = { enable = true; enableNushellIntegration = true; enableZshIntegration = true; enableBashIntegration = true; };
+            eza = {
+              enable = true;
+              enableZshIntegration = true;
+              enableBashIntegration = true;
+              extraOptions = [
+                "--header"
+                "--icons"
+                "--smart-group"
+                "--mounts"
+                "--octal-permissions"
+                "--git"
+              ];
+            };
           };
       }
     );
