@@ -7,12 +7,13 @@ toplevel@{ inputs, withSystem, config, ... }:
         let
           mods = config.flake.homeManagerModules;
         in
-        [
-          mods.base
-          mods.shell
-          mods.util
-          mods.swayland
-          mods.web
+        with mods; [
+          base
+          shell
+          util
+          swayland
+          web
+          work
         ];
     });
 }
