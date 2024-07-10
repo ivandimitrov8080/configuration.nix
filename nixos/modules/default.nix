@@ -19,7 +19,7 @@ top@{ moduleWithSystem, ... }: {
       time.timeZone = "Europe/Prague";
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
       environment = {
-        systemPackages = with pkgs; [ cmatrix coreutils-full cryptsetup fd file git glibc gnumake mlocate moreutils openssh openssl procs ripgrep srm unzip vim zip ];
+        systemPackages = with pkgs; [ cmatrix uutils-coreutils cryptsetup fd file git glibc gnumake mlocate moreutils openssh openssl procs ripgrep srm unzip vim zip ];
         shells = with pkgs; [ zsh nushell ];
       };
       programs = { zsh.enable = true; nix-ld.enable = true; dconf.enable = true; };
