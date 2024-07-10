@@ -3,28 +3,7 @@ toplevel@{ moduleWithSystem, ... }: {
     base = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
-        programs = {
-          home-manager.enable = true;
-          password-store = {
-            enable = true;
-            package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
-            settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; };
-          };
-          git = {
-            enable = true;
-            delta.enable = true;
-            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
-            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
-            signing = { signByDefault = true; key = "ivan@idimitrov.dev"; };
-            extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
-            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; };
-          };
-          gpg.enable = true;
-        };
-        services = {
-          pueue.enable = true;
-          gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; };
-        };
+        programs.home-manager.enable = true;
         home = {
           stateVersion = toplevel.config.flake.stateVersion;
           username = "ivand";
@@ -63,6 +42,25 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
         };
+      }
+    );
+    ivand = moduleWithSystem (
+      top@{ ... }:
+      perSystem@{ pkgs, config, ... }: {
+        programs = {
+          password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
+          git = {
+            enable = true;
+            delta.enable = true;
+            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
+            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
+            signing = { signByDefault = true; key = "ivan@idimitrov.dev"; };
+            extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
+            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; };
+          };
+          gpg.enable = true;
+        };
+        services = { gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; }; };
       }
     );
     shell = moduleWithSystem (

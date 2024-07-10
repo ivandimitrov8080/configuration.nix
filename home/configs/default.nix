@@ -9,6 +9,7 @@ toplevel@{ inputs, withSystem, config, ... }:
         in
         with mods; [
           base
+          ivand
           shell
           util
           swayland
