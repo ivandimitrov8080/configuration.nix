@@ -1,11 +1,9 @@
-.PHONY: default all home nixos update clean music nonya
-
 default: all
 
 all: home nixos
 
 home:
-	home-manager switch --flake ./. -b $$(mktemp -u XXXX)
+	home-manager switch --flake ./. -b $(mktemp -u XXXX)
 
 nixos:
 	doas nixos-rebuild switch --flake ./.
