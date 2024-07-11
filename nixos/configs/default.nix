@@ -40,7 +40,7 @@ in
         inherit inputs inputs';
         packages = config.packages;
       };
-      modules = essential ++ [ inputs.musnix.nixosModules.musnix ] ++ (with nixosModules; [ music ]);
+      modules = essential ++ [ inputs.musnix.nixosModules.musnix nixosModules.music ];
     });
     nonya = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
@@ -48,6 +48,13 @@ in
         packages = config.packages;
       };
       modules = essential ++ [ nixosModules.nonya ];
+    });
+    ai = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs inputs';
+        packages = config.packages;
+      };
+      modules = essential ++ [ nixosModules.ai ];
     });
   };
 }
