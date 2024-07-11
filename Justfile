@@ -27,3 +27,6 @@ music:
 
 nonya:
 	doas nixos-rebuild switch --flake ./#nonya
+
+ai:
+	doas nixos-rebuild switch --flake ./#ai
