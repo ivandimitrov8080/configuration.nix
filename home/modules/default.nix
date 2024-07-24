@@ -58,6 +58,19 @@ toplevel@{ moduleWithSystem, ... }: {
             extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
             aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; pa = "!git remote | xargs -L1 git push --all"; };
           };
+          ssh = {
+            enable = true;
+            matchBlocks = {
+              vpsfree = {
+                hostname = "37.205.13.29";
+                user = "ivand";
+              };
+              vpsfree-root = {
+                hostname = "37.205.13.29";
+                user = "root";
+              };
+            };
+          };
           gpg.enable = true;
         };
         services = { gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; }; };
