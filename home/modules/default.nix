@@ -56,7 +56,7 @@ toplevel@{ moduleWithSystem, ... }: {
             userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
             signing = { signByDefault = true; key = "ivan@idimitrov.dev"; };
             extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
-            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; };
+            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; pa = "!git remote | xargs -L1 git push --all"; };
           };
           gpg.enable = true;
         };
