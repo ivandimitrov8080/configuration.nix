@@ -143,9 +143,15 @@ top@{ moduleWithSystem, ... }: {
     ai = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       services = { ollama.enable = true; };
     });
-    nonya = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      environment.systemPackages = with pkgs; [ tor-browser electrum monero-cli ];
-      services.monero = { enable = true; };
+    anon = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ tor-browser ];
+    });
+    cryptocurrency = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ monero-cli ];
+      services = {
+        monero.enable = true;
+        bitcoind.mainnet.enable = true;
+      };
     });
   };
 }

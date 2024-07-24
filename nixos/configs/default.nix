@@ -47,7 +47,7 @@ in
         inherit inputs inputs';
         packages = config.packages;
       };
-      modules = essential ++ [ nixosModules.nonya ];
+      modules = essential ++ (with nixosModules; [ anon cryptocurrency ]);
     });
     ai = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
