@@ -231,6 +231,7 @@ toplevel@{ moduleWithSystem, ... }: {
                     format-time = " {H} h {M} m";
                     format-icons = [ "" "" "" "" "" ];
                     states = { warning = 30; critical = 15; };
+                    tooltip = false;
                   };
 
                   cpu = { format = "<span color='#74c7ec'></span>  {usage}%"; };
@@ -243,6 +244,7 @@ toplevel@{ moduleWithSystem, ... }: {
                     format-source = "{volume}% <span color='#a6e3a1'></span>";
                     format-source-muted = "{volume}% <span color='#f38ba8'></span>";
                     format-icons = { headphone = ""; default = [ "" "" "" ]; };
+                    tooltip = false;
                   };
 
                   network = {
@@ -251,6 +253,7 @@ toplevel@{ moduleWithSystem, ... }: {
                     format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
                     format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
                     interval = 5;
+                    tooltip = false;
                   };
 
                   "sway/workspaces" = { disable-scroll = true; all-outputs = true; };
