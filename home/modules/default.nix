@@ -91,8 +91,8 @@ toplevel@{ moduleWithSystem, ... }: {
               gc = "git commit";
               dev = "nix develop --command $SHELL";
               ls = "eza";
-              la = "eza -al";
-              lt = "eza --long --tree --level=10";
+              la = "eza --all";
+              lt = "eza --all --tree --level=10";
               torrent = "transmission-remote";
               torrent-start = "transmission-daemon";
               vi = "nvim";
@@ -145,6 +145,7 @@ toplevel@{ moduleWithSystem, ... }: {
               enableZshIntegration = true;
               enableBashIntegration = true;
               extraOptions = [
+                "--long"
                 "--header"
                 "--icons"
                 "--smart-group"
