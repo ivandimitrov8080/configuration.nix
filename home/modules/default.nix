@@ -92,7 +92,7 @@ toplevel@{ moduleWithSystem, ... }: {
               dev = "nix develop --command $SHELL";
               ls = "eza";
               la = "eza --all";
-              lt = "eza --all --tree --level=10";
+              lt = "eza --git-ignore --all --tree --level=10";
               torrent = "transmission-remote";
               torrent-start = "transmission-daemon";
               vi = "nvim";
