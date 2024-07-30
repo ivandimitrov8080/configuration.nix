@@ -107,6 +107,9 @@ top@{ moduleWithSystem, ... }: {
             "KOTEKLAN_GUEST" = {
               psk = "koteklankotek";
             };
+            "3G" = {
+              hidden = true;
+            };
           };
         };
       };
