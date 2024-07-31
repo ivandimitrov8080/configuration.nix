@@ -153,7 +153,10 @@ top@{ moduleWithSystem, ... }: {
       environment.systemPackages = with pkgs; [ monero-cli ];
       services = {
         monero.enable = true;
-        bitcoind.mainnet.enable = true;
+        bitcoind.mainnet = {
+          enable = true;
+          rpc.users = { ivand.passwordHMAC = "982f4ebcaa1e7d522cc21cf53f00df39$9ee8caf01c28e11f0c092f5ec0f97990e8f911206098557db49d3f2e7215f788"; };
+        };
       };
     });
   };
