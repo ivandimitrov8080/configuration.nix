@@ -10,7 +10,8 @@ top@{ inputs, ... }: {
       };
       wpd = pkgs.writeShellApplication {
         name = "wpd";
-        runtimeInputs = with pkgs; [ swaybg xdg-utils fd ];
+        runtimeInputs = with pkgs; [ swaybg xdg-user-dirs fd uutils-coreutils-noprefix ];
+        runtimeEnv = { WAYLAND_DISPLAY = "wayland-1"; };
         text = ''
           random_pic () {
             bg_dir="$(xdg-user-dir PICTURES)/bg"
