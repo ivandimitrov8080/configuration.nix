@@ -235,9 +235,9 @@ toplevel@{ moduleWithSystem, ... }: {
                   modules-center = [ "clock#week" "clock#year" "clock#time" ];
                   modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
-                  "clock#time" = { format = "{:%H:%M:%S}"; interval = 1; };
-                  "clock#week" = { format = "{:%a}"; };
-                  "clock#year" = { format = "{:%Y-%m-%d}"; };
+                  "clock#time" = { format = "{:%H:%M:%S}"; interval = 1; tooltip = false; };
+                  "clock#week" = { format = "{:%a}"; tooltip = false; };
+                  "clock#year" = { format = "{:%Y-%m-%d}"; tooltip = false; };
 
                   battery = {
                     format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
