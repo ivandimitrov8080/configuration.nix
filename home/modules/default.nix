@@ -442,20 +442,10 @@ toplevel@{ moduleWithSystem, ... }: {
           timers = { rbingwp = { Timer = { OnCalendar = "*-*-* 10:00:00"; Persistent = true; }; Install = { WantedBy = [ "timers.target" ]; }; }; };
           services = {
             wpd = {
-              Service = {
-                Environment = [ "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.swaybg}/bin" ];
-                ExecStart = [ "${pkgs.nushell}/bin/nu -c 'swaybg -i ((xdg-user-dir PICTURES) | path split | path join bg.png)'" ];
-              };
-            };
-            bingwp = {
-              Service = { Type = "oneshot"; Environment = [ "PATH=${pkgs.xdg-user-dirs}/bin:${pkgs.nushell}/bin" ]; ExecStart = [ "${pkgs.bingwp}/bin/bingwp" ]; };
-            };
-            rbingwp = {
               Install = { WantedBy = [ "sway-session.target" ]; };
               Unit = { Description = "Restart bingwp and wpd services"; After = "graphical-session-pre.target"; PartOf = "graphical-session.target"; };
               Service = {
-                Type = "oneshot";
-                ExecStart = [ "${pkgs.nushell}/bin/nu -c '${pkgs.systemd}/bin/systemctl --user restart bingwp.service; ${pkgs.systemd}/bin/systemctl --user restart wpd.service'" ];
+                ExecStart = [ "${pkgs.wpd}/bin/wpd" ];
               };
             };
           };

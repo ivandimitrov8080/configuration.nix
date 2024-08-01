@@ -8,9 +8,26 @@ top@{ inputs, ... }: {
           lua-ls.enable = true;
         };
       };
-      bingwp = pkgs.writers.writeNuBin "bingwp" ''
-        http get "https://pic.idimitrov.dev/latest.png" | save -f ([(xdg-user-dir PICTURES), "bg.png"] | str join "/")
-      '';
+      wpd = pkgs.writeShellApplication {
+        name = "wpd";
+        runtimeInputs = with pkgs; [ swaybg xdg-utils fd ];
+        text = ''
+          random_pic () {
+            bg_dir="$(xdg-user-dir PICTURES)/bg"
+            fd . --extension png "$bg_dir" | shuf -n1
+          }
+          swaybg -i "$(random_pic)" -m fill &
+          OLD_PID=$!
+          while true; do
+              sleep 60
+              swaybg -i "$(random_pic)" -m fill &
+              NEXT_PID=$!
+              sleep 5
+              kill -9 $OLD_PID
+              OLD_PID=$NEXT_PID
+          done
+        '';
+      };
       screenshot = pkgs.writeShellApplication {
         name = "screenshot";
         runtimeInputs = with pkgs; [ wl-clipboard xdg-utils ];

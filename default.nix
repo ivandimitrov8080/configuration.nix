@@ -12,6 +12,7 @@ top@{ inputs, ... }: {
             bingwp = config.packages.bingwp;
             screenshot = config.packages.screenshot;
             cursors = config.packages.cursors;
+            wpd = config.packages.wpd;
           })
           inputs.sal.overlays.default
         ];
