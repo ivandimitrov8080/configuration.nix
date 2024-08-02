@@ -1,7 +1,7 @@
 toplevel@{ inputs, withSystem, ... }:
 let
   system = "x86_64-linux";
-  nixosModules = toplevel.config.flake.nixosModules;
+  mods = toplevel.config.flake.nixosModules;
   hardwareConfigurations = {
     nova = { lib, modulesPath, ... }: {
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
@@ -24,37 +24,20 @@ let
       hardware.cpu.intel.updateMicrocode = lib.mkForce false;
     };
   };
-  essential = [ hardwareConfigurations.nova inputs.hosts.nixosModule ] ++ (with nixosModules; [ grub base sound wayland security ivand wireless wireguard ]);
+  essential = [ hardwareConfigurations.nova inputs.hosts.nixosModule ] ++ (with mods; [ grub base sound wayland security ivand wireless wireguard ]);
+  systemWithModules = modules: withSystem system (ctx@{ config, inputs', pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      inherit inputs inputs' pkgs;
+      packages = config.packages;
+    };
+    modules = modules;
+  });
 in
 {
   flake.nixosConfigurations = {
-    nixos = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs inputs';
-        packages = config.packages;
-      };
-      modules = essential;
-    });
-    music = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs inputs';
-        packages = config.packages;
-      };
-      modules = essential ++ [ inputs.musnix.nixosModules.musnix nixosModules.music ];
-    });
-    nonya = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs inputs';
-        packages = config.packages;
-      };
-      modules = essential ++ (with nixosModules; [ anon cryptocurrency ]);
-    });
-    ai = withSystem system (ctx@{ config, inputs', ... }: inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs inputs';
-        packages = config.packages;
-      };
-      modules = essential ++ [ nixosModules.ai ];
-    });
+    nixos = systemWithModules essential;
+    music = systemWithModules (essential ++ [ inputs.musnix.nixosModules.musnix mods.music ]);
+    nonya = systemWithModules (essential ++ (with mods; [ anon cryptocurrency ]));
+    ai = systemWithModules (essential ++ (with mods; [ ai ]));
   };
 }

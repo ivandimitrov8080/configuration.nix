@@ -18,7 +18,7 @@ top@{ moduleWithSystem, ... }: {
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       environment = {
-        systemPackages = with pkgs; [ wpd cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just ];
+        systemPackages = with pkgs; [ cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just ];
         sessionVariables = { MAKEFLAGS = "-j 4"; };
         shells = with pkgs; [ bash zsh nushell ];
       };
