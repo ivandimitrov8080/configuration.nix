@@ -17,13 +17,13 @@ top@{ moduleWithSystem, ... }: {
       nix = { extraOptions = ''experimental-features = nix-command flakes''; };
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
-      fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
       environment = {
         systemPackages = with pkgs; [ cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just ];
         sessionVariables = { MAKEFLAGS = "-j 4"; };
-        shells = with pkgs; [ zsh nushell ];
+        shells = with pkgs; [ bash zsh nushell ];
       };
-      programs = { zsh.enable = true; nix-ld.enable = true; dconf.enable = true; };
+      users.defaultUserShell = pkgs.zsh;
+      programs = { zsh.enable = true; nix-ld.enable = true; };
       services = { dbus.enable = true; };
       networking = { stevenBlackHosts = { enable = true; blockFakenews = true; blockGambling = true; }; };
     });
@@ -116,8 +116,8 @@ top@{ moduleWithSystem, ... }: {
       };
     };
     ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
       users = {
-        defaultUserShell = pkgs.zsh;
         users = {
           ivand = {
             isNormalUser = true;
@@ -139,6 +139,7 @@ top@{ moduleWithSystem, ... }: {
           };
         };
         extraGroups = { mlocate = { }; };
+        programs.dconf.enable = true;
       };
     });
     flatpak = {
