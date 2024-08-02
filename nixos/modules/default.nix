@@ -24,7 +24,10 @@ top@{ moduleWithSystem, ... }: {
       };
       users.defaultUserShell = pkgs.zsh;
       programs = { zsh.enable = true; nix-ld.enable = true; };
-      services = { dbus.enable = true; };
+      services = {
+        dbus.enable = true;
+        logind = { lidSwitch = "lock"; lidSwitchDocked = "lock"; killUserProcesses = true; powerKeyLongPress = "reboot"; };
+      };
       networking = { stevenBlackHosts = { enable = true; blockFakenews = true; blockGambling = true; blockSocial = true; }; };
     });
     sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
