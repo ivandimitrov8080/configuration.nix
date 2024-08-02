@@ -19,16 +19,7 @@ toplevel@{ moduleWithSystem, ... }: {
             publicShare = "${home.homeDirectory}/pub";
             music = "${home.homeDirectory}/mus";
           };
-          mimeApps = {
-            enable = true;
-            defaultApplications = {
-              "text/html" = "firefox.desktop";
-              "x-scheme-handler/http" = "firefox.desktop";
-              "x-scheme-handler/https" = "firefox.desktop";
-              "x-scheme-handler/about" = "firefox.desktop";
-              "x-scheme-handler/unknown" = "firefox.desktop";
-            };
-          };
+          mimeApps.enable = true;
         };
       }
     );
@@ -38,9 +29,8 @@ toplevel@{ moduleWithSystem, ... }: {
         home = {
           username = "ivand";
           homeDirectory = "/home/ivand";
-          sessionVariables = { EDITOR = "nvim"; PAGER = "bat"; TERM = "screen-256color"; MAKEFLAGS = "-j 4"; };
-          pointerCursor = with pkgs; { name = "catppuccin-mocha-green-cursors"; package = catppuccin-cursors.mochaGreen; size = 24; gtk.enable = true; };
-          packages = with pkgs; [ transmission_4 speedtest-cli nvim ];
+          sessionVariables = { EDITOR = "nvim"; };
+          packages = with pkgs; [ speedtest-cli nvim ];
         };
         programs = {
           git = with pkgs.lib; {
@@ -57,6 +47,7 @@ toplevel@{ moduleWithSystem, ... }: {
     util = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
+        home.sessionVariables = { PAGER = "bat"; BAT_THEME = "1337"; };
         programs = {
           password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
           git = {
@@ -110,7 +101,7 @@ toplevel@{ moduleWithSystem, ... }: {
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
             };
-            sessionVariables = { TERM = "screen-256color"; };
+            sessionVariables = { };
           in
           {
             bash = {
@@ -171,6 +162,10 @@ toplevel@{ moduleWithSystem, ... }: {
     swayland = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
+        home = {
+          packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland ];
+          pointerCursor = with pkgs; { name = "catppuccin-mocha-green-cursors"; package = catppuccin-cursors.mochaGreen; size = 24; gtk.enable = true; };
+        };
         wayland.windowManager.sway = {
           enable = true;
           systemd.enable = true;
@@ -416,7 +411,7 @@ toplevel@{ moduleWithSystem, ... }: {
           kitty = {
             enable = true;
             font = { package = pkgs.fira-code; name = "FiraCodeNFM-Reg"; };
-            settings = { background_opacity = "0.90"; cursor_shape = "beam"; term = "screen-256color"; };
+            settings = { background_opacity = "0.90"; cursor_shape = "beam"; };
           };
           imv = { enable = true; settings = { options.fullscreen = true; }; };
           mpv = { enable = true; scripts = with pkgs.mpvScripts; [ uosc thumbfast ]; };
@@ -437,7 +432,6 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
         };
-        home.packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp wl-clipboard xdg-user-dirs xdg-utils xwayland ];
       }
     );
     web = moduleWithSystem (
@@ -491,6 +485,13 @@ toplevel@{ moduleWithSystem, ... }: {
             type = "stdio";
             allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
           };
+        };
+        xdg.mimeApps.defaultApplications = {
+          "text/html" = "firefox.desktop";
+          "x-scheme-handler/http" = "firefox.desktop";
+          "x-scheme-handler/https" = "firefox.desktop";
+          "x-scheme-handler/about" = "firefox.desktop";
+          "x-scheme-handler/unknown" = "firefox.desktop";
         };
       }
     );

@@ -20,6 +20,7 @@ top@{ moduleWithSystem, ... }: {
       fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
       environment = {
         systemPackages = with pkgs; [ cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just ];
+        sessionVariables = { MAKEFLAGS = "-j 4"; };
         shells = with pkgs; [ zsh nushell ];
       };
       programs = { zsh.enable = true; nix-ld.enable = true; dconf.enable = true; };
