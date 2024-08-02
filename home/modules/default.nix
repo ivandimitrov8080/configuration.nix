@@ -80,6 +80,7 @@ toplevel@{ moduleWithSystem, ... }: {
               ];
             };
           };
+          fzf = { enable = true; enableBashIntegration = true; enableZshIntegration = true; };
           bat.enable = true;
           ssh.enable = true;
           gpg.enable = true;
