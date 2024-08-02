@@ -1,6 +1,6 @@
-default: all
+default: nixos
 
-all: home nixos
+all: nixos music nonya ai
 
 home:
 	home-manager switch --flake ./. -b $(mktemp -u XXXX)
