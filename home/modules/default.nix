@@ -273,137 +273,136 @@ toplevel@{ moduleWithSystem, ... }: {
                 };
             };
             systemd = { enable = true; target = "sway-session.target"; };
-            style = /* CSS */
-              ''
-                @define-color rosewater #f5e0dc;
-                @define-color flamingo #f2cdcd;
-                @define-color pink #f5c2e7;
-                @define-color mauve #cba6f7;
-                @define-color red #f38ba8;
-                @define-color maroon #eba0ac;
-                @define-color peach #fab387;
-                @define-color yellow #f9e2af;
-                @define-color green #a6e3a1;
-                @define-color teal #94e2d5;
-                @define-color sky #89dceb;
-                @define-color sapphire #74c7ec;
-                @define-color blue #89b4fa;
-                @define-color lavender #b4befe;
-                @define-color text #cdd6f4;
-                @define-color subtext1 #bac2de;
-                @define-color subtext0 #a6adc8;
-                @define-color overlay2 #9399b2;
-                @define-color overlay1 #7f849c;
-                @define-color overlay0 #6c7086;
-                @define-color surface2 #585b70;
-                @define-color surface1 #45475a;
-                @define-color surface0 #313244;
-                @define-color base #1e1e2e;
-                @define-color mantle #181825;
-                @define-color crust #11111b;
-                * {
-                    font-family: FontAwesome, 'Fira Code';
-                    font-size: 13px;
-                }
+            style = ''
+              @define-color rosewater #f5e0dc;
+              @define-color flamingo #f2cdcd;
+              @define-color pink #f5c2e7;
+              @define-color mauve #cba6f7;
+              @define-color red #f38ba8;
+              @define-color maroon #eba0ac;
+              @define-color peach #fab387;
+              @define-color yellow #f9e2af;
+              @define-color green #a6e3a1;
+              @define-color teal #94e2d5;
+              @define-color sky #89dceb;
+              @define-color sapphire #74c7ec;
+              @define-color blue #89b4fa;
+              @define-color lavender #b4befe;
+              @define-color text #cdd6f4;
+              @define-color subtext1 #bac2de;
+              @define-color subtext0 #a6adc8;
+              @define-color overlay2 #9399b2;
+              @define-color overlay1 #7f849c;
+              @define-color overlay0 #6c7086;
+              @define-color surface2 #585b70;
+              @define-color surface1 #45475a;
+              @define-color surface0 #313244;
+              @define-color base #1e1e2e;
+              @define-color mantle #181825;
+              @define-color crust #11111b;
+              * {
+                  font-family: FontAwesome, 'Fira Code';
+                  font-size: 13px;
+              }
 
-                window#waybar {
-                    background-color: rgba(43, 48, 59, 0.1);
-                    border-bottom: 2px solid rgba(100, 114, 125, 0.5);
-                    color: @rosewater;
-                }
+              window#waybar {
+                  background-color: rgba(43, 48, 59, 0.1);
+                  border-bottom: 2px solid rgba(100, 114, 125, 0.5);
+                  color: @rosewater;
+              }
 
-                #workspaces button {
-                    padding: 0 5px;
-                    background-color: @base;
-                    color: @text;
-                    border-radius: 6px;
-                }
+              #workspaces button {
+                  padding: 0 5px;
+                  background-color: @base;
+                  color: @text;
+                  border-radius: 6px;
+              }
 
-                #workspaces button:hover {
-                    background: @mantle;
-                }
+              #workspaces button:hover {
+                  background: @mantle;
+              }
 
-                #workspaces button.focused {
-                    background-color: @crust;
-                    box-shadow: inset 0 -2px @sky;
-                }
+              #workspaces button.focused {
+                  background-color: @crust;
+                  box-shadow: inset 0 -2px @sky;
+              }
 
-                #workspaces button.urgent {
-                    background-color: @red;
-                }
+              #workspaces button.urgent {
+                  background-color: @red;
+              }
 
-                #clock,
-                #battery,
-                #cpu,
-                #memory,
-                #disk,
-                #temperature,
-                #backlight,
-                #network,
-                #pulseaudio,
-                #wireplumber,
-                #custom-media,
-                #tray,
-                #mode,
-                #idle_inhibitor,
-                #scratchpad,
-                #power-profiles-daemon,
-                #mpd {
-                    padding: 0 10px;
-                    color: @text;
-                    background-color: @base;
-                    margin: 0 .5em;
-                    border-radius: 9999px;
-                }
+              #clock,
+              #battery,
+              #cpu,
+              #memory,
+              #disk,
+              #temperature,
+              #backlight,
+              #network,
+              #pulseaudio,
+              #wireplumber,
+              #custom-media,
+              #tray,
+              #mode,
+              #idle_inhibitor,
+              #scratchpad,
+              #power-profiles-daemon,
+              #mpd {
+                  padding: 0 10px;
+                  color: @text;
+                  background-color: @base;
+                  margin: 0 .5em;
+                  border-radius: 9999px;
+              }
 
-                #clock.week {
-                  margin-right: 0px;
-                  color: @peach;
-                  border-radius: 9999px 0px 0px 9999px;
-                }
+              #clock.week {
+                margin-right: 0px;
+                color: @peach;
+                border-radius: 9999px 0px 0px 9999px;
+              }
 
-                #clock.year {
-                  margin: 0px;
-                  padding: 0px;
-                  color: @pink;
-                  border-radius: 0px;
-                }
+              #clock.year {
+                margin: 0px;
+                padding: 0px;
+                color: @pink;
+                border-radius: 0px;
+              }
 
-                #clock.time {
-                  margin-left: 0px;
-                  color: @sky;
-                  border-radius: 0px 9999px 9999px 0px;
-                }
+              #clock.time {
+                margin-left: 0px;
+                color: @sky;
+                border-radius: 0px 9999px 9999px 0px;
+              }
 
-                #battery.charging, #battery.plugged {
-                    color: @green;
-                }
+              #battery.charging, #battery.plugged {
+                  color: @green;
+              }
 
-                #battery.discharging {
-                    color: @yellow;
-                }
+              #battery.discharging {
+                  color: @yellow;
+              }
 
-                @keyframes blink {
-                    to {
-                        background-color: #ffffff;
-                        color: #000000;
-                    }
-                }
+              @keyframes blink {
+                  to {
+                      background-color: #ffffff;
+                      color: #000000;
+                  }
+              }
 
-                #battery.warning:not(.charging) {
-                    background-color: @red;
-                }
+              #battery.warning:not(.charging) {
+                  background-color: @red;
+              }
 
-                /* Using steps() instead of linear as a timing function to limit cpu usage */
-                #battery.critical:not(.charging) {
-                    background-color: @red;
-                    animation-name: blink;
-                    animation-duration: 0.5s;
-                    animation-timing-function: steps(12);
-                    animation-iteration-count: infinite;
-                    animation-direction: alternate;
-                }
-              ''
+              /* Using steps() instead of linear as a timing function to limit cpu usage */
+              #battery.critical:not(.charging) {
+                  background-color: @red;
+                  animation-name: blink;
+                  animation-duration: 0.5s;
+                  animation-timing-function: steps(12);
+                  animation-iteration-count: infinite;
+                  animation-direction: alternate;
+              }
+            ''
             ;
           };
           swaylock = {
@@ -431,8 +430,8 @@ toplevel@{ moduleWithSystem, ... }: {
             font = { package = pkgs.fira-code; name = "FiraCodeNFM-Reg"; };
             settings = { background_opacity = "0.90"; cursor_shape = "beam"; term = "screen-256color"; };
           };
-          imv.enable = true;
-          mpv.enable = true;
+          imv = { enable = true; settings = { options.fullscreen = true; }; };
+          mpv = { enable = true; scripts = with pkgs.mpvScripts; [ uosc thumbfast ]; };
           bash.profileExtra = '' [ "$(tty)" = "/dev/tty1" ] && exec sway '';
           zsh.loginExtra = '' [ "$(tty)" = "/dev/tty1" ] && exec sway '';
           nushell.loginFile.text = '' if (tty) == "/dev/tty1" { sway } '';
