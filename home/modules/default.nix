@@ -48,7 +48,7 @@ toplevel@{ moduleWithSystem, ... }: {
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
         home = {
-          packages = with pkgs; [ uutils-coreutils-noprefix speedtest-cli ];
+          packages = with pkgs; [ openssl mlocate uutils-coreutils-noprefix speedtest-cli ];
           sessionVariables = { PAGER = "bat"; BAT_THEME = "1337"; };
         };
         programs = {
