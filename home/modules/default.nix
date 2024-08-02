@@ -97,7 +97,6 @@ toplevel@{ moduleWithSystem, ... }: {
               GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
               gad = "git add . && git diff --cached";
               gac = "ga && gc";
-              gach = "gac -C HEAD";
               ga = "git add .";
               gc = "git commit";
               dev = "nix develop --command $SHELL";
