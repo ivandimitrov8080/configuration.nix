@@ -30,7 +30,7 @@ toplevel@{ moduleWithSystem, ... }: {
           username = "ivand";
           homeDirectory = "/home/ivand";
           sessionVariables = { EDITOR = "nvim"; };
-          packages = with pkgs; [ speedtest-cli nvim ];
+          packages = with pkgs; [ nvim ];
         };
         programs = {
           git = with pkgs.lib; {
@@ -47,7 +47,10 @@ toplevel@{ moduleWithSystem, ... }: {
     util = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
-        home.sessionVariables = { PAGER = "bat"; BAT_THEME = "1337"; };
+        home = {
+          packages = with pkgs; [ speedtest-cli ];
+          sessionVariables = { PAGER = "bat"; BAT_THEME = "1337"; };
+        };
         programs = {
           password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
           git = {
