@@ -25,7 +25,7 @@ top@{ moduleWithSystem, ... }: {
       users.defaultUserShell = pkgs.zsh;
       programs = { zsh.enable = true; nix-ld.enable = true; };
       services = { dbus.enable = true; };
-      networking = { stevenBlackHosts = { enable = true; blockFakenews = true; blockGambling = true; }; };
+      networking = { stevenBlackHosts = { enable = true; blockFakenews = true; blockGambling = true; blockSocial = true; }; };
     });
     sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       services = { pipewire = { enable = true; alsa.enable = true; pulse.enable = true; }; };
@@ -139,8 +139,8 @@ top@{ moduleWithSystem, ... }: {
           };
         };
         extraGroups = { mlocate = { }; };
-        programs.dconf.enable = true;
       };
+      programs.dconf.enable = true;
     });
     flatpak = {
       xdg = { portal = { enable = true; wlr.enable = true; config.common.default = "*"; }; };
