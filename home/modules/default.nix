@@ -2,21 +2,9 @@ toplevel@{ moduleWithSystem, ... }: {
   flake.homeManagerModules = {
     base = moduleWithSystem (
       top@{ ... }:
-      perSystem@{ pkgs, config, ... }: {
+      perSystem@{ config, ... }: {
         programs.home-manager.enable = true;
-        home = {
-          stateVersion = toplevel.config.flake.stateVersion;
-          username = "ivand";
-          homeDirectory = "/home/ivand";
-          sessionVariables = {
-            EDITOR = "nvim";
-            PAGER = "bat";
-            TERM = "screen-256color";
-            MAKEFLAGS = "-j 4";
-          };
-          pointerCursor = with pkgs; { name = "catppuccin-mocha-green-cursors"; package = catppuccin-cursors.mochaGreen; size = 24; gtk.enable = true; };
-          packages = with pkgs; [ transmission_4 speedtest-cli nvim ];
-        };
+        home.stateVersion = toplevel.config.flake.stateVersion;
         xdg = {
           enable = true;
           userDirs = with config; {
@@ -47,6 +35,13 @@ toplevel@{ moduleWithSystem, ... }: {
     ivand = moduleWithSystem (
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
+        home = {
+          username = "ivand";
+          homeDirectory = "/home/ivand";
+          sessionVariables = { EDITOR = "nvim"; PAGER = "bat"; TERM = "screen-256color"; MAKEFLAGS = "-j 4"; };
+          pointerCursor = with pkgs; { name = "catppuccin-mocha-green-cursors"; package = catppuccin-cursors.mochaGreen; size = 24; gtk.enable = true; };
+          packages = with pkgs; [ transmission_4 speedtest-cli nvim ];
+        };
         programs = {
           password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
           git = {
@@ -60,20 +55,34 @@ toplevel@{ moduleWithSystem, ... }: {
           };
           ssh = {
             enable = true;
-            matchBlocks = {
-              vpsfree = {
-                hostname = "37.205.13.29";
-                user = "ivand";
-              };
-              vpsfree-root = {
-                hostname = "37.205.13.29";
-                user = "root";
-              };
-            };
+            matchBlocks = { vpsfree = { hostname = "37.205.13.29"; user = "ivand"; }; vpsfree-root = { hostname = "37.205.13.29"; user = "root"; }; };
           };
           gpg.enable = true;
         };
         services = { gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; }; };
+      }
+    );
+    util = moduleWithSystem (
+      top@{ ... }:
+      perSystem@{ ... }: {
+        programs = {
+          tealdeer = {
+            enable = true;
+            settings = { display = { compact = true; }; updates = { auto_update = true; }; };
+          };
+          bottom = {
+            enable = true;
+            settings = {
+              flags = { rate = "250ms"; };
+              row = [
+                { ratio = 40; child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }]; }
+                { ratio = 35; child = [{ type = "temp"; } { type = "disk"; }]; }
+                { ratio = 40; child = [{ type = "proc"; default = true; }]; }
+              ];
+            };
+          };
+          bat.enable = true;
+        };
       }
     );
     shell = moduleWithSystem (
@@ -155,29 +164,6 @@ toplevel@{ moduleWithSystem, ... }: {
               ];
             };
           };
-      }
-    );
-    util = moduleWithSystem (
-      top@{ ... }:
-      perSystem@{ ... }: {
-        programs = {
-          tealdeer = {
-            enable = true;
-            settings = { display = { compact = true; }; updates = { auto_update = true; }; };
-          };
-          bottom = {
-            enable = true;
-            settings = {
-              flags = { rate = "250ms"; };
-              row = [
-                { ratio = 40; child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }]; }
-                { ratio = 35; child = [{ type = "temp"; } { type = "disk"; }]; }
-                { ratio = 40; child = [{ type = "proc"; default = true; }]; }
-              ];
-            };
-          };
-          bat.enable = true;
-        };
       }
     );
     swayland = moduleWithSystem (
@@ -504,12 +490,6 @@ toplevel@{ moduleWithSystem, ... }: {
             allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
           };
         };
-      }
-    );
-    work = moduleWithSystem (
-      top@{ ... }:
-      perSystem@{ pkgs, ... }: {
-        programs.chromium = { enable = true; package = pkgs.ungoogled-chromium; };
       }
     );
   };

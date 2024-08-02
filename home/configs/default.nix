@@ -14,7 +14,6 @@ toplevel@{ inputs, withSystem, config, ... }:
           util
           swayland
           web
-          work
         ];
     });
 }
