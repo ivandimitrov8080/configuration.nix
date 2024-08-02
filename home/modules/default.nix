@@ -34,7 +34,7 @@ toplevel@{ moduleWithSystem, ... }: {
     );
     ivand = moduleWithSystem (
       top@{ ... }:
-      perSystem@{ pkgs, config, ... }: {
+      perSystem@{ pkgs, ... }: {
         home = {
           username = "ivand";
           homeDirectory = "/home/ivand";
@@ -43,29 +43,28 @@ toplevel@{ moduleWithSystem, ... }: {
           packages = with pkgs; [ transmission_4 speedtest-cli nvim ];
         };
         programs = {
-          password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
-          git = {
-            enable = true;
-            delta.enable = true;
-            userName = pkgs.lib.mkDefault "Ivan Kirilov Dimitrov";
-            userEmail = pkgs.lib.mkDefault "ivan@idimitrov.dev";
-            signing = { signByDefault = true; key = "ivan@idimitrov.dev"; };
-            extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
-            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; pa = "!git remote | xargs -L1 git push --all"; };
+          git = with pkgs.lib; {
+            userName = mkForce "Ivan Kirilov Dimitrov";
+            userEmail = mkForce "ivan@idimitrov.dev";
+            signing = mkForce { signByDefault = true; key = "ivan@idimitrov.dev"; };
           };
           ssh = {
-            enable = true;
             matchBlocks = { vpsfree = { hostname = "37.205.13.29"; user = "ivand"; }; vpsfree-root = { hostname = "37.205.13.29"; user = "root"; }; };
           };
-          gpg.enable = true;
         };
-        services = { gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; }; };
       }
     );
     util = moduleWithSystem (
       top@{ ... }:
-      perSystem@{ ... }: {
+      perSystem@{ pkgs, config, ... }: {
         programs = {
+          password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
+          git = {
+            enable = true;
+            delta.enable = true;
+            extraConfig = { color.ui = "auto"; pull.rebase = true; push.autoSetupRemote = true; };
+            aliases = { a = "add ."; c = "commit"; d = "diff --cached"; p = "push"; pa = "!git remote | xargs -L1 git push --all"; };
+          };
           tealdeer = {
             enable = true;
             settings = { display = { compact = true; }; updates = { auto_update = true; }; };
@@ -82,7 +81,10 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
           bat.enable = true;
+          ssh.enable = true;
+          gpg.enable = true;
         };
+        services = { gpg-agent = { enable = true; enableBashIntegration = true; enableZshIntegration = true; enableNushellIntegration = true; pinentryPackage = pkgs.pinentry-qt; }; };
       }
     );
     shell = moduleWithSystem (
