@@ -1,20 +1,13 @@
 top@{ inputs, ... }: {
-  imports = [ ./nixos ./home ./packages ];
+  imports = [ ./nixos ./home ./packages ./overlays ];
   systems = [ "x86_64-linux" ];
   flake.stateVersion = "24.05";
-  perSystem = perSystem@{ config, system, ... }: {
+  perSystem = perSystem@{ system, ... }: {
     config._module.args = {
       pkgs = import inputs.nixpkgs {
         inherit system;
         overlays = [
-          (final: prev: {
-            nvim = config.packages.nvim;
-            bingwp = config.packages.bingwp;
-            screenshot = config.packages.screenshot;
-            cursors = config.packages.cursors;
-            wpd = config.packages.wpd;
-          })
-          inputs.sal.overlays.default
+          top.config.flake.overlays.default
         ];
       };
     };
