@@ -118,33 +118,48 @@ top@{ moduleWithSystem, ... }: {
         };
       };
     };
-    ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
-      fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
-      users = {
-        users = {
-          ivand = {
-            isNormalUser = true;
-            createHome = true;
-            extraGroups = [
-              "adbusers"
-              "adm"
-              "audio"
-              "bluetooth"
-              "dialout"
-              "flatpak"
-              "kvm"
-              "mlocate"
-              "realtime"
-              "render"
-              "video"
-              "wheel"
+    ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }:
+      let homeMods = top.config.flake.homeManagerModules; in {
+        home-manager = {
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.ivand = { ... }: {
+            imports = with homeMods; [
+              base
+              ivand
+              shell
+              util
+              swayland
+              web
             ];
           };
         };
-        extraGroups = { mlocate = { }; };
-      };
-      programs.dconf.enable = true;
-    });
+        fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
+        users = {
+          users = {
+            ivand = {
+              isNormalUser = true;
+              createHome = true;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "flatpak"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+              ];
+            };
+          };
+          extraGroups = { mlocate = { }; };
+        };
+        programs.dconf.enable = true;
+      });
     flatpak = {
       xdg = { portal = { enable = true; wlr.enable = true; config.common.default = "*"; }; };
       services.flatpak.enable = true;
