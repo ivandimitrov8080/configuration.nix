@@ -1,6 +1,6 @@
 top@{ inputs, withSystem, ... }: {
   flake.overlays.default = final: prev:
-    let system = prev.stdenv.hostPlatform.system; in
+    let system = "x86_64-linux"; in
     withSystem system (
       { config, ... }: {
         nvim = config.packages.nvim;

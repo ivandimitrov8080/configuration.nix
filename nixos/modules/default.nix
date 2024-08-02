@@ -47,7 +47,16 @@ top@{ moduleWithSystem, ... }: {
         kernel = { realtime = true; packages = pkgs.linuxPackages-rt; };
       };
     });
-    wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: { hardware.graphics.enable = true; security.pam.services.swaylock = { }; });
+    wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+      hardware.graphics.enable = true;
+      security.pam.services.swaylock = { };
+      xdg.portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+        wlr = { enable = true; settings = { screencast = { output_name = "HDMI-A-1"; max_fps = 60; }; }; };
+        config.common.default = "*";
+      };
+    });
     security = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       security = {
         sudo = { enable = false; execWheelOnly = true; extraRules = [{ groups = [ "wheel" ]; }]; };

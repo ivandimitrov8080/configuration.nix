@@ -227,9 +227,9 @@ toplevel@{ moduleWithSystem, ... }: {
                   layer = "top";
                   position = "top";
                   height = 30;
-                  output = [ "eDP-1" "HDMI-A-1" ];
+                  output = [ "eDP-1" "HDMI-A-1" "*" ];
 
-                  modules-left = [ "sway/workspaces" ];
+                  modules-left = [ "sway/workspaces" "sway/mode" ];
                   modules-center = [ "clock#week" "clock#year" "clock#time" ];
                   modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
