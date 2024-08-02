@@ -49,7 +49,7 @@ toplevel@{ moduleWithSystem, ... }: {
       perSystem@{ pkgs, config, ... }: {
         home = {
           packages = with pkgs; [ openssl mlocate uutils-coreutils-noprefix speedtest-cli ];
-          sessionVariables = { PAGER = "bat"; BAT_THEME = "1337"; };
+          sessionVariables = { PAGER = "bat"; BAT_THEME = "catppuccin-mocha"; };
         };
         programs = {
           password-store = { enable = true; package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]); settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; }; };
@@ -75,7 +75,19 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
           fzf = { enable = true; enableBashIntegration = true; enableZshIntegration = true; };
-          bat.enable = true;
+          bat = {
+            enable = true;
+            themes =
+              let
+                catppuccin = pkgs.fetchFromGitHub { owner = "catppuccin"; repo = "bat"; rev = "82e7ca555f805b53d2b377390e4ab38c20282e83"; sha256 = "sha256-/Ob9iCVyjJDBCXlss9KwFQTuxybmSSzYRBZxOT10PZg="; };
+              in
+              {
+                catppuccin-mocha = { src = catppuccin; file = "themes/Catppuccin Mocha.tmTheme"; };
+                catppuccin-macchiato = { src = catppuccin; file = "themes/Catppuccin Macchiato.tmTheme"; };
+                catppuccin-frappe = { src = catppuccin; file = "themes/Catppuccin Frappe.tmTheme"; };
+                catppuccin-latte = { src = catppuccin; file = "themes/Catppuccin Latte.tmTheme"; };
+              };
+          };
           ssh.enable = true;
           gpg.enable = true;
         };
