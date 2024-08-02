@@ -44,8 +44,7 @@ top@{ moduleWithSystem, ... }: {
         enable = true;
         rtcqs.enable = true;
         soundcardPciId = "00:1f.3";
-        # kernel = { realtime = true; packages = pkgs.linuxPackages_6_8_rt; };
-        # rtirq = { resetAll = 1; prioLow = 0; enable = true; nameList = "rtc0 snd"; };
+        kernel = { realtime = true; packages = pkgs.linuxPackages-rt; };
       };
     });
     wayland = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: { hardware.graphics.enable = true; security.pam.services.swaylock = { }; });
@@ -121,6 +120,7 @@ top@{ moduleWithSystem, ... }: {
     ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }:
       let homeMods = top.config.flake.homeManagerModules; in {
         home-manager = {
+          backupFileExtension = "bak";
           useUserPackages = true;
           useGlobalPkgs = true;
           users.ivand = { ... }: {
