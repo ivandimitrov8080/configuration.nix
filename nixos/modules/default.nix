@@ -22,6 +22,7 @@ top@{ inputs, moduleWithSystem, ... }: {
         systemPackages = with pkgs; [ cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just nixos-install-tools ];
         sessionVariables = { MAKEFLAGS = "-j 4"; };
         shells = with pkgs; [ bash zsh nushell ];
+        enableAllTerminfo = true;
       };
       users.defaultUserShell = pkgs.zsh;
       programs = { zsh.enable = true; nix-ld.enable = true; };
@@ -98,7 +99,7 @@ top@{ inputs, moduleWithSystem, ... }: {
     wireguard = {
       networking.wg-quick.interfaces = {
         wg0 = {
-          address = [ "10.0.0.4/32" ];
+          address = [ "10.0.0.2/32" ];
           privateKeyFile = "/etc/wireguard/privatekey";
           peers = [
             {
