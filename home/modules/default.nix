@@ -459,7 +459,7 @@ toplevel@{ moduleWithSystem, ... }: {
             enable = true;
             profiles.ivand = {
               id = 0;
-              search.default = "DuckDuckGo";
+              search = { default = "DuckDuckGo"; privateDefault = "DuckDuckGo"; force = true; };
               bookmarks = [
                 { name = "home-options"; url = "https://nix-community.github.io/home-manager/options.xhtml"; }
                 { name = "nixvim-docs"; url = "https://nix-community.github.io/nixvim/"; }
@@ -468,7 +468,7 @@ toplevel@{ moduleWithSystem, ... }: {
                 "general.smoothScroll" = true;
                 "signon.rememberSignons" = false;
                 "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-                "layout.frame_rate" = 120;
+                "layout.frame_rate" = 60;
               };
             };
             policies = {
@@ -480,10 +480,15 @@ toplevel@{ moduleWithSystem, ... }: {
               OfferToSaveLogins = false;
               OfferToSaveLoginsDefault = false;
               PasswordManagerEnabled = false;
-
+              NoDefaultBookmarks = true;
+              PopupBlocking.Default = false;
+              PromptForDownloadLocation = false;
+              TranslateEnabled = false;
+              SearchBar = "unified";
+              SearchSuggestEnabled = false;
+              SanitizeOnShutdown = { Cache = true; FormData = true; Locked = true; Cookies = false; Downloads = false; History = false; Sessions = false; SiteSettings = false; OfflineApps = true; };
               FirefoxHome = { Search = true; Pocket = false; Snippets = false; TopSites = false; Highlights = false; };
-
-              UserMessaging = { ExtensionRecommendations = false; SkipOnboarding = true; };
+              UserMessaging = { ExtensionRecommendations = false; FeatureRecommendations = false; UrlbarInterventions = false; MoreFromMozilla = false; SkipOnboarding = true; };
 
               Handlers = {
                 schemes = {
