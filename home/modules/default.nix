@@ -75,6 +75,7 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
           fzf = { enable = true; enableBashIntegration = true; enableZshIntegration = true; };
+          nix-index = { enable = true; enableZshIntegration = false; enableBashIntegration = false; };
           bat = {
             enable = true;
             themes =
