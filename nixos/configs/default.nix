@@ -24,7 +24,7 @@ let
       hardware.cpu.intel.updateMicrocode = lib.mkForce false;
     };
   };
-  essential = [ hardwareConfigurations.nova inputs.hosts.nixosModule inputs.home-manager.nixosModules.default ] ++ (with mods; [ grub base sound wayland security ivand wireless wireguard ]);
+  essential = [ hardwareConfigurations.nova ] ++ (with mods; [ grub base sound wayland security ivand wireless wireguard ]);
   systemWithModules = modules: withSystem system (ctx@{ config, inputs', pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs inputs' pkgs;
@@ -36,7 +36,7 @@ in
 {
   flake.nixosConfigurations = {
     nixos = systemWithModules essential;
-    music = systemWithModules (essential ++ [ inputs.musnix.nixosModules.musnix mods.music ]);
+    music = systemWithModules (essential ++ [ mods.music ]);
     nonya = systemWithModules (essential ++ (with mods; [ anon cryptocurrency ]));
     ai = systemWithModules (essential ++ (with mods; [ ai ]));
   };

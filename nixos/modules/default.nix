@@ -1,4 +1,4 @@
-top@{ moduleWithSystem, ... }: {
+top@{ inputs, moduleWithSystem, ... }: {
   flake.nixosModules = {
     grub = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       boot = {
@@ -13,6 +13,7 @@ top@{ moduleWithSystem, ... }: {
       };
     });
     base = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      imports = [ inputs.hosts.nixosModule ];
       system.stateVersion = top.config.flake.stateVersion;
       nix = { extraOptions = ''experimental-features = nix-command flakes''; };
       i18n.supportedLocales = [ "all" ];
@@ -35,6 +36,7 @@ top@{ moduleWithSystem, ... }: {
       environment.systemPackages = with pkgs; [ pwvucontrol ];
     });
     music = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      imports = [ inputs.musnix.nixosModules.musnix ];
       environment.systemPackages = with pkgs; [ guitarix ];
       services.pipewire = {
         jack.enable = true;
@@ -128,6 +130,7 @@ top@{ moduleWithSystem, ... }: {
     };
     ivand = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }:
       let homeMods = top.config.flake.homeManagerModules; in {
+        imports = [ inputs.home-manager.nixosModules.default ];
         home-manager = {
           backupFileExtension = "bak";
           useUserPackages = true;
