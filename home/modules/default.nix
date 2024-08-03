@@ -452,7 +452,7 @@ toplevel@{ moduleWithSystem, ... }: {
     );
     web = moduleWithSystem (
       top@{ ... }:
-      perSystem@{ pkgs, ... }: {
+      perSystem@{ ... }: {
         programs = {
           browserpass.enable = true;
           firefox = {
@@ -491,15 +491,6 @@ toplevel@{ moduleWithSystem, ... }: {
                 };
               };
             };
-          };
-        };
-        home = {
-          file.".mozilla/native-messaging-hosts/gpgmejson.json".text = builtins.toJSON {
-            name = "gpgmejson";
-            description = "Integration with GnuPG";
-            path = "${pkgs.gpgme.dev}/bin/gpgme-json";
-            type = "stdio";
-            allowed_extensions = [ "jid1-AQqSMBYb0a8ADg@jetpack" ];
           };
         };
         xdg.mimeApps.defaultApplications = {
