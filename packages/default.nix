@@ -60,6 +60,7 @@ top@{ inputs, ... }: {
           hash = "sha256-CuzD6O/RImFKLWzJoiUv7nlIdoXNvwwl+k5mTeVIY10=";
         };
       });
+      webshite = inputs.webshite.packages.${system}.default;
     };
   };
 }

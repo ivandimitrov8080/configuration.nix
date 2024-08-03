@@ -33,3 +33,6 @@ ai:
 
 installer-iso:
   nix shell nixpkgs#nixos-generators --command nixos-generate -f install-iso --flake ./#nixos
+
+vps:
+	nixos-rebuild switch --flake ./#vps --target-host root@10.0.0.1

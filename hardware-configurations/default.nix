@@ -16,8 +16,8 @@ top@{ ... }: {
         "/boot" = { device = "/dev/disk/by-uuid/4C3C-993A"; fsType = "vfat"; };
       };
       swapDevices = [ ];
-      networking.useDHCP = lib.mkDefault true;
-      nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+      networking.useDHCP = lib.mkForce true;
+      nixpkgs.hostPlatform = lib.mkForce "x86_64-linux";
       hardware.cpu.intel.updateMicrocode = lib.mkForce false;
     };
   };

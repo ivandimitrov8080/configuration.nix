@@ -214,5 +214,12 @@ top@{ inputs, moduleWithSystem, ... }: {
       environment.systemPackages = with pkgs; [ monero-cli ];
       services = { monero.enable = true; };
     });
+    vps = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
+      imports = [
+        inputs.vpsadminos.nixosConfigurations.container
+        inputs.simple-nixos-mailserver.nixosModule
+        ../../hosts/vps/mailserver
+      ];
+    });
   };
 }
