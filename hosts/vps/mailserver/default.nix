@@ -154,14 +154,18 @@
     dnscrypt-proxy2 = {
       enable = true;
       settings = {
+        cache = false;
         ipv4_servers = true;
         ipv6_servers = true;
         dnscrypt_servers = true;
-        doh_servers = true;
-        odoh_servers = true;
+        doh_servers = false;
+        odoh_servers = false;
         require_dnssec = true;
         require_nolog = true;
         require_nofilter = true;
+        anonymized_dns = {
+          routes = [{ server_name = "*"; via = [ "sdns://gQ8yMTcuMTM4LjIyMC4yNDM" ]; }];
+        };
         sources.public-resolvers = {
           urls = [
             "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
