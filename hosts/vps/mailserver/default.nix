@@ -157,8 +157,8 @@
         ipv4_servers = true;
         ipv6_servers = true;
         dnscrypt_servers = true;
-        doh_servers = false;
-        odoh_servers = false;
+        doh_servers = true;
+        odoh_servers = true;
         require_dnssec = true;
         require_nolog = true;
         require_nofilter = true;
