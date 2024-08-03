@@ -448,6 +448,19 @@ toplevel@{ moduleWithSystem, ... }: {
             };
           };
         };
+        xdg.mimeApps.defaultApplications = {
+          "image/jpg" = "imv.desktop";
+          "image/jpeg" = "imv.desktop";
+          "image/png" = "imv.desktop";
+          "image/webp" = "imv.desktop";
+          "image/gif" = "imv.desktop";
+          "image/svg+xml" = "imv.desktop";
+          "video/mp4" = "mpv.desktop";
+          "video/mpeg" = "mpv.desktop";
+          "video/ogg" = "mpv.desktop";
+          "video/webm" = "mpv.desktop";
+          "video/x-msvideo" = "mpv.desktop";
+        };
       }
     );
     web = moduleWithSystem (
