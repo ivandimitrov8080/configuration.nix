@@ -10,10 +10,13 @@ This repository aims to configure everything I use for all my machines.
 ### How to use
 
 [Check the home-manager modules](./home/modules/default.nix)
+
 [Check the NixOS modules](./nixos/modules/default.nix)
 
 These are exposed in the following way
+
 `<this-flake>.homeManagerModules.<module>`
+
 `<this-flake>.nixosModules.<module>`
 
 Run the following for more info:
