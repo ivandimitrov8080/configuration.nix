@@ -20,5 +20,6 @@ in
     music = novaConfig (with mods; [ music ivand ]);
     nonya = novaConfig (with mods; [ anon cryptocurrency ivand ]);
     ai = novaConfig (with mods; [ ai ivand ]);
+    installer-iso = configWithModules { hardware = { }; modules = (with mods; [ grub base ]); };
   };
 }

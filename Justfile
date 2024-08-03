@@ -30,3 +30,6 @@ nonya:
 
 ai:
 	doas nixos-rebuild switch --flake ./#ai
+
+installer-iso:
+  nix shell nixpkgs#nixos-generators --command nixos-generate -f install-iso --flake ./#nixos
