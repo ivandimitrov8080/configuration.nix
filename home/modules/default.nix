@@ -39,7 +39,10 @@ toplevel@{ moduleWithSystem, ... }: {
             signing = mkForce { signByDefault = true; key = "ivan@idimitrov.dev"; };
           };
           ssh = {
-            matchBlocks = { vpsfree = { hostname = "37.205.13.29"; user = "ivand"; }; vpsfree-root = { hostname = "37.205.13.29"; user = "root"; }; };
+            matchBlocks = {
+              vpsfree-ivand = { hostname = "10.0.0.1"; user = "ivand"; };
+              vpsfree-root = { hostname = "10.0.0.1"; user = "root"; };
+            };
           };
         };
       }
