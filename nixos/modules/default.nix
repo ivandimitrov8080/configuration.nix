@@ -197,7 +197,7 @@ top@{ inputs, moduleWithSystem, ... }: {
               ];
             };
           };
-          extraGroups = { mlocate = { }; };
+          extraGroups = { mlocate = { }; realtime = { }; };
         };
         programs.dconf.enable = true;
       });
