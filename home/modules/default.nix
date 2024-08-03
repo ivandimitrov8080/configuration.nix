@@ -111,9 +111,6 @@ toplevel@{ moduleWithSystem, ... }: {
               ls = "eza";
               la = "eza --all";
               lt = "eza --git-ignore --all --tree --level=10";
-              torrent = "transmission-remote";
-              torrent-start = "transmission-daemon";
-              vi = "nvim";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
             };

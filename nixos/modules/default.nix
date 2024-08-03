@@ -31,6 +31,34 @@ top@{ inputs, moduleWithSystem, ... }: {
       };
       networking = { stevenBlackHosts = { enable = true; blockFakenews = true; blockGambling = true; blockSocial = true; }; };
     });
+    shell = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
+      programs = {
+        starship.enable = true;
+        zsh = {
+          enableBashCompletion = true;
+          syntaxHighlighting.enable = true;
+          autosuggestions = {
+            enable = true;
+            strategy = [ "completion" ];
+          };
+          shellAliases = {
+            cal = "cal $(date +%Y)";
+            GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
+            gad = "git add . && git diff --cached";
+            gac = "ga && gc";
+            ga = "git add .";
+            gc = "git commit";
+            dev = "nix develop --command $SHELL";
+            eza = "${pkgs.eza}/bin/eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--octal-permissions' '--git'";
+            ls = "eza";
+            la = "eza --all";
+            lt = "eza --git-ignore --all --tree --level=10";
+            sc = "systemctl";
+            neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+          };
+        };
+      };
+    });
     sound = moduleWithSystem (toplevel@{ ... }: perSystem@{ pkgs, ... }: {
       services = { pipewire = { enable = true; alsa.enable = true; pulse.enable = true; }; };
       environment.systemPackages = with pkgs; [ pwvucontrol ];

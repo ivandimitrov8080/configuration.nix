@@ -3,7 +3,7 @@ let
   system = "x86_64-linux";
   mods = toplevel.config.flake.nixosModules;
   hardwareConfigurations = toplevel.config.flake.hardwareConfigurations;
-  essential = with mods; [ grub base security wireless wireguard ];
+  essential = with mods; [ grub base shell security wireless wireguard ];
   desktop = with mods; [ sound wayland ];
   configWithModules = { hardware, modules }: withSystem system (ctx@{ config, inputs', pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {

@@ -377,11 +377,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1722536391,
-        "narHash": "sha256-LAL00y8IMU1I2IMTy4q8vlBW+hS6ulElh1kX+CWJgSo=",
+        "lastModified": 1722691995,
+        "narHash": "sha256-TWpmjsNJN75sHfAfsFTlhSl2t5ZQtoRTthu2XfaFnpw=",
         "owner": "ivandimitrov8080",
         "repo": "flake-ide",
-        "rev": "24a89c8ed56a635683decec0e0d43b132c404150",
+        "rev": "c3a2cc3f24a854ad91513f1692607764ee9e6b8e",
         "type": "github"
       },
       "original": {
