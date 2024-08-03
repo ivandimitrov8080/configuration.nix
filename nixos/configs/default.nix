@@ -24,20 +24,22 @@ let
       hardware.cpu.intel.updateMicrocode = lib.mkForce false;
     };
   };
-  essential = [ hardwareConfigurations.nova ] ++ (with mods; [ grub base sound wayland security ivand wireless wireguard ]);
-  systemWithModules = modules: withSystem system (ctx@{ config, inputs', pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
+  essential = with mods; [ grub base security wireless wireguard ];
+  desktop = with mods; [ sound wayland ];
+  configWithModules = { hardware, modules }: withSystem system (ctx@{ config, inputs', pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
       inherit inputs inputs' pkgs;
       packages = config.packages;
     };
-    modules = modules;
+    modules = [ hardware ] ++ modules;
   });
+  novaConfig = mods: configWithModules { hardware = hardwareConfigurations.nova; modules = essential ++ desktop ++ mods; };
 in
 {
   flake.nixosConfigurations = {
-    nixos = systemWithModules essential;
-    music = systemWithModules (essential ++ [ mods.music ]);
-    nonya = systemWithModules (essential ++ (with mods; [ anon cryptocurrency ]));
-    ai = systemWithModules (essential ++ (with mods; [ ai ]));
+    nixos = novaConfig [ mods.ivand ];
+    music = novaConfig (with mods; [ music ivand ]);
+    nonya = novaConfig (with mods; [ anon cryptocurrency ivand ]);
+    ai = novaConfig (with mods; [ ai ivand ]);
   };
 }
