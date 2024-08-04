@@ -20,7 +20,7 @@ in
     nova-music = novaConfig (with mods; [ music ivand ]);
     nova-nonya = novaConfig (with mods; [ anon cryptocurrency ivand ]);
     nova-ai = novaConfig (with mods; [ ai ivand ]);
-    installer-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
+    install-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
     vps = configWithModules { modules = (with mods; [ base shell security vps ]); };
   };
 }

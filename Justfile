@@ -17,8 +17,8 @@ clean:
   nix-collect-garbage --delete-older-than 90d
   doas nix-collect-garbage --delete-older-than 90d
 
-installer-iso:
-  nix shell nixpkgs#nixos-generators --command nixos-generate -f install-iso --flake ./#installer-iso
+generate format="install-iso" config="install-iso":
+  nix shell nixpkgs#nixos-generators --command nixos-generate -f {{format}} --flake ./#{{config}}
 
 vps:
   nixos-rebuild switch --flake ./#vps --target-host root@10.0.0.1
