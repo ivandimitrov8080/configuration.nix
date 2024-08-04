@@ -16,10 +16,10 @@ let
 in
 {
   flake.nixosConfigurations = {
-    nixos = novaConfig [ mods.ivand ];
-    music = novaConfig (with mods; [ music ivand ]);
-    nonya = novaConfig (with mods; [ anon cryptocurrency ivand ]);
-    ai = novaConfig (with mods; [ ai ivand ]);
+    nova = novaConfig [ mods.ivand ];
+    nova-music = novaConfig (with mods; [ music ivand ]);
+    nova-nonya = novaConfig (with mods; [ anon cryptocurrency ivand ]);
+    nova-ai = novaConfig (with mods; [ ai ivand ]);
     installer-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
     vps = configWithModules { modules = (with mods; [ base shell security vps ]); };
   };

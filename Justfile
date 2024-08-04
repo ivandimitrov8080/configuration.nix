@@ -1,38 +1,24 @@
-default: nixos
+default: nova
 
-all: nixos music nonya ai
+all: nova (nova "music")
 
-home:
-	home-manager switch --flake ./. -b $(mktemp -u XXXX)
-
-nixos:
-	doas nixos-rebuild switch --flake ./.
+nova config="nova":
+  #!/usr/bin/env sh
+  cfg={{config}}
+  if [ "$cfg" != "nova" ]; then
+    cfg="nova-{{config}}"
+  fi
+  doas nixos-rebuild switch --flake ./#"$cfg"
 
 update:
-	nix flake update
+  nix flake update
 
-clean: cleanRoot cleanHome
-
-cleanHome:
-	nix-collect-garbage --delete-older-than 90d
-
-cleanRoot:
-	doas nix-collect-garbage --delete-older-than 90d
-
-news:
-	home-manager news --flake ./.
-
-music:
-	doas nixos-rebuild switch --flake ./#music
-
-nonya:
-	doas nixos-rebuild switch --flake ./#nonya
-
-ai:
-	doas nixos-rebuild switch --flake ./#ai
+clean:
+  nix-collect-garbage --delete-older-than 90d
+  doas nix-collect-garbage --delete-older-than 90d
 
 installer-iso:
   nix shell nixpkgs#nixos-generators --command nixos-generate -f install-iso --flake ./#installer-iso
 
 vps:
-	nixos-rebuild switch --flake ./#vps --target-host root@10.0.0.1
+  nixos-rebuild switch --flake ./#vps --target-host root@10.0.0.1
