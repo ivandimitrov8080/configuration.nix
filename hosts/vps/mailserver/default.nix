@@ -77,6 +77,10 @@
             publicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
             allowedIPs = [ "10.0.0.3/32" ];
           }
+          {
+            publicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
+            allowedIPs = [ "10.0.0.4/32" ];
+          }
         ];
       };
     };
@@ -99,6 +103,12 @@
 
   services = {
     dovecot2.sieve.extensions = [ "fileinto" ];
+    openssh = {
+      enable = true;
+      settings = {
+        PermitRootLogin = "prohibit-password";
+      };
+    };
     roundcube = {
       enable = true;
       package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
