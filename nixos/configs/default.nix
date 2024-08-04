@@ -13,16 +13,18 @@ let
     modules = [ hardware ] ++ modules;
   });
   novaConfig = mods: configWithModules { hardware = hardwareConfigurations.nova; modules = essential ++ desktop ++ mods; };
+  installer = config: config // { hardware = import /mnt/etc/nixos/hardware-configuration.nix; };
 in
 {
-  flake.nixosConfigurations = {
+  flake.nixosConfigurations = rec {
     nova = novaConfig [ mods.ivand ];
     nova-music = novaConfig (with mods; [ ivand music ]);
     nova-crypto = novaConfig (with mods; [ ivand cryptocurrency ]);
     nova-nonya = novaConfig (with mods; [ ivand anon cryptocurrency ]);
     nova-ai = novaConfig (with mods; [ ivand ai ]);
     install-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
-    vps = configWithModules { modules = (with mods; [ base shell security vps ]); };
-    stara-miner = configWithModules { modules = (with mods; [ base shell security monero-miner ]); };
+    mailserver = configWithModules { modules = (with mods; [ base shell security vps ]); };
+    stara-miner = configWithModules { hardware = import /etc/nixos/hardware-configuration.nix; modules = (with mods; [ base shell security monero-miner ]); };
+    stara-miner-installer = installer stara-miner;
   };
 }
