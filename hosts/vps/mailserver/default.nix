@@ -99,12 +99,6 @@
 
   services = {
     dovecot2.sieve.extensions = [ "fileinto" ];
-    openssh = {
-      enable = true;
-      settings = {
-        PermitRootLogin = "prohibit-password";
-      };
-    };
     roundcube = {
       enable = true;
       package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);

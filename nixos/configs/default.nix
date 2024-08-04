@@ -3,7 +3,7 @@ let
   system = "x86_64-linux";
   mods = toplevel.config.flake.nixosModules;
   hardwareConfigurations = toplevel.config.flake.hardwareConfigurations;
-  essential = with mods; [ grub base shell security wireless wireguard ];
+  essential = with mods; [ grub base shell security wireless intranet ];
   desktop = with mods; [ sound wayland ];
   configWithModules = { hardware ? { nixpkgs.hostPlatform = system; }, modules }: withSystem system (ctx@{ config, inputs', pkgs, ... }: inputs.nixpkgs.lib.nixosSystem {
     specialArgs = {
@@ -23,6 +23,6 @@ in
     nova-ai = novaConfig (with mods; [ ivand ai ]);
     install-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
     vps = configWithModules { modules = (with mods; [ base shell security vps ]); };
-    stara-miner = configWithModules { modules = (with mods; [ grub base shell wireless security monero-miner ]); };
+    stara-miner = configWithModules { modules = (essential ++ [ mods.monero-miner ]); };
   };
 }

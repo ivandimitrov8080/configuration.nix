@@ -103,7 +103,7 @@ top@{ inputs, moduleWithSystem, ... }: {
         rtkit.enable = true;
       };
     });
-    wireguard = {
+    intranet = {
       networking.wg-quick.interfaces = {
         wg0 = {
           address = [ "10.0.0.2/32" ];
@@ -116,6 +116,12 @@ top@{ inputs, moduleWithSystem, ... }: {
               persistentKeepalive = 25;
             }
           ];
+        };
+      };
+      openssh = {
+        enable = true;
+        settings = {
+          PermitRootLogin = "prohibit-password";
         };
       };
     };
