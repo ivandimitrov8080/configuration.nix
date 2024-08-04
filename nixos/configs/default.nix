@@ -23,6 +23,6 @@ in
     nova-ai = novaConfig (with mods; [ ivand ai ]);
     install-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
     vps = configWithModules { modules = (with mods; [ base shell security vps ]); };
-    stara-miner = configWithModules { hardware = import /etc/nixos/hardware-configuration.nix; modules = (with mods; [ base shell security monero-miner ]); };
+    stara-miner = configWithModules { modules = (with mods; [ grub base shell wireless security monero-miner ]); };
   };
 }
