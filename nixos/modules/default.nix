@@ -7,8 +7,15 @@ top@{ inputs, moduleWithSystem, ... }: {
             let
               theme = pkgs.sleek-grub-theme.override { withBanner = "Hello Ivan"; withStyle = "bigSur"; };
             in
-            { enable = pkgs.lib.mkDefault true; useOSProber = true; efiSupport = true; device = "nodev"; theme = theme; splashImage = "${theme}/background.png"; };
-          efi = { canTouchEfiVariables = true; };
+            {
+              enable = pkgs.lib.mkDefault true;
+              useOSProber = true;
+              efiSupport = true;
+              device = "nodev";
+              theme = theme;
+              splashImage = "${theme}/background.png";
+            };
+          efi.canTouchEfiVariables = true;
         };
       };
     });
