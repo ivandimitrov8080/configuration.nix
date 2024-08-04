@@ -21,6 +21,6 @@ in
     nonya = novaConfig (with mods; [ anon cryptocurrency ivand ]);
     ai = novaConfig (with mods; [ ai ivand ]);
     installer-iso = configWithModules { hardware = { }; modules = (with mods; [ grub base shell wireless ]); };
-    vps = configWithModules { hardware = { nixpkgs.hostPlatform = system; }; modules = (with mods; [ base shell vps ]); };
+    vps = configWithModules { hardware = { nixpkgs.hostPlatform = system; }; modules = (with mods; [ base shell security vps ]); };
   };
 }
