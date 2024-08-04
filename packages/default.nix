@@ -7,6 +7,7 @@ top@{ inputs, ... }: {
           pylsp.enable = true;
           lua-ls.enable = true;
         };
+        extraPlugins = with pkgs.vimPlugins; [ vim-just ];
       };
       wpd = pkgs.writeShellApplication {
         name = "wpd";
