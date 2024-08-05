@@ -291,6 +291,20 @@ top@{ inputs, moduleWithSystem, ... }: {
             $config['smtp_pass'] = "%p";
           '';
         };
+        nginx.virtualHosts =
+          let
+            restrictToVpn = ''
+              allow 10.0.0.2/32;
+              allow 10.0.0.3/32;
+              allow 10.0.0.4/32;
+              deny all;
+            '';
+          in
+          {
+            "${config.mailserver.fqdn}" = {
+              extraConfig = restrictToVpn;
+            };
+          };
         postgresql.enable = true;
       };
       security = {

@@ -165,12 +165,6 @@
           add_header 'Referrer-Policy' 'origin-when-cross-origin';
           add_header X-Content-Type-Options nosniff;
         '';
-        restrictToVpn = ''
-          allow 10.0.0.2/32;
-          allow 10.0.0.3/32;
-          allow 10.0.0.4/32;
-          deny all;
-        '';
         extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
         serveStatic = exts: ''
           try_files $uri $uri/ ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri." + "${x}") exts)} =404;
@@ -201,9 +195,6 @@
               extraConfig = serveStatic extensions;
             };
             extraConfig = webshiteConfig;
-          };
-          "${config.mailserver.fqdn}" = {
-            extraConfig = restrictToVpn;
           };
           "src.idimitrov.dev" = {
             enableACME = true;
