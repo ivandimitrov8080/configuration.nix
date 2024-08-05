@@ -6,13 +6,6 @@
     options = [ "nofail" ];
   };
 
-  security = {
-    acme = {
-      acceptTerms = true;
-      defaults.email = "security@idimitrov.dev";
-    };
-  };
-
   networking = {
     nameservers = [ "127.0.0.1" "::1" ];
     dhcpcd.extraConfig = "nohook resolv.conf";
@@ -102,25 +95,11 @@
   };
 
   services = {
-    dovecot2.sieve.extensions = [ "fileinto" ];
     openssh = {
       enable = true;
       settings = {
         PermitRootLogin = "prohibit-password";
       };
-    };
-    roundcube = {
-      enable = true;
-      package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
-      plugins = [
-        "persistent_login"
-      ];
-      hostName = "${config.mailserver.fqdn}";
-      extraConfig = ''
-        $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
-        $config['smtp_user'] = "%u";
-        $config['smtp_pass'] = "%p";
-      '';
     };
     postgresql = {
       enable = true;
@@ -266,22 +245,5 @@
         '';
       };
     };
-  };
-  mailserver = {
-    enable = true;
-    localDnsResolver = false;
-    fqdn = "mail.idimitrov.dev";
-    domains = [ "idimitrov.dev" "mail.idimitrov.dev" ];
-    loginAccounts = {
-      "ivan@idimitrov.dev" = {
-        hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
-        aliases = [ "admin@idimitrov.dev" ];
-      };
-      "security@idimitrov.dev" = {
-        hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
-      };
-    };
-    certificateScheme = "acme-nginx";
-    hierarchySeparator = "/";
   };
 }

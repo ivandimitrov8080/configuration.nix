@@ -252,9 +252,53 @@ top@{ inputs, moduleWithSystem, ... }: {
     vps = moduleWithSystem (toplevel@{ ... }: perSystem@{ ... }: {
       imports = [
         inputs.vpsadminos.nixosConfigurations.container
-        inputs.simple-nixos-mailserver.nixosModule
         ../../hosts/vps/mailserver
       ];
+    });
+    mailserver = moduleWithSystem (toplevel@{ ... }: perSystem@{ config, pkgs, ... }: {
+      imports = [
+        inputs.simple-nixos-mailserver.nixosModule
+      ];
+      mailserver = {
+        enable = true;
+        localDnsResolver = false;
+        fqdn = "mail.idimitrov.dev";
+        domains = [ "idimitrov.dev" "mail.idimitrov.dev" ];
+        loginAccounts = {
+          "ivan@idimitrov.dev" = {
+            hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
+            aliases = [ "admin@idimitrov.dev" ];
+          };
+          "security@idimitrov.dev" = {
+            hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
+          };
+        };
+        certificateScheme = "acme-nginx";
+        hierarchySeparator = "/";
+      };
+      services = {
+        dovecot2.sieve.extensions = [ "fileinto" ];
+        roundcube = {
+          enable = true;
+          package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
+          plugins = [
+            "persistent_login"
+          ];
+          hostName = "${config.mailserver.fqdn}";
+          extraConfig = ''
+            $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
+            $config['smtp_user'] = "%u";
+            $config['smtp_pass'] = "%p";
+          '';
+        };
+        postgresql.enable = true;
+      };
+      security = {
+        acme = {
+          acceptTerms = true;
+          defaults.email = "security@idimitrov.dev";
+        };
+      };
     });
   };
 }
