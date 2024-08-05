@@ -314,5 +314,99 @@ top@{ inputs, moduleWithSystem, ... }: {
         };
       };
     });
+    nginx = moduleWithSystem (toplevel@{ ... }: perSystem@{ config, pkgs, ... }: {
+      services = {
+        nginx =
+          let
+            webshiteConfig = ''
+              add_header 'Referrer-Policy' 'origin-when-cross-origin';
+              add_header X-Content-Type-Options nosniff;
+            '';
+            extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
+            serveStatic = exts: ''
+              try_files $uri $uri/ ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri." + "${x}") exts)} =404;
+            '';
+          in
+          {
+            enable = true;
+            recommendedGzipSettings = true;
+            recommendedOptimisation = true;
+            recommendedProxySettings = true;
+            recommendedTlsSettings = true;
+            sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+            virtualHosts = {
+              "idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "${pkgs.webshite}";
+                  extraConfig = serveStatic extensions;
+                };
+                extraConfig = webshiteConfig;
+              };
+              "www.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "${pkgs.webshite}";
+                  extraConfig = serveStatic extensions;
+                };
+                extraConfig = webshiteConfig;
+              };
+              "src.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  proxyPass = "http://127.0.0.1:3001";
+                };
+              };
+              "pic.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "/var/pic";
+                  extraConfig = ''
+                    autoindex on;
+                    ${serveStatic ["png"]}
+                  '';
+                };
+              };
+            };
+          };
+        gitea = {
+          enable = true;
+          appName = "src";
+          database = {
+            type = "postgres";
+          };
+          settings = {
+            server = {
+              DOMAIN = "src.idimitrov.dev";
+              ROOT_URL = "https://src.idimitrov.dev/";
+              HTTP_PORT = 3001;
+            };
+            repository = {
+              DEFAULT_BRANCH = "master";
+            };
+            service = {
+              DISABLE_REGISTRATION = true;
+            };
+          };
+        };
+        postgresql = {
+          enable = true;
+          ensureUsers = [
+            {
+              name = "root";
+              ensureClauses = {
+                superuser = true;
+                createrole = true;
+                createdb = true;
+              };
+            }
+          ];
+        };
+      };
+    });
   };
 }
