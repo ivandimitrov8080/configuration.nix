@@ -22,7 +22,7 @@ in
     nova-nonya = novaConfig (with mods; [ ivand anon cryptocurrency ]);
     nova-ai = novaConfig (with mods; [ ivand ai ]);
     install-iso = configWithModules { modules = (with mods; [ grub base shell wireless ]); };
-    vps = configWithModules { modules = (with mods; [ base shell security vps mailserver nginx wireguard-output ]); };
+    vps = configWithModules { modules = (with mods; [ base shell security vps mailserver nginx wireguard-output anonymous-dns ]); };
     stara-miner = configWithModules { modules = (essential ++ [ mods.monero-miner ]); };
   };
 }
