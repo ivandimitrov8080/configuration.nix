@@ -179,7 +179,7 @@ toplevel@{ moduleWithSystem, ... }: {
       top@{ ... }:
       perSystem@{ pkgs, config, ... }: {
         home = {
-          packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland kotatogram-desktop ];
+          packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland telegram-desktop ];
           pointerCursor = with pkgs; { name = "catppuccin-mocha-green-cursors"; package = catppuccin-cursors.mochaGreen; size = 24; gtk.enable = true; };
         };
         wayland.windowManager.sway = {
