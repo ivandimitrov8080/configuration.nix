@@ -1,7 +1,13 @@
-top@{ inputs, withSystem, ... }: {
-  flake.overlays.default = final: prev:
-    let system = "x86_64-linux"; in withSystem system (
-      { config, ... }: {
+top @ {
+  inputs,
+  withSystem,
+  ...
+}: {
+  flake.overlays.default = final: prev: let
+    system = "x86_64-linux";
+  in
+    withSystem system (
+      {config, ...}: {
         nvim = config.packages.nvim;
         bingwp = config.packages.bingwp;
         screenshot = config.packages.screenshot;

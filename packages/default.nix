@@ -1,5 +1,9 @@
-top@{ inputs, ... }: {
-  perSystem = perSystem@{ system, pkgs, ... }: {
+top @ {inputs, ...}: {
+  perSystem = perSystem @ {
+    system,
+    pkgs,
+    ...
+  }: {
     config.packages = {
       nvim = inputs.ide.nvim.${system}.standalone.default {
         plugins.lsp.servers = {
@@ -7,12 +11,12 @@ top@{ inputs, ... }: {
           pylsp.enable = true;
           lua-ls.enable = true;
         };
-        extraPlugins = with pkgs.vimPlugins; [ vim-just ];
+        extraPlugins = with pkgs.vimPlugins; [vim-just];
       };
       wpd = pkgs.writeShellApplication {
         name = "wpd";
-        runtimeInputs = with pkgs; [ swaybg xdg-user-dirs fd uutils-coreutils-noprefix ];
-        runtimeEnv = { WAYLAND_DISPLAY = "wayland-1"; };
+        runtimeInputs = with pkgs; [swaybg xdg-user-dirs fd uutils-coreutils-noprefix];
+        runtimeEnv = {WAYLAND_DISPLAY = "wayland-1";};
         text = ''
           random_pic () {
             bg_dir="$(xdg-user-dir PICTURES)/bg"
@@ -32,7 +36,7 @@ top@{ inputs, ... }: {
       };
       screenshot = pkgs.writeShellApplication {
         name = "screenshot";
-        runtimeInputs = with pkgs; [ wl-clipboard xdg-utils ];
+        runtimeInputs = with pkgs; [wl-clipboard xdg-utils];
         text = ''
           ss_dir="$(xdg-user-dir PICTURES)/ss"
           pic_dir="$ss_dir/$(date "+%Y-%m-%d_%H-%M-%S").png"
@@ -53,7 +57,7 @@ top@{ inputs, ... }: {
       };
       cursors = pkgs.catppuccin-cursors.overrideAttrs (prev: rec {
         version = "0.3.1";
-        nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.xcur2png ];
+        nativeBuildInputs = prev.nativeBuildInputs ++ [pkgs.xcur2png];
         src = pkgs.fetchFromGitHub {
           owner = "catppuccin";
           repo = "cursors";

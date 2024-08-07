@@ -20,7 +20,10 @@
     };
     sal = {
       url = "github:ivandimitrov8080/sal";
-      inputs = { nixpkgs.follows = "nixpkgs"; ide.follows = "ide"; };
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        ide.follows = "ide";
+      };
     };
     musnix = {
       url = "github:musnix/musnix";
@@ -35,5 +38,5 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs: inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./. ]; };
+  outputs = inputs: inputs.parts.lib.mkFlake {inherit inputs;} {imports = [./.];};
 }
