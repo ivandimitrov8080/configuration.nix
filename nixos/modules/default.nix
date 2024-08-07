@@ -1,6 +1,6 @@
 top @ { inputs, moduleWithSystem, ... }: {
   flake.nixosModules = {
-    grub = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    grub = moduleWithSystem (_: { pkgs, ... }: {
       boot = {
         loader = {
           grub =
@@ -11,18 +11,18 @@ top @ { inputs, moduleWithSystem, ... }: {
               };
             in
             {
+              inherit theme;
               enable = pkgs.lib.mkDefault true;
               useOSProber = true;
               efiSupport = true;
               device = "nodev";
-              theme = theme;
               splashImage = "${theme}/background.png";
             };
           efi.canTouchEfiVariables = true;
         };
       };
     });
-    base = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    base = moduleWithSystem (_: { pkgs, ... }: {
       imports = [ inputs.hosts.nixosModule ];
       system.stateVersion = top.config.flake.stateVersion;
       nix = { extraOptions = ''experimental-features = nix-command flakes''; };
@@ -55,7 +55,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    shell = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    shell = moduleWithSystem (_: { pkgs, ... }: {
       programs = {
         starship.enable = true;
         zsh = {
@@ -83,7 +83,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    sound = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    sound = moduleWithSystem (_: { pkgs, ... }: {
       services = {
         pipewire = {
           enable = true;
@@ -93,7 +93,7 @@ top @ { inputs, moduleWithSystem, ... }: {
       };
       environment.systemPackages = with pkgs; [ pwvucontrol ];
     });
-    music = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    music = moduleWithSystem (_: { pkgs, ... }: {
       imports = [ inputs.musnix.nixosModules.musnix ];
       environment.systemPackages = with pkgs; [ guitarix ];
       services.pipewire = {
@@ -110,7 +110,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    wayland = moduleWithSystem ({ ... }: { ... }: {
+    wayland = moduleWithSystem (_: _: {
       hardware.graphics.enable = true;
       security.pam.services.swaylock = { };
       xdg.portal = {
@@ -128,7 +128,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         config.common.default = "*";
       };
     });
-    security = moduleWithSystem ({ ... }: { ... }: {
+    security = moduleWithSystem (_: _: {
       security = {
         sudo = {
           enable = false;
@@ -216,7 +216,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     };
-    ivand = moduleWithSystem ({ ... }: { pkgs, ... }:
+    ivand = moduleWithSystem (_: { pkgs, ... }:
       let
         homeMods = top.config.flake.homeManagerModules;
       in
@@ -276,17 +276,17 @@ top @ { inputs, moduleWithSystem, ... }: {
       };
       services.flatpak.enable = true;
     };
-    ai = moduleWithSystem ({ ... }: { ... }: {
+    ai = moduleWithSystem (_: _: {
       services = { ollama.enable = true; };
     });
-    anon = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    anon = moduleWithSystem (_: { pkgs, ... }: {
       environment.systemPackages = with pkgs; [ tor-browser ];
     });
-    cryptocurrency = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    cryptocurrency = moduleWithSystem (_: { pkgs, ... }: {
       environment.systemPackages = with pkgs; [ monero-cli ];
       services = { monero.enable = true; };
     });
-    monero-miner = moduleWithSystem ({ ... }: { ... }: {
+    monero-miner = moduleWithSystem (_: _: {
       services = {
         xmrig = {
           enable = true;
@@ -307,15 +307,15 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    vps = moduleWithSystem ({ ... }: { ... }: {
+    vps = moduleWithSystem (_: { ... }: {
       imports = [
         inputs.vpsadminos.nixosConfigurations.container
       ];
     });
-    mailserver = moduleWithSystem ({ ... }: { config
-                                            , pkgs
-                                            , ...
-                                            }: {
+    mailserver = moduleWithSystem (_: { config
+                                      , pkgs
+                                      , ...
+                                      }: {
       imports = [
         inputs.simple-nixos-mailserver.nixosModule
       ];
@@ -374,7 +374,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    nginx = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    nginx = moduleWithSystem (_: { pkgs, ... }: {
       services = {
         nginx =
           let
@@ -468,7 +468,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    wireguard-output = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    wireguard-output = moduleWithSystem (_: { pkgs, ... }: {
       networking = {
         nat = {
           enable = true;
@@ -516,7 +516,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    anonymous-dns = moduleWithSystem ({ ... }: { ... }: {
+    anonymous-dns = moduleWithSystem (_: _: {
       networking = {
         nameservers = [ "127.0.0.1" "::1" ];
         dhcpcd.extraConfig = "nohook resolv.conf";
@@ -554,7 +554,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    firewall = moduleWithSystem ({ ... }: { lib, ... }: {
+    firewall = moduleWithSystem (_: { lib, ... }: {
       networking = {
         firewall = lib.mkForce {
           enable = true;
@@ -587,7 +587,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    rest = moduleWithSystem ({ ... }: { pkgs, ... }: {
+    rest = moduleWithSystem (_: { pkgs, ... }: {
       fileSystems."/mnt/export1981" = {
         device = "172.16.128.47:/nas/5490";
         fsType = "nfs";

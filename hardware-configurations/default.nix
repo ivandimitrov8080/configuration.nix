@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   flake.hardwareConfigurations = {
     nova = { lib, modulesPath, ... }: {
       imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];

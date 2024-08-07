@@ -1,7 +1,7 @@
 toplevel @ { moduleWithSystem, ... }: {
   flake.homeManagerModules = {
     base = moduleWithSystem (
-      { ... }: { config, ... }: {
+      _: { config, ... }: {
         programs.home-manager.enable = true;
         home.stateVersion = toplevel.config.flake.stateVersion;
         xdg = {
@@ -23,7 +23,7 @@ toplevel @ { moduleWithSystem, ... }: {
       }
     );
     ivand = moduleWithSystem (
-      { ... }: { pkgs, ... }: {
+      _: { pkgs, ... }: {
         home = {
           username = "ivand";
           homeDirectory = "/home/ivand";
@@ -55,7 +55,7 @@ toplevel @ { moduleWithSystem, ... }: {
       }
     );
     util = moduleWithSystem (
-      { ... }: { pkgs
+      _: { pkgs
                , config
                , ...
                }: {
@@ -175,7 +175,7 @@ toplevel @ { moduleWithSystem, ... }: {
       }
     );
     shell = moduleWithSystem (
-      { ... }: { pkgs, ... }: {
+      _: { pkgs, ... }: {
         programs =
           let
             shellAliases = {
@@ -263,7 +263,7 @@ toplevel @ { moduleWithSystem, ... }: {
       }
     );
     swayland = moduleWithSystem (
-      { ... }: { pkgs
+      _: { pkgs
                , config
                , ...
                }: {
@@ -315,15 +315,14 @@ toplevel @ { moduleWithSystem, ... }: {
               };
             };
           };
-          swaynag = { enable = config.wayland.windowManager.sway.enable; };
+          swaynag = { inherit (config.wayland.windowManager.sway) enable; };
         };
         programs = {
           waybar = {
             enable = true;
             settings = {
               mainBar =
-                let
-                in {
+                {
                   layer = "top";
                   position = "top";
                   height = 30;
@@ -620,7 +619,7 @@ toplevel @ { moduleWithSystem, ... }: {
       }
     );
     web = moduleWithSystem (
-      { ... }: { ... }: {
+      _: _: {
         programs = {
           browserpass.enable = true;
           firefox = {

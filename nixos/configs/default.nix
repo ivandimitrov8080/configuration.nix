@@ -5,7 +5,7 @@ toplevel @ { inputs
 let
   system = "x86_64-linux";
   mods = toplevel.config.flake.nixosModules;
-  hardwareConfigurations = toplevel.config.flake.hardwareConfigurations;
+  inherit (toplevel.config.flake) hardwareConfigurations;
   essential = with mods; [ grub base shell security wireless intranet ];
   desktop = with mods; [ sound wayland ];
   configWithModules =
@@ -13,11 +13,10 @@ let
     , modules
     ,
     }:
-    withSystem system ({ config, inputs', pkgs, ... }:
+    withSystem system ({ inputs', pkgs, ... }:
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit inputs inputs' pkgs;
-        packages = config.packages;
       };
       modules = [ hardware ] ++ modules;
     });
