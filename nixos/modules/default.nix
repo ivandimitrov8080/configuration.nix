@@ -1,39 +1,37 @@
-top @ {
-  inputs,
-  moduleWithSystem,
-  ...
-}: {
+top @ { inputs, moduleWithSystem, ... }: {
   flake.nixosModules = {
-    grub = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
+    grub = moduleWithSystem ({ ... }: { pkgs, ... }: {
       boot = {
         loader = {
-          grub = let
-            theme = pkgs.sleek-grub-theme.override {
-              withBanner = "Hello Ivan";
-              withStyle = "bigSur";
+          grub =
+            let
+              theme = pkgs.sleek-grub-theme.override {
+                withBanner = "Hello Ivan";
+                withStyle = "bigSur";
+              };
+            in
+            {
+              enable = pkgs.lib.mkDefault true;
+              useOSProber = true;
+              efiSupport = true;
+              device = "nodev";
+              theme = theme;
+              splashImage = "${theme}/background.png";
             };
-          in {
-            enable = pkgs.lib.mkDefault true;
-            useOSProber = true;
-            efiSupport = true;
-            device = "nodev";
-            theme = theme;
-            splashImage = "${theme}/background.png";
-          };
           efi.canTouchEfiVariables = true;
         };
       };
     });
-    base = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
-      imports = [inputs.hosts.nixosModule];
+    base = moduleWithSystem ({ ... }: { pkgs, ... }: {
+      imports = [ inputs.hosts.nixosModule ];
       system.stateVersion = top.config.flake.stateVersion;
-      nix = {extraOptions = ''experimental-features = nix-command flakes'';};
-      i18n.supportedLocales = ["all"];
+      nix = { extraOptions = ''experimental-features = nix-command flakes''; };
+      i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       environment = {
-        systemPackages = with pkgs; [cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just nixos-install-tools tshark];
-        sessionVariables = {MAKEFLAGS = "-j 4";};
-        shells = with pkgs; [bash zsh nushell];
+        systemPackages = with pkgs; [ cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just nixos-install-tools tshark ];
+        sessionVariables = { MAKEFLAGS = "-j 4"; };
+        shells = with pkgs; [ bash zsh nushell ];
         enableAllTerminfo = true;
       };
       users.defaultUserShell = pkgs.zsh;
@@ -57,7 +55,7 @@ top @ {
         };
       };
     });
-    shell = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
+    shell = moduleWithSystem ({ ... }: { pkgs, ... }: {
       programs = {
         starship.enable = true;
         zsh = {
@@ -65,7 +63,7 @@ top @ {
           syntaxHighlighting.enable = true;
           autosuggestions = {
             enable = true;
-            strategy = ["completion"];
+            strategy = [ "completion" ];
           };
           shellAliases = {
             cal = "cal $(date +%Y)";
@@ -85,7 +83,7 @@ top @ {
         };
       };
     });
-    sound = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
+    sound = moduleWithSystem ({ ... }: { pkgs, ... }: {
       services = {
         pipewire = {
           enable = true;
@@ -93,14 +91,14 @@ top @ {
           pulse.enable = true;
         };
       };
-      environment.systemPackages = with pkgs; [pwvucontrol];
+      environment.systemPackages = with pkgs; [ pwvucontrol ];
     });
-    music = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
-      imports = [inputs.musnix.nixosModules.musnix];
-      environment.systemPackages = with pkgs; [guitarix];
+    music = moduleWithSystem ({ ... }: { pkgs, ... }: {
+      imports = [ inputs.musnix.nixosModules.musnix ];
+      environment.systemPackages = with pkgs; [ guitarix ];
       services.pipewire = {
         jack.enable = true;
-        extraConfig = {jack."69-low-latency" = {"jack.properties" = {"node.latency" = "64/48000";};};};
+        extraConfig = { jack."69-low-latency" = { "jack.properties" = { "node.latency" = "64/48000"; }; }; };
       };
       musnix = {
         enable = true;
@@ -112,9 +110,9 @@ top @ {
         };
       };
     });
-    wayland = moduleWithSystem (toplevel @ {...}: perSystem @ {...}: {
+    wayland = moduleWithSystem ({ ... }: { ... }: {
       hardware.graphics.enable = true;
-      security.pam.services.swaylock = {};
+      security.pam.services.swaylock = { };
       xdg.portal = {
         enable = true;
         xdgOpenUsePortal = true;
@@ -130,18 +128,18 @@ top @ {
         config.common.default = "*";
       };
     });
-    security = moduleWithSystem (toplevel @ {...}: perSystem @ {...}: {
+    security = moduleWithSystem ({ ... }: { ... }: {
       security = {
         sudo = {
           enable = false;
           execWheelOnly = true;
-          extraRules = [{groups = ["wheel"];}];
+          extraRules = [{ groups = [ "wheel" ]; }];
         };
         doas = {
           enable = true;
           extraRules = [
             {
-              groups = ["wheel"];
+              groups = [ "wheel" ];
               noPass = true;
               keepEnv = true;
             }
@@ -154,12 +152,12 @@ top @ {
     intranet = {
       networking.wg-quick.interfaces = {
         wg0 = {
-          address = ["10.0.0.2/32"];
+          address = [ "10.0.0.2/32" ];
           privateKeyFile = "/etc/wireguard/privatekey";
           peers = [
             {
               publicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
-              allowedIPs = ["0.0.0.0/0" "::/0"];
+              allowedIPs = [ "0.0.0.0/0" "::/0" ];
               endpoint = "37.205.13.29:51820";
               persistentKeepalive = 25;
             }
@@ -218,54 +216,56 @@ top @ {
         };
       };
     };
-    ivand = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: let
-      homeMods = top.config.flake.homeManagerModules;
-    in {
-      imports = [inputs.home-manager.nixosModules.default];
-      home-manager = {
-        backupFileExtension = "bak";
-        useUserPackages = true;
-        useGlobalPkgs = true;
-        users.ivand = {...}: {
-          imports = with homeMods; [
-            base
-            ivand
-            shell
-            util
-            swayland
-            web
-          ];
-        };
-      };
-      fonts.packages = with pkgs; [(nerdfonts.override {fonts = ["FiraCode"];}) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus];
-      users = {
-        users = {
-          ivand = {
-            isNormalUser = true;
-            createHome = true;
-            extraGroups = [
-              "adbusers"
-              "adm"
-              "audio"
-              "bluetooth"
-              "dialout"
-              "flatpak"
-              "kvm"
-              "mlocate"
-              "realtime"
-              "render"
-              "video"
-              "wheel"
+    ivand = moduleWithSystem ({ ... }: { pkgs, ... }:
+      let
+        homeMods = top.config.flake.homeManagerModules;
+      in
+      {
+        imports = [ inputs.home-manager.nixosModules.default ];
+        home-manager = {
+          backupFileExtension = "bak";
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.ivand = { ... }: {
+            imports = with homeMods; [
+              base
+              ivand
+              shell
+              util
+              swayland
+              web
             ];
           };
         };
-        extraGroups = {
-          mlocate = {};
-          realtime = {};
+        fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
+        users = {
+          users = {
+            ivand = {
+              isNormalUser = true;
+              createHome = true;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "flatpak"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+              ];
+            };
+          };
+          extraGroups = {
+            mlocate = { };
+            realtime = { };
+          };
         };
-      };
-      programs.dconf.enable = true;
-    });
+        programs.dconf.enable = true;
+      });
     flatpak = {
       xdg = {
         portal = {
@@ -276,17 +276,17 @@ top @ {
       };
       services.flatpak.enable = true;
     };
-    ai = moduleWithSystem (toplevel @ {...}: perSystem @ {...}: {
-      services = {ollama.enable = true;};
+    ai = moduleWithSystem ({ ... }: { ... }: {
+      services = { ollama.enable = true; };
     });
-    anon = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
-      environment.systemPackages = with pkgs; [tor-browser];
+    anon = moduleWithSystem ({ ... }: { pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ tor-browser ];
     });
-    cryptocurrency = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
-      environment.systemPackages = with pkgs; [monero-cli];
-      services = {monero.enable = true;};
+    cryptocurrency = moduleWithSystem ({ ... }: { pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ monero-cli ];
+      services = { monero.enable = true; };
     });
-    monero-miner = moduleWithSystem (toplevel @ {...}: perSystem @ {...}: {
+    monero-miner = moduleWithSystem ({ ... }: { ... }: {
       services = {
         xmrig = {
           enable = true;
@@ -307,16 +307,15 @@ top @ {
         };
       };
     });
-    vps = moduleWithSystem (toplevel @ {...}: perSystem @ {...}: {
+    vps = moduleWithSystem ({ ... }: { ... }: {
       imports = [
         inputs.vpsadminos.nixosConfigurations.container
       ];
     });
-    mailserver = moduleWithSystem (toplevel @ {...}: perSystem @ {
-      config,
-      pkgs,
-      ...
-    }: {
+    mailserver = moduleWithSystem ({ ... }: { config
+                                            , pkgs
+                                            , ...
+                                            }: {
       imports = [
         inputs.simple-nixos-mailserver.nixosModule
       ];
@@ -324,11 +323,11 @@ top @ {
         enable = true;
         localDnsResolver = false;
         fqdn = "mail.idimitrov.dev";
-        domains = ["idimitrov.dev" "mail.idimitrov.dev"];
+        domains = [ "idimitrov.dev" "mail.idimitrov.dev" ];
         loginAccounts = {
           "ivan@idimitrov.dev" = {
             hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
-            aliases = ["admin@idimitrov.dev"];
+            aliases = [ "admin@idimitrov.dev" ];
           };
           "security@idimitrov.dev" = {
             hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
@@ -338,10 +337,10 @@ top @ {
         hierarchySeparator = "/";
       };
       services = {
-        dovecot2.sieve.extensions = ["fileinto"];
+        dovecot2.sieve.extensions = [ "fileinto" ];
         roundcube = {
           enable = true;
-          package = pkgs.roundcube.withPlugins (plugins: [plugins.persistent_login]);
+          package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
           plugins = [
             "persistent_login"
           ];
@@ -352,18 +351,20 @@ top @ {
             $config['smtp_pass'] = "%p";
           '';
         };
-        nginx.virtualHosts = let
-          restrictToVpn = ''
-            allow 10.0.0.2/32;
-            allow 10.0.0.3/32;
-            allow 10.0.0.4/32;
-            deny all;
-          '';
-        in {
-          "${config.mailserver.fqdn}" = {
-            extraConfig = restrictToVpn;
+        nginx.virtualHosts =
+          let
+            restrictToVpn = ''
+              allow 10.0.0.2/32;
+              allow 10.0.0.3/32;
+              allow 10.0.0.4/32;
+              deny all;
+            '';
+          in
+          {
+            "${config.mailserver.fqdn}" = {
+              extraConfig = restrictToVpn;
+            };
           };
-        };
         postgresql.enable = true;
       };
       security = {
@@ -373,63 +374,65 @@ top @ {
         };
       };
     });
-    nginx = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
+    nginx = moduleWithSystem ({ ... }: { pkgs, ... }: {
       services = {
-        nginx = let
-          webshiteConfig = ''
-            add_header 'Referrer-Policy' 'origin-when-cross-origin';
-            add_header X-Content-Type-Options nosniff;
-          '';
-          extensions = ["html" "txt" "png" "jpg" "jpeg"];
-          serveStatic = exts: ''
-            try_files $uri $uri/ ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri." + "${x}") exts)} =404;
-          '';
-        in {
-          enable = true;
-          recommendedGzipSettings = true;
-          recommendedOptimisation = true;
-          recommendedProxySettings = true;
-          recommendedTlsSettings = true;
-          sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-          virtualHosts = {
-            "idimitrov.dev" = {
-              enableACME = true;
-              forceSSL = true;
-              locations."/" = {
-                root = "${pkgs.webshite}";
-                extraConfig = serveStatic extensions;
+        nginx =
+          let
+            webshiteConfig = ''
+              add_header 'Referrer-Policy' 'origin-when-cross-origin';
+              add_header X-Content-Type-Options nosniff;
+            '';
+            extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
+            serveStatic = exts: ''
+              try_files $uri $uri/ ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri." + "${x}") exts)} =404;
+            '';
+          in
+          {
+            enable = true;
+            recommendedGzipSettings = true;
+            recommendedOptimisation = true;
+            recommendedProxySettings = true;
+            recommendedTlsSettings = true;
+            sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+            virtualHosts = {
+              "idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "${pkgs.webshite}";
+                  extraConfig = serveStatic extensions;
+                };
+                extraConfig = webshiteConfig;
               };
-              extraConfig = webshiteConfig;
-            };
-            "www.idimitrov.dev" = {
-              enableACME = true;
-              forceSSL = true;
-              locations."/" = {
-                root = "${pkgs.webshite}";
-                extraConfig = serveStatic extensions;
+              "www.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "${pkgs.webshite}";
+                  extraConfig = serveStatic extensions;
+                };
+                extraConfig = webshiteConfig;
               };
-              extraConfig = webshiteConfig;
-            };
-            "src.idimitrov.dev" = {
-              enableACME = true;
-              forceSSL = true;
-              locations."/" = {
-                proxyPass = "http://127.0.0.1:3001";
+              "src.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  proxyPass = "http://127.0.0.1:3001";
+                };
               };
-            };
-            "pic.idimitrov.dev" = {
-              enableACME = true;
-              forceSSL = true;
-              locations."/" = {
-                root = "/var/pic";
-                extraConfig = ''
-                  autoindex on;
-                  ${serveStatic ["png"]}
-                '';
+              "pic.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "/var/pic";
+                  extraConfig = ''
+                    autoindex on;
+                    ${serveStatic ["png"]}
+                  '';
+                };
               };
             };
           };
-        };
         gitea = {
           enable = true;
           appName = "src";
@@ -465,55 +468,57 @@ top @ {
         };
       };
     });
-    wireguard-output = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
+    wireguard-output = moduleWithSystem ({ ... }: { pkgs, ... }: {
       networking = {
         nat = {
           enable = true;
           enableIPv6 = true;
           externalInterface = "venet0";
-          internalInterfaces = ["wg0"];
+          internalInterfaces = [ "wg0" ];
         };
         wg-quick.interfaces = {
-          wg0 = let
-            iptables = "${pkgs.iptables}/bin/iptables";
-            ip6tables = "${pkgs.iptables}/bin/ip6tables";
-          in {
-            address = ["10.0.0.1/32"];
-            listenPort = 51820;
-            privateKeyFile = "/etc/wireguard/privatekey";
-            postUp = ''
-              ${iptables} -A FORWARD -i wg0 -j ACCEPT
-              ${iptables} -t nat -A POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
-              ${ip6tables} -A FORWARD -i wg0 -j ACCEPT
-              ${ip6tables} -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
-            '';
-            preDown = ''
-              ${iptables} -D FORWARD -i wg0 -j ACCEPT
-              ${iptables} -t nat -D POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
-              ${ip6tables} -D FORWARD -i wg0 -j ACCEPT
-              ${ip6tables} -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
-            '';
-            peers = [
-              {
-                publicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
-                allowedIPs = ["10.0.0.2/32"];
-              }
-              {
-                publicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-                allowedIPs = ["10.0.0.3/32"];
-              }
-              {
-                publicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
-                allowedIPs = ["10.0.0.4/32"];
-              }
-            ];
-          };
+          wg0 =
+            let
+              iptables = "${pkgs.iptables}/bin/iptables";
+              ip6tables = "${pkgs.iptables}/bin/ip6tables";
+            in
+            {
+              address = [ "10.0.0.1/32" ];
+              listenPort = 51820;
+              privateKeyFile = "/etc/wireguard/privatekey";
+              postUp = ''
+                ${iptables} -A FORWARD -i wg0 -j ACCEPT
+                ${iptables} -t nat -A POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
+                ${ip6tables} -A FORWARD -i wg0 -j ACCEPT
+                ${ip6tables} -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
+              '';
+              preDown = ''
+                ${iptables} -D FORWARD -i wg0 -j ACCEPT
+                ${iptables} -t nat -D POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
+                ${ip6tables} -D FORWARD -i wg0 -j ACCEPT
+                ${ip6tables} -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
+              '';
+              peers = [
+                {
+                  publicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
+                  allowedIPs = [ "10.0.0.2/32" ];
+                }
+                {
+                  publicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
+                  allowedIPs = [ "10.0.0.3/32" ];
+                }
+                {
+                  publicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
+                  allowedIPs = [ "10.0.0.4/32" ];
+                }
+              ];
+            };
         };
       };
     });
-    anonymous-dns = moduleWithSystem (toplevel @ {...}: perSystem @ {...}: {
+    anonymous-dns = moduleWithSystem ({ ... }: { ... }: {
       networking = {
-        nameservers = ["127.0.0.1" "::1"];
+        nameservers = [ "127.0.0.1" "::1" ];
         dhcpcd.extraConfig = "nohook resolv.conf";
       };
       services = {
@@ -533,7 +538,7 @@ top @ {
               routes = [
                 {
                   server_name = "*";
-                  via = ["sdns://gQ8yMTcuMTM4LjIyMC4yNDM"];
+                  via = [ "sdns://gQ8yMTcuMTM4LjIyMC4yNDM" ];
                 }
               ];
             };
@@ -549,7 +554,7 @@ top @ {
         };
       };
     });
-    firewall = moduleWithSystem (toplevel @ {...}: perSystem @ {lib, ...}: {
+    firewall = moduleWithSystem ({ ... }: { lib, ... }: {
       networking = {
         firewall = lib.mkForce {
           enable = true;
@@ -582,24 +587,24 @@ top @ {
         };
       };
     });
-    rest = moduleWithSystem (toplevel @ {...}: perSystem @ {pkgs, ...}: {
+    rest = moduleWithSystem ({ ... }: { pkgs, ... }: {
       fileSystems."/mnt/export1981" = {
         device = "172.16.128.47:/nas/5490";
         fsType = "nfs";
-        options = ["nofail"];
+        options = [ "nofail" ];
       };
       users = {
         users.ivand = {
           isNormalUser = true;
           hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";
-          extraGroups = ["wheel" "adm" "mlocate"];
+          extraGroups = [ "wheel" "adm" "mlocate" ];
           openssh.authorizedKeys.keys = [
             ''
               ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
             ''
           ];
         };
-        extraGroups = {mlocate = {};};
+        extraGroups = { mlocate = { }; };
       };
       services = {
         openssh = {
@@ -612,7 +617,7 @@ top @ {
       systemd = {
         timers = {
           bingwp = {
-            wantedBy = ["timers.target"];
+            wantedBy = [ "timers.target" ];
             timerConfig = {
               OnCalendar = "*-*-* 10:00:00";
               Persistent = true;

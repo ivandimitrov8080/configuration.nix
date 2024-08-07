@@ -1,7 +1,7 @@
-toplevel @ {moduleWithSystem, ...}: {
+toplevel @ { moduleWithSystem, ... }: {
   flake.homeManagerModules = {
     base = moduleWithSystem (
-      top @ {...}: perSystem @ {config, ...}: {
+      { ... }: { config, ... }: {
         programs.home-manager.enable = true;
         home.stateVersion = toplevel.config.flake.stateVersion;
         xdg = {
@@ -23,12 +23,12 @@ toplevel @ {moduleWithSystem, ...}: {
       }
     );
     ivand = moduleWithSystem (
-      top @ {...}: perSystem @ {pkgs, ...}: {
+      { ... }: { pkgs, ... }: {
         home = {
           username = "ivand";
           homeDirectory = "/home/ivand";
-          sessionVariables = {EDITOR = "nvim";};
-          packages = with pkgs; [nvim];
+          sessionVariables = { EDITOR = "nvim"; };
+          packages = with pkgs; [ nvim ];
         };
         programs = {
           git = with pkgs.lib; {
@@ -55,13 +55,12 @@ toplevel @ {moduleWithSystem, ...}: {
       }
     );
     util = moduleWithSystem (
-      top @ {...}: perSystem @ {
-        pkgs,
-        config,
-        ...
-      }: {
+      { ... }: { pkgs
+               , config
+               , ...
+               }: {
         home = {
-          packages = with pkgs; [openssl mlocate uutils-coreutils-noprefix speedtest-cli];
+          packages = with pkgs; [ openssl mlocate uutils-coreutils-noprefix speedtest-cli ];
           sessionVariables = {
             PAGER = "bat";
             BAT_THEME = "catppuccin-mocha";
@@ -70,8 +69,8 @@ toplevel @ {moduleWithSystem, ...}: {
         programs = {
           password-store = {
             enable = true;
-            package = pkgs.pass.withExtensions (e: with e; [pass-otp pass-file]);
-            settings = {PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";};
+            package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
+            settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; };
           };
           git = {
             enable = true;
@@ -92,22 +91,22 @@ toplevel @ {moduleWithSystem, ...}: {
           tealdeer = {
             enable = true;
             settings = {
-              display = {compact = true;};
-              updates = {auto_update = true;};
+              display = { compact = true; };
+              updates = { auto_update = true; };
             };
           };
           bottom = {
             enable = true;
             settings = {
-              flags = {rate = "250ms";};
+              flags = { rate = "250ms"; };
               row = [
                 {
                   ratio = 40;
-                  child = [{type = "cpu";} {type = "mem";} {type = "net";}];
+                  child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }];
                 }
                 {
                   ratio = 35;
-                  child = [{type = "temp";} {type = "disk";}];
+                  child = [{ type = "temp"; } { type = "disk"; }];
                 }
                 {
                   ratio = 40;
@@ -133,31 +132,33 @@ toplevel @ {moduleWithSystem, ...}: {
           };
           bat = {
             enable = true;
-            themes = let
-              catppuccin = pkgs.fetchFromGitHub {
-                owner = "catppuccin";
-                repo = "bat";
-                rev = "82e7ca555f805b53d2b377390e4ab38c20282e83";
-                sha256 = "sha256-/Ob9iCVyjJDBCXlss9KwFQTuxybmSSzYRBZxOT10PZg=";
+            themes =
+              let
+                catppuccin = pkgs.fetchFromGitHub {
+                  owner = "catppuccin";
+                  repo = "bat";
+                  rev = "82e7ca555f805b53d2b377390e4ab38c20282e83";
+                  sha256 = "sha256-/Ob9iCVyjJDBCXlss9KwFQTuxybmSSzYRBZxOT10PZg=";
+                };
+              in
+              {
+                catppuccin-mocha = {
+                  src = catppuccin;
+                  file = "themes/Catppuccin Mocha.tmTheme";
+                };
+                catppuccin-macchiato = {
+                  src = catppuccin;
+                  file = "themes/Catppuccin Macchiato.tmTheme";
+                };
+                catppuccin-frappe = {
+                  src = catppuccin;
+                  file = "themes/Catppuccin Frappe.tmTheme";
+                };
+                catppuccin-latte = {
+                  src = catppuccin;
+                  file = "themes/Catppuccin Latte.tmTheme";
+                };
               };
-            in {
-              catppuccin-mocha = {
-                src = catppuccin;
-                file = "themes/Catppuccin Mocha.tmTheme";
-              };
-              catppuccin-macchiato = {
-                src = catppuccin;
-                file = "themes/Catppuccin Macchiato.tmTheme";
-              };
-              catppuccin-frappe = {
-                src = catppuccin;
-                file = "themes/Catppuccin Frappe.tmTheme";
-              };
-              catppuccin-latte = {
-                src = catppuccin;
-                file = "themes/Catppuccin Latte.tmTheme";
-              };
-            };
           };
           ssh.enable = true;
           gpg.enable = true;
@@ -174,99 +175,100 @@ toplevel @ {moduleWithSystem, ...}: {
       }
     );
     shell = moduleWithSystem (
-      top @ {...}: perSystem @ {pkgs, ...}: {
-        programs = let
-          shellAliases = {
-            cal = "cal $(date +%Y)";
-            GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
-            gad = "git add . && git diff --cached";
-            gac = "ga && gc";
-            ga = "git add .";
-            gc = "git commit";
-            dev = "nix develop --command $SHELL";
-            ls = "eza";
-            la = "eza --all";
-            lt = "eza --git-ignore --all --tree --level=10";
-            sc = "systemctl";
-            neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
-          };
-          sessionVariables = {};
-        in {
-          bash = {
-            inherit shellAliases sessionVariables;
-            enable = true;
-            enableVteIntegration = true;
-            historyControl = ["erasedups"];
-            historyIgnore = ["ls" "cd" "exit"];
-          };
-          zsh = {
-            inherit shellAliases sessionVariables;
-            enable = true;
-            dotDir = ".config/zsh";
-            defaultKeymap = "viins";
-            enableVteIntegration = true;
-            syntaxHighlighting.enable = true;
-            autosuggestion.enable = true;
-            history.expireDuplicatesFirst = true;
-            historySubstringSearch.enable = true;
-          };
-          nushell = {
-            enable = true;
-            environmentVariables = {config = ''{ show_banner: false, completions: { quick: false partial: false algorithm: "prefix" } } '';};
+      { ... }: { pkgs, ... }: {
+        programs =
+          let
             shellAliases = {
-              gcal = ''bash -c "cal $(date +%Y)" '';
-              la = "ls -al";
-              dev = "nix develop --command $env.SHELL";
+              cal = "cal $(date +%Y)";
+              GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
+              gad = "git add . && git diff --cached";
+              gac = "ga && gc";
+              ga = "git add .";
+              gc = "git commit";
+              dev = "nix develop --command $SHELL";
+              ls = "eza";
+              la = "eza --all";
+              lt = "eza --git-ignore --all --tree --level=10";
+              sc = "systemctl";
+              neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+            };
+            sessionVariables = { };
+          in
+          {
+            bash = {
+              inherit shellAliases sessionVariables;
+              enable = true;
+              enableVteIntegration = true;
+              historyControl = [ "erasedups" ];
+              historyIgnore = [ "ls" "cd" "exit" ];
+            };
+            zsh = {
+              inherit shellAliases sessionVariables;
+              enable = true;
+              dotDir = ".config/zsh";
+              defaultKeymap = "viins";
+              enableVteIntegration = true;
+              syntaxHighlighting.enable = true;
+              autosuggestion.enable = true;
+              history.expireDuplicatesFirst = true;
+              historySubstringSearch.enable = true;
+            };
+            nushell = {
+              enable = true;
+              environmentVariables = { config = ''{ show_banner: false, completions: { quick: false partial: false algorithm: "prefix" } } ''; };
+              shellAliases = {
+                gcal = ''bash -c "cal $(date +%Y)" '';
+                la = "ls -al";
+                dev = "nix develop --command $env.SHELL";
+              };
+            };
+            kitty.shellIntegration = {
+              enableBashIntegration = true;
+              enableZshIntegration = true;
+            };
+            tmux = {
+              enable = true;
+              clock24 = true;
+              baseIndex = 1;
+              escapeTime = 0;
+              keyMode = "vi";
+              shell = "\${SHELL}";
+              terminal = "screen-256color";
+              plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
+              extraConfig = ''
+                set-option -a terminal-features 'screen-256color:RGB'
+              '';
+            };
+            starship = {
+              enable = true;
+              enableNushellIntegration = true;
+              enableZshIntegration = true;
+              enableBashIntegration = true;
+            };
+            eza = {
+              enable = true;
+              enableZshIntegration = true;
+              enableBashIntegration = true;
+              extraOptions = [
+                "--long"
+                "--header"
+                "--icons"
+                "--smart-group"
+                "--mounts"
+                "--octal-permissions"
+                "--git"
+              ];
             };
           };
-          kitty.shellIntegration = {
-            enableBashIntegration = true;
-            enableZshIntegration = true;
-          };
-          tmux = {
-            enable = true;
-            clock24 = true;
-            baseIndex = 1;
-            escapeTime = 0;
-            keyMode = "vi";
-            shell = "\${SHELL}";
-            terminal = "screen-256color";
-            plugins = with pkgs.tmuxPlugins; [tilish catppuccin];
-            extraConfig = ''
-              set-option -a terminal-features 'screen-256color:RGB'
-            '';
-          };
-          starship = {
-            enable = true;
-            enableNushellIntegration = true;
-            enableZshIntegration = true;
-            enableBashIntegration = true;
-          };
-          eza = {
-            enable = true;
-            enableZshIntegration = true;
-            enableBashIntegration = true;
-            extraOptions = [
-              "--long"
-              "--header"
-              "--icons"
-              "--smart-group"
-              "--mounts"
-              "--octal-permissions"
-              "--git"
-            ];
-          };
-        };
       }
     );
     swayland = moduleWithSystem (
-      top @ {...}: perSystem @ {
-        pkgs,
-        config,
-        ...
-      }: {
+      { ... }: { pkgs
+               , config
+               , ...
+               }: {
         home = {
-          packages = with pkgs; [audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland telegram-desktop];
+          packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland telegram-desktop ];
           pointerCursor = with pkgs; {
             name = "catppuccin-mocha-green-cursors";
             package = catppuccin-cursors.mochaGreen;
@@ -282,10 +284,10 @@ toplevel @ {moduleWithSystem, ...}: {
             terminal = "kitty";
             modifier = "Mod4";
             startup = [
-              {command = "swaymsg 'workspace 2; exec firefox'";}
-              {command = "swaymsg 'workspace 1; exec kitty'";}
+              { command = "swaymsg 'workspace 2; exec firefox'"; }
+              { command = "swaymsg 'workspace 1; exec kitty'"; }
             ];
-            bars = [];
+            bars = [ ];
             window.titlebar = false;
             keybindings = pkgs.lib.mkOptionDefault {
               "F1" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -313,81 +315,82 @@ toplevel @ {moduleWithSystem, ...}: {
               };
             };
           };
-          swaynag = {enable = config.wayland.windowManager.sway.enable;};
+          swaynag = { enable = config.wayland.windowManager.sway.enable; };
         };
         programs = {
           waybar = {
             enable = true;
             settings = {
-              mainBar = let
-              in {
-                layer = "top";
-                position = "top";
-                height = 30;
-                output = ["eDP-1" "HDMI-A-1" "*"];
+              mainBar =
+                let
+                in {
+                  layer = "top";
+                  position = "top";
+                  height = 30;
+                  output = [ "eDP-1" "HDMI-A-1" "*" ];
 
-                modules-left = ["sway/workspaces" "sway/mode"];
-                modules-center = ["clock#week" "clock#year" "clock#time"];
-                modules-right = ["network" "pulseaudio" "memory" "cpu" "battery"];
+                  modules-left = [ "sway/workspaces" "sway/mode" ];
+                  modules-center = [ "clock#week" "clock#year" "clock#time" ];
+                  modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
 
-                "clock#time" = {
-                  format = "{:%H:%M:%S}";
-                  interval = 1;
-                  tooltip = false;
-                };
-                "clock#week" = {
-                  format = "{:%a}";
-                  tooltip = false;
-                };
-                "clock#year" = {
-                  format = "{:%Y-%m-%d}";
-                  tooltip = false;
-                };
-
-                battery = {
-                  format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
-                  format-time = " {H} h {M} m";
-                  format-icons = ["" "" "" "" ""];
-                  states = {
-                    warning = 30;
-                    critical = 15;
+                  "clock#time" = {
+                    format = "{:%H:%M:%S}";
+                    interval = 1;
+                    tooltip = false;
                   };
-                  tooltip = false;
-                };
-
-                cpu = {format = "<span color='#74c7ec'></span>  {usage}%";};
-
-                memory = {
-                  format = "<span color='#89b4fa'></span>  {percentage}%";
-                  interval = 5;
-                };
-
-                pulseaudio = {
-                  format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
-                  format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
-                  format-source = "{volume}% <span color='#a6e3a1'></span>";
-                  format-source-muted = "{volume}% <span color='#f38ba8'></span>";
-                  format-icons = {
-                    headphone = "";
-                    default = ["" "" ""];
+                  "clock#week" = {
+                    format = "{:%a}";
+                    tooltip = false;
                   };
-                  tooltip = false;
-                };
+                  "clock#year" = {
+                    format = "{:%Y-%m-%d}";
+                    tooltip = false;
+                  };
 
-                network = {
-                  format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
-                  format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
-                  format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
-                  format-icons = ["󰤟" "󰤢" "󰤥" "󰤨"];
-                  interval = 5;
-                  tooltip = false;
-                };
+                  battery = {
+                    format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
+                    format-time = " {H} h {M} m";
+                    format-icons = [ "" "" "" "" "" ];
+                    states = {
+                      warning = 30;
+                      critical = 15;
+                    };
+                    tooltip = false;
+                  };
 
-                "sway/workspaces" = {
-                  disable-scroll = true;
-                  all-outputs = true;
+                  cpu = { format = "<span color='#74c7ec'></span>  {usage}%"; };
+
+                  memory = {
+                    format = "<span color='#89b4fa'></span>  {percentage}%";
+                    interval = 5;
+                  };
+
+                  pulseaudio = {
+                    format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
+                    format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
+                    format-source = "{volume}% <span color='#a6e3a1'></span>";
+                    format-source-muted = "{volume}% <span color='#f38ba8'></span>";
+                    format-icons = {
+                      headphone = "";
+                      default = [ "" "" "" ];
+                    };
+                    tooltip = false;
+                  };
+
+                  network = {
+                    format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+                    format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}";
+                    format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>";
+                    format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
+                    interval = 5;
+                    tooltip = false;
+                  };
+
+                  "sway/workspaces" = {
+                    disable-scroll = true;
+                    all-outputs = true;
+                  };
                 };
-              };
             };
             systemd = {
               enable = true;
@@ -537,9 +540,9 @@ toplevel @ {moduleWithSystem, ...}: {
               plugins = with pkgs; [
                 (
                   rofi-calc.override
-                  {
-                    rofi-unwrapped = rofi-wayland-unwrapped;
-                  }
+                    {
+                      rofi-unwrapped = rofi-wayland-unwrapped;
+                    }
                 )
               ];
             };
@@ -560,11 +563,11 @@ toplevel @ {moduleWithSystem, ...}: {
           };
           imv = {
             enable = true;
-            settings = {options.fullscreen = true;};
+            settings = { options.fullscreen = true; };
           };
           mpv = {
             enable = true;
-            scripts = with pkgs.mpvScripts; [uosc thumbfast];
+            scripts = with pkgs.mpvScripts; [ uosc thumbfast ];
           };
           bash.profileExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
           zsh.loginExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
@@ -584,19 +587,19 @@ toplevel @ {moduleWithSystem, ...}: {
                 OnCalendar = "*-*-* 10:00:00";
                 Persistent = true;
               };
-              Install = {WantedBy = ["timers.target"];};
+              Install = { WantedBy = [ "timers.target" ]; };
             };
           };
           services = {
             wpd = {
-              Install = {WantedBy = ["sway-session.target"];};
+              Install = { WantedBy = [ "sway-session.target" ]; };
               Unit = {
                 Description = "Switch background every x minutes";
                 After = "graphical-session-pre.target";
                 PartOf = "graphical-session.target";
               };
               Service = {
-                ExecStart = ["${pkgs.wpd}/bin/wpd"];
+                ExecStart = [ "${pkgs.wpd}/bin/wpd" ];
               };
             };
           };
@@ -617,7 +620,7 @@ toplevel @ {moduleWithSystem, ...}: {
       }
     );
     web = moduleWithSystem (
-      top @ {...}: perSystem @ {...}: {
+      { ... }: { ... }: {
         programs = {
           browserpass.enable = true;
           firefox = {
