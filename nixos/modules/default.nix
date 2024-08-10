@@ -209,6 +209,9 @@ top @ { inputs, moduleWithSystem, ... }: {
             "KOTEKLAN_GUEST" = {
               psk = "koteklankotek";
             };
+            "TP-Link_BE7A" = {
+              psk = "84665461";
+            };
             "3G" = {
               hidden = true;
             };
