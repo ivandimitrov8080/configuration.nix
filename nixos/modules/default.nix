@@ -212,6 +212,9 @@ top @ { inputs, moduleWithSystem, ... }: {
             "TP-Link_BE7A" = {
               psk = "84665461";
             };
+            "Post120" = {
+              psk = "9996663333";
+            };
             "3G" = {
               hidden = true;
             };
