@@ -51,7 +51,6 @@ top @ { inputs, moduleWithSystem, ... }: {
           enable = true;
           blockFakenews = true;
           blockGambling = true;
-          blockSocial = true;
         };
       };
     });
@@ -157,7 +156,7 @@ top @ { inputs, moduleWithSystem, ... }: {
           peers = [
             {
               publicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
-              allowedIPs = [ "0.0.0.0/0" "::/0" ];
+              allowedIPs = [ "10.0.0.1/32" ];
               endpoint = "37.205.13.29:51820";
               persistentKeepalive = 25;
             }
