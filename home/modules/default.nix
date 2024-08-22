@@ -56,9 +56,9 @@ toplevel @ { moduleWithSystem, ... }: {
     );
     util = moduleWithSystem (
       _: { pkgs
-               , config
-               , ...
-               }: {
+         , config
+         , ...
+         }: {
         home = {
           packages = with pkgs; [ openssl mlocate uutils-coreutils-noprefix speedtest-cli ];
           sessionVariables = {
@@ -264,9 +264,9 @@ toplevel @ { moduleWithSystem, ... }: {
     );
     swayland = moduleWithSystem (
       _: { pkgs
-               , config
-               , ...
-               }: {
+         , config
+         , ...
+         }: {
         home = {
           packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland telegram-desktop ];
           pointerCursor = with pkgs; {
@@ -704,6 +704,9 @@ toplevel @ { moduleWithSystem, ... }: {
                 };
               };
             };
+          };
+          chromium = {
+            enable = true;
           };
         };
         xdg.mimeApps.defaultApplications = {
