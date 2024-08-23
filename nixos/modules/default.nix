@@ -151,7 +151,7 @@ top @ { inputs, moduleWithSystem, ... }: {
     intranet = {
       networking.wg-quick.interfaces = {
         wg0 = {
-          address = [ "10.0.0.2/32" ];
+          address = [ "10.69.69.2/24" ];
           privateKeyFile = "/etc/wireguard/privatekey";
           peers = [
             {
@@ -359,9 +359,9 @@ top @ { inputs, moduleWithSystem, ... }: {
         nginx.virtualHosts =
           let
             restrictToVpn = ''
-              allow 10.0.0.2/32;
-              allow 10.0.0.3/32;
-              allow 10.0.0.4/32;
+              allow 10.69.69.2/24;
+              allow 10.69.69.3/24;
+              allow 10.69.69.4/24;
               deny all;
             '';
           in
@@ -475,49 +475,71 @@ top @ { inputs, moduleWithSystem, ... }: {
     });
     wireguard-output = moduleWithSystem (_: { pkgs, ... }: {
       networking = {
+        useNetworkd = true;
         nat = {
           enable = true;
           enableIPv6 = true;
           externalInterface = "venet0";
           internalInterfaces = [ "wg0" ];
         };
-        wg-quick.interfaces = {
-          wg0 =
-            let
-              iptables = "${pkgs.iptables}/bin/iptables";
-              ip6tables = "${pkgs.iptables}/bin/ip6tables";
-            in
-            {
-              address = [ "10.0.0.1/32" ];
-              listenPort = 51820;
-              privateKeyFile = "/etc/wireguard/privatekey";
-              postUp = ''
-                ${iptables} -A FORWARD -i wg0 -j ACCEPT
-                ${iptables} -t nat -A POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
-                ${ip6tables} -A FORWARD -i wg0 -j ACCEPT
-                ${ip6tables} -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
-              '';
-              preDown = ''
-                ${iptables} -D FORWARD -i wg0 -j ACCEPT
-                ${iptables} -t nat -D POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
-                ${ip6tables} -D FORWARD -i wg0 -j ACCEPT
-                ${ip6tables} -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
-              '';
-              peers = [
-                {
-                  publicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
-                  allowedIPs = [ "10.0.0.2/32" ];
-                }
-                {
-                  publicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-                  allowedIPs = [ "10.0.0.3/32" ];
-                }
-                {
-                  publicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
-                  allowedIPs = [ "10.0.0.4/32" ];
-                }
-              ];
+        # wg-quick.interfaces = {
+        #   wg0 =
+        #     let
+        #       iptables = "${pkgs.iptables}/bin/iptables";
+        #       ip6tables = "${pkgs.iptables}/bin/ip6tables";
+        #     in
+        #     {
+        #       privateKeyFile = "";
+        #       postUp = ''
+        #         ${iptables} -A FORWARD -i wg0 -j ACCEPT
+        #         ${iptables} -t nat -A POSTROUTING -s 10.69.69.1/24 -o venet0 -j MASQUERADE
+        #         ${ip6tables} -A FORWARD -i wg0 -j ACCEPT
+        #         ${ip6tables} -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
+        #       '';
+        #       preDown = ''
+        #         ${iptables} -D FORWARD -i wg0 -j ACCEPT
+        #         ${iptables} -t nat -D POSTROUTING -s 10.69.69.1/24 -o venet0 -j MASQUERADE
+        #         ${ip6tables} -D FORWARD -i wg0 -j ACCEPT
+        #         ${ip6tables} -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
+        #       '';
+        #     };
+        # };
+      };
+      systemd.network = {
+        enable = true;
+        netdevs = {
+          "50-wg0" = {
+            netdevConfig = {
+              Kind = "wireguard";
+              Name = "wg0";
+              MTUBytes = "1300";
             };
+            wireguardConfig = {
+              PrivateKeyFile = "/etc/wireguard/privatekey";
+              ListenPort = 51820;
+            };
+            wireguardPeers = [
+              {
+                PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
+                AllowedIPs = [ "10.69.69.2/24" ];
+              }
+              {
+                PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
+                AllowedIPs = [ "10.69.69.3/24" ];
+              }
+              {
+                PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
+                AllowedIPs = [ "10.69.69.4/24" ];
+              }
+            ];
+          };
+        };
+        networks.wg0 = {
+          matchConfig.Name = "wg0";
+          address = [ "10.69.69.1/24" ];
+          networkConfig = {
+            IPMasquerade = "ipv4";
+          };
         };
       };
     });
@@ -578,9 +600,9 @@ top @ { inputs, moduleWithSystem, ... }: {
           ];
           extraCommands = ''
             iptables -N vpn  # create a new chain named vpn
-            iptables -A vpn --src 10.0.0.2 -j ACCEPT  # allow
-            iptables -A vpn --src 10.0.0.3 -j ACCEPT  # allow
-            iptables -A vpn --src 10.0.0.4 -j ACCEPT  # allow
+            iptables -A vpn --src 10.69.69.2 -j ACCEPT  # allow
+            iptables -A vpn --src 10.69.69.3 -j ACCEPT  # allow
+            iptables -A vpn --src 10.69.69.4 -j ACCEPT  # allow
             iptables -A vpn -j DROP  # drop everyone else
             iptables -I INPUT -m tcp -p tcp --dport 22 -j vpn
           '';
