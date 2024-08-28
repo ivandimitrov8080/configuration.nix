@@ -217,6 +217,9 @@ top @ { inputs, moduleWithSystem, ... }: {
             "MOONLIGHT2019" = {
               psk = "seacrets";
             };
+            "Kaiser Terrasse" = {
+              psk = "Internet12";
+            };
             "3G" = {
               hidden = true;
             };
