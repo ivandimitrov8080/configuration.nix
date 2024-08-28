@@ -214,6 +214,9 @@ top @ { inputs, moduleWithSystem, ... }: {
             "Post120" = {
               psk = "9996663333";
             };
+            "MOONLIGHT2019" = {
+              psk = "seacrets";
+            };
             "3G" = {
               hidden = true;
             };
