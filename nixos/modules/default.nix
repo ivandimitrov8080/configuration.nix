@@ -220,6 +220,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             "Kaiser Terrasse" = {
               psk = "Internet12";
             };
+            "ATHENS-HAWKS" = { };
             "3G" = {
               hidden = true;
             };
