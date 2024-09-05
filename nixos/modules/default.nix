@@ -293,11 +293,8 @@ top @ { inputs, moduleWithSystem, ... }: {
     });
     containers = moduleWithSystem (_: _: {
       virtualisation.docker = {
+        enable = true;
         storageDriver = "btrfs";
-        rootless = {
-          enable = true;
-          setSocketVariable = true;
-        };
       };
       users.users.ivand.extraGroups = [ "docker" ];
     });
