@@ -33,6 +33,7 @@ in
     nova-crypto = novaConfig (with mods; [ ivand cryptocurrency ]);
     nova-nonya = novaConfig (with mods; [ ivand anon cryptocurrency ]);
     nova-ai = novaConfig (with mods; [ ivand ai ]);
+    nova-containers = novaConfig (with mods; [ ivand containers ]);
     install-iso = configWithModules { modules = with mods; [ grub base shell wireless ]; };
     vps = configWithModules { modules = with mods; [ base shell security vps mailserver nginx wireguard-output anonymous-dns firewall rest ]; };
     stara-miner = configWithModules { modules = essential ++ [ mods.monero-miner ]; };

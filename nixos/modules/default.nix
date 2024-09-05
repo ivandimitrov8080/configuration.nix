@@ -291,6 +291,16 @@ top @ { inputs, moduleWithSystem, ... }: {
     ai = moduleWithSystem (_: _: {
       services = { ollama.enable = true; };
     });
+    containers = moduleWithSystem (_: _: {
+      virtualisation.docker = {
+        storageDriver = "btrfs";
+        rootless = {
+          enable = true;
+          setSocketVariable = true;
+        };
+      };
+      users.users.ivand.extraGroups = [ "docker" ];
+    });
     anon = moduleWithSystem (_: { pkgs, ... }: {
       environment.systemPackages = with pkgs; [ tor-browser ];
     });
