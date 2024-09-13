@@ -42,11 +42,11 @@ toplevel @ { moduleWithSystem, ... }: {
           ssh = {
             matchBlocks = {
               vpsfree-ivand = {
-                hostname = "10.0.0.1";
+                hostname = "10.0.0.9";
                 user = "ivand";
               };
               vpsfree-root = {
-                hostname = "10.0.0.1";
+                hostname = "10.0.0.9";
                 user = "root";
               };
             };
