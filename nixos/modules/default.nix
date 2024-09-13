@@ -502,18 +502,18 @@ top @ { inputs, moduleWithSystem, ... }: {
               ip6tables = "${pkgs.iptables}/bin/ip6tables";
             in
             {
-              address = [ "10.0.0.9/24" ];
+              address = [ "10.0.0.1/24" ];
               listenPort = 51820;
               privateKeyFile = "/etc/wireguard/privatekey";
               postUp = ''
                 ${iptables} -A FORWARD -i wg0 -j ACCEPT
-                ${iptables} -t nat -A POSTROUTING -s 10.0.0.9/24 -o venet0 -j MASQUERADE
+                ${iptables} -t nat -A POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
                 ${ip6tables} -A FORWARD -i wg0 -j ACCEPT
                 ${ip6tables} -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
               '';
               preDown = ''
                 ${iptables} -D FORWARD -i wg0 -j ACCEPT
-                ${iptables} -t nat -D POSTROUTING -s 10.0.0.9/24 -o venet0 -j MASQUERADE
+                ${iptables} -t nat -D POSTROUTING -s 10.0.0.1/24 -o venet0 -j MASQUERADE
                 ${ip6tables} -D FORWARD -i wg0 -j ACCEPT
                 ${ip6tables} -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o venet0 -j MASQUERADE
               '';
