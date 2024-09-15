@@ -262,6 +262,7 @@ top @ { inputs, moduleWithSystem, ... }: {
                 "bluetooth"
                 "dialout"
                 "flatpak"
+                "input"
                 "kvm"
                 "mlocate"
                 "realtime"
