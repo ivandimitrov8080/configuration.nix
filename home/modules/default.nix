@@ -330,7 +330,7 @@ toplevel @ { moduleWithSystem, ... }: {
 
                   modules-left = [ "sway/workspaces" "sway/mode" ];
                   modules-center = [ "clock#week" "clock#year" "clock#time" ];
-                  modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" ];
+                  modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" "keyboard-state" ];
 
                   "clock#time" = {
                     format = "{:%H:%M:%S}";
@@ -344,6 +344,15 @@ toplevel @ { moduleWithSystem, ... }: {
                   "clock#year" = {
                     format = "{:%Y-%m-%d}";
                     tooltip = false;
+                  };
+
+                  keyboard-state = {
+                    capslock = true;
+                    format = "{icon}";
+                    format-icons = {
+                      locked = "";
+                      unlocked = "";
+                    };
                   };
 
                   battery = {
@@ -502,6 +511,14 @@ toplevel @ { moduleWithSystem, ... }: {
 
               #battery.discharging {
                   color: @yellow;
+              }
+
+              #keyboard-state label {
+                  color: @green;
+              }
+
+              #keyboard-state label.locked {
+                  color: @red;
               }
 
               @keyframes blink {
