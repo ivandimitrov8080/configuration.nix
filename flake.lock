@@ -672,11 +672,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726440980,
-        "narHash": "sha256-ChhIrjtdu5d83W+YDRH+Ec5g1MmM0xk6hJnkz15Ot7M=",
+        "lastModified": 1726902823,
+        "narHash": "sha256-Gkc7pwTVLKj4HSvRt8tXNvosl8RS9hrBAEhOjAE0Tt4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a9c9cc6e50f7cbd2d58ccb1cd46a1e06e9e445ff",
+        "rev": "14929f7089268481d86b83ed31ffd88713dcd415",
         "type": "github"
       },
       "original": {
@@ -737,11 +737,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726514754,
-        "narHash": "sha256-wc0nlnaXomg21K+VV4OjvCna2ErXx87RWtu+u1sFMNo=",
+        "lastModified": 1726880464,
+        "narHash": "sha256-xF0wgVbbL/ESCuGeXUB8W0qqZm6OJQfPmf22Ie9EMTE=",
         "owner": "StevenBlack",
         "repo": "hosts",
-        "rev": "409cef2a5312edcb349adf68d1a9d8bf60224d02",
+        "rev": "e7237a0bc6877ec61ec823aca830195d42b09979",
         "type": "github"
       },
       "original": {
@@ -951,11 +951,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1726463316,
-        "narHash": "sha256-gI9kkaH0ZjakJOKrdjaI/VbaMEo9qBbSUl93DnU7f4c=",
+        "lastModified": 1726755586,
+        "narHash": "sha256-PmUr/2GQGvFTIJ6/Tvsins7Q43KTMvMFhvG6oaYK+Wk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "99dc8785f6a0adac95f5e2ab05cc2e1bf666d172",
+        "rev": "c04d5652cfa9742b1d519688f65d1bbccea9eb7e",
         "type": "github"
       },
       "original": {
@@ -1248,11 +1248,11 @@
     },
     "vpsadminos": {
       "locked": {
-        "lastModified": 1726266635,
-        "narHash": "sha256-EDvIVRSlV5RsKRFwxKAZkXykRClipRh+ekmJceETSoA=",
+        "lastModified": 1726752543,
+        "narHash": "sha256-GAfLUJwzKchBAQY4kZhUQw3arkw25ZIKZOc/r8nc65c=",
         "owner": "vpsfreecz",
         "repo": "vpsadminos",
-        "rev": "c337d91f385332b1c9287914fca3e20a6caa503a",
+        "rev": "bc0132332380ecd0baa10f380de9d26327ae5f86",
         "type": "github"
       },
       "original": {
