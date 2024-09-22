@@ -404,7 +404,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             '';
             extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
             serveStatic = exts: ''
-              try_files $uri ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri." + "${x}") exts)} =404;
+              try_files $uri $uri/ ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri." + "${x}") exts)} =404;
             '';
           in
           {
