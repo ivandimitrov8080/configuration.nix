@@ -1282,11 +1282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1727115901,
-        "narHash": "sha256-6yYlpV+VQJNmk+zkSWGbfa7DCnt4g9XIvCysotwrgas=",
+        "lastModified": 1727119638,
+        "narHash": "sha256-KNbNUpnGxi6TdeOWzCsbGKHWZTRD7Gpw1nl6YqOIZlA=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "634086c261458b337708b99cd97f68377b9bac51",
+        "rev": "1932b98eaba0849ea6a8b9b77d18c77f820b37f7",
         "type": "github"
       },
       "original": {
