@@ -1,5 +1,5 @@
 top @ { inputs, ... }: {
-  imports = [ ./nixos ./home ./packages ./overlays ./hardware-configurations ];
+  imports = [ ./src ];
   systems = [ "x86_64-linux" ];
   flake.stateVersion = "24.05";
   perSystem = { system, ... }: {
