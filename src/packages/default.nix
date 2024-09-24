@@ -51,6 +51,12 @@
             }
             {
               mode = "n";
+              key = "<S-Tab>";
+              action = "<cmd>BufferPrevious<cr>";
+              options = { silent = true; desc = "Switch tabs backwards"; };
+            }
+            {
+              mode = "n";
               key = "<C-j>";
               action = "<cmd>move +1<cr>";
               options = { silent = true; desc = "Move current line down by 1"; };
@@ -60,12 +66,6 @@
               key = "<C-k>";
               action = "<cmd>move -2<cr>";
               options = { silent = true; desc = "Move current line up by 1"; };
-            }
-            {
-              mode = "n";
-              key = "<S-Tab>";
-              action = "<cmd>BufferPrevious<cr>";
-              options = { silent = true; desc = "Switch tabs backwards"; };
             }
             {
               mode = "n";
@@ -135,9 +135,9 @@
             }
             {
               mode = "n";
-              key = "<leader>ca";
+              key = "<leader>la";
               action.__raw = "vim.lsp.buf.code_action";
-              options = { silent = true; desc = "Code action"; };
+              options = { silent = true; desc = "LSP Code action"; };
             }
             {
               mode = "n";
@@ -156,12 +156,6 @@
               key = "<leader>tt";
               action = "<cmd>TodoTelescope<cr>";
               options = { silent = true; desc = "Show Todo Telescope"; };
-            }
-            {
-              mode = "n";
-              key = "<leader>r";
-              action = "<cmd>!make run<cr>";
-              options = { silent = true; desc = "Run `make run`"; };
             }
           ];
           plugins = {
@@ -222,13 +216,6 @@
                         end,
                     })
                 end
-
-                --
-
-                local languages = { 'bash' }
-                local completion = true
-                local diagnostics = true
-                local tsquery = nil
               '';
               capabilities = ''
                 require("cmp_nvim_lsp").default_capabilities()
