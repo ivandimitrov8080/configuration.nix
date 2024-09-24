@@ -8,6 +8,7 @@ top @ { inputs, ... }: {
         inherit system;
         overlays = [
           top.config.flake.overlays.default
+          inputs.neovim-nightly-overlay.overlays.default
         ];
       };
     };

@@ -14,16 +14,9 @@
       url = "github:StevenBlack/hosts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ide = {
-      url = "github:ivandimitrov8080/flake-ide";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     sal = {
       url = "github:ivandimitrov8080/sal";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        ide.follows = "ide";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     musnix = {
       url = "github:musnix/musnix";
@@ -37,6 +30,14 @@
       url = "github:ivandimitrov8080/idimitrov.dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs: inputs.parts.lib.mkFlake {inherit inputs;} {imports = [./.];};
+  outputs = inputs: inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./. ]; };
 }
