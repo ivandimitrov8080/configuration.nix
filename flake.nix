@@ -14,20 +14,12 @@
       url = "github:StevenBlack/hosts";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sal = {
-      url = "github:ivandimitrov8080/sal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    webshite = {
-      url = "github:ivandimitrov8080/idimitrov.dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     neovim-nightly-overlay = {
@@ -37,6 +29,14 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    webshite = {
+      url = "github:ivandimitrov8080/idimitrov.dev";
+      inputs.configuration.follows = "/";
+    };
+    sal = {
+      url = "github:ivandimitrov8080/sal";
+      inputs.configuration.follows = "/";
     };
   };
   outputs = inputs: inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./. ]; };
