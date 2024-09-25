@@ -371,20 +371,6 @@ top @ { inputs, moduleWithSystem, ... }: {
             $config['smtp_pass'] = "%p";
           '';
         };
-        nginx.virtualHosts =
-          let
-            restrictToVpn = ''
-              allow 192.168.69.2/32;
-              allow 192.168.69.3/32;
-              allow 192.168.69.4/32;
-              deny all;
-            '';
-          in
-          {
-            "${config.mailserver.fqdn}" = {
-              extraConfig = restrictToVpn;
-            };
-          };
         postgresql.enable = true;
       };
       security = {
@@ -394,53 +380,54 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    nginx = moduleWithSystem (_: { pkgs, ... }: {
+    nginx = moduleWithSystem (_: { pkgs, config, ... }: {
+      environment.systemPackages = [ pkgs.api ];
       services = {
-        nginx =
-          let
-            webshiteConfig = ''
-              add_header 'Referrer-Policy' 'origin-when-cross-origin';
-              add_header X-Content-Type-Options nosniff;
-            '';
-            extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
-            serveStatic = exts: ''
-              try_files ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri.${x}") exts)} $uri $uri/ =404;
-            '';
-          in
-          {
-            enable = true;
-            recommendedGzipSettings = true;
-            recommendedOptimisation = true;
-            recommendedProxySettings = true;
-            recommendedTlsSettings = true;
-            sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-            virtualHosts = {
-              "idimitrov.dev" = {
+        nginx = {
+          enable = true;
+          recommendedGzipSettings = true;
+          recommendedOptimisation = true;
+          recommendedProxySettings = true;
+          recommendedTlsSettings = true;
+          sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+          virtualHosts =
+            let
+              extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
+              serveStatic = exts: ''
+                try_files ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri.${x}") exts)} $uri $uri/ =404;
+              '';
+              restrictToVpn = ''
+                allow 192.168.69.2/32;
+                allow 192.168.69.3/32;
+                allow 192.168.69.4/32;
+                deny all;
+              '';
+              website = {
                 enableACME = true;
                 forceSSL = true;
-                locations."/" = {
-                  root = "${pkgs.webshite}";
-                  extraConfig = serveStatic extensions;
+                locations = {
+                  "/" = {
+                    root = "${pkgs.webshite}";
+                    extraConfig = serveStatic extensions;
+                  };
+                  "/api" = {
+                    proxyPass = "http://127.0.0.1:8000";
+                    extraConfig = restrictToVpn;
+                  };
                 };
-                extraConfig = webshiteConfig;
+                extraConfig = ''
+                  add_header 'Referrer-Policy' 'origin-when-cross-origin';
+                  add_header X-Content-Type-Options nosniff;
+                '';
               };
-              "www.idimitrov.dev" = {
-                enableACME = true;
-                forceSSL = true;
-                locations."/" = {
-                  root = "${pkgs.webshite}";
-                  extraConfig = serveStatic extensions;
-                };
-                extraConfig = webshiteConfig;
-              };
-              "src.idimitrov.dev" = {
+              gitea = {
                 enableACME = true;
                 forceSSL = true;
                 locations."/" = {
                   proxyPass = "http://127.0.0.1:3001";
                 };
               };
-              "pic.idimitrov.dev" = {
+              pics = {
                 enableACME = true;
                 forceSSL = true;
                 locations."/" = {
@@ -451,8 +438,22 @@ top @ { inputs, moduleWithSystem, ... }: {
                   '';
                 };
               };
+              roundcube = {
+                # uri = if (builtins.hasAttr "mailserver" config) then "${config.mailserver.fqdn ? ""}" else "";
+                uri = "${config.mailserver.fqdn}";
+                conf = {
+                  extraConfig = restrictToVpn;
+                };
+              };
+            in
+            {
+              "idimitrov.dev" = website;
+              "www.idimitrov.dev" = website;
+              "src.idimitrov.dev" = gitea;
+              "pic.idimitrov.dev" = pics;
+              "${roundcube.uri}" = roundcube.conf;
             };
-          };
+        };
         gitea = {
           enable = true;
           appName = "src";

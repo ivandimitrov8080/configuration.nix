@@ -314,6 +314,7 @@
           };
         });
         webshite = inputs.webshite.packages.${system}.default;
+        api = inputs.webshite.packages.${system}.api;
         sal = inputs.sal.packages."x86_64-linux".default;
       };
     };
