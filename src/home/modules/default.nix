@@ -54,125 +54,121 @@ toplevel @ { moduleWithSystem, ... }: {
         };
       }
     );
-    util = moduleWithSystem (
-      _: { pkgs
-         , config
-         , ...
-         }: {
-        home = {
-          packages = with pkgs; [ openssl mlocate uutils-coreutils-noprefix speedtest-cli ];
-          sessionVariables = {
-            PAGER = "bat";
-            BAT_THEME = "catppuccin-mocha";
+    util = moduleWithSystem (_: { pkgs, config, ... }: {
+      home = {
+        packages = with pkgs; [ openssl mlocate uutils-coreutils-noprefix speedtest-cli deadnix statix ];
+        sessionVariables = {
+          PAGER = "bat";
+          BAT_THEME = "catppuccin-mocha";
+        };
+      };
+      programs = {
+        password-store = {
+          enable = true;
+          package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
+          settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; };
+        };
+        git = {
+          enable = true;
+          delta.enable = true;
+          extraConfig = {
+            color.ui = "auto";
+            pull.rebase = true;
+            push.autoSetupRemote = true;
+          };
+          aliases = {
+            a = "add .";
+            c = "commit";
+            d = "diff --cached";
+            p = "push";
+            pa = "!git remote | xargs -L1 git push --all";
           };
         };
-        programs = {
-          password-store = {
-            enable = true;
-            package = pkgs.pass.withExtensions (e: with e; [ pass-otp pass-file ]);
-            settings = { PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store"; };
+        tealdeer = {
+          enable = true;
+          settings = {
+            display = { compact = true; };
+            updates = { auto_update = true; };
           };
-          git = {
-            enable = true;
-            delta.enable = true;
-            extraConfig = {
-              color.ui = "auto";
-              pull.rebase = true;
-              push.autoSetupRemote = true;
-            };
-            aliases = {
-              a = "add .";
-              c = "commit";
-              d = "diff --cached";
-              p = "push";
-              pa = "!git remote | xargs -L1 git push --all";
-            };
-          };
-          tealdeer = {
-            enable = true;
-            settings = {
-              display = { compact = true; };
-              updates = { auto_update = true; };
-            };
-          };
-          bottom = {
-            enable = true;
-            settings = {
-              flags = { rate = "250ms"; };
-              row = [
-                {
-                  ratio = 40;
-                  child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }];
-                }
-                {
-                  ratio = 35;
-                  child = [{ type = "temp"; } { type = "disk"; }];
-                }
-                {
-                  ratio = 40;
-                  child = [
-                    {
-                      type = "proc";
-                      default = true;
-                    }
-                  ];
-                }
-              ];
-            };
-          };
-          fzf = {
-            enable = true;
-            enableBashIntegration = true;
-            enableZshIntegration = true;
-          };
-          nix-index = {
-            enable = true;
-            enableZshIntegration = false;
-            enableBashIntegration = false;
-          };
-          bat = {
-            enable = true;
-            themes =
-              let
-                catppuccin = pkgs.fetchFromGitHub {
-                  owner = "catppuccin";
-                  repo = "bat";
-                  rev = "82e7ca555f805b53d2b377390e4ab38c20282e83";
-                  sha256 = "sha256-/Ob9iCVyjJDBCXlss9KwFQTuxybmSSzYRBZxOT10PZg=";
-                };
-              in
+        };
+        bottom = {
+          enable = true;
+          settings = {
+            flags = { rate = "250ms"; };
+            row = [
               {
-                catppuccin-mocha = {
-                  src = catppuccin;
-                  file = "themes/Catppuccin Mocha.tmTheme";
-                };
-                catppuccin-macchiato = {
-                  src = catppuccin;
-                  file = "themes/Catppuccin Macchiato.tmTheme";
-                };
-                catppuccin-frappe = {
-                  src = catppuccin;
-                  file = "themes/Catppuccin Frappe.tmTheme";
-                };
-                catppuccin-latte = {
-                  src = catppuccin;
-                  file = "themes/Catppuccin Latte.tmTheme";
-                };
+                ratio = 40;
+                child = [{ type = "cpu"; } { type = "mem"; } { type = "net"; }];
+              }
+              {
+                ratio = 35;
+                child = [{ type = "temp"; } { type = "disk"; }];
+              }
+              {
+                ratio = 40;
+                child = [
+                  {
+                    type = "proc";
+                    default = true;
+                  }
+                ];
+              }
+            ];
+          };
+        };
+        fzf = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+        };
+        nix-index = {
+          enable = true;
+          enableZshIntegration = false;
+          enableBashIntegration = false;
+        };
+        bat = {
+          enable = true;
+          themes =
+            let
+              catppuccin = pkgs.fetchFromGitHub {
+                owner = "catppuccin";
+                repo = "bat";
+                rev = "82e7ca555f805b53d2b377390e4ab38c20282e83";
+                sha256 = "sha256-/Ob9iCVyjJDBCXlss9KwFQTuxybmSSzYRBZxOT10PZg=";
               };
-          };
-          ssh.enable = true;
-          gpg.enable = true;
+            in
+            {
+              catppuccin-mocha = {
+                src = catppuccin;
+                file = "themes/Catppuccin Mocha.tmTheme";
+              };
+              catppuccin-macchiato = {
+                src = catppuccin;
+                file = "themes/Catppuccin Macchiato.tmTheme";
+              };
+              catppuccin-frappe = {
+                src = catppuccin;
+                file = "themes/Catppuccin Frappe.tmTheme";
+              };
+              catppuccin-latte = {
+                src = catppuccin;
+                file = "themes/Catppuccin Latte.tmTheme";
+              };
+            };
         };
-        services = {
-          gpg-agent = {
-            enable = true;
-            enableBashIntegration = true;
-            enableZshIntegration = true;
-            enableNushellIntegration = true;
-            pinentryPackage = pkgs.pinentry-qt;
-          };
+        ssh.enable = true;
+        gpg.enable = true;
+      };
+      services = {
+        gpg-agent = {
+          enable = true;
+          enableBashIntegration = true;
+          enableZshIntegration = true;
+          enableNushellIntegration = true;
+          pinentryPackage = pkgs.pinentry-qt;
         };
-      }
+      };
+    }
     );
     shell = moduleWithSystem (
       _: { pkgs, ... }: {

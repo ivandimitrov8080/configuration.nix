@@ -22,3 +22,7 @@ generate format="install-iso" config="install-iso":
 
 vps:
   nixos-rebuild switch --flake ./#vps --target-host root@37.205.13.29
+
+lint:
+  deadnix .
+  statix check .
