@@ -170,12 +170,7 @@
             toggleterm.enable = true;
             ts-autotag.enable = true;
             web-devicons.enable = true;
-            diffview = {
-              enable = true;
-              package = pkgs.vimPlugins.diffview-nvim.overrideAttrs (final: prev: {
-                version = "2024-05-24";
-              });
-            };
+            diffview.enable = true;
             treesitter = {
               enable = true;
               settings = {
