@@ -6,7 +6,7 @@ let
   system = "x86_64-linux";
   mods = toplevel.config.flake.nixosModules;
   inherit (toplevel.config.flake) hardwareConfigurations;
-  essential = with mods; [ grub base shell security wireless intranet ];
+  essential = with mods; [ grub base shell security wireless ];
   desktop = with mods; [ sound wayland ];
   configWithModules =
     { hardware ? { nixpkgs.hostPlatform = system; }
