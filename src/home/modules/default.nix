@@ -292,7 +292,9 @@ toplevel @ { moduleWithSystem, ... }: {
             "F8" = "exec doas ${pkgs.light}/bin/light -U 10";
             "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
             "${modifier}+p" = "exec ${menu}";
-            "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot";
+            "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
+            "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
+            "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
             "${modifier}+c" = "exec ${pkgs.sal}/bin/sal";
             "End" = "exec rofi -show calc";
             "${modifier}+Shift+r" = "reload";

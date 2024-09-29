@@ -281,23 +281,17 @@
         };
         screenshot = pkgs.writeShellApplication {
           name = "screenshot";
-          runtimeInputs = with pkgs; [ wl-clipboard xdg-utils ];
+          runtimeInputs = with pkgs; [ sway-contrib.grimshot ];
           text = ''
             ss_dir="$(xdg-user-dir PICTURES)/ss"
             pic_dir="$ss_dir/$(date "+%Y-%m-%d_%H-%M-%S").png"
 
             mkdir -p "$ss_dir"
 
-            copy_image () {
-              wl-copy < "$pic_dir"
-            }
+            [[ "$1" == area ]] && grimshot savecopy area "$pic_dir"
+            [[ "$1" == screen ]] && grimshot savecopy screen "$pic_dir"
+            [[ "$1" == window ]] && grimshot savecopy active "$pic_dir"
 
-            main () {
-              grim "$pic_dir"
-              copy_image
-            }
-
-            main
           '';
         };
         cursors = pkgs.catppuccin-cursors.overrideAttrs (prev: rec {
