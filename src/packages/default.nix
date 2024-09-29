@@ -258,27 +258,6 @@
           };
           extraPlugins = with pkgs.vimPlugins; [ vim-just ];
         };
-        wpd = pkgs.writeShellApplication {
-          name = "wpd";
-          runtimeInputs = with pkgs; [ swaybg xdg-user-dirs fd uutils-coreutils-noprefix ];
-          runtimeEnv = { WAYLAND_DISPLAY = "wayland-1"; };
-          text = ''
-            random_pic () {
-              bg_dir="$(xdg-user-dir PICTURES)/bg"
-              fd . --extension png "$bg_dir" | shuf -n1
-            }
-            swaybg -i "$(random_pic)" -m fill &
-            OLD_PID=$!
-            while true; do
-                sleep 60
-                swaybg -i "$(random_pic)" -m fill &
-                NEXT_PID=$!
-                sleep 5
-                kill -9 $OLD_PID
-                OLD_PID=$NEXT_PID
-            done
-          '';
-        };
         screenshot = pkgs.writeShellApplication {
           name = "screenshot";
           runtimeInputs = with pkgs; [ sway-contrib.grimshot ];

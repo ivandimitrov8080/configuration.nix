@@ -478,6 +478,15 @@ toplevel @ { moduleWithSystem, ... }: {
             }
           '';
         };
+        wpaperd = {
+          enable = true;
+          settings = {
+            default = {
+              path = "${config.xdg.userDirs.pictures}/bg";
+              duration = "10m";
+            };
+          };
+        };
         swaylock = {
           enable = true;
           settings = {
@@ -532,25 +541,16 @@ toplevel @ { moduleWithSystem, ... }: {
         };
       };
       systemd.user = {
-        timers = {
-          rbingwp = {
-            Timer = {
-              OnCalendar = "*-*-* 10:00:00";
-              Persistent = true;
-            };
-            Install = { WantedBy = [ "timers.target" ]; };
-          };
-        };
         services = {
-          wpd = {
-            Install = { WantedBy = [ "sway-session.target" ]; };
+          wpaperd = {
+            Install = { WantedBy = [ "graphical-session.target" ]; };
             Unit = {
-              Description = "Switch background every x minutes";
+              Description = "Modern wallpaper daemon for Wayland";
               After = "graphical-session-pre.target";
               PartOf = "graphical-session.target";
             };
             Service = {
-              ExecStart = [ "${pkgs.wpd}/bin/wpd" ];
+              ExecStart = [ "${pkgs.wpaperd}/bin/wpaperd" ];
             };
           };
         };
