@@ -20,19 +20,12 @@
             shiftwidth = 2;
             expandtab = true;
           };
-          colorschemes.catppuccin = {
+          colorschemes.rose-pine = {
             enable = true;
             settings = {
-              flavour = "mocha";
-              transparent_background = true;
-              integrations = {
-                cmp = true;
-                gitsigns = true;
-                treesitter = true;
-                telescope = {
-                  enabled = true;
-                };
-                markdown = true;
+              variant = "main";
+              styles = {
+                transparency = true;
               };
             };
           };

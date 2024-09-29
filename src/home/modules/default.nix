@@ -230,9 +230,10 @@ toplevel @ { moduleWithSystem, ... }: {
               keyMode = "vi";
               shell = "\${SHELL}";
               terminal = "screen-256color";
-              plugins = with pkgs.tmuxPlugins; [ tilish catppuccin ];
+              plugins = with pkgs.tmuxPlugins; [ tilish rose-pine ];
               extraConfig = ''
                 set-option -a terminal-features 'screen-256color:RGB'
+                set -g @rose_pine_variant 'main'
               '';
             };
             starship = {
