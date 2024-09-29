@@ -288,8 +288,8 @@ toplevel @ { moduleWithSystem, ... }: {
             "Shift+F2" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%";
             "F3" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
             "Shift+F3" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
-            "F9" = "exec doas ${pkgs.light}/bin/light -A 10";
-            "F8" = "exec doas ${pkgs.light}/bin/light -U 10";
+            "F9" = "exec doas ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
+            "F8" = "exec doas ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
             "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
             "${modifier}+p" = "exec ${menu}";
             "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
