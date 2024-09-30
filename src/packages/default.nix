@@ -69,6 +69,12 @@
             }
             {
               mode = "n";
+              key = "<C-s>";
+              action = "<cmd>t.<cr>";
+              options = { silent = true; desc = "Duplicate line"; };
+            }
+            {
+              mode = "n";
               key = "<leader>x";
               action = "<cmd>BufferClose<cr>";
               options = { silent = true; desc = "Close current buffer"; };
