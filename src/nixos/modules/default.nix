@@ -72,9 +72,9 @@ top @ { inputs, moduleWithSystem, ... }: {
             ga = "git add .";
             gc = "git commit";
             dev = "nix develop --command $SHELL";
-            eza = "${pkgs.eza}/bin/eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--octal-permissions' '--git'";
+            eza = "${pkgs.eza}/bin/eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
             ls = "eza";
-            la = "eza --all";
+            la = "eza --all -a";
             lt = "eza --git-ignore --all --tree --level=10";
             sc = "systemctl";
             neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";

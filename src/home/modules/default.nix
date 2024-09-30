@@ -183,7 +183,7 @@ toplevel @ { moduleWithSystem, ... }: {
               gc = "git commit";
               dev = "nix develop --command $SHELL";
               ls = "eza";
-              la = "eza --all";
+              la = "eza --all -a";
               lt = "eza --git-ignore --all --tree --level=10";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
@@ -251,6 +251,7 @@ toplevel @ { moduleWithSystem, ... }: {
                 "--icons"
                 "--smart-group"
                 "--mounts"
+                "--group-directories-first"
                 "--octal-permissions"
                 "--git"
               ];
