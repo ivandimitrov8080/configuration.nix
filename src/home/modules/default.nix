@@ -522,6 +522,7 @@ toplevel @ { moduleWithSystem, ... }: {
             background_opacity = "0.90";
             cursor_shape = "beam";
           };
+          themeFile = "Catppuccin-Mocha";
         };
         imv = {
           enable = true;
