@@ -109,12 +109,13 @@ top @ { inputs, moduleWithSystem, ... }: {
         };
       };
     });
-    wayland = moduleWithSystem (_: _: {
+    wayland = moduleWithSystem (_: { pkgs, ... }: {
       hardware.graphics.enable = true;
       security.pam.services.swaylock = { };
       xdg.portal = {
         enable = true;
-        xdgOpenUsePortal = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+        config.sway.default = "wlr";
         wlr = {
           enable = true;
           settings = {

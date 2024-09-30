@@ -260,7 +260,7 @@ toplevel @ { moduleWithSystem, ... }: {
     );
     swayland = moduleWithSystem (_: { pkgs, config, ... }: {
       home = {
-        packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils xwayland telegram-desktop ];
+        packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils telegram-desktop ];
         pointerCursor = with pkgs; {
           name = "catppuccin-mocha-green-cursors";
           package = catppuccin-cursors.mochaGreen;
@@ -271,6 +271,7 @@ toplevel @ { moduleWithSystem, ... }: {
       wayland.windowManager.sway = {
         enable = true;
         systemd.enable = true;
+        wrapperFeatures.gtk = true;
         config = rec {
           menu = "rofi -show run";
           terminal = "kitty";
