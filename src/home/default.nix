@@ -264,7 +264,7 @@ toplevel @ { moduleWithSystem, ... }: {
       home = {
         packages = with pkgs; [ audacity gimp grim libnotify libreoffice-qt mupdf slurp transmission_4 wl-clipboard xdg-user-dirs xdg-utils telegram-desktop ];
         pointerCursor = {
-          name = "phinger-cursors-dark";
+          name = "phinger-cursors-light";
           package = pkgs.phinger-cursors;
         };
       };
