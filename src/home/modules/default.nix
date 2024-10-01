@@ -156,6 +156,7 @@ toplevel @ { moduleWithSystem, ... }: {
               };
             };
         };
+        fd.enable = true;
         ssh.enable = true;
         gpg.enable = true;
       };
