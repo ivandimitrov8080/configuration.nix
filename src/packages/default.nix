@@ -279,16 +279,6 @@
 
           '';
         };
-        cursors = pkgs.catppuccin-cursors.overrideAttrs (prev: rec {
-          version = "0.3.1";
-          nativeBuildInputs = prev.nativeBuildInputs ++ [ pkgs.xcur2png ];
-          src = pkgs.fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "cursors";
-            rev = "v${version}";
-            hash = "sha256-CuzD6O/RImFKLWzJoiUv7nlIdoXNvwwl+k5mTeVIY10=";
-          };
-        });
         webshite = inputs.webshite.packages.${system}.default;
         sal = inputs.sal.packages."x86_64-linux".default;
       };
