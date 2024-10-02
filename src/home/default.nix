@@ -300,7 +300,7 @@ toplevel @ { moduleWithSystem, ... }: {
             "End" = "exec rofi -show calc";
             "${modifier}+Shift+r" = "reload";
             "${modifier}+Shift+c" = "kill";
-            "${modifier}+Shift+q" = "exit";
+            "${modifier}+Shift+q" = "exec ${pkgs.procps}/bin/pkill -9 -u ${config.home.username}";
           };
           input = {
             "*" = {
