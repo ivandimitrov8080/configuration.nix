@@ -510,6 +510,7 @@ toplevel @ { moduleWithSystem, ... }: {
           extraConfig = {
             modi = "window,drun,run,ssh,calc";
           };
+          theme = "${(pkgs.catppuccin.override {variant = "mocha";})}/rofi/catppuccin-mocha.rasi";
         };
         kitty = {
           enable = true;
