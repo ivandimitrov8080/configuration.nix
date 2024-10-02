@@ -273,7 +273,7 @@ toplevel @ { moduleWithSystem, ... }: {
         systemd.enable = true;
         wrapperFeatures.gtk = true;
         config = rec {
-          menu = "rofi -show run";
+          menu = "rofi -show drun";
           terminal = "kitty";
           modifier = "Mod4";
           startup = [
@@ -499,16 +499,12 @@ toplevel @ { moduleWithSystem, ... }: {
           enable = true;
           package = pkgs.rofi-wayland.override {
             plugins = with pkgs; [
-              (
-                rofi-calc.override
-                  {
-                    rofi-unwrapped = rofi-wayland-unwrapped;
-                  }
-              )
+              (rofi-calc.override { rofi-unwrapped = rofi-wayland-unwrapped; })
             ];
           };
           extraConfig = {
             modi = "window,drun,run,ssh,calc";
+            show-icons = true;
           };
           theme = "${pkgs.rofi-themes}/rounded-nord-dark.rasi";
         };
