@@ -533,7 +533,12 @@ toplevel @ { moduleWithSystem, ... }: {
         nushell.loginFile.text = ''if (tty) == "/dev/tty1" { sway } '';
       };
       services = {
-        mako.enable = true;
+        mako = {
+          enable = true;
+          anchor = "bottom-right";
+          backgroundColor = "#69696420";
+          borderRadius = 20;
+        };
         cliphist = {
           enable = true;
           systemdTarget = "sway-session.target";
