@@ -188,6 +188,7 @@ toplevel @ { moduleWithSystem, ... }: {
               lt = "eza --git-ignore --all --tree --level=10";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+              opacity = "kitten @ set-background-opacity";
             };
             sessionVariables = { };
           in
@@ -517,6 +518,8 @@ toplevel @ { moduleWithSystem, ... }: {
           settings = {
             background_opacity = "0.90";
             cursor_shape = "beam";
+            allow_remote_control = "yes";
+            dynamic_background_opacity = "yes";
           };
           themeFile = "Catppuccin-Mocha";
         };
