@@ -315,6 +315,7 @@ toplevel @ { moduleWithSystem, ... }: {
         };
         extraConfig = ''
           blur enable
+          corner_radius 15
         '';
         swaynag = { inherit (config.wayland.windowManager.sway) enable; };
       };
