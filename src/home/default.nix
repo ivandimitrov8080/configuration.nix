@@ -548,7 +548,7 @@ toplevel @ { moduleWithSystem, ... }: {
         mako = {
           enable = true;
           anchor = "bottom-right";
-          backgroundColor = "#69696420";
+          backgroundColor = "#1E1E2EDD";
           borderRadius = 20;
         };
         cliphist = {
