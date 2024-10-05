@@ -271,6 +271,8 @@ toplevel @ { moduleWithSystem, ... }: {
       };
       wayland.windowManager.sway = {
         enable = true;
+        package = pkgs.swayfx;
+        checkConfig = false;
         systemd.enable = true;
         wrapperFeatures.gtk = true;
         config = rec {
@@ -311,6 +313,9 @@ toplevel @ { moduleWithSystem, ... }: {
             };
           };
         };
+        extraConfig = ''
+          blur enable
+        '';
         swaynag = { inherit (config.wayland.windowManager.sway) enable; };
       };
       programs = {
@@ -517,6 +522,7 @@ toplevel @ { moduleWithSystem, ... }: {
           };
           settings = {
             background_opacity = "0.90";
+            background_blur = "1";
             cursor_shape = "beam";
             allow_remote_control = "yes";
             dynamic_background_opacity = "yes";
