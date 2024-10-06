@@ -210,6 +210,9 @@ toplevel @ { moduleWithSystem, ... }: {
               };
             };
         };
+        yazi = {
+          enable = true;
+        };
         fd.enable = true;
         ssh.enable = true;
         gpg.enable = true;
@@ -275,6 +278,10 @@ toplevel @ { moduleWithSystem, ... }: {
               };
             };
             kitty.shellIntegration = {
+              enableBashIntegration = true;
+              enableZshIntegration = true;
+            };
+            yazi = {
               enableBashIntegration = true;
               enableZshIntegration = true;
             };
