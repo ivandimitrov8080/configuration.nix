@@ -284,6 +284,10 @@ toplevel @ { moduleWithSystem, ... }: {
             { command = "swaymsg 'workspace 1; exec kitty'"; }
           ];
           bars = [ ];
+          gaps = {
+            horizontal = 1;
+            vertical = 1;
+          };
           window = {
             titlebar = false;
             commands = [
