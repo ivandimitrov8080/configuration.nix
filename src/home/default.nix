@@ -51,6 +51,60 @@ toplevel @ { moduleWithSystem, ... }: {
               };
             };
           };
+          neomutt = {
+            enable = true;
+            vimKeys = true;
+            binds = [
+              { map = "index"; key = "\\Cf"; action = "imap-fetch-mail"; }
+            ];
+            sidebar.enable = true;
+          };
+        };
+        accounts.email = {
+          maildirBasePath = "mail";
+          accounts = {
+            ivan = rec {
+              primary = true;
+              realName = "Ivan Kirilov Dimitrov";
+              address = "ivan@idimitrov.dev";
+              userName = address;
+              passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
+              msmtp = {
+                enable = true;
+                extraConfig = {
+                  auth = "login";
+                };
+              };
+              signature = {
+                text = ''
+                  Ivan Dimitrov
+                  Software Developer
+                  ivan@idimitrov.dev
+                '';
+              };
+              gpg = {
+                encryptByDefault = true;
+                signByDefault = true;
+              };
+              smtp = {
+                host = "mail.idimitrov.dev";
+              };
+              imap = {
+                host = "mail.idimitrov.dev";
+              };
+              imapnotify = {
+                enable = true;
+              };
+              neomutt = {
+                enable = true;
+                mailboxType = "imap";
+              };
+              notmuch = {
+                enable = true;
+                neomutt.enable = true;
+              };
+            };
+          };
         };
       }
     );
@@ -292,6 +346,7 @@ toplevel @ { moduleWithSystem, ... }: {
             titlebar = false;
             commands = [
               { command = "floating enable; move position center; resize set 30ppt 50ppt;"; criteria = { title = "^calendar$"; }; }
+              { command = "floating enable; move position center; resize set 70ppt 50ppt;"; criteria = { title = "^mutt$"; }; }
             ];
           };
           keybindings = pkgs.lib.mkOptionDefault {
@@ -309,6 +364,7 @@ toplevel @ { moduleWithSystem, ... }: {
             "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
             "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
             "${modifier}+c" = "exec kitty --title calendar -- ${pkgs.calcurse}/bin/calcurse";
+            "${modifier}+m" = "exec kitty --title mutt -- neomutt";
             "End" = "exec rofi -show calc";
             "${modifier}+Shift+r" = "reload";
             "${modifier}+Shift+c" = "kill";
