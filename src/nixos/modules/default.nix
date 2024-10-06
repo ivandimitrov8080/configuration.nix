@@ -584,6 +584,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             465 # smtps
             80 # http
             443 # https
+            993 # imaps
           ];
           allowedUDPPorts = [
             25
