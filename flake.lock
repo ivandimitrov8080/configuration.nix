@@ -556,28 +556,9 @@
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
         "parts": "parts",
-        "sal": "sal",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "vpsadminos": "vpsadminos",
         "webshite": "webshite"
-      }
-    },
-    "sal": {
-      "inputs": {
-        "configuration": []
-      },
-      "locked": {
-        "lastModified": 1727198924,
-        "narHash": "sha256-eBN2mK1RvYB5CyOxpDe0jbpIcFniGsXkoFhb5UYibHI=",
-        "owner": "ivandimitrov8080",
-        "repo": "sal",
-        "rev": "983a2e76382e51e1adef98d4f627239c9f0f7096",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ivandimitrov8080",
-        "repo": "sal",
-        "type": "github"
       }
     },
     "simple-nixos-mailserver": {

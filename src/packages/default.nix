@@ -294,7 +294,6 @@
           '';
         };
         webshite = inputs.webshite.packages.${system}.default;
-        sal = inputs.sal.packages."x86_64-linux".default;
       };
     };
 }
