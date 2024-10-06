@@ -1,3 +1,3 @@
 {
-  imports = [ ./nixos ./home ./packages ./overlays ./constants ];
+  imports = [ ./nixos ./home ./packages ./overlays ./constants ./templates ];
 }

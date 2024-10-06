@@ -25,12 +25,42 @@ top @ { inputs, moduleWithSystem, ... }: {
     base = moduleWithSystem (_: { pkgs, ... }: {
       imports = [ inputs.hosts.nixosModule ];
       system.stateVersion = top.config.flake.stateVersion;
-      nix = { extraOptions = ''experimental-features = nix-command flakes''; };
+      nix = {
+        extraOptions = ''experimental-features = nix-command flakes'';
+        registry = {
+          self.flake = inputs.self;
+          nixpkgs.flake = inputs.nixpkgs;
+        };
+      };
       i18n.supportedLocales = [ "all" ];
       time.timeZone = "Europe/Prague";
       environment = {
-        systemPackages = with pkgs; [ cmatrix uutils-coreutils-noprefix cryptsetup fd file git glibc gnumake mlocate openssh openssl procs ripgrep srm unzip vim zip just nixos-install-tools tshark ];
-        sessionVariables = { MAKEFLAGS = "-j 4"; };
+        systemPackages = with pkgs; [
+          cmatrix
+          uutils-coreutils-noprefix
+          cryptsetup
+          fd
+          file
+          git
+          glibc
+          gnumake
+          mlocate
+          openssh
+          openssl
+          procs
+          ripgrep
+          srm
+          unzip
+          vim
+          zip
+          just
+          nixos-install-tools
+          tshark
+          flake
+        ];
+        sessionVariables = {
+          MAKEFLAGS = "-j 4";
+        };
         shells = with pkgs; [ bash zsh nushell ];
         enableAllTerminfo = true;
       };
