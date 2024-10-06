@@ -159,25 +159,6 @@ toplevel @ { moduleWithSystem, ... }: {
         fd.enable = true;
         ssh.enable = true;
         gpg.enable = true;
-        khal = {
-          enable = true;
-          settings = {
-            default = {
-              default_calendar = "ivand";
-              timedelta = "5d";
-            };
-            view = {
-              agenda_event_format =
-                "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
-            };
-          };
-        };
-      };
-      accounts.calendar = {
-        basePath = ".local/share/calendars";
-        accounts.ivand = {
-          khal.enable = true;
-        };
       };
       services = {
         gpg-agent = {
@@ -306,7 +287,7 @@ toplevel @ { moduleWithSystem, ... }: {
           window = {
             titlebar = false;
             commands = [
-              { command = "floating enable; move position center; resize set 30ppt 50ppt;"; criteria = { title = "ikhal"; }; }
+              { command = "floating enable; move position center; resize set 30ppt 50ppt;"; criteria = { title = "^calendar$"; }; }
             ];
           };
           keybindings = pkgs.lib.mkOptionDefault {
@@ -323,7 +304,7 @@ toplevel @ { moduleWithSystem, ... }: {
             "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
             "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
             "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
-            "${modifier}+c" = "exec kitty --title ikhal -- ikhal";
+            "${modifier}+c" = "exec kitty --title calendar -- ${pkgs.calcurse}/bin/calcurse";
             "End" = "exec rofi -show calc";
             "${modifier}+Shift+r" = "reload";
             "${modifier}+Shift+c" = "kill";
