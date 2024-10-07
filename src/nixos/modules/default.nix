@@ -30,6 +30,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         registry = {
           self.flake = inputs.self;
           nixpkgs.flake = inputs.nixpkgs;
+          p.flake = inputs.nixpkgs;
         };
       };
       i18n.supportedLocales = [ "all" ];
