@@ -104,14 +104,6 @@ toplevel @ { moduleWithSystem, ... }: {
                 mailboxType = "imap";
                 extraMailboxes = [ "Sent" "Drafts" "Trash" "Archive" ];
               };
-              notmuch = {
-                enable = true;
-                neomutt = {
-                  enable = true;
-                  virtualMailboxes = [
-                  ];
-                };
-              };
             };
           };
         };
