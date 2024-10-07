@@ -55,10 +55,12 @@ toplevel @ { moduleWithSystem, ... }: {
             enable = true;
             vimKeys = true;
             binds = [
-              { map = "index"; key = "\\Cf"; action = "imap-fetch-mail"; }
+              { map = [ "index" ]; key = "\\Cf"; action = "imap-fetch-mail"; }
             ];
             sidebar.enable = true;
           };
+          msmtp.enable = true;
+          offlineimap.enable = true;
         };
         accounts.email = {
           maildirBasePath = "mail";
@@ -96,14 +98,12 @@ toplevel @ { moduleWithSystem, ... }: {
               imap = {
                 host = "mail.idimitrov.dev";
               };
-              imapnotify = {
-                enable = true;
-              };
               neomutt = {
                 enable = true;
                 mailboxType = "imap";
                 extraMailboxes = [ "Sent" "Drafts" "Trash" "Archive" ];
               };
+              offlineimap.enable = true;
             };
           };
         };
