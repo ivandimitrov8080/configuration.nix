@@ -58,6 +58,9 @@ toplevel @ { moduleWithSystem, ... }: {
               { map = [ "index" ]; key = "\\Cf"; action = "imap-fetch-mail"; }
             ];
             sidebar.enable = true;
+            extraConfig = ''
+              source ${pkgs.mutt-themes}/mutt-colors-solarized-dark-16.muttrc
+            '';
           };
           msmtp.enable = true;
           offlineimap.enable = true;
