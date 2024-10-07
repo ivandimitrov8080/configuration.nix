@@ -82,6 +82,10 @@ toplevel @ { moduleWithSystem, ... }: {
                   ivan@idimitrov.dev
                 '';
               };
+              getmail = {
+                enable = true;
+                mailboxes = [ "ALL" ];
+              };
               gpg = {
                 encryptByDefault = true;
                 signByDefault = true;
@@ -98,10 +102,15 @@ toplevel @ { moduleWithSystem, ... }: {
               neomutt = {
                 enable = true;
                 mailboxType = "imap";
+                extraMailboxes = [ "Sent" "Drafts" "Trash" "Archive" ];
               };
               notmuch = {
                 enable = true;
-                neomutt.enable = true;
+                neomutt = {
+                  enable = true;
+                  virtualMailboxes = [
+                  ];
+                };
               };
             };
           };
