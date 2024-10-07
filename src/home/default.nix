@@ -754,6 +754,35 @@ toplevel @ { moduleWithSystem, ... }: {
                 MoreFromMozilla = false;
                 SkipOnboarding = true;
               };
+              EnableTrackingProtection = {
+                Value = true;
+                Locked = true;
+                Cryptomining = true;
+                Fingerprinting = true;
+              };
+              ExtensionSettings = {
+                "*".installation_mode = "blocked"; # blocks all addons except the ones specified below
+                # uBlock Origin:
+                "uBlock0@raymondhill.net" = {
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                  installation_mode = "force_installed";
+                };
+                # Privacy Badger:
+                "jid1-MnnxcxisBPnSXQ@jetpack" = {
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
+                  installation_mode = "force_installed";
+                };
+                # 1Password:
+                "browserpass@maximbaz.com" = {
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/browserpass-ce/latest.xpi";
+                  installation_mode = "force_installed";
+                };
+                # Vimium
+                "{d7742d87-e61d-4b78-b8a1-b469842139fa}" = {
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi";
+                  installation_mode = "force_installed";
+                };
+              };
 
               Handlers = {
                 schemes = {
