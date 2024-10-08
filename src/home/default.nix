@@ -772,7 +772,7 @@ toplevel @ { moduleWithSystem, ... }: {
                   install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi";
                   installation_mode = "force_installed";
                 };
-                # 1Password:
+                # Browserpass:
                 "browserpass@maximbaz.com" = {
                   install_url = "https://addons.mozilla.org/firefox/downloads/latest/browserpass-ce/latest.xpi";
                   installation_mode = "force_installed";
