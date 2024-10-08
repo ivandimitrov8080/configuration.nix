@@ -1,4 +1,4 @@
-top @ { inputs, ... }: {
+toplevel@{ inputs, ... }: {
   imports = [ ./src ];
   systems = [ "x86_64-linux" ];
   flake.stateVersion = "24.05";
@@ -7,7 +7,7 @@ top @ { inputs, ... }: {
       pkgs = import inputs.nixpkgs {
         inherit system;
         overlays = [
-          top.config.flake.overlays.default
+          toplevel.config.flake.overlays.default
           inputs.neovim-nightly-overlay.overlays.default
         ];
       };
