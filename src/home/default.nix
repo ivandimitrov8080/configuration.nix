@@ -600,7 +600,7 @@ toplevel @ { moduleWithSystem, ... }: {
             name = "FiraCodeNFM-Reg";
           };
           settings = {
-            background_opacity = "0.90";
+            background_opacity = "0.80";
             background_blur = "1";
             cursor_shape = "beam";
             allow_remote_control = "yes";
