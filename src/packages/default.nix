@@ -180,7 +180,10 @@
             treesitter = {
               enable = true;
               settings = {
-                highlight.enable = true;
+                highlight = {
+                  enable = true;
+                  disable = [ "text" ];
+                };
                 incremental_selection = {
                   enable = true;
                   keymaps = {
