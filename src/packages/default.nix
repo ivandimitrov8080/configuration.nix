@@ -11,13 +11,14 @@
             maplocalleader = " ";
           };
           opts = {
-            number = true;
-            scrolloff = 15;
-            hlsearch = false;
-            updatetime = 20;
-            autoread = true;
             tabstop = 4;
             shiftwidth = 2;
+            textwidth = 120;
+            scrolloff = 15;
+            updatetime = 20;
+            number = true;
+            hlsearch = false;
+            autoread = true;
             expandtab = true;
           };
           colorschemes.catppuccin = {
