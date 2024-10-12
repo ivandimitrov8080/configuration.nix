@@ -23,7 +23,7 @@ toplevel @ { moduleWithSystem, ... }: {
       }
     );
     ivand = moduleWithSystem (
-      _: { pkgs, ... }: {
+      _: { pkgs, config, ... }: {
         home = {
           username = "ivand";
           homeDirectory = "/home/ivand";
@@ -60,6 +60,7 @@ toplevel @ { moduleWithSystem, ... }: {
             sidebar.enable = true;
             extraConfig = ''
               source ${pkgs.mutt-themes}/mutt-colors-solarized-dark-16.muttrc
+              set attach_save_dir = ${config.xdg.userDirs.download}
             '';
           };
           msmtp.enable = true;
