@@ -72,12 +72,18 @@ toplevel @ { moduleWithSystem, ... }: {
                 pipeLynx = "<pipe-message> ${pkgs.w3m}/bin/w3m -T text/html<enter>";
                 setWait = "<enter-command> set wait_key<enter>";
                 exit = "<exit>";
+                archive = "s +Archive<enter>y$";
               in
               [
                 {
                   map = [ "index" "pager" ];
                   key = "<Return>";
                   action = "${unsetWait}${findHtml}${pipeLynx}${setWait}${exit}";
+                }
+                {
+                  map = [ "index" "pager" ];
+                  key = "A";
+                  action = "${archive}";
                 }
               ];
             sidebar.enable = true;
