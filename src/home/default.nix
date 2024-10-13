@@ -34,6 +34,10 @@ toplevel @ { moduleWithSystem, ... }: {
               inline_img_protocol 4
               imgdisplay kitty
               confirm_qq 0
+              extbrowser ${pkgs.firefox}/bin/firefox
+            '';
+            ".w3m/keymap".text = ''
+              keymap M EXTERN_LINK
             '';
           };
         };
