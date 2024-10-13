@@ -65,6 +65,7 @@ toplevel @ { moduleWithSystem, ... }: {
           neomutt = {
             enable = true;
             vimKeys = true;
+            sidebar.enable = true;
             binds = [
               {
                 map = [ "index" "pager" ];
@@ -103,10 +104,29 @@ toplevel @ { moduleWithSystem, ... }: {
                   action = "${archive}";
                 }
               ];
-            sidebar.enable = true;
+            settings = {
+              attach_save_dir = "${config.xdg.userDirs.download}";
+              index_format = ''"%4C | %Z | %{%b %d} | (%<l?%4l&%4c>) | %-15.15L | %s"'';
+            };
             extraConfig = ''
               source ${pkgs.neomutt}/share/neomutt/colorschemes/vombatidae.neomuttrc
-              set attach_save_dir = ${config.xdg.userDirs.download}
+              # Default index colors:
+              color index color231 default ".*"
+              color index_author color160 default ".*"
+              color index_number blue default ".*"
+              color index_subject color226 default ".*"
+              # New mail is boldened:
+              color index color231 black "~N"
+              color index_author color160 black "~N"
+              color index_subject color226 black "~N"
+              # Tagged mail is highlighted:
+              color index color231 blue "~T"
+              color index_author color160 blue "~T"
+              color index_subject color226 blue "~T"
+              # Flagged mail is highlighted:
+              color index brightgreen default "~F"
+              color index_subject brightgreen default "~F"
+              color index_author brightgreen default "~F"
             '';
           };
           msmtp.enable = true;
