@@ -54,12 +54,24 @@ toplevel @ { moduleWithSystem, ... }: {
           neomutt = {
             enable = true;
             vimKeys = true;
-            binds = [
-              { map = [ "index" ]; key = "\\Cf"; action = "imap-fetch-mail"; }
-            ];
+            macros =
+              let
+                unsetWait = "<enter-command> unset wait_key<enter>";
+                findHtml = "<view-attachments><search>html<enter>";
+                pipeLynx = "<pipe-message> ${pkgs.lynx}/bin/lynx -stdin<enter>";
+                setWait = "<enter-command> set wait_key<enter>";
+                exit = "<exit>";
+              in
+              [
+                {
+                  map = [ "index" "pager" ];
+                  key = "<Return>";
+                  action = "${unsetWait}${findHtml}${pipeLynx}${setWait}${exit}";
+                }
+              ];
             sidebar.enable = true;
             extraConfig = ''
-              source ${pkgs.mutt-themes}/mutt-colors-solarized-dark-16.muttrc
+              source ${pkgs.neomutt}/share/neomutt/colorschemes/vombatidae.neomuttrc
               set attach_save_dir = ${config.xdg.userDirs.download}
             '';
           };
