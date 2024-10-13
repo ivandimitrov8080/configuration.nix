@@ -65,6 +65,23 @@ toplevel @ { moduleWithSystem, ... }: {
           neomutt = {
             enable = true;
             vimKeys = true;
+            binds = [
+              {
+                map = [ "index" "pager" ];
+                key = "\\Cj";
+                action = "sidebar-next";
+              }
+              {
+                map = [ "index" "pager" ];
+                key = "\\Ck";
+                action = "sidebar-prev";
+              }
+              {
+                map = [ "index" "pager" ];
+                key = "\\Co";
+                action = "sidebar-open";
+              }
+            ];
             macros =
               let
                 unsetWait = "<enter-command> unset wait_key<enter>";
