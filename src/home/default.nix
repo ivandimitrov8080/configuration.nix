@@ -106,23 +106,28 @@ toplevel @ { moduleWithSystem, ... }: {
               ];
             settings = {
               attach_save_dir = "${config.xdg.userDirs.download}";
-              index_format = ''"%4C | %Z | %{%b %d} | (%<l?%4l&%4c>) | %-15.15L | %s"'';
+              index_format = ''"%4C | %Z | %{%b %d} | %<l?%4l&%4c> | %-15.15L | %s"'';
             };
-            extraConfig = ''
+            extraConfig = /*neomuttrc*/ ''
               source ${pkgs.neomutt}/share/neomutt/colorschemes/vombatidae.neomuttrc
+              color normal default default
+              color index default default
               # Default index colors:
               color index color231 default ".*"
-              color index_author color160 default ".*"
+              color index_author color118 default ".*"
+              color index_subject color124 default ".*"
+              color index_size color33 default ".*"
+              color index_date color208 default ".*"
+              color index_flags color43 default ".*"
               color index_number blue default ".*"
-              color index_subject color226 default ".*"
               # New mail is boldened:
               color index color231 black "~N"
-              color index_author color160 black "~N"
-              color index_subject color226 black "~N"
+              color index_author color118 black "~N"
+              color index_subject color124 black "~N"
               # Tagged mail is highlighted:
               color index color231 blue "~T"
-              color index_author color160 blue "~T"
-              color index_subject color226 blue "~T"
+              color index_author color118 blue "~T"
+              color index_subject color124 blue "~T"
               # Flagged mail is highlighted:
               color index brightgreen default "~F"
               color index_subject brightgreen default "~F"
@@ -492,7 +497,7 @@ toplevel @ { moduleWithSystem, ... }: {
             enable = true;
             target = "sway-session.target";
           };
-          style = ''
+          style = /*css*/ ''
             @define-color rosewater #f5e0dc;
             @define-color flamingo #f2cdcd;
             @define-color pink #f5c2e7;
