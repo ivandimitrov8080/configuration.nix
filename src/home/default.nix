@@ -106,7 +106,7 @@ toplevel @ { moduleWithSystem, ... }: {
               ];
             settings = {
               attach_save_dir = "${config.xdg.userDirs.download}";
-              index_format = ''"%4C | %Z | %{%b %d} | %<l?%4l&%4c> | %-15.15L | %s"'';
+              index_format = ''"%4C | %Z | %{%b %d} | %4c | %20.20L | %s"'';
             };
             extraConfig = /*neomuttrc*/ ''
               source ${pkgs.neomutt}/share/neomutt/colorschemes/vombatidae.neomuttrc
