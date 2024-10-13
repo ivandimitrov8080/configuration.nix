@@ -29,6 +29,13 @@ toplevel @ { moduleWithSystem, ... }: {
           homeDirectory = "/home/ivand";
           sessionVariables = { EDITOR = "nvim"; };
           packages = with pkgs; [ nvim ];
+          file = {
+            ".w3m/config".text = ''
+              inline_img_protocol 4
+              imgdisplay kitty
+              confirm_qq 0
+            '';
+          };
         };
         programs = {
           git = with pkgs.lib; {
@@ -58,7 +65,7 @@ toplevel @ { moduleWithSystem, ... }: {
               let
                 unsetWait = "<enter-command> unset wait_key<enter>";
                 findHtml = "<view-attachments><search>html<enter>";
-                pipeLynx = "<pipe-message> ${pkgs.lynx}/bin/lynx -stdin<enter>";
+                pipeLynx = "<pipe-message> ${pkgs.w3m}/bin/w3m -T text/html<enter>";
                 setWait = "<enter-command> set wait_key<enter>";
                 exit = "<exit>";
               in
