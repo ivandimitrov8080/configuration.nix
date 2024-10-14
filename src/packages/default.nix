@@ -319,6 +319,7 @@
           '';
         };
         webshite = inputs.webshite.packages.${system}.default;
+        webshiteApi = inputs.webshite.packages.${system}.api;
       };
     };
 }

@@ -427,13 +427,37 @@ top @ { inputs, moduleWithSystem, ... }: {
       };
     });
     nginx = moduleWithSystem (_: { pkgs, ... }: {
+      systemd.services.webshiteApi = {
+        enable = true;
+        serviceConfig = {
+          ExecStart = "${pkgs.webshiteApi}/bin/api";
+          Restart = "always";
+        };
+        wantedBy = [ "multi-user.target" ];
+      };
       services = {
         nginx =
           let
-            webshiteConfig = ''
-              add_header 'Referrer-Policy' 'origin-when-cross-origin';
-              add_header X-Content-Type-Options nosniff;
-            '';
+            webshiteConfig = {
+              enableACME = true;
+              forceSSL = true;
+              locations = {
+                "/" = {
+                  root = "${pkgs.webshite}";
+                  extraConfig = serveStatic extensions;
+                };
+                "/api" = {
+                  proxyPass = "http://127.0.0.1:8000";
+                  extraConfig = ''
+                    limit_req zone=one;
+                  '';
+                };
+              };
+              extraConfig = ''
+                add_header 'Referrer-Policy' 'origin-when-cross-origin';
+                add_header X-Content-Type-Options nosniff;
+              '';
+            };
             extensions = [ "html" "txt" "png" "jpg" "jpeg" ];
             serveStatic = exts: ''
               try_files ${pkgs.lib.strings.concatStringsSep " " (builtins.map (x: "$uri.${x}") exts)} $uri $uri/ =404;
@@ -447,24 +471,8 @@ top @ { inputs, moduleWithSystem, ... }: {
             recommendedTlsSettings = true;
             sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
             virtualHosts = {
-              "idimitrov.dev" = {
-                enableACME = true;
-                forceSSL = true;
-                locations."/" = {
-                  root = "${pkgs.webshite}";
-                  extraConfig = serveStatic extensions;
-                };
-                extraConfig = webshiteConfig;
-              };
-              "www.idimitrov.dev" = {
-                enableACME = true;
-                forceSSL = true;
-                locations."/" = {
-                  root = "${pkgs.webshite}";
-                  extraConfig = serveStatic extensions;
-                };
-                extraConfig = webshiteConfig;
-              };
+              "idimitrov.dev" = webshiteConfig;
+              "www.idimitrov.dev" = webshiteConfig;
               "src.idimitrov.dev" = {
                 enableACME = true;
                 forceSSL = true;
@@ -484,6 +492,9 @@ top @ { inputs, moduleWithSystem, ... }: {
                 };
               };
             };
+            appendHttpConfig = ''
+              limit_req_zone $binary_remote_addr zone=one:50m rate=1r/m;
+            '';
           };
         gitea = {
           enable = true;
