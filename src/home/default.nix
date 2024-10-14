@@ -134,51 +134,75 @@ toplevel @ { moduleWithSystem, ... }: {
               color index_author brightgreen default "~F"
             '';
           };
+          khal = {
+            enable = true;
+            settings = {
+              default = {
+                default_calendar = "ivand";
+                timedelta = "5d";
+              };
+              view = {
+                agenda_event_format = "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
+              };
+            };
+          };
           msmtp.enable = true;
           offlineimap.enable = true;
         };
-        accounts.email = {
-          maildirBasePath = "mail";
-          accounts = {
-            ivan = rec {
+        accounts = {
+          calendar = {
+            basePath = ".local/share/calendars";
+            accounts.ivand = {
               primary = true;
-              realName = "Ivan Kirilov Dimitrov";
-              address = "ivan@idimitrov.dev";
-              userName = address;
-              passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
-              msmtp = {
+              khal = {
                 enable = true;
-                extraConfig = {
-                  auth = "login";
+                color = "light green";
+              };
+            };
+          };
+          email = {
+            maildirBasePath = "mail";
+            accounts = {
+              ivan = rec {
+                primary = true;
+                realName = "Ivan Kirilov Dimitrov";
+                address = "ivan@idimitrov.dev";
+                userName = address;
+                passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
+                msmtp = {
+                  enable = true;
+                  extraConfig = {
+                    auth = "login";
+                  };
                 };
+                signature = {
+                  text = ''
+                    Ivan Dimitrov
+                    Software Developer
+                    ivan@idimitrov.dev
+                  '';
+                };
+                getmail = {
+                  enable = true;
+                  mailboxes = [ "ALL" ];
+                };
+                gpg = {
+                  encryptByDefault = true;
+                  signByDefault = true;
+                };
+                smtp = {
+                  host = "mail.idimitrov.dev";
+                };
+                imap = {
+                  host = "mail.idimitrov.dev";
+                };
+                neomutt = {
+                  enable = true;
+                  mailboxType = "imap";
+                  extraMailboxes = [ "Sent" "Drafts" "Trash" "Archive" ];
+                };
+                offlineimap.enable = true;
               };
-              signature = {
-                text = ''
-                  Ivan Dimitrov
-                  Software Developer
-                  ivan@idimitrov.dev
-                '';
-              };
-              getmail = {
-                enable = true;
-                mailboxes = [ "ALL" ];
-              };
-              gpg = {
-                encryptByDefault = true;
-                signByDefault = true;
-              };
-              smtp = {
-                host = "mail.idimitrov.dev";
-              };
-              imap = {
-                host = "mail.idimitrov.dev";
-              };
-              neomutt = {
-                enable = true;
-                mailboxType = "imap";
-                extraMailboxes = [ "Sent" "Drafts" "Trash" "Archive" ];
-              };
-              offlineimap.enable = true;
             };
           };
         };
@@ -446,7 +470,7 @@ toplevel @ { moduleWithSystem, ... }: {
             "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
             "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
             "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
-            "${modifier}+c" = "exec kitty --title calendar -- ${pkgs.calcurse}/bin/calcurse";
+            "${modifier}+c" = "exec kitty --title calendar -- ikhal";
             "${modifier}+m" = "exec kitty --title mutt -- neomutt";
             "End" = "exec rofi -show calc";
             "${modifier}+Shift+r" = "reload";
