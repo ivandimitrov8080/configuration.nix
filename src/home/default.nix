@@ -723,10 +723,6 @@ toplevel @ { moduleWithSystem, ... }: {
           backgroundColor = "#1E1E2EDD";
           borderRadius = 20;
         };
-        cliphist = {
-          enable = true;
-          systemdTarget = "sway-session.target";
-        };
       };
       systemd.user = {
         services = {
