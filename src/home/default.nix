@@ -451,6 +451,7 @@ toplevel @ { moduleWithSystem, ... }: {
           };
           window = {
             titlebar = false;
+            border = 0;
             commands = [
               { command = "floating enable; move position center; resize set 30ppt 50ppt;"; criteria = { title = "^calendar$"; }; }
               { command = "floating enable; move position center; resize set 70ppt 50ppt;"; criteria = { title = "^mutt$"; }; }
