@@ -42,7 +42,6 @@ top @ { inputs, moduleWithSystem, ... }: {
           cryptsetup
           fd
           file
-          git
           glibc
           gnumake
           mlocate
@@ -67,6 +66,12 @@ top @ { inputs, moduleWithSystem, ... }: {
       };
       users.defaultUserShell = pkgs.zsh;
       programs = {
+        git = {
+          enable = true;
+          config = {
+            safe.directory = "*";
+          };
+        };
         zsh.enable = true;
         nix-ld.enable = true;
       };
@@ -251,6 +256,9 @@ top @ { inputs, moduleWithSystem, ... }: {
             };
             "Kaiser Terrasse" = {
               psk = "Internet12";
+            };
+            "bumshakalaka" = {
+              psk = "locomotive420";
             };
             "ATHENS-HAWKS" = { };
             "3G" = {
