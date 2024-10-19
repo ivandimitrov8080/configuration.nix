@@ -446,8 +446,8 @@ toplevel @ { moduleWithSystem, ... }: {
           ];
           bars = [ ];
           gaps = {
-            horizontal = 1;
-            vertical = 1;
+            horizontal = 2;
+            vertical = 2;
           };
           window = {
             titlebar = false;
