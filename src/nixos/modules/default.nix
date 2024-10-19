@@ -141,7 +141,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         soundcardPciId = "00:1f.3";
         kernel = {
           realtime = true;
-          packages = pkgs.linuxPackages-rt;
+          packages = pkgs.linuxPackages-rt_latest;
         };
       };
     });
