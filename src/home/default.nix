@@ -505,7 +505,7 @@ toplevel @ { moduleWithSystem, ... }: {
               output = [ "eDP-1" "HDMI-A-1" "*" ];
               modules-left = [ "sway/workspaces" "sway/mode" ];
               modules-center = [ "clock#week" "clock#year" "clock#time" ];
-              modules-right = [ "network" "pulseaudio" "battery" ];
+              modules-right = [ "custom/weather" "network" "pulseaudio" "battery" ];
               "clock#time" = { format = "{:%H:%M:%S}"; interval = 1; tooltip = false; };
               "clock#week" = { format = "{:%a}"; tooltip = false; };
               "clock#year" = { format = "{:%Y-%m-%d}"; tooltip = false; };
@@ -525,12 +525,19 @@ toplevel @ { moduleWithSystem, ... }: {
                 tooltip = false;
               };
               network = {
-                format-ethernet = "<span color='#89dceb'>󰈁</span>";
-                format-wifi = "<span color='#06b6d4'>{icon}</span>";
-                format-disconnected = "<span color='#eba0ac'>󰈂</span>";
+                format-ethernet = "<span color='#89dceb'>󰈁</span> Cable";
+                format-wifi = "<span color='#06b6d4'>{icon}</span> WiFi";
+                format-disconnected = "<span color='#eba0ac'>󰈂</span> Disconnected";
                 format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
                 interval = 5;
                 tooltip = false;
+              };
+              "custom/weather" = {
+                format = "{}°";
+                tooltip = true;
+                interval = 3600;
+                exec = "${pkgs.wttrbar}/bin/wttrbar";
+                return-type = "json";
               };
               "sway/workspaces" = {
                 disable-scroll = true;
@@ -616,7 +623,8 @@ toplevel @ { moduleWithSystem, ... }: {
             #idle_inhibitor,
             #scratchpad,
             #power-profiles-daemon,
-            #mpd {
+            #mpd,
+            #custom-weather {
                 padding: 0 1em;
                 color: @text;
                 background-color: @base;
