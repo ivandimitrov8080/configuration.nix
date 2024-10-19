@@ -505,17 +505,37 @@ toplevel @ { moduleWithSystem, ... }: {
               output = [ "eDP-1" "HDMI-A-1" "*" ];
               modules-left = [ "sway/workspaces" "sway/mode" ];
               modules-center = [ "clock#week" "clock#year" "clock#time" ];
-              modules-right = [ "network" "pulseaudio" "memory" "cpu" "battery" "keyboard-state" ];
+              modules-right = [ "network" "pulseaudio" "battery" ];
               "clock#time" = { format = "{:%H:%M:%S}"; interval = 1; tooltip = false; };
               "clock#week" = { format = "{:%a}"; tooltip = false; };
               "clock#year" = { format = "{:%Y-%m-%d}"; tooltip = false; };
-              keyboard-state = { capslock = true; format = "{icon}"; format-icons = { locked = ""; unlocked = ""; }; };
-              battery = { format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>"; format-time = " {H} h {M} m"; format-icons = [ "" "" "" "" "" ]; states = { warning = 30; critical = 15; }; tooltip = false; };
-              cpu = { format = "<span color='#74c7ec'></span>  {usage}%"; };
-              memory = { format = "<span color='#89b4fa'></span>  {percentage}%"; interval = 5; };
-              pulseaudio = { format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}"; format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}"; format-source = "{volume}% <span color='#a6e3a1'></span>"; format-source-muted = "{volume}% <span color='#f38ba8'></span>"; format-icons = { headphone = ""; default = [ "" "" "" ]; }; tooltip = false; };
-              network = { format-ethernet = "<span color='#89dceb'>󰈁</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}"; format-wifi = "<span color='#06b6d4'>{icon}</span> | <span color='#fab387'></span> {bandwidthUpBytes}  <span color='#fab387'></span> {bandwidthDownBytes}"; format-disconnected = "<span color='#eba0ac'>󰈂 no connection</span>"; format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ]; interval = 5; tooltip = false; };
-              "sway/workspaces" = { disable-scroll = true; all-outputs = true; };
+              battery = {
+                format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
+                format-time = " {H} h {M} m";
+                format-icons = [ "" "" "" "" "" ];
+                states = { warning = 30; critical = 15; };
+                tooltip = false;
+              };
+              pulseaudio = {
+                format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
+                format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
+                format-source = "{volume}% <span color='#a6e3a1'></span>";
+                format-source-muted = "{volume}% <span color='#f38ba8'></span>";
+                format-icons = { headphone = ""; default = [ "" "" "" ]; };
+                tooltip = false;
+              };
+              network = {
+                format-ethernet = "<span color='#89dceb'>󰈁</span>";
+                format-wifi = "<span color='#06b6d4'>{icon}</span>";
+                format-disconnected = "<span color='#eba0ac'>󰈂</span>";
+                format-icons = [ "󰤟" "󰤢" "󰤥" "󰤨" ];
+                interval = 5;
+                tooltip = false;
+              };
+              "sway/workspaces" = {
+                disable-scroll = true;
+                all-outputs = true;
+              };
             };
           };
           systemd = {
@@ -597,10 +617,9 @@ toplevel @ { moduleWithSystem, ... }: {
             #scratchpad,
             #power-profiles-daemon,
             #mpd {
-                padding: 0 10px;
+                padding: 0 1em;
                 color: @text;
                 background-color: @base;
-                margin: 0 .5em;
                 border-radius: 9999px;
             }
 
