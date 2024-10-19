@@ -144,6 +144,9 @@ top @ { inputs, moduleWithSystem, ... }: {
           packages = pkgs.linuxPackages-rt_latest;
         };
       };
+      security.pam.loginLimits = [
+        { domain = "@users"; item = "memlock"; type = "-"; value = "1048576"; }
+      ];
     });
     wayland = moduleWithSystem (_: { pkgs, ... }: {
       hardware.graphics.enable = true;
