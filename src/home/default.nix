@@ -536,7 +536,7 @@ toplevel @ { moduleWithSystem, ... }: {
                 format = "{}°";
                 tooltip = true;
                 interval = 3600;
-                exec = "${pkgs.wttrbar}/bin/wttrbar";
+                exec = "${pkgs.wttrbar}/bin/wttrbar --location Prague";
                 return-type = "json";
               };
               "sway/workspaces" = {
