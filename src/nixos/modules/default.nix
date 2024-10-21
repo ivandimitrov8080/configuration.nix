@@ -321,6 +321,7 @@ top @ { inputs, moduleWithSystem, ... }: {
           };
         };
         programs.dconf.enable = true;
+        programs.adb.enable = true;
       });
     flatpak = {
       xdg = {
