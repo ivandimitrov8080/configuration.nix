@@ -420,6 +420,7 @@ top @ { inputs, moduleWithSystem, ... }: {
               allow 192.168.69.2/32;
               allow 192.168.69.3/32;
               allow 192.168.69.4/32;
+              allow 192.168.69.5/32;
               deny all;
             '';
           in
@@ -585,6 +586,10 @@ top @ { inputs, moduleWithSystem, ... }: {
                   publicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
                   allowedIPs = [ "192.168.69.4/32" ];
                 }
+                {
+                  publicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
+                  allowedIPs = [ "192.168.69.5/32" ];
+                }
               ];
             };
         };
@@ -651,6 +656,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             iptables -A vpn --src 192.168.69.2 -j ACCEPT  # allow
             iptables -A vpn --src 192.168.69.3 -j ACCEPT  # allow
             iptables -A vpn --src 192.168.69.4 -j ACCEPT  # allow
+            iptables -A vpn --src 192.168.69.5 -j ACCEPT  # allow
             iptables -A vpn -j DROP  # drop everyone else
             iptables -I INPUT -m tcp -p tcp --dport 22 -j vpn
           '';
