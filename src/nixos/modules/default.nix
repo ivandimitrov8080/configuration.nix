@@ -320,7 +320,10 @@ top @ { inputs, moduleWithSystem, ... }: {
             realtime = { };
           };
         };
-        programs.dconf.enable = true;
+        programs = {
+          dconf.enable = true;
+          adb.enable = true;
+        };
       });
     flatpak = {
       xdg = {
