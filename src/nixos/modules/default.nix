@@ -653,6 +653,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             443
             51820 # wireguard
           ];
+          # allow ssh and imaps for vpn
           extraCommands = ''
             iptables -N vpn  # create a new chain named vpn
             iptables -A vpn --src 192.168.69.2 -j ACCEPT  # allow
