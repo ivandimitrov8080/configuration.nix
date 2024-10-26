@@ -338,6 +338,9 @@ top @ { inputs, moduleWithSystem, ... }: {
     ai = moduleWithSystem (_: _: {
       services = { ollama.enable = true; };
     });
+    gaming = moduleWithSystem (_: { pkgs, ... }: {
+      environment.systemPackages = with pkgs; [ xonotic ];
+    });
     containers = moduleWithSystem (_: _: {
       virtualisation.docker = {
         enable = true;
