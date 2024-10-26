@@ -339,6 +339,13 @@ top @ { inputs, moduleWithSystem, ... }: {
       services = { ollama.enable = true; };
     });
     gaming = moduleWithSystem (_: { pkgs, ... }: {
+      hardware = {
+        amdgpu = {
+          initrd.enable = true;
+          opencl.enable = true;
+          amdvlk.enable = true;
+        };
+      };
       environment.systemPackages = with pkgs; [ xonotic ];
     });
     unfreeGaming = moduleWithSystem (_: { pkgs, ... }: {
