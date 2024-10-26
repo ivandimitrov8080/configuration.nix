@@ -341,6 +341,31 @@ top @ { inputs, moduleWithSystem, ... }: {
     gaming = moduleWithSystem (_: { pkgs, ... }: {
       environment.systemPackages = with pkgs; [ xonotic ];
     });
+    unfreeGaming = moduleWithSystem (_: { pkgs, ... }: {
+      hardware = {
+        amdgpu = {
+          initrd.enable = true;
+          opencl.enable = true;
+          amdvlk.enable = true;
+        };
+      };
+      programs = {
+        steam = {
+          enable = true;
+          package = pkgs.steam.override {
+            extraEnv = {
+              MANGOHUD = true;
+              OBS_VKCAPTURE = true;
+              RADV_TEX_ANISO = 16;
+            };
+            extraLibraries = p: with p; [
+              atk
+            ];
+          }
+          ;
+        };
+      };
+    });
     containers = moduleWithSystem (_: _: {
       virtualisation.docker = {
         enable = true;
