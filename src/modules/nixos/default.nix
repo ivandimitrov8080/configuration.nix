@@ -473,9 +473,6 @@ top @ { inputs, moduleWithSystem, ... }: {
                 };
                 "/api" = {
                   proxyPass = "http://127.0.0.1:8000";
-                  extraConfig = ''
-                    limit_req zone=one;
-                  '';
                 };
               };
               extraConfig = ''
@@ -517,9 +514,6 @@ top @ { inputs, moduleWithSystem, ... }: {
                 };
               };
             };
-            appendHttpConfig = ''
-              limit_req_zone $binary_remote_addr zone=one:50m rate=1r/m;
-            '';
           };
         gitea = {
           enable = true;
