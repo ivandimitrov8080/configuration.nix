@@ -669,11 +669,11 @@
         "configuration": []
       },
       "locked": {
-        "lastModified": 1730067899,
-        "narHash": "sha256-6xddo0mZV6ZAGl/GXshquw7fCNckTlkxLKMKRF6ZqBE=",
+        "lastModified": 1730882655,
+        "narHash": "sha256-fTeX+C1dmcRHErPNoHuojM2AuJ4wTmxC9cnz+UUnmW0=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "2c61ae9e0cedc6cc3af8bea024ad8442f423a61e",
+        "rev": "db69b687ed6e31eb160219c4d0a3bd2d8ef67013",
         "type": "github"
       },
       "original": {
