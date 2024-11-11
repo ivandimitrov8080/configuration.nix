@@ -934,5 +934,35 @@ toplevel @ { moduleWithSystem, ... }: {
         };
       }
     );
+    reminders = moduleWithSystem ({ ... }: { pkgs, lib, ... }: {
+      systemd.user =
+        let
+          notify-send = lib.getExe pkgs.libnotify;
+        in
+        {
+          timers = {
+            track-time = {
+              Timer = {
+                OnCalendar = "Mon..Fri *-*-* 18:00:*";
+                Persistent = true;
+              };
+              Install = {
+                WantedBy = [ "timers.target" ];
+              };
+            };
+          };
+          services = {
+            do-ai = {
+              Service = {
+                Type = "oneshot";
+                ExecStart = [
+                  "${notify-send} 'LEARN CHROME AI MOTHERFUCKER!!!' 'I AM NOT FUCKING KIDDING!!! If you dont then no point'"
+                ];
+              };
+            };
+          };
+        };
+    }
+    );
   };
 }

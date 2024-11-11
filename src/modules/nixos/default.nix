@@ -289,6 +289,7 @@ top @ { inputs, moduleWithSystem, ... }: {
               util
               swayland
               web
+              reminders
             ];
           };
         };
