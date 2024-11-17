@@ -701,7 +701,7 @@ toplevel @ { moduleWithSystem, ... }: {
           enable = true;
           settings = {
             show-failed-attempts = true;
-            image = config.home.homeDirectory + "/pic/bg.png";
+            image = config.home.homeDirectory + "/.local/state/wpaperd/wallpapers/eDP-1";
           };
         };
         rofi = {

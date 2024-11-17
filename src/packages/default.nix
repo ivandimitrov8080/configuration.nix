@@ -318,6 +318,41 @@
             cp ./*.muttrc $out
           '';
         };
+        wpaperd = pkgs.rustPlatform.buildRustPackage {
+          name = "wpaperd";
+
+          src = pkgs.fetchFromGitHub {
+            owner = "danyspin97";
+            repo = "wpaperd";
+            rev = "3e848d8895d3c230c9ceeafd178d9864e7552307";
+            hash = "sha256-6pgj/7fE/NPlMqNpt4/3TwWA2oVjpPeXrli5j9JxBRI=";
+          };
+
+          cargoHash = "sha256-j3z32CA+qWece2Tusn6QYNi0AEbtqcXIoY8VE0Xv9eo=";
+
+          nativeBuildInputs = with pkgs; [
+            pkg-config
+          ];
+          buildInputs = with pkgs; [
+            wayland
+            libGL
+            libxkbcommon
+          ];
+
+          meta = {
+            description = "Minimal wallpaper daemon for Wayland";
+            longDescription = ''
+              It allows the user to choose a different image for each output (aka for each monitor)
+              just as swaybg. Moreover, a directory can be chosen and wpaperd will randomly choose
+              an image from it. Optionally, the user can set a duration, after which the image
+              displayed will be changed with another random one.
+            '';
+            homepage = "https://github.com/danyspin97/wpaperd";
+            license = pkgs.lib.licenses.gpl3Plus;
+            platforms = pkgs.lib.platforms.linux;
+            mainProgram = "wpaperd";
+          };
+        };
         webshite = inputs.webshite.packages.${system}.default;
         webshiteApi = inputs.webshite.packages.${system}.api;
       };
