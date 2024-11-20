@@ -20,7 +20,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             };
           efi.canTouchEfiVariables = true;
         };
-        kernelPackages = pkgs.linuxPackages_latest-libre;
+        kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
       };
     });
     base = moduleWithSystem (_: { pkgs, ... }: {
@@ -148,7 +148,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         soundcardPciId = "00:1f.3";
         kernel = {
           realtime = true;
-          packages = pkgs.linuxPackages-rt;
+          packages = pkgs.linuxPackages-rt_latest;
         };
       };
       security.pam.loginLimits = [
