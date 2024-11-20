@@ -20,6 +20,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             };
           efi.canTouchEfiVariables = true;
         };
+        kernelPackages = pkgs.linuxPackages_latest-libre;
       };
     });
     base = moduleWithSystem (_: { pkgs, ... }: {
