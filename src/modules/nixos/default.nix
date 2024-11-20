@@ -133,7 +133,13 @@ top @ { inputs, moduleWithSystem, ... }: {
       environment.systemPackages = with pkgs; [ guitarix ];
       services.pipewire = {
         jack.enable = true;
-        extraConfig = { jack."69-low-latency" = { "jack.properties" = { "node.latency" = "64/48000"; }; }; };
+        extraConfig = {
+          jack."69-low-latency" = {
+            "jack.properties" = {
+              "node.latency" = "64/48000";
+            };
+          };
+        };
       };
       musnix = {
         enable = true;
@@ -141,7 +147,7 @@ top @ { inputs, moduleWithSystem, ... }: {
         soundcardPciId = "00:1f.3";
         kernel = {
           realtime = true;
-          packages = pkgs.linuxPackages-rt_latest;
+          packages = pkgs.linuxPackages-rt;
         };
       };
       security.pam.loginLimits = [
