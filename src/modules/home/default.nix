@@ -941,7 +941,7 @@ toplevel @ { moduleWithSystem, ... }: {
         in
         {
           timers = {
-            track-time = {
+            do-ai = {
               Timer = {
                 OnCalendar = "Mon..Fri *-*-* 18:00:*";
                 Persistent = true;
