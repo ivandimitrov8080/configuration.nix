@@ -1,6 +1,5 @@
 { inputs, ... }: {
-  perSystem =
-    { system, pkgs, ... }: {
+  perSystem = { system, pkgs, ... }: {
       config.packages = {
         nvim = inputs.nixvim.legacyPackages.${system}.makeNixvim {
           enableMan = false;
