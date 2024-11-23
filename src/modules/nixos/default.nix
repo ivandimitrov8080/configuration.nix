@@ -347,12 +347,16 @@ top @ { inputs, moduleWithSystem, ... }: {
       services = { ollama.enable = true; };
     });
     gaming = moduleWithSystem (_: { pkgs, ... }: {
+      boot.kernelPackages = pkgs.linuxPackages_latest;
       hardware = {
         amdgpu = {
           initrd.enable = true;
           opencl.enable = true;
           amdvlk.enable = true;
         };
+      };
+      programs.steam = {
+        enable = true;
       };
       environment.systemPackages = with pkgs; [ xonotic ];
     });
