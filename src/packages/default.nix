@@ -251,9 +251,9 @@
             lsp = {
               enable = true;
               servers = {
-                nixd = {
+                nil_ls = {
                   enable = true;
-                  settings.formatting.command = [ "nixpkgs-fmt" ];
+                  settings.formatting.command = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
                 };
                 bashls.enable = true;
               };
