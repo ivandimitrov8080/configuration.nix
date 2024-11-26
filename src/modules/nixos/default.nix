@@ -20,7 +20,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             };
           efi.canTouchEfiVariables = true;
         };
-        kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
+        kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages-libre;
       };
     });
     base = moduleWithSystem (_: { pkgs, ... }: {
