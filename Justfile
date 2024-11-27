@@ -26,3 +26,6 @@ vps:
 lint:
   deadnix .
   statix check .
+
+format:
+  nix run p#nixfmt-rfc-style .
