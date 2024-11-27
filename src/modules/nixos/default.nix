@@ -26,20 +26,57 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages-libre;
         };
-      }
-    );
-    base = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        imports = [ inputs.hosts.nixosModule ];
-        system.stateVersion = top.config.flake.stateVersion;
-        nix = {
-          extraOptions = ''experimental-features = nix-command flakes'';
-          registry = {
-            self.flake = inputs.self;
-            nixpkgs.flake = inputs.nixpkgs;
-            p.flake = inputs.nixpkgs;
+        kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages-libre;
+      };
+    });
+    base = moduleWithSystem (_: { pkgs, ... }: {
+      imports = [ inputs.hosts.nixosModule ];
+      system.stateVersion = top.config.flake.stateVersion;
+      nix = {
+        extraOptions = ''experimental-features = nix-command flakes'';
+        registry = {
+          self.flake = inputs.self;
+          nixpkgs.flake = inputs.nixpkgs;
+          p.flake = inputs.nixpkgs;
+        };
+      };
+      i18n.supportedLocales = [ "all" ];
+      time.timeZone = "Europe/Prague";
+      environment = {
+        systemPackages = with pkgs; [
+          cmatrix
+          uutils-coreutils-noprefix
+          cryptsetup
+          fd
+          file
+          glibc
+          gnumake
+          mlocate
+          openssh
+          openssl
+          procs
+          ripgrep
+          srm
+          unzip
+          vim
+          zip
+          just
+          nixos-install-tools
+          tshark
+          flake
+        ];
+        sessionVariables = {
+          MAKEFLAGS = "-j 4";
+        };
+        shells = with pkgs; [ bash zsh nushell ];
+        enableAllTerminfo = true;
+      };
+      users.defaultUserShell = pkgs.zsh;
+      programs = {
+        git = {
+          enable = true;
+          config = {
+            safe.directory = "*";
           };
         };
         i18n.supportedLocales = [ "all" ];
