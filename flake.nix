@@ -6,10 +6,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs-lib.follows = "nixpkgs";
-    };
     hosts = {
       url = "github:StevenBlack/hosts";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,5 +31,31 @@
       inputs.configuration.follows = "/";
     };
   };
-  outputs = inputs: inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./. ]; };
+  outputs =
+    {
+      nixpkgs,
+      vpsadminos,
+      home-manager,
+      hosts,
+      musnix,
+      simple-nixos-mailserver,
+      neovim-nightly-overlay,
+      nixvim,
+      webshite,
+      ...
+    }:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          neovim-nightly-overlay.overlays.default
+        ];
+      };
+    in
+    {
+    nixosModules = {};
+    nixosConfigurations = {};
+    homeManagerModules = {};
+    };
 }
