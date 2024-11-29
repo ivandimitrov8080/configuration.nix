@@ -464,8 +464,8 @@ toplevel @ { moduleWithSystem, ... }: {
             "Shift+XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%";
             "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
             "Shift+XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
-            "F9" = "exec doas ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
-            "F8" = "exec doas ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+            "XF86MonBrightnessUp" = "exec doas ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
+            "XF86MonBrightnessDown" = "exec doas ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
             "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
             "${modifier}+p" = "exec ${menu}";
             "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
