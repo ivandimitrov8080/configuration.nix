@@ -358,7 +358,7 @@ top @ { inputs, moduleWithSystem, ... }: {
       programs.steam = {
         enable = true;
       };
-      environment.systemPackages = with pkgs; [ xonotic ];
+      environment.systemPackages = with pkgs; [ xonotic steamcmd ];
     });
     containers = moduleWithSystem (_: _: {
       virtualisation.docker = {
