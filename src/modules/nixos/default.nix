@@ -20,7 +20,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             };
           efi.canTouchEfiVariables = true;
         };
-        kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages-libre;
+        kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
       };
     });
     base = moduleWithSystem (_: { pkgs, ... }: {
@@ -300,7 +300,7 @@ top @ { inputs, moduleWithSystem, ... }: {
             ];
           };
         };
-        fonts.packages = with pkgs; [ (nerdfonts.override { fonts = [ "FiraCode" ]; }) noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
+        fonts.packages = with pkgs; [ nerd-fonts.fira-code noto-fonts noto-fonts-emoji noto-fonts-lgc-plus ];
         users = {
           users = {
             ivand = {
