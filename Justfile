@@ -28,4 +28,4 @@ lint:
   statix check .
 
 format:
-  nix run p#nixfmt-rfc-style .
+  nix fmt ./**/*.nix

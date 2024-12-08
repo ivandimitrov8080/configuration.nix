@@ -1,5 +1,8 @@
-{ inputs, ... }: {
-  perSystem = { system, pkgs, ... }: {
+{ inputs, ... }:
+{
+  perSystem =
+    { system, pkgs, ... }:
+    {
       config.packages = {
         nvim = inputs.nixvim.legacyPackages.${system}.makeNixvim {
           enableMan = false;
@@ -38,64 +41,100 @@
           };
           keymaps = [
             {
-              mode = [ "n" "v" ];
+              mode = [
+                "n"
+                "v"
+              ];
               key = "<Space>";
               action = "<Nop>";
-              options = { silent = true; desc = "Don't map the leader key"; };
+              options = {
+                silent = true;
+                desc = "Don't map the leader key";
+              };
             }
             {
               mode = "n";
               key = "<Tab>";
               action = "<cmd>BufferNext<cr>";
-              options = { silent = true; desc = "Switch tabs forwards"; };
+              options = {
+                silent = true;
+                desc = "Switch tabs forwards";
+              };
             }
             {
               mode = "n";
               key = "<S-Tab>";
               action = "<cmd>BufferPrevious<cr>";
-              options = { silent = true; desc = "Switch tabs backwards"; };
+              options = {
+                silent = true;
+                desc = "Switch tabs backwards";
+              };
             }
             {
               mode = "n";
               key = "<C-j>";
               action = "<cmd>move +1<cr>";
-              options = { silent = true; desc = "Move current line down by 1"; };
+              options = {
+                silent = true;
+                desc = "Move current line down by 1";
+              };
             }
             {
               mode = "n";
               key = "<C-k>";
               action = "<cmd>move -2<cr>";
-              options = { silent = true; desc = "Move current line up by 1"; };
+              options = {
+                silent = true;
+                desc = "Move current line up by 1";
+              };
             }
             {
               mode = "n";
               key = "<C-s>";
               action = "<cmd>t.<cr>";
-              options = { silent = true; desc = "Duplicate line"; };
+              options = {
+                silent = true;
+                desc = "Duplicate line";
+              };
             }
             {
               mode = "n";
               key = "<leader>x";
               action = "<cmd>BufferClose<cr>";
-              options = { silent = true; desc = "Close current buffer"; };
+              options = {
+                silent = true;
+                desc = "Close current buffer";
+              };
             }
             {
               mode = "n";
               key = "<leader>/";
               action.__raw = "require('Comment.api').toggle.linewise.current";
-              options = { silent = true; desc = "Comment out the current line"; };
+              options = {
+                silent = true;
+                desc = "Comment out the current line";
+              };
             }
             {
               mode = "v";
               key = "<leader>/";
               action = "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>";
-              options = { silent = true; desc = "Comment out the selection"; };
+              options = {
+                silent = true;
+                desc = "Comment out the selection";
+              };
             }
             {
-              mode = [ "n" "t" ];
+              mode = [
+                "n"
+                "t"
+              ];
               key = "<leader>h";
               action = "<cmd>ToggleTerm<cr>";
-              options = { silent = true; desc = "Open a terminal"; };
+              options = {
+                silent = true;
+                desc = "Open a terminal";
+              };
             }
             {
               mode = "n";
@@ -143,25 +182,37 @@
               mode = "n";
               key = "<leader>la";
               action.__raw = "vim.lsp.buf.code_action";
-              options = { silent = true; desc = "LSP Code action"; };
+              options = {
+                silent = true;
+                desc = "LSP Code action";
+              };
             }
             {
               mode = "n";
               key = "<leader>lr";
               action.__raw = "vim.lsp.buf.rename";
-              options = { silent = true; desc = "LSP Rename"; };
+              options = {
+                silent = true;
+                desc = "LSP Rename";
+              };
             }
             {
               mode = "n";
               key = "<leader>lf";
               action.__raw = "vim.lsp.buf.format";
-              options = { silent = true; desc = "Format buffer"; };
+              options = {
+                silent = true;
+                desc = "Format buffer";
+              };
             }
             {
               mode = "n";
               key = "<leader>tt";
               action = "<cmd>TodoTelescope<cr>";
-              options = { silent = true; desc = "Show Todo Telescope"; };
+              options = {
+                silent = true;
+                desc = "Show Todo Telescope";
+              };
             }
           ];
           plugins = {
@@ -295,7 +346,10 @@
             rev = "c8239a45edced3502894e1716a8b661fdea8f1c9";
             hash = "sha256-1F+qMwchTUWdEWpsIqyVG5pYmqdvmsCckvSmg7pYjdY=";
           };
-          phases = [ "unpackPhase" "installPhase" ];
+          phases = [
+            "unpackPhase"
+            "installPhase"
+          ];
           installPhase = ''
             mkdir -p $out
             cp themes/* $out
@@ -309,7 +363,10 @@
             rev = "3b23c55eb43849975656dd89e3f35dacd2b93e69";
             hash = "sha256-UWQ4M3/4PsZzt3UZguy10WufXDOp7IKABzgVjkGNJNQ=";
           };
-          phases = [ "unpackPhase" "installPhase" ];
+          phases = [
+            "unpackPhase"
+            "installPhase"
+          ];
           installPhase = ''
             mkdir -p $out
             cp ./*.muttrc $out
