@@ -26,6 +26,7 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
         };
+        networking.dhcpcd.wait = "background";
       }
     );
     base = moduleWithSystem (
