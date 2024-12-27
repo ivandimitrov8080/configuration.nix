@@ -54,8 +54,15 @@
       };
     in
     {
-    nixosModules = {};
-    nixosConfigurations = {};
-    homeManagerModules = {};
+      nixosModules = {
+      };
+      nixosConfigurations = {
+      };
+      homeManagerModules = {
+      };
+      overlays = {
+      };
+      templates = {
+      };
     };
 }
