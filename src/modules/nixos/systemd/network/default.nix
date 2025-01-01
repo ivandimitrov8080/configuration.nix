@@ -6,13 +6,27 @@
 let
   inherit (lib)
     mkIf
+    mkOption
     mkEnableOption
     ;
-  cfg = config.wgClient;
+  inherit (lib.types) string listOf attrs;
+  cfg = config.host.wgPeer;
 in
 {
-  options.wgClient = {
+  options.host.wgPeer = {
     enable = mkEnableOption "enable wg0 interface";
+    privateKeyFile = mkOption {
+      type = string;
+      default = "/etc/systemd/network/wg0.key";
+    };
+    peers = mkOption {
+      type = listOf attrs;
+      default = [ ];
+    };
+    address = mkOption {
+      type = string;
+      default = "10.0.0.1";
+    };
   };
   config = mkIf cfg.enable {
     systemd.network = {
@@ -24,24 +38,16 @@ in
             Description = "Wireguard virtual network device (tunnel)";
           };
           wireguardConfig = {
-            PrivateKeyFile = "/etc/systemd/network/wg0.key";
+            PrivateKeyFile = cfg.privateKeyFile;
             FirewallMark = 6969;
           };
-          wireguardPeers = [
-            {
-              PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
-              AllowedIPs = [
-                "0.0.0.0/0"
-              ];
-              Endpoint = "37.205.13.29:51820";
-            }
-          ];
+          wireguardPeers = cfg.peers;
         };
       };
       networks.wg0 = {
         matchConfig.Name = "wg0";
         networkConfig = {
-          Address = "10.0.0.2/24";
+          Address = cfg.address;
           DNSDefaultRoute = true;
           DNS = "10.0.0.1";
           Domains = "~.";

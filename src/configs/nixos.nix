@@ -45,9 +45,21 @@ let
             programs.gtklock.enable = true;
             media.enable = true;
             swayland.enable = true;
-            wgClient.enable = true;
             grubBoot.enable = true;
             hotspots.enable = true;
+            host.wgPeer = {
+              enable = true;
+              peers = [
+                {
+                  PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
+                  AllowedIPs = [
+                    "0.0.0.0/0"
+                  ];
+                  Endpoint = "37.205.13.29:51820";
+                }
+              ];
+              address = "10.0.0.2/24";
+            };
           }
         ];
     };
