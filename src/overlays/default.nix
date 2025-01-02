@@ -15,7 +15,6 @@
           webshite
           webshiteApi
           flake
-          wpaperd
           ;
       }
     );
