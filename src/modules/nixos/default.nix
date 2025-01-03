@@ -115,7 +115,12 @@ top@{ inputs, moduleWithSystem, ... }:
             syntaxHighlighting.enable = true;
             autosuggestions = {
               enable = true;
-              strategy = [ "completion" ];
+              strategy = [
+                "history"
+                "completion"
+                "match_prev_cmd"
+              ];
+              highlightStyle = "fg=#FFF689";
             };
             shellAliases = {
               cal = "cal $(date +%Y)";
