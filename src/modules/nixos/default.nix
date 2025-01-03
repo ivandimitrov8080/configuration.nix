@@ -394,9 +394,20 @@ top@{ inputs, moduleWithSystem, ... }:
       services.flatpak.enable = true;
     };
     ai = moduleWithSystem (
-      _: _: {
+      _:
+      { pkgs, ... }:
+      {
+        boot.kernelPackages = pkgs.linuxPackages_latest;
+        hardware.amdgpu = {
+          initrd.enable = true;
+          opencl.enable = true;
+        };
         services = {
-          ollama.enable = true;
+          ollama = {
+            enable = true;
+            acceleration = "rocm";
+            rocmOverrideGfx = "11.0.2";
+          };
         };
       }
     );
@@ -408,7 +419,6 @@ top@{ inputs, moduleWithSystem, ... }:
         hardware = {
           amdgpu = {
             initrd.enable = true;
-            opencl.enable = true;
             amdvlk.enable = true;
           };
         };

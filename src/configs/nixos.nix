@@ -18,6 +18,7 @@ let
     sound
     wayland
     intranet
+    ai
   ];
   configWithModules =
     {
