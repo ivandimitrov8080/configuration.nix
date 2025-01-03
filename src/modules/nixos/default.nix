@@ -136,6 +136,7 @@ top@{ inputs, moduleWithSystem, ... }:
               lt = "eza --git-ignore --all --tree --level=10";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+              flip = "shuf -r -n 1 -e Heads Tails";
             };
           };
         };
