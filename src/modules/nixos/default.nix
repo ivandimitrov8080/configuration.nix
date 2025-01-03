@@ -66,7 +66,6 @@ top@{ inputs, moduleWithSystem, ... }:
             just
             nixos-install-tools
             tshark
-            flake
           ];
           sessionVariables = {
             MAKEFLAGS = "-j 4";

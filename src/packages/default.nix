@@ -332,12 +332,6 @@
 
           '';
         };
-        flake = pkgs.writeShellApplication {
-          name = "flake";
-          text = ''
-            [[ "$1" == init ]] && nix flake init -t self#"''${2-default}"
-          '';
-        };
         rofi-themes = pkgs.stdenv.mkDerivation {
           name = "rofi-themes-collection";
           src = pkgs.fetchFromGitHub {
