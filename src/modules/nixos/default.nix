@@ -406,9 +406,9 @@ top@{ inputs, moduleWithSystem, ... }:
       {
         boot.kernelPackages = pkgs.linuxPackages_latest;
         hardware = {
+          graphics.enable = true;
           amdgpu = {
             initrd.enable = true;
-            opencl.enable = true;
             amdvlk.enable = true;
           };
         };
