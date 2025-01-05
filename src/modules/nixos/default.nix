@@ -397,7 +397,12 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        boot.kernelPackages = pkgs.linuxPackages_latest;
+        boot = {
+          kernelPackages = pkgs.linuxPackages_latest;
+          kernelParams = [
+            "amdgpu.runpm=0"
+          ];
+        };
         hardware.amdgpu = {
           initrd.enable = true;
           opencl.enable = true;
