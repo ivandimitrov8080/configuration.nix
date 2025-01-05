@@ -66,7 +66,6 @@ top@{ inputs, moduleWithSystem, ... }:
             just
             nixos-install-tools
             tshark
-            flake
           ];
           sessionVariables = {
             MAKEFLAGS = "-j 4";
@@ -116,7 +115,12 @@ top@{ inputs, moduleWithSystem, ... }:
             syntaxHighlighting.enable = true;
             autosuggestions = {
               enable = true;
-              strategy = [ "completion" ];
+              strategy = [
+                "history"
+                "completion"
+                "match_prev_cmd"
+              ];
+              highlightStyle = "fg=#FFF689";
             };
             shellAliases = {
               cal = "cal $(date +%Y)";
@@ -132,6 +136,7 @@ top@{ inputs, moduleWithSystem, ... }:
               lt = "eza --git-ignore --all --tree --level=10";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+              flip = "shuf -r -n 1 -e Heads Tails";
             };
           };
         };
