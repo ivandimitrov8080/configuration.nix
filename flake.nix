@@ -26,10 +26,6 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    webshite = {
-      url = "github:ivandimitrov8080/idimitrov.dev";
-      inputs.configuration.follows = "/";
-    };
   };
   outputs =
     {
@@ -41,18 +37,8 @@
       simple-nixos-mailserver,
       neovim-nightly-overlay,
       nixvim,
-      webshite,
       ...
     }:
-    let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          neovim-nightly-overlay.overlays.default
-        ];
-      };
-    in
     {
       nixosModules = {
         default = import ./src/nixos;
