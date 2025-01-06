@@ -142,3 +142,13 @@
       ];
     };
   };
+
+  systemd.services.webshiteApi = {
+    enable = true;
+    serviceConfig = {
+      ExecStart = "${pkgs.webshiteApi}/bin/api";
+      Restart = "always";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
+
