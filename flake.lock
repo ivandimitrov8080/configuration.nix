@@ -549,26 +549,6 @@
         "type": "github"
       }
     },
-    "parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1735774679,
-        "narHash": "sha256-soePLBazJk0qQdDVhdbM98vYdssfs3WFedcq+raipRI=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "f2f7418ce0ab4a5309a4596161d154cfc877af66",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -577,10 +557,8 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs",
         "nixvim": "nixvim",
-        "parts": "parts",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
-        "vpsadminos": "vpsadminos",
-        "webshite": "webshite"
+        "vpsadminos": "vpsadminos"
       }
     },
     "simple-nixos-mailserver": {
@@ -675,24 +653,6 @@
       "original": {
         "owner": "vpsfreecz",
         "repo": "vpsadminos",
-        "type": "github"
-      }
-    },
-    "webshite": {
-      "inputs": {
-        "configuration": []
-      },
-      "locked": {
-        "lastModified": 1730882655,
-        "narHash": "sha256-fTeX+C1dmcRHErPNoHuojM2AuJ4wTmxC9cnz+UUnmW0=",
-        "owner": "ivandimitrov8080",
-        "repo": "idimitrov.dev",
-        "rev": "db69b687ed6e31eb160219c4d0a3bd2d8ef67013",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ivandimitrov8080",
-        "repo": "idimitrov.dev",
         "type": "github"
       }
     }
