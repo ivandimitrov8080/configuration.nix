@@ -12,9 +12,9 @@
               inputs.configuration.overlays.default
             ];
           };
-          devShells.default = pkgs.mkShell { };
-          packages.default = pkgs.stdenv.mkDerivation { };
         };
+        devShells.default = pkgs.mkShell { };
+        packages.default = pkgs.stdenv.mkDerivation { };
       };
     };
 }
