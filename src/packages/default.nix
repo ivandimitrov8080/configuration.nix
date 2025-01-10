@@ -6,7 +6,7 @@
       config.packages = {
         nvim = inputs.nixvim.legacyPackages.${system}.makeNixvim {
           enableMan = false;
-          package = pkgs.neovim;
+          package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
           viAlias = true;
           globals = {
             mapleader = " ";

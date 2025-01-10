@@ -1,4 +1,4 @@
-toplevel@{ moduleWithSystem, ... }:
+top@{ moduleWithSystem, inputs, ... }:
 {
   flake.homeManagerModules = {
     base = moduleWithSystem (
@@ -6,7 +6,7 @@ toplevel@{ moduleWithSystem, ... }:
       { config, ... }:
       {
         programs.home-manager.enable = true;
-        home.stateVersion = toplevel.config.flake.stateVersion;
+        home.stateVersion = top.config.flake.stateVersion;
         xdg = {
           enable = true;
           userDirs = with config; {

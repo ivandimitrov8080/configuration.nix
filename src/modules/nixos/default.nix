@@ -33,6 +33,9 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
+        nixpkgs.overlays = [
+          top.config.flake.overlays.default
+        ];
         imports = [ inputs.hosts.nixosModule ];
         system.stateVersion = top.config.flake.stateVersion;
         nix = {
@@ -407,8 +410,17 @@ top@{ inputs, moduleWithSystem, ... }:
     );
     gaming = moduleWithSystem (
       _:
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "steam"
+            "steam-original"
+            "steam-unwrapped"
+            "steam-run"
+            "steamcmd"
+          ];
         boot = {
           kernelPackages = pkgs.linuxPackages_latest;
           kernelParams = [

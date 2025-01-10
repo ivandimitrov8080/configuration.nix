@@ -8,14 +8,7 @@ top@{ inputs, ... }:
     {
       config = {
         _module.args = {
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = [
-              top.config.flake.overlays.default
-              inputs.neovim-nightly-overlay.overlays.default
-            ];
-          };
+          pkgs = import inputs.nixpkgs { inherit system; };
         };
         formatter = pkgs.nixfmt-rfc-style;
       };

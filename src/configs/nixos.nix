@@ -31,7 +31,7 @@ let
       { inputs', pkgs, ... }:
       inputs.nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs inputs' pkgs;
+          inherit inputs inputs';
         };
         modules = [ hardware ] ++ modules;
       }
