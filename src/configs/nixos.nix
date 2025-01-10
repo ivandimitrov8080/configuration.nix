@@ -18,7 +18,6 @@ let
     sound
     wayland
     intranet
-    ai
   ];
   configWithModules =
     {
@@ -51,6 +50,13 @@ in
       [
         ivand
         gaming
+      ]
+    );
+    nova-ai = novaConfig (
+      with mods;
+      [
+        ivand
+        ai
       ]
     );
     vps = configWithModules {
