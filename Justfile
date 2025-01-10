@@ -8,7 +8,7 @@ nova config="nova":
   if [ "$cfg" != "nova" ]; then
     cfg="nova-{{config}}"
   fi
-  doas nixos-rebuild switch --profile-name $(git rev-parse --abbrev-ref HEAD) --flake ./#"$cfg"
+  doas nixos-rebuild switch --profile-name '{{config}}' --flake ./#"$cfg"
 
 update:
   nix flake update

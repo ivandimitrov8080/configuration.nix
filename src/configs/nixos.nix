@@ -18,7 +18,6 @@ let
     sound
     wayland
     intranet
-    gaming
   ];
   configWithModules =
     {
@@ -46,6 +45,13 @@ in
 {
   flake.nixosConfigurations = {
     nova = novaConfig [ mods.ivand ];
+    nova-gaming = novaConfig (
+      with mods;
+      [
+        ivand
+        gaming
+      ]
+    );
     vps = configWithModules {
       modules = with mods; [
         base
