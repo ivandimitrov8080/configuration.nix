@@ -33,6 +33,9 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
+        nixpkgs.overlays = [
+          top.config.flake.overlays.default
+        ];
         imports = [ inputs.hosts.nixosModule ];
         system.stateVersion = top.config.flake.stateVersion;
         nix = {
@@ -66,7 +69,6 @@ top@{ inputs, moduleWithSystem, ... }:
             just
             nixos-install-tools
             tshark
-            flake
           ];
           sessionVariables = {
             MAKEFLAGS = "-j 4";
@@ -116,7 +118,12 @@ top@{ inputs, moduleWithSystem, ... }:
             syntaxHighlighting.enable = true;
             autosuggestions = {
               enable = true;
-              strategy = [ "completion" ];
+              strategy = [
+                "history"
+                "completion"
+                "match_prev_cmd"
+              ];
+              highlightStyle = "fg=#FFF689";
             };
             shellAliases = {
               cal = "cal $(date +%Y)";
@@ -132,6 +139,7 @@ top@{ inputs, moduleWithSystem, ... }:
               lt = "eza --git-ignore --all --tree --level=10";
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
+              flip = "shuf -r -n 1 -e Heads Tails";
             };
           };
         };
@@ -418,10 +426,25 @@ top@{ inputs, moduleWithSystem, ... }:
     );
     gaming = moduleWithSystem (
       _:
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
       {
-        boot.kernelPackages = pkgs.linuxPackages_latest;
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "steam"
+            "steam-original"
+            "steam-unwrapped"
+            "steam-run"
+            "steamcmd"
+          ];
+        boot = {
+          kernelPackages = pkgs.linuxPackages_latest;
+          kernelParams = [
+            "amdgpu.runpm=0"
+          ];
+        };
         hardware = {
+          graphics.enable = true;
           amdgpu = {
             initrd.enable = true;
             amdvlk.enable = true;

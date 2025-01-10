@@ -14,8 +14,6 @@
           mutt-themes
           webshite
           webshiteApi
-          flake
-          wpaperd
           ;
       }
     );

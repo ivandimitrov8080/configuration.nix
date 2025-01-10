@@ -31,7 +31,7 @@ let
       { inputs', pkgs, ... }:
       inputs.nixpkgs.lib.nixosSystem {
         specialArgs = {
-          inherit inputs inputs' pkgs;
+          inherit inputs inputs';
         };
         modules = [ hardware ] ++ modules;
       }
@@ -46,50 +46,13 @@ in
 {
   flake.nixosConfigurations = {
     nova = novaConfig [ mods.ivand ];
-    nova-music = novaConfig (
+    nova-gaming = novaConfig (
       with mods;
       [
         ivand
-        music
+        gaming
       ]
     );
-    nova-crypto = novaConfig (
-      with mods;
-      [
-        ivand
-        cryptocurrency
-      ]
-    );
-    nova-nonya = novaConfig (
-      with mods;
-      [
-        ivand
-        anon
-        cryptocurrency
-      ]
-    );
-    nova-ai = novaConfig (
-      with mods;
-      [
-        ivand
-        ai
-      ]
-    );
-    nova-containers = novaConfig (
-      with mods;
-      [
-        ivand
-        containers
-      ]
-    );
-    install-iso = configWithModules {
-      modules = with mods; [
-        grub
-        base
-        shell
-        wireless
-      ];
-    };
     vps = configWithModules {
       modules = with mods; [
         base
@@ -104,6 +67,5 @@ in
         rest
       ];
     };
-    stara-miner = configWithModules { modules = essential ++ [ mods.monero-miner ]; };
   };
 }
