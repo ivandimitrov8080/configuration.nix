@@ -72,7 +72,6 @@ in
         firewall
         rest
       ];
-      hardware = { };
     };
   };
 }
