@@ -26,6 +26,7 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
         };
+        networking.dhcpcd.wait = "background";
       }
     );
     base = moduleWithSystem (
@@ -103,10 +104,6 @@ top@{ inputs, moduleWithSystem, ... }:
             blockFakenews = true;
             blockGambling = true;
           };
-          useNetworkd = true;
-        };
-        systemd.network = {
-          wait-online.enable = false;
         };
       }
     );
