@@ -8,14 +8,14 @@ nova config="nova":
   if [ "$cfg" != "nova" ]; then
     cfg="nova-{{config}}"
   fi
-  doas nixos-rebuild switch --profile-name '{{config}}' --flake ./#"$cfg"
+  sudo nixos-rebuild switch --profile-name '{{config}}' --flake ./#"$cfg"
 
 update:
   nix flake update
 
 clean:
   nix-collect-garbage --delete-older-than 90d
-  doas nix-collect-garbage --delete-older-than 90d
+  sudo nix-collect-garbage --delete-older-than 90d
 
 generate format="install-iso" config="install-iso":
   nix shell nixpkgs#nixos-generators --command nixos-generate -f {{format}} --flake ./#{{config}}

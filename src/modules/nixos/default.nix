@@ -224,12 +224,20 @@ top@{ inputs, moduleWithSystem, ... }:
       _: _: {
         security = {
           sudo = {
-            enable = false;
             execWheelOnly = true;
-            extraRules = [ { groups = [ "wheel" ]; } ];
+            extraRules = [
+              {
+                groups = [ "wheel" ];
+                commands = [
+                  {
+                    command = "ALL";
+                    options = [ "NOPASSWD" ];
+                  }
+                ];
+              }
+            ];
           };
           doas = {
-            enable = true;
             extraRules = [
               {
                 groups = [ "wheel" ];
