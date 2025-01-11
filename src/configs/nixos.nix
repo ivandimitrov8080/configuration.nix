@@ -70,6 +70,7 @@ in
         firewall
         rest
       ];
+      hardware = { };
     };
   };
 }
