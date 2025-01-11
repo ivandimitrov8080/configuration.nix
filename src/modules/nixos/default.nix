@@ -252,30 +252,115 @@ top@{ inputs, moduleWithSystem, ... }:
       }
     );
     intranet = {
-      networking.wg-quick.interfaces = {
-        wg0 = {
-          address = [ "192.168.69.2/32" ];
-          privateKeyFile = "/etc/wireguard/privatekey";
-          peers = [
-            {
-              publicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
-              allowedIPs = [
-                "0.0.0.0/0"
-                "::/0"
-              ];
-              endpoint = "37.205.13.29:51820";
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
-      services.openssh = {
+      systemd.network = {
         enable = true;
-        settings = {
-          PermitRootLogin = "prohibit-password";
+        netdevs = {
+          "10-wg0" = {
+            netdevConfig = {
+              Kind = "wireguard";
+              Name = "wg0";
+              MTUBytes = "1300";
+            };
+            wireguardConfig = {
+              PrivateKeyFile = "/etc/wireguard/privatekey";
+              ListenPort = 9918;
+            };
+            wireguardPeers = [
+              # configuration since nixos-unstable/nixos-24.11
+              {
+                PublicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
+                AllowedIPs = [
+                  "0.0.0.0"
+                  "::/0"
+                ];
+                Endpoint = "37.205.13.29:51820";
+              }
+            ];
+          };
+        };
+        networks.wg0 = {
+          matchConfig.Name = "wg0";
+          address = [
+            "192.168.69.2/32"
+          ];
+          DHCP = "no";
+          dns = [ "fc00::53" ];
+          ntp = [ "fc00::123" ];
+          gateway = [
+            "fc00::1"
+            "10.100.0.1"
+          ];
+          networkConfig = {
+            IPv6AcceptRA = false;
+          };
         };
       };
     };
+    wireguard-output = moduleWithSystem (
+      _:
+      { pkgs, ... }:
+      {
+        boot.kernel.sysctl = {
+          "net.ipv4.ip_forward" = true;
+        };
+        networking = {
+          nat = {
+            enable = true;
+            externalInterface = "venet0";
+            internalInterfaces = [ "wg0" ];
+          };
+          nftables = {
+            enable = true;
+          };
+          firewall = {
+            extraForwardRules = "iifname wg0 accept";
+          };
+        };
+        systemd.network = {
+          enable = true;
+          netdevs = {
+            "50-wg0" = {
+              netdevConfig = {
+                Kind = "wireguard";
+                Name = "wg0";
+                MTUBytes = "1300";
+              };
+              wireguardConfig = {
+                PrivateKeyFile = "/etc/wireguard/privatekey";
+                ListenPort = 51820;
+                RouteTable = "main";
+              };
+              wireguardPeers = [
+                {
+                  PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
+                  AllowedIPs = [ "192.168.69.2/32" ];
+                }
+                {
+                  PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
+                  AllowedIPs = [ "192.168.69.3/32" ];
+                }
+                {
+                  PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
+                  AllowedIPs = [ "192.168.69.4/32" ];
+                }
+                {
+                  PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
+                  AllowedIPs = [ "192.168.69.5/32" ];
+                }
+              ];
+            };
+          };
+          networks.wg0 = {
+            matchConfig.Name = "wg0";
+            address = [ "192.168.69.1/32" ];
+            networkConfig = {
+              IPMasquerade = "ipv4";
+              IPv4Forwarding = true;
+            };
+          };
+        };
+      }
+    );
     wireless = {
       networking = {
         wireless = {
@@ -707,71 +792,6 @@ top@{ inputs, moduleWithSystem, ... }:
                 };
               }
             ];
-          };
-        };
-      }
-    );
-    wireguard-output = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        boot.kernel.sysctl = {
-          "net.ipv4.ip_forward" = true;
-        };
-        networking = {
-          nat = {
-            enable = true;
-            externalInterface = "venet0";
-            internalInterfaces = [ "wg0" ];
-          };
-          nftables = {
-            enable = true;
-          };
-          firewall = {
-            extraForwardRules = "iifname wg0 accept";
-          };
-        };
-        systemd.network = {
-          enable = true;
-          netdevs = {
-            "50-wg0" = {
-              netdevConfig = {
-                Kind = "wireguard";
-                Name = "wg0";
-                MTUBytes = "1300";
-              };
-              wireguardConfig = {
-                PrivateKeyFile = "/etc/wireguard/privatekey";
-                ListenPort = 51820;
-                RouteTable = "main";
-              };
-              wireguardPeers = [
-                {
-                  PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
-                  AllowedIPs = [ "192.168.69.2/32" ];
-                }
-                {
-                  PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-                  AllowedIPs = [ "192.168.69.3/32" ];
-                }
-                {
-                  PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
-                  AllowedIPs = [ "192.168.69.4/32" ];
-                }
-                {
-                  PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
-                  AllowedIPs = [ "192.168.69.5/32" ];
-                }
-              ];
-            };
-          };
-          networks.wg0 = {
-            matchConfig.Name = "wg0";
-            address = [ "192.168.69.1/32" ];
-            networkConfig = {
-              IPMasquerade = "ipv4";
-              IPv4Forwarding = true;
-            };
           };
         };
       }
