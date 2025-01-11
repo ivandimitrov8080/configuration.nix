@@ -840,23 +840,6 @@ top@{ inputs, moduleWithSystem, ... }:
               443
               51820 # wireguard
             ];
-            # allow ssh and imaps for vpn
-            extraCommands = ''
-              iptables -N vpn  # create a new chain named vpn
-              iptables -A vpn --src 192.168.69.2 -j ACCEPT  # allow
-              iptables -A vpn --src 192.168.69.3 -j ACCEPT  # allow
-              iptables -A vpn --src 192.168.69.4 -j ACCEPT  # allow
-              iptables -A vpn --src 192.168.69.5 -j ACCEPT  # allow
-              iptables -A vpn -j DROP  # drop everyone else
-              iptables -I INPUT -m tcp -p tcp --dport 22 -j vpn
-              iptables -I INPUT -m tcp -p tcp --dport 993 -j vpn
-            '';
-            extraStopCommands = ''
-              iptables -F vpn
-              iptables -D INPUT -m tcp -p tcp --dport 22 -j vpn
-              iptables -D INPUT -m tcp -p tcp --dport 993 -j vpn
-              iptables -X vpn
-            '';
           };
         };
       }
