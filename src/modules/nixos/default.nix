@@ -266,7 +266,6 @@ top@{ inputs, moduleWithSystem, ... }:
               ListenPort = 9918;
             };
             wireguardPeers = [
-              # configuration since nixos-unstable/nixos-24.11
               {
                 PublicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
                 AllowedIPs = [
