@@ -533,7 +533,7 @@ top@{ inputs, moduleWithSystem, ... }:
             "steamcmd"
           ];
         boot = {
-          kernelPackages = pkgs.linuxPackages_latest;
+          kernelPackages = pkgs.linuxPackages_zen;
           kernelParams = [
             "amdgpu.runpm=0"
           ];
