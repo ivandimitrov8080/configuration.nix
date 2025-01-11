@@ -21,9 +21,7 @@ let
   ];
   configWithModules =
     {
-      hardware ? {
-        nixpkgs.hostPlatform = system;
-      },
+      hardware,
       modules,
     }:
     withSystem system (
