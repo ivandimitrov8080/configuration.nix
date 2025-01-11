@@ -253,7 +253,6 @@ top@{ inputs, moduleWithSystem, ... }:
     );
     intranet = {
       systemd.network = {
-        enable = true;
         netdevs = {
           "10-wg0" = {
             netdevConfig = {
@@ -263,7 +262,7 @@ top@{ inputs, moduleWithSystem, ... }:
             };
             wireguardConfig = {
               PrivateKeyFile = "/etc/wireguard/privatekey";
-              ListenPort = 9918;
+              ListenPort = 51820;
             };
             wireguardPeers = [
               {
@@ -283,15 +282,13 @@ top@{ inputs, moduleWithSystem, ... }:
             "192.168.69.2/32"
           ];
           DHCP = "no";
-          dns = [ "fc00::53" ];
-          ntp = [ "fc00::123" ];
-          gateway = [
-            "fc00::1"
-            "10.100.0.1"
+          dns = [
+            "1.1.1.1"
+            "1.0.0.1"
           ];
-          networkConfig = {
-            IPv6AcceptRA = false;
-          };
+          gateway = [
+            "192.168.69.1"
+          ];
         };
       };
     };
@@ -310,6 +307,17 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           nftables = {
             enable = true;
+            tables = {
+              wg0 = {
+                family = "ip";
+                content = ''
+                  chain wireguard_chain {
+                      type nat hook postrouting priority srcnat; policy accept;
+                      counter packets 0 bytes 0 masquerade;
+                  }
+                '';
+              };
+            };
           };
           firewall = {
             extraForwardRules = "iifname wg0 accept";
