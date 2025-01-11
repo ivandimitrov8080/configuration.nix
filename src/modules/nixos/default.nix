@@ -715,7 +715,7 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        boot.sysctl = {
+        boot.kernel.sysctl = {
           "net.ipv4.ip_forward" = true;
         };
         networking = {
