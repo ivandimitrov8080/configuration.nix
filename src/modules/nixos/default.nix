@@ -721,7 +721,6 @@ top@{ inputs, moduleWithSystem, ... }:
         networking = {
           nat = {
             enable = true;
-            enableIPv6 = true;
             externalInterface = "venet0";
             internalInterfaces = [ "wg0" ];
           };
