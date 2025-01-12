@@ -258,18 +258,17 @@ top@{ inputs, moduleWithSystem, ... }:
             netdevConfig = {
               Kind = "wireguard";
               Name = "wg0";
-              MTUBytes = "1300";
+              Description = "Wireguard virtual network device (tunnel)";
             };
             wireguardConfig = {
               PrivateKeyFile = "/etc/wireguard/privatekey";
-              ListenPort = 51820;
+              FirewallMark = 6969;
             };
             wireguardPeers = [
               {
                 PublicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
                 AllowedIPs = [
-                  "0.0.0.0"
-                  "::/0"
+                  "0.0.0.0/0"
                 ];
                 Endpoint = "37.205.13.29:51820";
               }
@@ -278,16 +277,25 @@ top@{ inputs, moduleWithSystem, ... }:
         };
         networks.wg0 = {
           matchConfig.Name = "wg0";
-          address = [
-            "192.168.69.2/32"
+          networkConfig = {
+            Address = "192.168.69.2/24";
+            DNSDefaultRoute = true;
+          };
+          # linkConfig.ActivationPolicy = "manual";
+          routingPolicyRules = [
+            {
+              FirewallMark = 6969;
+              InvertRule = true;
+              Table = 1000;
+              Priority = 10;
+            }
           ];
-          DHCP = "no";
-          dns = [
-            "1.1.1.1"
-            "1.0.0.1"
-          ];
-          gateway = [
-            "192.168.69.1"
+          routes = [
+            {
+              Gateway = "192.168.69.1";
+              GatewayOnLink = true;
+              Table = 1000;
+            }
           ];
         };
       };
@@ -327,7 +335,7 @@ top@{ inputs, moduleWithSystem, ... }:
               wireguardPeers = [
                 {
                   PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
-                  AllowedIPs = [ "192.168.69.2/32" ];
+                  AllowedIPs = [ "192.168.69.2/24" ];
                 }
                 {
                   PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
