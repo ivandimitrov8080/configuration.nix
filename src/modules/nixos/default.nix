@@ -305,19 +305,8 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        boot.kernel.sysctl = {
-          "net.ipv4.ip_forward" = true;
-        };
         networking = {
-          nat = {
-            enable = true;
-            externalInterface = "venet0";
-            internalInterfaces = [ "wg0" ];
-          };
           nftables.enable = true;
-          firewall = {
-            extraForwardRules = "iifname wg0 accept";
-          };
         };
         systemd.network = {
           enable = true;
