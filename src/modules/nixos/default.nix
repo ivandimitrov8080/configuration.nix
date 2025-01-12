@@ -278,7 +278,7 @@ top@{ inputs, moduleWithSystem, ... }:
         networks.wg0 = {
           matchConfig.Name = "wg0";
           networkConfig = {
-            Address = "192.168.69.2/24";
+            Address = "10.0.0.2/24";
             DNSDefaultRoute = true;
             DNS = "1.1.1.1";
           };
@@ -293,7 +293,7 @@ top@{ inputs, moduleWithSystem, ... }:
           ];
           routes = [
             {
-              Gateway = "192.168.69.1";
+              Gateway = "10.0.0.1";
               GatewayOnLink = true;
               Table = 1000;
             }
@@ -324,19 +324,19 @@ top@{ inputs, moduleWithSystem, ... }:
               wireguardPeers = [
                 {
                   PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
-                  AllowedIPs = [ "192.168.69.2/32" ];
+                  AllowedIPs = [ "10.0.0.2/32" ];
                 }
                 {
                   PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-                  AllowedIPs = [ "192.168.69.3/32" ];
+                  AllowedIPs = [ "10.0.0.3/32" ];
                 }
                 {
                   PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
-                  AllowedIPs = [ "192.168.69.4/32" ];
+                  AllowedIPs = [ "10.0.0.4/32" ];
                 }
                 {
                   PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
-                  AllowedIPs = [ "192.168.69.5/32" ];
+                  AllowedIPs = [ "10.0.0.5/32" ];
                 }
               ];
             };
@@ -345,7 +345,7 @@ top@{ inputs, moduleWithSystem, ... }:
             matchConfig.Name = "wg0";
             networkConfig = {
               IPMasquerade = "both";
-              Address = "192.168.69.1/24";
+              Address = "10.0.0.1/24";
             };
           };
         };
@@ -653,10 +653,10 @@ top@{ inputs, moduleWithSystem, ... }:
           nginx.virtualHosts =
             let
               restrictToVpn = ''
-                allow 192.168.69.2/32;
-                allow 192.168.69.3/32;
-                allow 192.168.69.4/32;
-                allow 192.168.69.5/32;
+                allow 10.0.0.2/32;
+                allow 10.0.0.3/32;
+                allow 10.0.0.4/32;
+                allow 10.0.0.5/32;
                 deny all;
               '';
             in
