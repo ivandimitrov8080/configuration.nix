@@ -280,6 +280,7 @@ top@{ inputs, moduleWithSystem, ... }:
           networkConfig = {
             Address = "192.168.69.2/24";
             DNSDefaultRoute = true;
+            DNS = "1.1.1.1";
           };
           # linkConfig.ActivationPolicy = "manual";
           routingPolicyRules = [
@@ -321,21 +322,20 @@ top@{ inputs, moduleWithSystem, ... }:
         systemd.network = {
           enable = true;
           netdevs = {
-            "50-wg0" = {
+            "10-wg0" = {
               netdevConfig = {
                 Kind = "wireguard";
                 Name = "wg0";
-                MTUBytes = "1300";
+                Description = "Wireguard virtual device (tunnel)";
               };
               wireguardConfig = {
                 PrivateKeyFile = "/etc/wireguard/privatekey";
                 ListenPort = 51820;
-                RouteTable = "main";
               };
               wireguardPeers = [
                 {
                   PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
-                  AllowedIPs = [ "192.168.69.2/24" ];
+                  AllowedIPs = [ "192.168.69.2/32" ];
                 }
                 {
                   PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
@@ -354,10 +354,9 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           networks.wg0 = {
             matchConfig.Name = "wg0";
-            address = [ "192.168.69.1/32" ];
             networkConfig = {
-              IPMasquerade = "ipv4";
-              IPv4Forwarding = true;
+              IPMasquerade = "both";
+              Address = "192.168.69.1/24";
             };
           };
         };
