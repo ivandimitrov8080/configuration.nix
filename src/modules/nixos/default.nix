@@ -305,20 +305,7 @@ top@{ inputs, moduleWithSystem, ... }:
             externalInterface = "venet0";
             internalInterfaces = [ "wg0" ];
           };
-          nftables = {
-            enable = true;
-            tables = {
-              wg0 = {
-                family = "ip";
-                content = ''
-                  chain wireguard_chain {
-                      type nat hook postrouting priority srcnat; policy accept;
-                      counter packets 0 bytes 0 masquerade;
-                  }
-                '';
-              };
-            };
-          };
+          nftables.enable = true;
           firewall = {
             extraForwardRules = "iifname wg0 accept";
           };
