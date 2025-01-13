@@ -836,12 +836,14 @@ top@{ inputs, moduleWithSystem, ... }:
           firewall = lib.mkForce {
             enable = true;
             allowedTCPPorts = [
+              22 # ssh
               25 # smtp
               465 # smtps
               80 # http
               443 # https
             ];
             allowedUDPPorts = [
+              22
               25
               465
               80
