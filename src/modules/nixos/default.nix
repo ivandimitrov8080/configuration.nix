@@ -313,8 +313,20 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        networking.nftables = {
-          enable = true;
+        networking = {
+          nftables = {
+            enable = true;
+          };
+          firewall.interfaces = {
+            wg0 = {
+              allowedTCPPorts = [
+                22
+                53
+                993
+              ];
+              allowedUDPPorts = [ 53 ];
+            };
+          };
         };
         systemd.network = {
           enable = true;
@@ -842,31 +854,21 @@ top@{ inputs, moduleWithSystem, ... }:
       { lib, ... }:
       {
         networking = {
-          firewall = lib.mkForce {
+          firewall = with lib; {
             enable = true;
-            allowedTCPPorts = [
+            allowedTCPPorts = mkForce [
               25 # smtp
               465 # smtps
               80 # http
               443 # https
             ];
-            allowedUDPPorts = [
+            allowedUDPPorts = mkForce [
               25
               465
               80
               443
               51820 # wireguard
             ];
-            interfaces = {
-              wg0 = {
-                allowedTCPPorts = [
-                  22
-                  53
-                  993
-                ];
-                allowedUDPPorts = [ 53 ];
-              };
-            };
           };
         };
       }
