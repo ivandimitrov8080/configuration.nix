@@ -285,7 +285,7 @@ top@{ inputs, moduleWithSystem, ... }:
           networkConfig = {
             Address = "10.0.0.2/24";
             DNSDefaultRoute = true;
-            DNS = "1.1.1.1";
+            DNS = "10.0.0.1";
             Domains = "~.";
           };
           routingPolicyRules = [
@@ -828,6 +828,10 @@ top@{ inputs, moduleWithSystem, ... }:
               require_dnssec = true;
               require_nolog = true;
               require_nofilter = true;
+              listen_addresses = [
+                "127.0.0.1:53"
+                "10.0.0.1:53"
+              ];
               anonymized_dns = {
                 routes = [
                   {
