@@ -262,6 +262,7 @@ top@{ inputs, moduleWithSystem, ... }:
             };
             wireguardConfig = {
               PrivateKeyFile = "/etc/systemd/network/wg0.key";
+              FirewallMark = 6969;
             };
             wireguardPeers = [
               {
@@ -280,6 +281,7 @@ top@{ inputs, moduleWithSystem, ... }:
             Address = "10.0.0.2/24";
             DNSDefaultRoute = true;
             DNS = "1.1.1.1";
+            Domains = "~.";
           };
           # linkConfig.ActivationPolicy = "manual";
           routingPolicyRules = [
@@ -289,11 +291,14 @@ top@{ inputs, moduleWithSystem, ... }:
               Table = 1000;
               Priority = 10;
             }
+            {
+              To = "37.205.13.29/32";
+              Priority = 5;
+            }
           ];
           routes = [
             {
-              Gateway = "10.0.0.1";
-              GatewayOnLink = true;
+              Destination = "0.0.0.0/0";
               Table = 1000;
             }
           ];
@@ -304,9 +309,7 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        networking = {
-          nftables.enable = true;
-        };
+        networking.nftables.enable = true;
         systemd.network = {
           enable = true;
           netdevs = {
