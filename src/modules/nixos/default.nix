@@ -221,7 +221,9 @@ top@{ inputs, moduleWithSystem, ... }:
       }
     );
     security = moduleWithSystem (
-      _: _: {
+      _:
+      { pkgs, ... }:
+      {
         security = {
           sudo = {
             execWheelOnly = true;
@@ -230,7 +232,7 @@ top@{ inputs, moduleWithSystem, ... }:
                 groups = [ "wheel" ];
                 commands = [
                   {
-                    command = "ALL";
+                    command = "${pkgs.brightnessctl}/bin/brightnessctl";
                     options = [ "NOPASSWD" ];
                   }
                 ];
