@@ -859,8 +859,12 @@ top@{ inputs, moduleWithSystem, ... }:
             ];
             interfaces = {
               wg0 = {
-                allowedTCPPorts = [ 22 ];
-                allowedUDPPorts = [ 22 ];
+                allowedTCPPorts = [
+                  22
+                  53
+                  993
+                ];
+                allowedUDPPorts = [ 53 ];
               };
             };
           };
