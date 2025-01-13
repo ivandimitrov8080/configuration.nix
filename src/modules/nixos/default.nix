@@ -317,8 +317,12 @@ top@{ inputs, moduleWithSystem, ... }:
               family = "ip";
               content = ''
                 chain input {
-                  type filter hook input priority filter; policy drop;
+                  type filter hook input priority filter; policy accept;
+                  tcp dport { 22, 993 } jump vpn
+                }
+                chain vpn {
                   ip saddr { 10.0.0.2, 10.0.0.3, 10.0.0.4, 10.0.0.5 } accept
+                  drop
                 }
               '';
             };
