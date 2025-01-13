@@ -317,15 +317,8 @@ top@{ inputs, moduleWithSystem, ... }:
               family = "inet";
               content = ''
                 chain input {
-                  type filter hook input priority 0;
+                  type filter hook input priority -50;
                   ip saddr { 10.0.0.2, 10.0.0.3, 10.0.0.4, 10.0.0.5 } tcp dport { 22, 993 } accept
-                  tcp dport { 22, 993 } drop
-                }
-                chain forward {
-                  type filter hook forward priority 0;
-                }
-                chain output {
-                  type filter hook output priority 0;
                 }
               '';
             };
