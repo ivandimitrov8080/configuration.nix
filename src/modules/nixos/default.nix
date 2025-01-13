@@ -314,15 +314,12 @@ top@{ inputs, moduleWithSystem, ... }:
           enable = true;
           tables = {
             vpn = {
-              family = "ip";
+              family = "inet";
               content = ''
                 chain input {
-                  type filter hook input priority filter; policy accept;
-                  tcp dport { 22, 993 } jump vpn
-                }
-                chain vpn {
-                  ip saddr { 10.0.0.2, 10.0.0.3, 10.0.0.4, 10.0.0.5 } accept
-                  drop
+                  type filter hook input priority filter;
+                  ip saddr { 10.0.0.2, 10.0.0.3, 10.0.0.4, 10.0.0.5 } tcp dport { 22, 993 } accept
+                  tcp dport { 22, 993 } drop
                 }
               '';
             };
