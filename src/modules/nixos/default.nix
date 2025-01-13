@@ -283,7 +283,6 @@ top@{ inputs, moduleWithSystem, ... }:
             DNS = "1.1.1.1";
             Domains = "~.";
           };
-          # linkConfig.ActivationPolicy = "manual";
           routingPolicyRules = [
             {
               FirewallMark = 6969;
@@ -309,7 +308,30 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        networking.nftables.enable = true;
+        networking.nftables = {
+          enable = true;
+          tables = {
+            vpn = {
+              family = "ip";
+              content = ''
+                chain input {
+                  tcp dport 22 jump vpn
+                  tcp dport 53 jump vpn
+                  tcp dport 993 jump vpn
+                }
+
+                chain vpn {
+                  ip saddr 10.0.0.2 accept
+                  ip saddr 10.0.0.3 accept
+                  ip saddr 10.0.0.4 accept
+                  ip saddr 10.0.0.5 accept
+
+                  drop
+                }
+              '';
+            };
+          };
+        };
         systemd.network = {
           enable = true;
           netdevs = {
@@ -839,14 +861,12 @@ top@{ inputs, moduleWithSystem, ... }:
           firewall = lib.mkForce {
             enable = true;
             allowedTCPPorts = [
-              22 # ssh
               25 # smtp
               465 # smtps
               80 # http
               443 # https
             ];
             allowedUDPPorts = [
-              22
               25
               465
               80
