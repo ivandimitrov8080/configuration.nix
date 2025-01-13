@@ -638,7 +638,7 @@ top@{ inputs, moduleWithSystem, ... }:
         mailserver = {
           enable = true;
           localDnsResolver = false;
-          fqdn = "mail.idimitrov.dev";
+          fqdn = "idimitrov.dev";
           domains = [
             "idimitrov.dev"
             "mail.idimitrov.dev"
@@ -663,7 +663,7 @@ top@{ inputs, moduleWithSystem, ... }:
             plugins = [
               "persistent_login"
             ];
-            hostName = "${config.mailserver.fqdn}";
+            hostName = "mail.idimitrov.dev";
             extraConfig = ''
               $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
               $config['smtp_user'] = "%u";
@@ -681,7 +681,7 @@ top@{ inputs, moduleWithSystem, ... }:
               '';
             in
             {
-              "${config.mailserver.fqdn}" = {
+              "mail.idimitrov.dev" = {
                 extraConfig = restrictToVpn;
               };
             };
