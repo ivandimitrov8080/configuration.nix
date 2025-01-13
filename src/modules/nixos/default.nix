@@ -315,17 +315,6 @@ top@{ inputs, moduleWithSystem, ... }:
       {
         networking.nftables = {
           enable = true;
-          tables = {
-            vpn = {
-              family = "inet";
-              content = ''
-                chain input {
-                  type filter hook input priority -50;
-                  ip saddr { 10.0.0.2, 10.0.0.3, 10.0.0.4, 10.0.0.5 } tcp dport { 22, 993 } accept
-                }
-              '';
-            };
-          };
         };
         systemd.network = {
           enable = true;
@@ -868,6 +857,12 @@ top@{ inputs, moduleWithSystem, ... }:
               443
               51820 # wireguard
             ];
+            interfaces = {
+              wg0 = {
+                allowedTCPPorts = [ 22 ];
+                allowedUDPPorts = [ 22 ];
+              };
+            };
           };
         };
       }
