@@ -261,12 +261,11 @@ top@{ inputs, moduleWithSystem, ... }:
               Description = "Wireguard virtual network device (tunnel)";
             };
             wireguardConfig = {
-              PrivateKeyFile = "/etc/wireguard/privatekey";
-              FirewallMark = 6969;
+              PrivateKeyFile = "/etc/systemd/network/wg0.key";
             };
             wireguardPeers = [
               {
-                PublicKey = "5FiTLnzbgcbgQLlyVyYeESEd+2DtwM1JHCGz/32UcEU=";
+                PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
                 AllowedIPs = [
                   "0.0.0.0/0"
                 ];
@@ -318,12 +317,12 @@ top@{ inputs, moduleWithSystem, ... }:
                 Description = "Wireguard virtual device (tunnel)";
               };
               wireguardConfig = {
-                PrivateKeyFile = "/etc/wireguard/privatekey";
+                PrivateKeyFile = "/etc/systemd/network/wg0.key";
                 ListenPort = 51820;
               };
               wireguardPeers = [
                 {
-                  PublicKey = "kI93V0dVKSqX8hxMJHK5C0c1hEDPQTgPQDU8TKocVgo=";
+                  PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
                   AllowedIPs = [ "10.0.0.2/32" ];
                 }
                 {
