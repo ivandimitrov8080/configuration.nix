@@ -324,7 +324,6 @@ top@{ inputs, moduleWithSystem, ... }:
                 53
                 993
               ];
-              allowedUDPPorts = [ 53 ];
             };
           };
         };
