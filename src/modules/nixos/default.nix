@@ -347,7 +347,7 @@ top@{ inputs, moduleWithSystem, ... }:
                   AllowedIPs = [ "10.0.0.2/32" ];
                 }
                 {
-                  PublicKey = "L23dGY0zcUnyBSj0kk5UZjubWejbb0osekuXZbROgyM=";
+                  PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
                   AllowedIPs = [ "10.0.0.3/32" ];
                 }
                 {
