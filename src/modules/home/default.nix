@@ -214,10 +214,10 @@ top@{ moduleWithSystem, inputs, ... }:
                   signByDefault = true;
                 };
                 smtp = {
-                  host = "mail.idimitrov.dev";
+                  host = "idimitrov.dev";
                 };
                 imap = {
-                  host = "mail.idimitrov.dev";
+                  host = "idimitrov.dev";
                 };
                 neomutt = {
                   enable = true;
