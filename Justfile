@@ -1,6 +1,6 @@
 default: nova
 
-all: nova (nova "music")
+all: (nova "ai") (nova "gaming") nova vps
 
 nova config="nova":
   #!/usr/bin/env sh
