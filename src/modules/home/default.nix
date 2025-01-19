@@ -633,7 +633,7 @@ top@{ moduleWithSystem, inputs, ... }:
                   tooltip = false;
                 };
                 battery = {
-                  format = "{icon} <span color='#cdd6f4'>{capacity}% {time}</span>";
+                  format = "{icon} {capacity}% {time}";
                   format-time = " {H} h {M} m";
                   format-icons = [
                     ""
@@ -702,15 +702,16 @@ top@{ moduleWithSystem, inputs, ... }:
                 }
 
                 window#waybar {
-                    background-color: rgba(43, 48, 59, 0.1);
-                    border-bottom: 2px solid rgba(100, 114, 125, 0.5);
+                    background-color: alpha(@base, 0.1);
+                    border-bottom: 2px solid alpha(@sky, 0.5);
                     color: @rosewater;
                 }
 
                 #workspaces button {
                     padding: 0 5px;
-                    background-color: @base;
+                    background-color: alpha(@base, 0.85);
                     color: @text;
+                    font-weight: 900;
                     border-radius: 6px;
                 }
 
@@ -719,12 +720,12 @@ top@{ moduleWithSystem, inputs, ... }:
                 }
 
                 #workspaces button.focused {
-                    background-color: @crust;
+                    background-color: alpha(@crust, 0.85);
                     box-shadow: inset 0 -2px @sky;
                 }
 
                 #workspaces button.urgent {
-                    background-color: @red;
+                    background-color: alpha(@red, 0.85);
                 }
 
                 #clock,
@@ -747,7 +748,8 @@ top@{ moduleWithSystem, inputs, ... }:
                 #custom-weather {
                     padding: 0 1em;
                     color: @text;
-                    background-color: @base;
+                    font-weight: 900;
+                    background-color: alpha(@base, 0.85);
                     border-radius: 9999px;
                 }
 
@@ -778,33 +780,27 @@ top@{ moduleWithSystem, inputs, ... }:
                     color: @yellow;
                 }
 
-                #keyboard-state label {
-                    color: @green;
-                }
-
-                #keyboard-state label.locked {
-                    color: @red;
-                }
-
-                @keyframes blink {
-                    to {
-                        background-color: #ffffff;
-                        color: #000000;
-                    }
-                }
-
                 #battery.warning:not(.charging) {
-                    background-color: @red;
+                    background-color: alpha(@red, 0.85);
+                    color: @crust;
                 }
 
                 /* Using steps() instead of linear as a timing function to limit cpu usage */
                 #battery.critical:not(.charging) {
-                    background-color: @red;
+                    color: @crust;
                     animation-name: blink;
-                    animation-duration: 0.5s;
+                    animation-duration: 1s;
                     animation-timing-function: steps(12);
                     animation-iteration-count: infinite;
                     animation-direction: alternate;
+                }
+
+                @keyframes blink {
+                    0% { background-color: alpha(@mauve, 0.85); }
+                    25% { background-color: alpha(@red, 0.85); }
+                    50% { background-color: alpha(@maroon, 0.85); }
+                    75% { background-color: alpha(@peach, 0.85); }
+                    100% { background-color: alpha(@mauve, 0.85); }
                 }
               '';
           };
