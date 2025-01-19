@@ -12,8 +12,7 @@
           screenshot
           rofi-themes
           mutt-themes
-          webshite
-          webshiteApi
+          waybar-themes
           ;
       }
     );
