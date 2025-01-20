@@ -8,7 +8,8 @@ let
   mods = toplevel.config.flake.nixosModules;
   inherit (toplevel.config.flake) hardwareConfigurations;
   essential = with mods; [
-    grub
+    flakeModule
+    default
     base
     shell
     security

@@ -1,113 +1,49 @@
 top@{ inputs, moduleWithSystem, ... }:
 {
   flake.nixosModules = {
-    grub = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        boot = {
-          loader = {
-            grub =
-              let
-                theme = pkgs.sleek-grub-theme.override {
-                  withBanner = "Hello Ivan";
-                  withStyle = "bigSur";
-                };
-              in
-              {
-                inherit theme;
-                enable = pkgs.lib.mkDefault true;
-                useOSProber = true;
-                efiSupport = true;
-                device = "nodev";
-                splashImage = "${theme}/background.png";
-              };
-            efi.canTouchEfiVariables = true;
-          };
-          kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
+    flakeModule = moduleWithSystem (
+      _: _: {
+        imports = [ inputs.hosts.nixosModule ];
+        nix.registry = {
+          self.flake = inputs.self;
+          nixpkgs.flake = inputs.nixpkgs;
+          p.flake = inputs.nixpkgs;
         };
+        nixpkgs.overlays = [
+          inputs.self.overlays.default
+        ];
+      }
+    );
+    default = moduleWithSystem (
+      _:
+      { lib, ... }:
+      let
+        files = lib.filesystem.listFilesRecursive ./.;
+        endsWith =
+          e: x:
+          with builtins;
+          let
+            se = toString e;
+            sx = toString x;
+          in
+          (stringLength sx >= stringLength se)
+          && (substring ((stringLength sx) - (stringLength se)) (stringLength sx) sx) == se;
+        defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
+      in
+      {
+        imports =
+          with builtins;
+          filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
       }
     );
     base = moduleWithSystem (
       _:
       { pkgs, ... }:
       {
-        nixpkgs.overlays = [
-          top.config.flake.overlays.default
-        ];
-        imports = [ inputs.hosts.nixosModule ];
         system.stateVersion = top.config.flake.stateVersion;
-        nix = {
-          extraOptions = ''experimental-features = nix-command flakes'';
-          registry = {
-            self.flake = inputs.self;
-            nixpkgs.flake = inputs.nixpkgs;
-            p.flake = inputs.nixpkgs;
-          };
-        };
         i18n.supportedLocales = [ "all" ];
         time.timeZone = "Europe/Prague";
-        environment = {
-          systemPackages = with pkgs; [
-            cmatrix
-            uutils-coreutils-noprefix
-            cryptsetup
-            fd
-            file
-            glibc
-            gnumake
-            mlocate
-            openssh
-            openssl
-            procs
-            ripgrep
-            srm
-            unzip
-            vim
-            zip
-            just
-            nixos-install-tools
-            tshark
-          ];
-          sessionVariables = {
-            MAKEFLAGS = "-j 4";
-          };
-          shells = with pkgs; [
-            bash
-            zsh
-            nushell
-          ];
-          enableAllTerminfo = true;
-        };
         users.defaultUserShell = pkgs.zsh;
-        programs = {
-          git = {
-            enable = true;
-            config = {
-              safe.directory = "*";
-            };
-          };
-          zsh.enable = true;
-          nix-ld.enable = true;
-        };
-        services = {
-          dbus.enable = true;
-          logind = {
-            killUserProcesses = true;
-            powerKeyLongPress = "reboot";
-          };
-        };
-        networking = {
-          stevenBlackHosts = {
-            enable = true;
-            blockFakenews = true;
-            blockGambling = true;
-          };
-          extraHosts = ''
-            10.0.0.1 mail.idimitrov.dev
-          '';
-          useNetworkd = true;
-        };
         systemd.network = {
           wait-online.enable = false;
         };
@@ -696,48 +632,8 @@ top@{ inputs, moduleWithSystem, ... }:
       }
     );
     nginx = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        services = {
-          nginx = {
-            enable = true;
-            recommendedGzipSettings = true;
-            recommendedOptimisation = true;
-            recommendedProxySettings = true;
-            recommendedTlsSettings = true;
-            sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-            appendHttpConfig = ''
-              client_body_timeout 5s;
-              client_header_timeout 5s;
-            '';
-            virtualHosts = {
-              "pic.idimitrov.dev" = {
-                enableACME = true;
-                forceSSL = true;
-                locations."/" = {
-                  root = "/var/pic";
-                  extraConfig = ''
-                    autoindex on;
-                  '';
-                };
-              };
-            };
-          };
-          postgresql = {
-            enable = true;
-            ensureUsers = [
-              {
-                name = "root";
-                ensureClauses = {
-                  superuser = true;
-                  createrole = true;
-                  createdb = true;
-                };
-              }
-            ];
-          };
-        };
+      _: _: {
+        imports = [ ./services/nginx ];
       }
     );
     anonymous-dns = moduleWithSystem (
