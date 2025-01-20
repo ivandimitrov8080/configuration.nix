@@ -707,6 +707,10 @@ top@{ inputs, moduleWithSystem, ... }:
             recommendedProxySettings = true;
             recommendedTlsSettings = true;
             sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+            appendHttpConfig = ''
+              client_body_timeout 5s;
+              client_header_timeout 5s;
+            '';
             virtualHosts = {
               "pic.idimitrov.dev" = {
                 enableACME = true;
