@@ -2,7 +2,9 @@ top@{ inputs, moduleWithSystem, ... }:
 {
   flake.nixosModules = {
     flakeModule = moduleWithSystem (
-      _: _: {
+      _:
+      { pkgs, ... }:
+      {
         imports = [ inputs.hosts.nixosModule ];
         nix.registry = {
           self.flake = inputs.self;
@@ -12,6 +14,14 @@ top@{ inputs, moduleWithSystem, ... }:
         nixpkgs.overlays = [
           inputs.self.overlays.default
         ];
+        system.stateVersion = top.config.flake.stateVersion;
+        i18n.supportedLocales = [ "all" ];
+        time.timeZone = "Europe/Prague";
+        users.defaultUserShell = pkgs.zsh;
+        systemd.network = {
+          wait-online.enable = false;
+        };
+        environment.systemPackages = with pkgs; [ pwvucontrol ];
       }
     );
     default = moduleWithSystem (
@@ -34,71 +44,6 @@ top@{ inputs, moduleWithSystem, ... }:
         imports =
           with builtins;
           filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
-      }
-    );
-    base = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        system.stateVersion = top.config.flake.stateVersion;
-        i18n.supportedLocales = [ "all" ];
-        time.timeZone = "Europe/Prague";
-        users.defaultUserShell = pkgs.zsh;
-        systemd.network = {
-          wait-online.enable = false;
-        };
-      }
-    );
-    shell = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        programs = {
-          starship.enable = true;
-          zsh = {
-            enableBashCompletion = true;
-            syntaxHighlighting.enable = true;
-            autosuggestions = {
-              enable = true;
-              strategy = [
-                "history"
-                "completion"
-                "match_prev_cmd"
-              ];
-              highlightStyle = "fg=#FFF689";
-            };
-            shellAliases = {
-              cal = "cal $(date +%Y)";
-              GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
-              gad = "git add . && git diff --cached";
-              gac = "ga && gc";
-              ga = "git add .";
-              gc = "git commit";
-              dev = "nix develop --command $SHELL";
-              eza = "${pkgs.eza}/bin/eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
-              ls = "eza";
-              la = "eza --all -a";
-              lt = "eza --git-ignore --all --tree --level=10";
-              sc = "systemctl";
-              neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
-              flip = "shuf -r -n 1 -e Heads Tails";
-            };
-          };
-        };
-      }
-    );
-    sound = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        services = {
-          pipewire = {
-            enable = true;
-            alsa.enable = true;
-            pulse.enable = true;
-          };
-        };
-        environment.systemPackages = with pkgs; [ pwvucontrol ];
       }
     );
     music = moduleWithSystem (
@@ -136,115 +81,6 @@ top@{ inputs, moduleWithSystem, ... }:
         ];
       }
     );
-    wayland = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        hardware.graphics.enable = true;
-        security.pam.services.swaylock = { };
-        xdg.portal = {
-          enable = true;
-          extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-          config.sway.default = "wlr";
-          wlr = {
-            enable = true;
-            settings = {
-              screencast = {
-                output_name = "HDMI-A-1";
-                max_fps = 60;
-              };
-            };
-          };
-          config.common.default = "*";
-        };
-      }
-    );
-    security = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        security = {
-          sudo = {
-            execWheelOnly = true;
-            extraRules = [
-              {
-                groups = [ "wheel" ];
-                commands = [
-                  {
-                    command = "${pkgs.brightnessctl}/bin/brightnessctl";
-                    options = [ "NOPASSWD" ];
-                  }
-                ];
-              }
-            ];
-          };
-          doas = {
-            extraRules = [
-              {
-                groups = [ "wheel" ];
-                noPass = true;
-                keepEnv = true;
-              }
-            ];
-          };
-          polkit.enable = true;
-          rtkit.enable = true;
-        };
-      }
-    );
-    intranet = {
-      systemd.network = {
-        netdevs = {
-          "10-wg0" = {
-            netdevConfig = {
-              Kind = "wireguard";
-              Name = "wg0";
-              Description = "Wireguard virtual network device (tunnel)";
-            };
-            wireguardConfig = {
-              PrivateKeyFile = "/etc/systemd/network/wg0.key";
-              FirewallMark = 6969;
-            };
-            wireguardPeers = [
-              {
-                PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
-                AllowedIPs = [
-                  "0.0.0.0/0"
-                ];
-                Endpoint = "37.205.13.29:51820";
-              }
-            ];
-          };
-        };
-        networks.wg0 = {
-          matchConfig.Name = "wg0";
-          networkConfig = {
-            Address = "10.0.0.2/24";
-            DNSDefaultRoute = true;
-            DNS = "10.0.0.1";
-            Domains = "~.";
-          };
-          routingPolicyRules = [
-            {
-              FirewallMark = 6969;
-              InvertRule = true;
-              Table = 1000;
-              Priority = 10;
-            }
-            {
-              To = "37.205.13.29/32";
-              Priority = 5;
-            }
-          ];
-          routes = [
-            {
-              Destination = "0.0.0.0/0";
-              Table = 1000;
-            }
-          ];
-        };
-      };
-    };
     wireguard-output = moduleWithSystem (
       _:
       { pkgs, ... }:
@@ -306,67 +142,6 @@ top@{ inputs, moduleWithSystem, ... }:
         };
       }
     );
-    wireless = {
-      networking = {
-        wireless = {
-          enable = true;
-          networks = {
-            "Smart-Hostel-2.4" = {
-              psk = "smarttrans.bg";
-            };
-            "Yohohostel2.4G" = {
-              psk = "kaskamaska";
-            };
-            "Nomado_Guest" = {
-              psk = "welcomehome";
-            };
-            "HostelMusala Uni" = {
-              psk = "mhostelm";
-            };
-            "BOUTIQUE APARTMENTS" = {
-              psk = "boutique26";
-            };
-            "Safestay" = {
-              psk = "AlldayrooftopBAR";
-            };
-            "HOSTEL JASMIN 2" = {
-              psk = "Jasmin2024";
-            };
-            "HOME" = {
-              psk = "iloveprague";
-            };
-            "Vodafone-B925" = {
-              psk = "7aGh3FE6pN4p4cu6";
-            };
-            "O2WIFIZ_EXT" = {
-              psk = "iloveprague";
-            };
-            "KOTEKLAN_GUEST" = {
-              psk = "koteklankotek";
-            };
-            "TP-Link_BE7A" = {
-              psk = "84665461";
-            };
-            "Post120" = {
-              psk = "9996663333";
-            };
-            "MOONLIGHT2019" = {
-              psk = "seacrets";
-            };
-            "Kaiser Terrasse" = {
-              psk = "Internet12";
-            };
-            "bumshakalaka" = {
-              psk = "locomotive420";
-            };
-            "ATHENS-HAWKS" = { };
-            "3G" = {
-              hidden = true;
-            };
-          };
-        };
-      };
-    };
     ivand = moduleWithSystem (
       _:
       { pkgs, ... }:

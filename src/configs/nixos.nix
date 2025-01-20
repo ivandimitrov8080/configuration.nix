@@ -10,15 +10,6 @@ let
   essential = with mods; [
     flakeModule
     default
-    base
-    shell
-    security
-    wireless
-  ];
-  desktop = with mods; [
-    sound
-    wayland
-    intranet
   ];
   configWithModules =
     {
@@ -40,7 +31,7 @@ let
     mods:
     configWithModules {
       hardware = hardwareConfigurations.nova;
-      modules = essential ++ desktop ++ mods;
+      modules = essential ++ mods;
     };
 in
 {
