@@ -5,7 +5,28 @@ top@{ inputs, moduleWithSystem, ... }:
       _:
       { pkgs, ... }:
       {
-        imports = [ inputs.hosts.nixosModule ];
+        imports = with inputs; [
+          hosts.nixosModule
+          home-manager.nixosModules.default
+        ];
+        home-manager = {
+          backupFileExtension = "bak";
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.ivand =
+            { ... }:
+            {
+              imports = with top.config.flake.homeManagerModules; [
+                base
+                ivand
+                shell
+                util
+                swayland
+                web
+                reminders
+              ];
+            };
+        };
         nix.registry = {
           self.flake = inputs.self;
           nixpkgs.flake = inputs.nixpkgs;
@@ -22,6 +43,43 @@ top@{ inputs, moduleWithSystem, ... }:
           wait-online.enable = false;
         };
         environment.systemPackages = with pkgs; [ pwvucontrol ];
+        users = {
+          users = {
+            ivand = {
+              isNormalUser = true;
+              createHome = true;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "flatpak"
+                "input"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+              ];
+            };
+          };
+          extraGroups = {
+            mlocate = { };
+            realtime = { };
+          };
+        };
+        programs = {
+          dconf.enable = true;
+          adb.enable = true;
+        };
+        fonts.packages = with pkgs; [
+          nerd-fonts.fira-code
+          noto-fonts
+          noto-fonts-emoji
+          noto-fonts-lgc-plus
+        ];
       }
     );
     default = moduleWithSystem (
@@ -79,132 +137,6 @@ top@{ inputs, moduleWithSystem, ... }:
             value = "1048576";
           }
         ];
-      }
-    );
-    wireguard-output = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        networking = {
-          nftables = {
-            enable = true;
-          };
-          firewall.interfaces = {
-            wg0 = {
-              allowedTCPPorts = [
-                22
-                53
-                993
-              ];
-            };
-          };
-        };
-        systemd.network = {
-          enable = true;
-          netdevs = {
-            "10-wg0" = {
-              netdevConfig = {
-                Kind = "wireguard";
-                Name = "wg0";
-                Description = "Wireguard virtual device (tunnel)";
-              };
-              wireguardConfig = {
-                PrivateKeyFile = "/etc/systemd/network/wg0.key";
-                ListenPort = 51820;
-              };
-              wireguardPeers = [
-                {
-                  PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
-                  AllowedIPs = [ "10.0.0.2/32" ];
-                }
-                {
-                  PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-                  AllowedIPs = [ "10.0.0.3/32" ];
-                }
-                {
-                  PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
-                  AllowedIPs = [ "10.0.0.4/32" ];
-                }
-                {
-                  PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
-                  AllowedIPs = [ "10.0.0.5/32" ];
-                }
-              ];
-            };
-          };
-          networks.wg0 = {
-            matchConfig.Name = "wg0";
-            networkConfig = {
-              IPMasquerade = "both";
-              Address = "10.0.0.1/24";
-            };
-          };
-        };
-      }
-    );
-    ivand = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      let
-        homeMods = top.config.flake.homeManagerModules;
-      in
-      {
-        imports = [ inputs.home-manager.nixosModules.default ];
-        home-manager = {
-          backupFileExtension = "bak";
-          useUserPackages = true;
-          useGlobalPkgs = true;
-          users.ivand =
-            { ... }:
-            {
-              imports = with homeMods; [
-                base
-                ivand
-                shell
-                util
-                swayland
-                web
-                reminders
-              ];
-            };
-        };
-        fonts.packages = with pkgs; [
-          nerd-fonts.fira-code
-          noto-fonts
-          noto-fonts-emoji
-          noto-fonts-lgc-plus
-        ];
-        users = {
-          users = {
-            ivand = {
-              isNormalUser = true;
-              createHome = true;
-              extraGroups = [
-                "adbusers"
-                "adm"
-                "audio"
-                "bluetooth"
-                "dialout"
-                "flatpak"
-                "input"
-                "kvm"
-                "mlocate"
-                "realtime"
-                "render"
-                "video"
-                "wheel"
-              ];
-            };
-          };
-          extraGroups = {
-            mlocate = { };
-            realtime = { };
-          };
-        };
-        programs = {
-          dconf.enable = true;
-          adb.enable = true;
-        };
       }
     );
     flatpak = {
@@ -282,13 +214,6 @@ top@{ inputs, moduleWithSystem, ... }:
           storageDriver = "btrfs";
         };
         users.users.ivand.extraGroups = [ "docker" ];
-      }
-    );
-    anon = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ tor-browser ];
       }
     );
     cryptocurrency = moduleWithSystem (
