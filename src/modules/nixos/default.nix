@@ -70,7 +70,7 @@ top@{ inputs, moduleWithSystem, ... }:
             tshark
           ];
           sessionVariables = {
-            MAKEFLAGS = "-j 4";
+            MAKEFLAGS = "-j 4 -B";
           };
           shells = with pkgs; [
             bash

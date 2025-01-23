@@ -25,6 +25,7 @@ let
         nixpkgs.hostPlatform = system;
       },
       modules,
+      hostname ? "nixos",
     }:
     withSystem system (
       { inputs', pkgs, ... }:
@@ -32,7 +33,10 @@ let
         specialArgs = {
           inherit inputs inputs';
         };
-        modules = [ hardware ] ++ modules;
+        modules = [
+          hardware
+          { networking.hostName = hostname; }
+        ] ++ modules;
       }
     );
   novaConfig =
@@ -40,6 +44,7 @@ let
     configWithModules {
       hardware = hardwareConfigurations.nova;
       modules = essential ++ desktop ++ mods;
+      hostname = "nova";
     };
 in
 {

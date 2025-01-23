@@ -3,7 +3,7 @@
   perSystem =
     { system, pkgs, ... }:
     {
-      config.packages = {
+      config.packages = rec {
         nvim = inputs.nixvim.legacyPackages.${system}.makeNixvim {
           enableMan = false;
           package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
@@ -383,6 +383,8 @@
             cp ./themes/* $out
           '';
         };
+        xin = pkgs.callPackage ../lib/xin { };
+        default = xin;
       };
     };
 }
