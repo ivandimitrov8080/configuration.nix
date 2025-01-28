@@ -18,7 +18,7 @@
         formatter = pkgs.nixfmt-rfc-style;
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            (ghc.withPackages (hkgs: with hkgs; [ turtle libnix ]))
+            (ghc.withPackages (hkgs: with hkgs; [ turtle ]))
             (config.packages.nvim.extend {
               plugins = {
                 lsp.servers = {
