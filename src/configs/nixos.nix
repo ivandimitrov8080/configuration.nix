@@ -40,7 +40,7 @@ let
 in
 {
   flake.nixosConfigurations = {
-    nova = novaConfig [ mods.ivand ];
+    nova = novaConfig [ ];
     nova-gaming = novaConfig (
       with mods;
       [
