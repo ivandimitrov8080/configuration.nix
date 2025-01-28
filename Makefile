@@ -1,6 +1,6 @@
 default: nova
 
-all: nova
+all: nova vps
 
 nova:
 	nix run . -- -t nova

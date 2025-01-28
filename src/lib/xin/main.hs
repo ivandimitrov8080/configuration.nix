@@ -6,8 +6,6 @@ parser :: Parser Text
 parser = optText "host" 't' "The host to build"
 
 main = do
-  -- do stuff
-  -- parseNixExpr 0
   host <- options "xin" parser
   if host == "nova"
     then do
