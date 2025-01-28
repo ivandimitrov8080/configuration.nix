@@ -1,168 +1,107 @@
 top@{ inputs, moduleWithSystem, ... }:
 {
   flake.nixosModules = {
-    grub = moduleWithSystem (
+    flakeModule = moduleWithSystem (
       _:
       { pkgs, ... }:
       {
-        boot = {
-          loader = {
-            grub =
-              let
-                theme = pkgs.sleek-grub-theme.override {
-                  withBanner = "Hello Ivan";
-                  withStyle = "bigSur";
-                };
-              in
-              {
-                inherit theme;
-                enable = pkgs.lib.mkDefault true;
-                useOSProber = true;
-                efiSupport = true;
-                device = "nodev";
-                splashImage = "${theme}/background.png";
-              };
-            efi.canTouchEfiVariables = true;
-          };
-          kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages_latest-libre;
-        };
-      }
-    );
-    base = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        nixpkgs.overlays = [
-          top.config.flake.overlays.default
+        imports = with inputs; [
+          hosts.nixosModule
+          home-manager.nixosModules.default
         ];
-        imports = [ inputs.hosts.nixosModule ];
-        system.stateVersion = top.config.flake.stateVersion;
-        nix = {
-          extraOptions = ''experimental-features = nix-command flakes'';
-          registry = {
-            self.flake = inputs.self;
-            nixpkgs.flake = inputs.nixpkgs;
-            p.flake = inputs.nixpkgs;
-          };
+        home-manager = {
+          backupFileExtension = "bak";
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.ivand =
+            { ... }:
+            {
+              imports = with top.config.flake.homeManagerModules; [
+                base
+                ivand
+                shell
+                util
+                swayland
+                web
+                reminders
+              ];
+            };
         };
+        nix.registry = {
+          self.flake = inputs.self;
+          nixpkgs.flake = inputs.nixpkgs;
+          p.flake = inputs.nixpkgs;
+        };
+        nixpkgs.overlays = [
+          inputs.self.overlays.default
+        ];
+        system.stateVersion = top.config.flake.stateVersion;
         i18n.supportedLocales = [ "all" ];
         time.timeZone = "Europe/Prague";
-        environment = {
-          systemPackages = with pkgs; [
-            cmatrix
-            uutils-coreutils-noprefix
-            cryptsetup
-            fd
-            file
-            glibc
-            gnumake
-            mlocate
-            openssh
-            openssl
-            procs
-            ripgrep
-            srm
-            unzip
-            vim
-            zip
-            just
-            nixos-install-tools
-            tshark
-          ];
-          sessionVariables = {
-            MAKEFLAGS = "-j 4 -B";
-          };
-          shells = with pkgs; [
-            bash
-            zsh
-            nushell
-          ];
-          enableAllTerminfo = true;
-        };
         users.defaultUserShell = pkgs.zsh;
-        programs = {
-          git = {
-            enable = true;
-            config = {
-              safe.directory = "*";
-            };
-          };
-          zsh.enable = true;
-          nix-ld.enable = true;
-        };
-        services = {
-          dbus.enable = true;
-          logind = {
-            killUserProcesses = true;
-            powerKeyLongPress = "reboot";
-          };
-        };
-        networking = {
-          stevenBlackHosts = {
-            enable = true;
-            blockFakenews = true;
-            blockGambling = true;
-          };
-          extraHosts = ''
-            10.0.0.1 mail.idimitrov.dev
-          '';
-          useNetworkd = true;
-        };
         systemd.network = {
           wait-online.enable = false;
         };
-      }
-    );
-    shell = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        programs = {
-          starship.enable = true;
-          zsh = {
-            enableBashCompletion = true;
-            syntaxHighlighting.enable = true;
-            autosuggestions = {
-              enable = true;
-              strategy = [
-                "history"
-                "completion"
-                "match_prev_cmd"
-              ];
-              highlightStyle = "fg=#FFF689";
-            };
-            shellAliases = {
-              cal = "cal $(date +%Y)";
-              GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
-              gad = "git add . && git diff --cached";
-              gac = "ga && gc";
-              ga = "git add .";
-              gc = "git commit";
-              dev = "nix develop --command $SHELL";
-              eza = "${pkgs.eza}/bin/eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
-              ls = "eza";
-              la = "eza --all -a";
-              lt = "eza --git-ignore --all --tree --level=10";
-              sc = "systemctl";
-              neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
-              flip = "shuf -r -n 1 -e Heads Tails";
-            };
-          };
-        };
-      }
-    );
-    sound = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        services = {
-          pipewire = {
-            enable = true;
-            alsa.enable = true;
-            pulse.enable = true;
-          };
-        };
         environment.systemPackages = with pkgs; [ pwvucontrol ];
+        users = {
+          users = {
+            ivand = {
+              isNormalUser = true;
+              createHome = true;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "flatpak"
+                "input"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+              ];
+            };
+          };
+          extraGroups = {
+            mlocate = { };
+            realtime = { };
+          };
+        };
+        programs = {
+          dconf.enable = true;
+          adb.enable = true;
+        };
+        fonts.packages = with pkgs; [
+          nerd-fonts.fira-code
+          noto-fonts
+          noto-fonts-emoji
+          noto-fonts-lgc-plus
+        ];
+      }
+    );
+    default = moduleWithSystem (
+      _:
+      { lib, ... }:
+      let
+        files = lib.filesystem.listFilesRecursive ./.;
+        endsWith =
+          e: x:
+          with builtins;
+          let
+            se = toString e;
+            sx = toString x;
+          in
+          (stringLength sx >= stringLength se)
+          && (substring ((stringLength sx) - (stringLength se)) (stringLength sx) sx) == se;
+        defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
+      in
+      {
+        imports =
+          with builtins;
+          filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
       }
     );
     music = moduleWithSystem (
@@ -198,302 +137,6 @@ top@{ inputs, moduleWithSystem, ... }:
             value = "1048576";
           }
         ];
-      }
-    );
-    wayland = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        hardware.graphics.enable = true;
-        security.pam.services.swaylock = { };
-        xdg.portal = {
-          enable = true;
-          extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-          config.sway.default = "wlr";
-          wlr = {
-            enable = true;
-            settings = {
-              screencast = {
-                output_name = "HDMI-A-1";
-                max_fps = 60;
-              };
-            };
-          };
-          config.common.default = "*";
-        };
-      }
-    );
-    security = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        security = {
-          sudo = {
-            execWheelOnly = true;
-            extraRules = [
-              {
-                groups = [ "wheel" ];
-                commands = [
-                  {
-                    command = "${pkgs.brightnessctl}/bin/brightnessctl";
-                    options = [ "NOPASSWD" ];
-                  }
-                ];
-              }
-            ];
-          };
-          doas = {
-            extraRules = [
-              {
-                groups = [ "wheel" ];
-                noPass = true;
-                keepEnv = true;
-              }
-            ];
-          };
-          polkit.enable = true;
-          rtkit.enable = true;
-        };
-      }
-    );
-    intranet = {
-      systemd.network = {
-        netdevs = {
-          "10-wg0" = {
-            netdevConfig = {
-              Kind = "wireguard";
-              Name = "wg0";
-              Description = "Wireguard virtual network device (tunnel)";
-            };
-            wireguardConfig = {
-              PrivateKeyFile = "/etc/systemd/network/wg0.key";
-              FirewallMark = 6969;
-            };
-            wireguardPeers = [
-              {
-                PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
-                AllowedIPs = [
-                  "0.0.0.0/0"
-                ];
-                Endpoint = "37.205.13.29:51820";
-              }
-            ];
-          };
-        };
-        networks.wg0 = {
-          matchConfig.Name = "wg0";
-          networkConfig = {
-            Address = "10.0.0.2/24";
-            DNSDefaultRoute = true;
-            DNS = "10.0.0.1";
-            Domains = "~.";
-          };
-          routingPolicyRules = [
-            {
-              FirewallMark = 6969;
-              InvertRule = true;
-              Table = 1000;
-              Priority = 10;
-            }
-            {
-              To = "37.205.13.29/32";
-              Priority = 5;
-            }
-          ];
-          routes = [
-            {
-              Destination = "0.0.0.0/0";
-              Table = 1000;
-            }
-          ];
-        };
-      };
-    };
-    wireguard-output = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        networking = {
-          nftables = {
-            enable = true;
-          };
-          firewall.interfaces = {
-            wg0 = {
-              allowedTCPPorts = [
-                22
-                53
-                993
-              ];
-            };
-          };
-        };
-        systemd.network = {
-          enable = true;
-          netdevs = {
-            "10-wg0" = {
-              netdevConfig = {
-                Kind = "wireguard";
-                Name = "wg0";
-                Description = "Wireguard virtual device (tunnel)";
-              };
-              wireguardConfig = {
-                PrivateKeyFile = "/etc/systemd/network/wg0.key";
-                ListenPort = 51820;
-              };
-              wireguardPeers = [
-                {
-                  PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
-                  AllowedIPs = [ "10.0.0.2/32" ];
-                }
-                {
-                  PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-                  AllowedIPs = [ "10.0.0.3/32" ];
-                }
-                {
-                  PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
-                  AllowedIPs = [ "10.0.0.4/32" ];
-                }
-                {
-                  PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
-                  AllowedIPs = [ "10.0.0.5/32" ];
-                }
-              ];
-            };
-          };
-          networks.wg0 = {
-            matchConfig.Name = "wg0";
-            networkConfig = {
-              IPMasquerade = "both";
-              Address = "10.0.0.1/24";
-            };
-          };
-        };
-      }
-    );
-    wireless = {
-      networking = {
-        wireless = {
-          enable = true;
-          networks = {
-            "Smart-Hostel-2.4" = {
-              psk = "smarttrans.bg";
-            };
-            "Yohohostel2.4G" = {
-              psk = "kaskamaska";
-            };
-            "Nomado_Guest" = {
-              psk = "welcomehome";
-            };
-            "HostelMusala Uni" = {
-              psk = "mhostelm";
-            };
-            "BOUTIQUE APARTMENTS" = {
-              psk = "boutique26";
-            };
-            "Safestay" = {
-              psk = "AlldayrooftopBAR";
-            };
-            "HOSTEL JASMIN 2" = {
-              psk = "Jasmin2024";
-            };
-            "HOME" = {
-              psk = "iloveprague";
-            };
-            "Vodafone-B925" = {
-              psk = "7aGh3FE6pN4p4cu6";
-            };
-            "O2WIFIZ_EXT" = {
-              psk = "iloveprague";
-            };
-            "KOTEKLAN_GUEST" = {
-              psk = "koteklankotek";
-            };
-            "TP-Link_BE7A" = {
-              psk = "84665461";
-            };
-            "Post120" = {
-              psk = "9996663333";
-            };
-            "MOONLIGHT2019" = {
-              psk = "seacrets";
-            };
-            "Kaiser Terrasse" = {
-              psk = "Internet12";
-            };
-            "bumshakalaka" = {
-              psk = "locomotive420";
-            };
-            "ATHENS-HAWKS" = { };
-            "3G" = {
-              hidden = true;
-            };
-          };
-        };
-      };
-    };
-    ivand = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      let
-        homeMods = top.config.flake.homeManagerModules;
-      in
-      {
-        imports = [ inputs.home-manager.nixosModules.default ];
-        home-manager = {
-          backupFileExtension = "bak";
-          useUserPackages = true;
-          useGlobalPkgs = true;
-          users.ivand =
-            { ... }:
-            {
-              imports = with homeMods; [
-                base
-                ivand
-                shell
-                util
-                swayland
-                web
-                reminders
-              ];
-            };
-        };
-        fonts.packages = with pkgs; [
-          nerd-fonts.fira-code
-          noto-fonts
-          noto-fonts-emoji
-          noto-fonts-lgc-plus
-        ];
-        users = {
-          users = {
-            ivand = {
-              isNormalUser = true;
-              createHome = true;
-              extraGroups = [
-                "adbusers"
-                "adm"
-                "audio"
-                "bluetooth"
-                "dialout"
-                "flatpak"
-                "input"
-                "kvm"
-                "mlocate"
-                "realtime"
-                "render"
-                "video"
-                "wheel"
-              ];
-            };
-          };
-          extraGroups = {
-            mlocate = { };
-            realtime = { };
-          };
-        };
-        programs = {
-          dconf.enable = true;
-          adb.enable = true;
-        };
       }
     );
     flatpak = {
@@ -571,13 +214,6 @@ top@{ inputs, moduleWithSystem, ... }:
           storageDriver = "btrfs";
         };
         users.users.ivand.extraGroups = [ "docker" ];
-      }
-    );
-    anon = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ tor-browser ];
       }
     );
     cryptocurrency = moduleWithSystem (
@@ -696,48 +332,8 @@ top@{ inputs, moduleWithSystem, ... }:
       }
     );
     nginx = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        services = {
-          nginx = {
-            enable = true;
-            recommendedGzipSettings = true;
-            recommendedOptimisation = true;
-            recommendedProxySettings = true;
-            recommendedTlsSettings = true;
-            sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-            appendHttpConfig = ''
-              client_body_timeout 5s;
-              client_header_timeout 5s;
-            '';
-            virtualHosts = {
-              "pic.idimitrov.dev" = {
-                enableACME = true;
-                forceSSL = true;
-                locations."/" = {
-                  root = "/var/pic";
-                  extraConfig = ''
-                    autoindex on;
-                  '';
-                };
-              };
-            };
-          };
-          postgresql = {
-            enable = true;
-            ensureUsers = [
-              {
-                name = "root";
-                ensureClauses = {
-                  superuser = true;
-                  createrole = true;
-                  createdb = true;
-                };
-              }
-            ];
-          };
-        };
+      _: _: {
+        imports = [ ./services/nginx ];
       }
     );
     anonymous-dns = moduleWithSystem (

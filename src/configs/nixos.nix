@@ -8,16 +8,8 @@ let
   mods = toplevel.config.flake.nixosModules;
   inherit (toplevel.config.flake) hardwareConfigurations;
   essential = with mods; [
-    grub
-    base
-    shell
-    security
-    wireless
-  ];
-  desktop = with mods; [
-    sound
-    wayland
-    intranet
+    flakeModule
+    default
   ];
   configWithModules =
     {
@@ -43,8 +35,7 @@ let
     mods:
     configWithModules {
       hardware = hardwareConfigurations.nova;
-      modules = essential ++ desktop ++ mods;
-      hostname = "nova";
+      modules = essential ++ mods;
     };
 in
 {
