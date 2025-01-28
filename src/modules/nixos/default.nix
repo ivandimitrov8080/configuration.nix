@@ -753,7 +753,7 @@ top@{ inputs, moduleWithSystem, ... }:
           dnscrypt-proxy2 = {
             enable = true;
             settings = {
-              cache = false;
+              cache = true;
               ipv4_servers = true;
               ipv6_servers = true;
               dnscrypt_servers = true;
