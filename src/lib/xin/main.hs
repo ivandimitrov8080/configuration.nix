@@ -5,13 +5,12 @@ import Turtle
 parser :: Parser Text
 parser = optText "host" 't' "The host to build"
 
+getCmd :: Text -> Text
+getCmd h
+  | h == "nova" = "sudo nixos-rebuild switch --profile-name nova --flake .#nova"
+  | h == "vps" = "nixos-rebuild switch --flake .#vps --target-host root@10.0.0.1"
+  | h == "gaming" = "sudo nixos-rebuild switch --profile-name gaming --flake .#gaming"
+
 main = do
   host <- options "xin" parser
-  if host == "nova"
-    then do
-      shell "sudo nixos-rebuild switch --flake .#nova" empty
-    else
-      if host == "vps"
-        then do
-          shell "nixos-rebuild switch --flake .#vps --target-host root@10.0.0.1" empty
-        else die "no config found"
+  shell (getCmd host) empty
