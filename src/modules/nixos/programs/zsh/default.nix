@@ -17,12 +17,12 @@
       vteIntegration = true;
       autosuggestions = {
         enable = true;
+        highlightStyle = "fg=cyan";
         strategy = [
           "history"
           "completion"
           "match_prev_cmd"
         ];
-        highlightStyle = "fg=cyan";
       };
       shellAliases = {
         cal = "cal $(date +%Y)";

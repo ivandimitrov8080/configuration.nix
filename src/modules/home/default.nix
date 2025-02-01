@@ -427,8 +427,25 @@ top@{ moduleWithSystem, inputs, ... }:
               dotDir = ".config/zsh";
               defaultKeymap = "viins";
               enableVteIntegration = true;
-              syntaxHighlighting.enable = true;
-              autosuggestion.enable = true;
+              syntaxHighlighting = {
+                enable = true;
+                highlighters = [
+                  "main"
+                  "brackets"
+                  "cursor"
+                  "root"
+                  "line"
+                ];
+              };
+              autosuggestion = {
+                enable = true;
+                highlightStyle = "fg=cyan";
+                strategy = [
+                  "history"
+                  "completion"
+                  "match_prev_cmd"
+                ];
+              };
               history.expireDuplicatesFirst = true;
               historySubstringSearch.enable = true;
             };
