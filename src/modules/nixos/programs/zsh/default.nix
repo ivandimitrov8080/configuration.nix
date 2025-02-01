@@ -4,7 +4,17 @@
     starship.enable = true;
     zsh = {
       enableBashCompletion = true;
-      syntaxHighlighting.enable = true;
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+          "cursor"
+          "root"
+          "line"
+        ];
+      };
+      vteIntegration = true;
       autosuggestions = {
         enable = true;
         strategy = [
@@ -12,7 +22,7 @@
           "completion"
           "match_prev_cmd"
         ];
-        highlightStyle = "fg=#FFF689";
+        highlightStyle = "fg=cyan";
       };
       shellAliases = {
         cal = "cal $(date +%Y)";
