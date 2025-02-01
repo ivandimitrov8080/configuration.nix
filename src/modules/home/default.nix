@@ -439,7 +439,7 @@ top@{ moduleWithSystem, inputs, ... }:
               };
               autosuggestion = {
                 enable = true;
-                highlightStyle = "fg=cyan";
+                highlight = "fg=cyan";
                 strategy = [
                   "history"
                   "completion"
