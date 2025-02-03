@@ -580,7 +580,7 @@ top@{ moduleWithSystem, inputs, ... }:
                 "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
               "XF86MonBrightnessUp" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
               "XF86MonBrightnessDown" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
-              "Alt+Shift+l" = "exec ${pkgs.swaylock}/bin/swaylock";
+              "Alt+Shift+l" = "exec ${pkgs.gtklock}/bin/gtklock";
               "${modifier}+p" = "exec ${menu}";
               "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
               "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
