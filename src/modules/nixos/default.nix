@@ -63,6 +63,7 @@ top@{ inputs, moduleWithSystem, ... }:
                 "video"
                 "wheel"
               ];
+              hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
             };
           };
           extraGroups = {

@@ -531,6 +531,9 @@ top@{ moduleWithSystem, inputs, ... }:
             name = "phinger-cursors-light";
             package = pkgs.phinger-cursors;
           };
+          sessionVariables = {
+            WLR_RENDERER_ALLOW_SOFTWARE = 1;
+          };
         };
         wayland.windowManager.sway = {
           enable = true;
