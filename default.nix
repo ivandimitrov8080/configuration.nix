@@ -13,7 +13,7 @@
     {
       config = {
         _module.args = {
-          pkgs = import inputs.nixpkgs { inherit system; };
+          pkgs = import inputs.nixpkgs-unstable { inherit system; };
         };
         formatter = pkgs.nixfmt-rfc-style;
         devShells.default = pkgs.mkShell {

@@ -21,7 +21,7 @@ let
     }:
     withSystem system (
       { inputs', pkgs, ... }:
-      inputs.nixpkgs.lib.nixosSystem {
+      inputs.nixpkgs-unstable.lib.nixosSystem {
         specialArgs = {
           inherit inputs inputs';
         };

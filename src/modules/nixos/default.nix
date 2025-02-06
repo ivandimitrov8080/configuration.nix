@@ -3,7 +3,7 @@ top@{ inputs, moduleWithSystem, ... }:
   flake.nixosModules = {
     flakeModule = moduleWithSystem (
       _:
-      { pkgs, ... }:
+      { pkgs, config, ... }:
       {
         imports = with inputs; [
           hosts.nixosModule
@@ -29,12 +29,23 @@ top@{ inputs, moduleWithSystem, ... }:
         };
         nix.registry = {
           self.flake = inputs.self;
-          nixpkgs.flake = inputs.nixpkgs;
-          p.flake = inputs.nixpkgs;
+          nixpkgs.flake = inputs.nixpkgs-stable;
+          p.flake = inputs.nixpkgs-unstable;
         };
-        nixpkgs.overlays = [
-          inputs.self.overlays.default
-        ];
+        nixpkgs = {
+          config = {
+            allowUnfree = false;
+            packageOverrides = pkgs: {
+              stable = import inputs.nixpkgs-stable {
+                system = pkgs.system;
+                config = config.nixpkgs.config;
+              };
+            };
+          };
+          overlays = [
+            inputs.self.overlays.default
+          ];
+        };
         system.stateVersion = top.config.flake.stateVersion;
         i18n.supportedLocales = [ "all" ];
         time.timeZone = "Europe/Prague";
