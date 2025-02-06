@@ -44,6 +44,7 @@ top@{ inputs, moduleWithSystem, ... }:
         };
         environment.systemPackages = with pkgs; [ pwvucontrol ];
         users = {
+          mutableUsers = false;
           users = {
             ivand = {
               isNormalUser = true;
