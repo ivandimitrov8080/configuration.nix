@@ -29,8 +29,9 @@ top@{ inputs, moduleWithSystem, ... }:
         };
         nix.registry = {
           self.flake = inputs.self;
-          nixpkgs.flake = inputs.nixpkgs-stable;
+          nixpkgs.flake = inputs.nixpkgs-unstable;
           p.flake = inputs.nixpkgs-unstable;
+          stable.flake = inputs.nixpkgs-stable;
         };
         nixpkgs = {
           config = {
