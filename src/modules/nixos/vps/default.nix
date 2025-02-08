@@ -7,6 +7,7 @@ let
   inherit (lib)
     mkIf
     mkEnableOption
+    mkForce
     ;
   cfg = config.vps;
 in
@@ -21,14 +22,29 @@ in
       nftables = {
         enable = true;
       };
-      firewall.interfaces = {
-        wg0 = {
-          allowedTCPPorts = [
-            22
-            53
-            993
-          ];
+      firewall = {
+        interfaces = {
+          wg0 = {
+            allowedTCPPorts = [
+              22
+              53
+              993
+            ];
+          };
         };
+        allowedTCPPorts = mkForce [
+          25 # smtp
+          465 # smtps
+          80 # http
+          443 # https
+        ];
+        allowedUDPPorts = mkForce [
+          25
+          465
+          80
+          443
+          51820 # wireguard
+        ];
       };
     };
     systemd.network = {

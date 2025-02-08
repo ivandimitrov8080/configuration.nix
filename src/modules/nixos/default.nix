@@ -8,6 +8,9 @@ top@{ inputs, moduleWithSystem, ... }:
         imports = with inputs; [
           hosts.nixosModule
           home-manager.nixosModules.default
+          vpsadminos.nixosConfigurations.container
+          webshite.nixosModules.default
+          simple-nixos-mailserver.nixosModule
         ];
         home-manager = {
           backupFileExtension = "bak";
@@ -171,111 +174,6 @@ top@{ inputs, moduleWithSystem, ... }:
                   tls = true;
                 }
               ];
-            };
-          };
-        };
-      }
-    );
-    vpsFlakeModule = moduleWithSystem (
-      _:
-      { ... }:
-      {
-        imports = [
-          inputs.vpsadminos.nixosConfigurations.container
-          inputs.webshite.nixosModules.default
-        ];
-      }
-    );
-    mailserverFlakeModule = moduleWithSystem (
-      _:
-      {
-        config,
-        pkgs,
-        ...
-      }:
-      {
-        imports = [
-          inputs.simple-nixos-mailserver.nixosModule
-        ];
-      }
-    );
-    firewall = moduleWithSystem (
-      _:
-      { lib, ... }:
-      {
-        networking = {
-          firewall = with lib; {
-            enable = true;
-            allowedTCPPorts = mkForce [
-              25 # smtp
-              465 # smtps
-              80 # http
-              443 # https
-            ];
-            allowedUDPPorts = mkForce [
-              25
-              465
-              80
-              443
-              51820 # wireguard
-            ];
-          };
-        };
-      }
-    );
-    rest = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        fileSystems."/mnt/export1981" = {
-          device = "172.16.128.47:/nas/5490";
-          fsType = "nfs";
-          options = [ "nofail" ];
-        };
-        users = {
-          users.ivand = {
-            isNormalUser = true;
-            hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";
-            extraGroups = [
-              "wheel"
-              "adm"
-              "mlocate"
-            ];
-            openssh.authorizedKeys.keys = [
-              ''
-                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-              ''
-            ];
-          };
-          extraGroups = {
-            mlocate = { };
-          };
-        };
-        services = {
-          openssh = {
-            enable = true;
-            settings = {
-              PermitRootLogin = "prohibit-password";
-            };
-          };
-        };
-        systemd = {
-          timers = {
-            bingwp = {
-              wantedBy = [ "timers.target" ];
-              timerConfig = {
-                OnCalendar = "*-*-* 10:00:00";
-                Persistent = true;
-              };
-            };
-          };
-          services = {
-            bingwp = {
-              description = "Download bing image of the day";
-              script = ''
-                ${pkgs.nushell}/bin/nu -c "http get ('https://bing.com' + ((http get https://www.bing.com/HPImageArchive.aspx?format=js&n=1).images.0.url)) | save  ('/var/pic' | path join ( [ (date now | format date '%Y-%m-%d'), '.jpeg' ] | str join ))"
-                ${pkgs.nushell}/bin/nu -c "${pkgs.toybox}/bin/ln -sf (ls /var/pic | where type == file | get name | sort | last) /var/pic/latest.jpeg"
-              '';
             };
           };
         };
