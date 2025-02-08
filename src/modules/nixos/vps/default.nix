@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   ...
@@ -17,6 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    nixpkgs.hostPlatform = "x86_64-linux";
     networking = {
       nftables = {
         enable = true;

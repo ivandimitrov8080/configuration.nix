@@ -153,25 +153,6 @@ top@{ inputs, moduleWithSystem, ... }:
         ];
       }
     );
-    containers = moduleWithSystem (
-      _: _: {
-        virtualisation.docker = {
-          enable = true;
-          storageDriver = "btrfs";
-        };
-        users.users.ivand.extraGroups = [ "docker" ];
-      }
-    );
-    cryptocurrency = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [ monero-cli ];
-        services = {
-          monero.enable = true;
-        };
-      }
-    );
     monero-miner = moduleWithSystem (
       _: _: {
         services = {
@@ -195,18 +176,17 @@ top@{ inputs, moduleWithSystem, ... }:
         };
       }
     );
-    vps = moduleWithSystem (
+    vpsFlakeModule = moduleWithSystem (
       _:
       { ... }:
       {
-        nixpkgs.hostPlatform = "x86_64-linux";
         imports = [
           inputs.vpsadminos.nixosConfigurations.container
           inputs.webshite.nixosModules.default
         ];
       }
     );
-    mailserver = moduleWithSystem (
+    mailserverFlakeModule = moduleWithSystem (
       _:
       {
         config,
@@ -217,69 +197,6 @@ top@{ inputs, moduleWithSystem, ... }:
         imports = [
           inputs.simple-nixos-mailserver.nixosModule
         ];
-        mailserver = {
-          enable = true;
-          localDnsResolver = false;
-          fqdn = "idimitrov.dev";
-          domains = [
-            "idimitrov.dev"
-            "mail.idimitrov.dev"
-          ];
-          loginAccounts = {
-            "ivan@idimitrov.dev" = {
-              hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
-              aliases = [ "admin@idimitrov.dev" ];
-            };
-            "security@idimitrov.dev" = {
-              hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
-            };
-          };
-          certificateScheme = "acme-nginx";
-          hierarchySeparator = "/";
-        };
-        services = {
-          dovecot2.sieve.extensions = [ "fileinto" ];
-          roundcube = {
-            enable = true;
-            package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
-            plugins = [
-              "persistent_login"
-            ];
-            hostName = "mail.idimitrov.dev";
-            extraConfig = ''
-              $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
-              $config['smtp_user'] = "%u";
-              $config['smtp_pass'] = "%p";
-            '';
-          };
-          nginx.virtualHosts =
-            let
-              restrictToVpn = ''
-                allow 10.0.0.2/32;
-                allow 10.0.0.3/32;
-                allow 10.0.0.4/32;
-                allow 10.0.0.5/32;
-                deny all;
-              '';
-            in
-            {
-              "mail.idimitrov.dev" = {
-                extraConfig = restrictToVpn;
-              };
-            };
-          postgresql.enable = true;
-        };
-        security = {
-          acme = {
-            acceptTerms = true;
-            defaults.email = "security@idimitrov.dev";
-          };
-        };
-      }
-    );
-    nginx = moduleWithSystem (
-      _: _: {
-        imports = [ ./services/nginx ];
       }
     );
     anonymous-dns = moduleWithSystem (
