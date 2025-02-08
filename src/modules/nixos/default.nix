@@ -11,6 +11,7 @@ top@{ inputs, moduleWithSystem, ... }:
           vpsadminos.nixosConfigurations.container
           webshite.nixosModules.default
           simple-nixos-mailserver.nixosModule
+          musnix.nixosModules.musnix
         ];
         home-manager = {
           backupFileExtension = "bak";
@@ -119,41 +120,6 @@ top@{ inputs, moduleWithSystem, ... }:
         imports =
           with builtins;
           filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
-      }
-    );
-    music = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        imports = [ inputs.musnix.nixosModules.musnix ];
-        environment.systemPackages = with pkgs; [ guitarix ];
-        services.pipewire = {
-          jack.enable = true;
-          extraConfig = {
-            jack."69-low-latency" = {
-              "jack.properties" = {
-                "node.latency" = "64/48000";
-              };
-            };
-          };
-        };
-        musnix = {
-          enable = true;
-          rtcqs.enable = true;
-          soundcardPciId = "00:1f.3";
-          kernel = {
-            realtime = true;
-            packages = pkgs.linuxPackages-rt_latest;
-          };
-        };
-        security.pam.loginLimits = [
-          {
-            domain = "@users";
-            item = "memlock";
-            type = "-";
-            value = "1048576";
-          }
-        ];
       }
     );
     monero-miner = moduleWithSystem (
