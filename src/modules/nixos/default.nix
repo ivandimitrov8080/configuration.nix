@@ -1,6 +1,13 @@
 top@{ inputs, moduleWithSystem, ... }:
 {
   flake.nixosModules = {
+    vpsadminosModule = moduleWithSystem (
+      _: _: {
+        imports = with inputs; [
+          vpsadminos.nixosConfigurations.container
+        ];
+      }
+    );
     flakeModule = moduleWithSystem (
       _:
       { pkgs, config, ... }:
@@ -8,7 +15,6 @@ top@{ inputs, moduleWithSystem, ... }:
         imports = with inputs; [
           hosts.nixosModule
           home-manager.nixosModules.default
-          vpsadminos.nixosConfigurations.container
           webshite.nixosModules.default
           simple-nixos-mailserver.nixosModule
           musnix.nixosModules.musnix

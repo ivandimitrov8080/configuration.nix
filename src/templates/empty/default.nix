@@ -6,7 +6,7 @@
     {
       config = {
         _module.args = {
-          pkgs = import inputs.configuration.inputs.nixpkgs {
+          pkgs = import inputs.nixpkgs {
             inherit system;
           };
         };

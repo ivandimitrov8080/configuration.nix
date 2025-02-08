@@ -1,10 +1,15 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.mailserver;
+  cfg = config.mail;
 in
 {
-  options.mailserver = {
+  options.mail = {
     enable = mkEnableOption "enable mailserver config";
   };
   config = mkIf cfg.enable {
@@ -66,6 +71,5 @@ in
         defaults.email = "security@idimitrov.dev";
       };
     };
-
   };
 }
