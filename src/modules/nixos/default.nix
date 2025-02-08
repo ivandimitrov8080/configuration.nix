@@ -34,24 +34,6 @@ top@{ inputs, moduleWithSystem, ... }:
           simple-nixos-mailserver.nixosModule
           musnix.nixosModules.musnix
         ];
-        home-manager = {
-          backupFileExtension = "bak";
-          useUserPackages = true;
-          useGlobalPkgs = true;
-          users.ivand =
-            { ... }:
-            {
-              imports = with top.config.flake.homeManagerModules; [
-                base
-                ivand
-                shell
-                util
-                swayland
-                web
-                reminders
-              ];
-            };
-        };
         nix.registry = {
           self.flake = inputs.self;
           nixpkgs.flake = inputs.nixpkgs-unstable;
@@ -73,6 +55,24 @@ top@{ inputs, moduleWithSystem, ... }:
           ];
         };
         system.stateVersion = top.config.flake.stateVersion;
+        home-manager = {
+          backupFileExtension = "bak";
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.ivand =
+            { ... }:
+            {
+              imports = with top.config.flake.homeManagerModules; [
+                base
+                ivand
+                shell
+                util
+                swayland
+                web
+                reminders
+              ];
+            };
+        };
         i18n.supportedLocales = [ "all" ];
         time.timeZone = "Europe/Prague";
         users.defaultUserShell = pkgs.zsh;
