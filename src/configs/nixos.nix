@@ -41,7 +41,7 @@ in
 {
   flake.nixosConfigurations = {
     nova = novaConfig [ ];
-    gaming = novaConfig (with mods; [ gaming ]);
+    gaming = novaConfig ([ { gaming.enable = true; } ]);
     nova-ai = novaConfig (
       with mods;
       [

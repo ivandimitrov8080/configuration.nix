@@ -186,41 +186,6 @@ top@{ inputs, moduleWithSystem, ... }:
         };
       }
     );
-    gaming = moduleWithSystem (
-      _:
-      { pkgs, lib, ... }:
-      {
-        nixpkgs.config.allowUnfreePredicate =
-          pkg:
-          builtins.elem (lib.getName pkg) [
-            "steam"
-            "steam-original"
-            "steam-unwrapped"
-            "steam-run"
-            "steamcmd"
-          ];
-        boot = {
-          kernelPackages = pkgs.linuxPackages_zen;
-          kernelParams = [
-            "amdgpu.runpm=0"
-          ];
-        };
-        hardware = {
-          graphics.enable = true;
-          amdgpu = {
-            initrd.enable = true;
-            amdvlk.enable = true;
-          };
-        };
-        programs.steam = {
-          enable = true;
-        };
-        environment.systemPackages = with pkgs; [
-          xonotic
-          steamcmd
-        ];
-      }
-    );
     containers = moduleWithSystem (
       _: _: {
         virtualisation.docker = {

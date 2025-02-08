@@ -41,7 +41,7 @@
           To = "37.205.13.29/32";
           Priority = 5;
         }
-      ] ++ import ./cs2-route-rules.nix;
+      ];
       routes = [
         {
           Destination = "0.0.0.0/0";
