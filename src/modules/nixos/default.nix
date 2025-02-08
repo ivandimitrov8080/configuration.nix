@@ -1,11 +1,26 @@
 top@{ inputs, moduleWithSystem, ... }:
 {
   flake.nixosModules = {
-    vpsadminosModule = moduleWithSystem (
-      _: _: {
-        imports = with inputs; [
-          vpsadminos.nixosConfigurations.container
-        ];
+    default = moduleWithSystem (
+      _:
+      { lib, ... }:
+      let
+        files = lib.filesystem.listFilesRecursive ./.;
+        endsWith =
+          e: x:
+          with builtins;
+          let
+            se = toString e;
+            sx = toString x;
+          in
+          (stringLength sx >= stringLength se)
+          && (substring ((stringLength sx) - (stringLength se)) (stringLength sx) sx) == se;
+        defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
+      in
+      {
+        imports =
+          with builtins;
+          filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
       }
     );
     flakeModule = moduleWithSystem (
@@ -106,26 +121,11 @@ top@{ inputs, moduleWithSystem, ... }:
         ];
       }
     );
-    default = moduleWithSystem (
-      _:
-      { lib, ... }:
-      let
-        files = lib.filesystem.listFilesRecursive ./.;
-        endsWith =
-          e: x:
-          with builtins;
-          let
-            se = toString e;
-            sx = toString x;
-          in
-          (stringLength sx >= stringLength se)
-          && (substring ((stringLength sx) - (stringLength se)) (stringLength sx) sx) == se;
-        defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
-      in
-      {
-        imports =
-          with builtins;
-          filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
+    vpsadminosModule = moduleWithSystem (
+      _: _: {
+        imports = with inputs; [
+          vpsadminos.nixosConfigurations.container
+        ];
       }
     );
   };
