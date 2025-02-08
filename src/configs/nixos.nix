@@ -42,13 +42,7 @@ in
   flake.nixosConfigurations = {
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
-    nova-ai = novaConfig (
-      with mods;
-      [
-        ivand
-        ai
-      ]
-    );
+    nova-ai = novaConfig ([ { ai.enable = true; } ]);
     vps = configWithModules {
       modules = with mods; [
         base

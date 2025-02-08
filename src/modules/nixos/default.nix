@@ -153,39 +153,6 @@ top@{ inputs, moduleWithSystem, ... }:
         ];
       }
     );
-    flatpak = {
-      xdg = {
-        portal = {
-          enable = true;
-          wlr.enable = true;
-          config.common.default = "*";
-        };
-      };
-      services.flatpak.enable = true;
-    };
-    ai = moduleWithSystem (
-      _:
-      { pkgs, ... }:
-      {
-        boot = {
-          kernelPackages = pkgs.linuxPackages_latest;
-          kernelParams = [
-            "amdgpu.runpm=0"
-          ];
-        };
-        hardware.amdgpu = {
-          initrd.enable = true;
-          opencl.enable = true;
-        };
-        services = {
-          ollama = {
-            enable = true;
-            acceleration = "rocm";
-            rocmOverrideGfx = "11.0.2";
-          };
-        };
-      }
-    );
     containers = moduleWithSystem (
       _: _: {
         virtualisation.docker = {
