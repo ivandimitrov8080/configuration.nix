@@ -16,7 +16,6 @@
           themes-rofi = callPackage ./themes/rofi.nix { };
           themes-mutt = callPackage ./themes/mutt.nix { };
           themes-gtk = callPackage ./themes/gtk-theme-catppuccin.nix { };
-          themes-plymouth = callPackage ./themes/plymouth.nix { };
           xin = pkgs.callPackage ../lib/xin { };
           default = xin;
         };
