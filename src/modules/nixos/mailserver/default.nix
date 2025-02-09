@@ -37,7 +37,7 @@ in
       dovecot2.sieve.extensions = [ "fileinto" ];
       roundcube = {
         enable = true;
-        package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
+        package = pkgs.stable.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
         plugins = [
           "persistent_login"
         ];

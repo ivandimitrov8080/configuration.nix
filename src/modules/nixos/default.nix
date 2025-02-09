@@ -55,6 +55,19 @@ top@{ inputs, moduleWithSystem, ... }:
           ];
         };
         system.stateVersion = top.config.flake.stateVersion;
+      }
+    );
+    vpsadminosModule = moduleWithSystem (
+      _: _: {
+        imports = with inputs; [
+          vpsadminos.nixosConfigurations.container
+        ];
+      }
+    );
+    rest = moduleWithSystem (
+      _:
+      { pkgs, ... }:
+      {
         home-manager = {
           backupFileExtension = "bak";
           useUserPackages = true;
@@ -114,13 +127,6 @@ top@{ inputs, moduleWithSystem, ... }:
           noto-fonts
           noto-fonts-emoji
           noto-fonts-lgc-plus
-        ];
-      }
-    );
-    vpsadminosModule = moduleWithSystem (
-      _: _: {
-        imports = with inputs; [
-          vpsadminos.nixosConfigurations.container
         ];
       }
     );

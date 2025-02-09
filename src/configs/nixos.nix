@@ -11,6 +11,7 @@ let
     flakeModule
     default
   ];
+  rest = [ mods.rest ];
   configWithModules =
     {
       hardware ? {
@@ -35,7 +36,34 @@ let
     mods:
     configWithModules {
       hardware = hardwareConfigurations.nova;
-      modules = essential ++ mods;
+      modules =
+        essential
+        ++ rest
+        ++ mods
+        ++ [
+          {
+            programs.gtklock.enable = true;
+            media.enable = true;
+            swayland.enable = true;
+            wgClient.enable = true;
+            grubBoot.enable = true;
+          }
+        ];
+    };
+  vpsConfig =
+    mods:
+    configWithModules {
+      modules =
+        essential
+        ++ mods
+        ++ [
+          {
+            services.nginx.enable = true;
+            services.postgresql.enable = true;
+            vps.enable = true;
+            mail.enable = true;
+          }
+        ];
     };
 in
 {
@@ -43,19 +71,6 @@ in
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     nova-ai = novaConfig ([ { ai.enable = true; } ]);
-    vps = configWithModules {
-      modules = with mods; [
-        base
-        shell
-        security
-        vps
-        mailserver
-        nginx
-        wireguard-output
-        anonymous-dns
-        firewall
-        rest
-      ];
-    };
+    vps = vpsConfig (with mods; [ vpsadminosModule ]);
   };
 }

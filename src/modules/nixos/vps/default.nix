@@ -97,7 +97,7 @@ in
       options = [ "nofail" ];
     };
     users = {
-      users.ivand = {
+      users.ivand = lib.mkForce {
         isNormalUser = true;
         hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";
         extraGroups = [
@@ -119,7 +119,7 @@ in
       openssh = {
         enable = true;
         settings = {
-          PasswordAuthentication = "no";
+          PasswordAuthentication = false;
           PermitRootLogin = "prohibit-password";
         };
       };

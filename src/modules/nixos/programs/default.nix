@@ -8,7 +8,6 @@
       };
     };
     gtklock = {
-      enable = true;
       modules = with pkgs; [
         gtklock-playerctl-module
       ];

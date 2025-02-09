@@ -1,7 +1,6 @@
-_: {
+{
   services = {
     nginx = {
-      enable = true;
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedProxySettings = true;
@@ -25,7 +24,6 @@ _: {
       };
     };
     postgresql = {
-      enable = true;
       ensureUsers = [
         {
           name = "root";
