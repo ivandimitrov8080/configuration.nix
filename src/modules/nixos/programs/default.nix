@@ -14,7 +14,7 @@
       ];
       style = # css
         ''
-          @import "${pkgs.waybar-themes}/mocha.css";
+          @import "${pkgs.themes-gtk}/mocha.css";
           window {
              background-image: url("/home/ivand/.local/state/wpaperd/wallpapers/eDP-1");
              background-size: cover;

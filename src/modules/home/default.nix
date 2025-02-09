@@ -715,7 +715,7 @@ top@{ moduleWithSystem, inputs, ... }:
             };
             style = # css
               ''
-                @import "${pkgs.waybar-themes}/mocha.css";
+                @import "${pkgs.themes-gtk}/mocha.css";
                 * {
                     font-family: FontAwesome, 'Fira Code';
                     font-size: 13px;
@@ -851,7 +851,7 @@ top@{ moduleWithSystem, inputs, ... }:
               modi = "window,drun,run,ssh,calc";
               show-icons = true;
             };
-            theme = "${pkgs.rofi-themes}/rounded-nord-dark.rasi";
+            theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
           };
           kitty = {
             enable = true;

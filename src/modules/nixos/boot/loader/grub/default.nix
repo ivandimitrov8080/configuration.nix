@@ -1,6 +1,11 @@
 { pkgs, ... }:
 {
   boot = {
+    plymouth = {
+      enable = true;
+      themePackages = [ pkgs.themes-plymouth ];
+      theme = "catppuccin-mocha";
+    };
     loader = {
       grub =
         let
