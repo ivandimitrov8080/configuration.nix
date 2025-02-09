@@ -119,6 +119,7 @@ in
       openssh = {
         enable = true;
         settings = {
+          PasswordAuthentication = "no";
           PermitRootLogin = "prohibit-password";
         };
       };
