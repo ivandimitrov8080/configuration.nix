@@ -109,10 +109,6 @@ top@{ inputs, moduleWithSystem, ... }:
             realtime = { };
           };
         };
-        programs = {
-          dconf.enable = true;
-          adb.enable = true;
-        };
         fonts.packages = with pkgs; [
           nerd-fonts.fira-code
           noto-fonts

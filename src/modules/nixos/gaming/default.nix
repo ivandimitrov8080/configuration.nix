@@ -41,6 +41,7 @@ in
     environment.systemPackages = with pkgs; [
       xonotic
       steamcmd
+      radeontop
     ];
     systemd.network.networks.wg0 = {
       routingPolicyRules = import ./cs2-route-rules.nix;
