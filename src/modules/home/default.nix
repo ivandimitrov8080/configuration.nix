@@ -550,6 +550,11 @@ top@{ moduleWithSystem, inputs, ... }:
               { command = "swaymsg 'workspace 2; exec firefox'"; }
               { command = "swaymsg 'workspace 1; exec kitty'"; }
             ];
+            assigns = {
+              "2" = [ { app_id = "^firefox$"; } ];
+              "3" = [ { class = "^steam$"; } ];
+              "4" = [ { class = "^dota2$"; } ];
+            };
             bars = [ ];
             gaps = {
               horizontal = 2;
@@ -609,6 +614,7 @@ top@{ moduleWithSystem, inputs, ... }:
             shadows enable
             corner_radius 15
             default_dim_inactive 0.5
+            assign [class="^cs2$"] 4
           '';
           swaynag = { inherit (config.wayland.windowManager.sway) enable; };
         };
