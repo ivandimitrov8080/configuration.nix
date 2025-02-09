@@ -159,6 +159,7 @@ top@{ moduleWithSystem, inputs, ... }:
           };
           khal = {
             enable = true;
+            package = pkgs.stable.khal;
             settings = {
               default = {
                 default_calendar = "ivand";
