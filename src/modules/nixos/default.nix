@@ -18,9 +18,7 @@ top@{ inputs, moduleWithSystem, ... }:
         defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
       in
       {
-        imports =
-          with builtins;
-          filter (x: !((endsWith "nginx/default.nix" x) || (endsWith "nixos/default.nix" x))) defaults;
+        imports = with builtins; filter (x: !((endsWith "nixos/default.nix" x))) defaults;
       }
     );
     flakeModule = moduleWithSystem (

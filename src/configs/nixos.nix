@@ -47,6 +47,7 @@ let
             swayland.enable = true;
             wgClient.enable = true;
             grubBoot.enable = true;
+            hotspots.enable = true;
           }
         ];
     };
@@ -62,6 +63,7 @@ let
             services.postgresql.enable = true;
             vps.enable = true;
             mail.enable = true;
+            anonymousDns.enable = true;
           }
         ];
     };
@@ -71,6 +73,12 @@ in
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     nova-ai = novaConfig ([ { ai.enable = true; } ]);
-    vps = vpsConfig (with mods; [ vpsadminosModule ]);
+    vps = vpsConfig (
+      with mods;
+      [
+        vpsadminosModule
+        { webshite.enable = true; }
+      ]
+    );
   };
 }

@@ -700,14 +700,19 @@
     },
     "webshite": {
       "inputs": {
-        "configuration": []
+        "configuration": [],
+        "nixpkgs": [
+          "webshite",
+          "configuration",
+          "nixpkgs-unstable"
+        ]
       },
       "locked": {
-        "lastModified": 1739047569,
-        "narHash": "sha256-8FUArcbyAiK+m89uYLwfcCFgwQPC8C35p++12SLDbdQ=",
+        "lastModified": 1739134002,
+        "narHash": "sha256-S7smkoiEvvZHOV70cTOriFQdJHgDBYp7VabUQgWMVnA=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "7bd38a511158eff5e33cd490aa10db05baa5533e",
+        "rev": "8935eeb7a09f6e1db2ebcf413766f150042974ad",
         "type": "github"
       },
       "original": {

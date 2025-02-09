@@ -97,6 +97,7 @@ in
       options = [ "nofail" ];
     };
     users = {
+      defaultUserShell = pkgs.zsh;
       users.ivand = lib.mkForce {
         isNormalUser = true;
         hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";

@@ -7,7 +7,6 @@ let
   inherit (lib)
     mkIf
     mkEnableOption
-    mkForce
     ;
   cfg = config.wgClient;
 in
