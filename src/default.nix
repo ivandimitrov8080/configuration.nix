@@ -41,15 +41,10 @@
         };
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            (ghc.withPackages (hkgs: with hkgs; [ turtle ]))
             nodejs
             (config.packages.nvim.extend {
               plugins = {
                 lsp.servers = {
-                  hls = {
-                    enable = true;
-                    installGhc = false;
-                  };
                   ts_ls.enable = true;
                 };
               };

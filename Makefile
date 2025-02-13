@@ -3,10 +3,10 @@ default: nova
 all: nova vps gaming
 
 nova:
-	nix run . -- -t nova
+	nix run . -- -p nova
 
 vps:
-	nix run . -- -t vps
+	nix run . -- -p vps
 
 gaming:
-	nix run . -- -t gaming
+	nix run . -- -p gaming

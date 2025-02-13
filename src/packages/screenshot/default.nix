@@ -1,6 +1,6 @@
-{ pkgs, ... }:
-pkgs.writeShellApplication {
+{ writeShellApplication, sway-contrib, ... }:
+writeShellApplication {
   name = "screenshot";
-  runtimeInputs = with pkgs; [ sway-contrib.grimshot ];
+  runtimeInputs = [ sway-contrib.grimshot ];
   text = builtins.readFile ./main.sh;
 }
