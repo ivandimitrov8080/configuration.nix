@@ -15,7 +15,16 @@
         _module.args = {
           pkgs = import inputs.nixpkgs-unstable { inherit system; };
         };
-        formatter = pkgs.nixfmt-rfc-style;
+        treefmt = {
+          programs = {
+            nixfmt = {
+              enable = true;
+              package = pkgs.nixfmt-rfc-style;
+            };
+            biome.enable = true;
+            shfmt.enable = true;
+          };
+        };
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             (ghc.withPackages (hkgs: with hkgs; [ turtle ]))
