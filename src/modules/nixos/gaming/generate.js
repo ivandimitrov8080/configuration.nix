@@ -18,10 +18,6 @@ const cs2Rules = `[${ipList.map((ip) => createNixRule(ip)).join("")}
 ]
 `;
 
-function pickServer(server) {
-	getServerList().filter((serverData) => serverData.desc != server);
-}
-
 function getServerList(servers) {
 	return Object.values(servers.pops)
 		.filter((server) => server.desc !== undefined)

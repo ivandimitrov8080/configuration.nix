@@ -24,10 +24,17 @@
             biome.enable = true;
             shfmt.enable = true;
           };
+          settings.formatter = {
+            biome = {
+              indentStyle = "space";
+              indentWidth = 4;
+            };
+          };
         };
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             (ghc.withPackages (hkgs: with hkgs; [ turtle ]))
+            nodejs
             (config.packages.nvim.extend {
               plugins = {
                 lsp.servers = {
@@ -35,6 +42,7 @@
                     enable = true;
                     installGhc = false;
                   };
+                  ts_ls.enable = true;
                 };
               };
             })
