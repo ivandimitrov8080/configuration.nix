@@ -216,10 +216,12 @@ makeNixvim {
     }
   ];
   plugins = {
+    auto-session.enable = true;
     barbar.enable = true;
     cmp-nvim-lsp.enable = true;
     cmp-spell.enable = true;
     comment.enable = true;
+    diffview.enable = true;
     gitsigns.enable = true;
     luasnip.enable = true;
     nvim-autopairs.enable = true;
@@ -227,7 +229,6 @@ makeNixvim {
     toggleterm.enable = true;
     ts-autotag.enable = true;
     web-devicons.enable = true;
-    diffview.enable = true;
     treesitter = {
       enable = true;
       settings = {
