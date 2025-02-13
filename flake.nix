@@ -3,6 +3,9 @@
     # nixpkgs
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    # flake-compat to use this flake in configuration.nix
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
     # manages the home
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -37,7 +40,7 @@
     inputs:
     inputs.parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./.
+        ./src
         inputs.treefmt.flakeModule
       ];
     };
