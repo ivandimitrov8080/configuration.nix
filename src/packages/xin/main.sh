@@ -16,5 +16,10 @@ if [ -z "${profile}" ]; then
     usage
 fi
 
-[[ $profile == "nova" ]] && sudo nixos-rebuild switch --profile-name "$profile" --flake "./#$profile"
-[[ $profile == "vps" ]] && nixos-rebuild switch --flake "./#$profile" --target-host vpsfree-ivand --use-remote-sudo
+switch_vps() {
+    nixos-rebuild switch --flake "./#$profile" --target-host vpsfree-ivand --use-remote-sudo
+    exit 0
+}
+
+[[ $profile == "vps" ]] && switch_vps
+sudo nixos-rebuild switch --profile-name "$profile" --flake "./#$profile"
