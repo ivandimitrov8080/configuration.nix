@@ -646,8 +646,8 @@ top@{ moduleWithSystem, inputs, ... }:
                   "battery"
                 ];
                 "clock#time" = {
-                  format = "{:%H:%M:%S}";
                   interval = 1;
+                  format = "{:%H:%M:%S}";
                   tooltip = false;
                 };
                 "clock#week" = {
@@ -659,6 +659,7 @@ top@{ moduleWithSystem, inputs, ... }:
                   tooltip = false;
                 };
                 battery = {
+                  interval = 1;
                   format = "{icon} {capacity}% {time}";
                   format-time = " {H} h {M} m";
                   format-icons = [
@@ -690,6 +691,7 @@ top@{ moduleWithSystem, inputs, ... }:
                   tooltip = false;
                 };
                 network = {
+                  interval = 1;
                   format-ethernet = "<span color='#89dceb'>󰈁</span> Cable";
                   format-wifi = "<span color='#06b6d4'>{icon}</span> WiFi";
                   format-disconnected = "<span color='#eba0ac'>󰈂</span> Disconnected";
@@ -699,7 +701,6 @@ top@{ moduleWithSystem, inputs, ... }:
                     "󰤥"
                     "󰤨"
                   ];
-                  interval = 5;
                   tooltip = false;
                 };
                 "custom/weather" = {
