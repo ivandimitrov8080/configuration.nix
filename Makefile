@@ -3,10 +3,10 @@ default: nova
 all: nova vps gaming
 
 nova:
-	nix run . -- -p nova
+	nix run . -- switch nova
 
 vps:
-	nix run . -- -p vps
+	nix run . -- target vps vpsfree-ivand
 
 gaming:
-	nix run . -- -p gaming
+	nix run . -- switch gaming

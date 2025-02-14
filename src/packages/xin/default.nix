@@ -1,5 +1,1 @@
-{ writeShellApplication, ... }:
-writeShellApplication {
-  name = "xin";
-  text = builtins.readFile ./main.sh;
-}
+{ writeScriptBin, ... }: writeScriptBin "xin" (builtins.readFile ./main.nu)
