@@ -1,5 +1,3 @@
-#!/usr/bin/env nu
-
 def "main switch" [profile: string] {
     sudo nixos-rebuild switch --profile-name $profile --flake $"./#($profile)"
 }

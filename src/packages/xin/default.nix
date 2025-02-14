@@ -1,1 +1,1 @@
-{ writeScriptBin, ... }: writeScriptBin "xin" (builtins.readFile ./main.nu)
+{ writers, ... }: writers.writeNuBin "xin" (builtins.readFile ./main.nu)
