@@ -19,4 +19,4 @@ let rules = [
 $"[
 ($rules)
 ]
-" | save -f ./cs2-route-rules.nix
+" | save -f ./steam-route-rules.nix
