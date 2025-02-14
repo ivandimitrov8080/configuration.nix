@@ -45,7 +45,7 @@
             (config.packages.nvim.extend {
               plugins = {
                 lsp.servers = {
-                  ts_ls.enable = true;
+                  nushell.enable = true;
                 };
               };
             })
