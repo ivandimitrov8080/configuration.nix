@@ -44,7 +44,7 @@ in
       radeontop
     ];
     systemd.network.networks.wg0 = {
-      routingPolicyRules = import ./cs2-route-rules.nix;
+      routingPolicyRules = import ./steam-route-rules.nix;
     };
   };
 }
