@@ -29,19 +29,10 @@
               enable = true;
               package = pkgs.nixfmt-rfc-style;
             };
-            biome.enable = true;
-            shfmt.enable = true;
-          };
-          settings.formatter = {
-            biome = {
-              indentStyle = "space";
-              indentWidth = 4;
-            };
           };
         };
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            nodejs
+          buildInputs = [
             (config.packages.nvim.extend {
               plugins = {
                 lsp.servers = {
