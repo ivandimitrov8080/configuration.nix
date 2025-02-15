@@ -543,16 +543,11 @@ top@{ moduleWithSystem, inputs, ... }:
             terminal = "kitty";
             modifier = "Mod4";
             startup = [
-              { command = "swaymsg 'workspace 2; exec firefox'"; }
-              { command = "swaymsg 'workspace 1; exec kitty'"; }
+              { command = "exec firefox'"; }
+              { command = "exec kitty'"; }
             ];
             assigns = {
               "2" = [ { app_id = "^firefox$"; } ];
-              "3" = [ { class = "^steam$"; } ];
-              "4" = [
-                { class = "^dota2$"; }
-                { class = "^cs2$"; }
-              ];
             };
             bars = [ ];
             gaps = {

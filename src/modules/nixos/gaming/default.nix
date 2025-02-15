@@ -53,5 +53,21 @@ in
     systemd.network.networks.wg0 = {
       routingPolicyRules = import ./steam-route-rules.nix;
     };
+    home-manager.users.ivand = {
+      wayland.windowManager.sway = {
+        config = {
+          startup = [
+            { command = "exec steam'"; }
+          ];
+          assigns = {
+            "3" = [
+              { class = "^dota2$"; }
+              { class = "^cs2$"; }
+            ];
+            "4" = [ { class = "^steam$"; } ];
+          };
+        };
+      };
+    };
   };
 }
