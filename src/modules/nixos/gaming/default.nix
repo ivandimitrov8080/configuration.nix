@@ -35,6 +35,20 @@ in
       steamcmd
       radeontop
       discord
+      (pkgs.makeDesktopItem {
+        name = "dota";
+        desktopName = "DotA 2";
+        exec = "${pkgs.steam}/bin/steam steam://rungameid/570";
+        terminal = false;
+        icon = ./dota2.png;
+      })
+      (pkgs.makeDesktopItem {
+        name = "cs2";
+        desktopName = "Counter Strike 2";
+        exec = "${pkgs.steam}/bin/steam steam://rungameid/730";
+        terminal = false;
+        icon = ./cs2.png;
+      })
     ];
     systemd.network.networks.wg0 = {
       routingPolicyRules = import ./steam-route-rules.nix;
