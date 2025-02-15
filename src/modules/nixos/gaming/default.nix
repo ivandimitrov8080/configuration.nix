@@ -64,7 +64,7 @@ in
               { class = "^dota2$"; }
               { class = "^cs2$"; }
             ];
-            "4" = [ { class = "^steam$"; } ];
+            "9" = [ { class = "^steam$"; } ];
           };
         };
       };
