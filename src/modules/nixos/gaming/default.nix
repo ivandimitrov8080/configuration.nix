@@ -21,6 +21,7 @@ in
         "steam-unwrapped"
         "steam-run"
         "steamcmd"
+        "discord"
       ];
     boot = {
       kernelPackages = pkgs.linuxPackages_zen;
@@ -42,6 +43,7 @@ in
       xonotic
       steamcmd
       radeontop
+      discord
     ];
     systemd.network.networks.wg0 = {
       routingPolicyRules = import ./steam-route-rules.nix;
