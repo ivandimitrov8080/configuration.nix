@@ -10,3 +10,6 @@ vps:
 
 gaming:
 	nix run . -- gaming
+
+ai:
+	nix run . -- ai

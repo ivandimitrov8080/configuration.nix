@@ -35,6 +35,14 @@
                 flake = "/home/ivand/src/configuration.nix/#gaming";
               }
               {
+                name = "ai";
+                sudo = true;
+                command = "nixos-rebuild";
+                subcommand = "switch";
+                profile = "ai";
+                flake = "/home/ivand/src/configuration.nix/#ai";
+              }
+              {
                 name = "vps";
                 sudo = false;
                 command = "nixos-rebuild";
