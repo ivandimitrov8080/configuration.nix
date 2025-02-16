@@ -56,6 +56,11 @@ in
     home-manager.users.ivand = {
       wayland.windowManager.sway = {
         config = {
+          input = {
+            "type:touchpad" = {
+              events = "disabled";
+            };
+          };
           startup = [
             { command = "exec steam'"; }
           ];
