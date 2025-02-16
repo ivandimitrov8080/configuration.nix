@@ -61,9 +61,6 @@ in
               events = "disabled";
             };
           };
-          startup = [
-            { command = "exec steam'"; }
-          ];
           assigns = {
             "3" = [
               { class = "^dota2$"; }
