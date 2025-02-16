@@ -120,12 +120,15 @@ top@{ inputs, moduleWithSystem, ... }:
             realtime = { };
           };
         };
-        fonts.packages = with pkgs; [
-          nerd-fonts.fira-code
-          noto-fonts
-          noto-fonts-emoji
-          noto-fonts-lgc-plus
-        ];
+        fonts = {
+          fontDir.enable = true;
+          packages = with pkgs; [
+            nerd-fonts.fira-code
+            noto-fonts
+            noto-fonts-emoji
+            noto-fonts-lgc-plus
+          ];
+        };
       }
     );
   };
