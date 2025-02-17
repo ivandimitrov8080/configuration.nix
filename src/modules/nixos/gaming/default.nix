@@ -40,14 +40,21 @@ in
         desktopName = "DotA 2";
         exec = "${pkgs.steam}/bin/steam steam://rungameid/570";
         terminal = false;
-        icon = ./dota2.png;
+        icon = "${pkgs.faenza}/Delft/apps/96/dota2.svg";
       })
       (pkgs.makeDesktopItem {
         name = "cs2";
         desktopName = "Counter Strike 2";
         exec = "${pkgs.steam}/bin/steam steam://rungameid/730";
         terminal = false;
-        icon = ./cs2.png;
+        icon = "${pkgs.faenza}/Delft/apps/96/csgo.svg";
+      })
+      (pkgs.makeDesktopItem {
+        name = "valheim";
+        desktopName = "Valheim";
+        exec = "${pkgs.steam}/bin/steam steam://rungameid/892970";
+        terminal = false;
+        icon = ./valheim.jpg;
       })
     ];
     systemd.network.networks.wg0 = {

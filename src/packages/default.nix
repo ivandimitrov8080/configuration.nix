@@ -16,6 +16,7 @@
           themes-rofi = callPackage ./themes/rofi.nix { };
           themes-mutt = callPackage ./themes/mutt.nix { };
           themes-gtk = callPackage ./themes/gtk-theme-catppuccin.nix { };
+          faenza = callPackage ./faenza { };
           xin = pkgs.callPackage ./xin {
             hosts = [
               {
