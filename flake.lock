@@ -500,6 +500,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-fork": {
+      "locked": {
+        "lastModified": 1739829807,
+        "narHash": "sha256-kAzFT5lq96oU1Yz3K5xDciIPxUFGaotaXYmvg0k1Q2k=",
+        "owner": "ivandimitrov8080",
+        "repo": "nixpkgs",
+        "rev": "70c0d669adc78029fe6b9a72a4b08d73158ff5b8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ivandimitrov8080",
+        "ref": "fork",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1739624908,
@@ -611,6 +627,7 @@
         "hosts": "hosts",
         "musnix": "musnix",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "nixpkgs-fork": "nixpkgs-fork",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim",

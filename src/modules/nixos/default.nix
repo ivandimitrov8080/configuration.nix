@@ -46,6 +46,10 @@ top@{ inputs, moduleWithSystem, ... }:
                 system = pkgs.system;
                 config = config.nixpkgs.config;
               };
+              fork = import inputs.nixpkgs-fork {
+                system = pkgs.system;
+                config = config.nixpkgs.config;
+              };
             };
           };
           overlays = [

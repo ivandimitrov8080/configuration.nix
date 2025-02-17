@@ -3,6 +3,7 @@
     # nixpkgs
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-fork.url = "github:ivandimitrov8080/nixpkgs/fork";
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
