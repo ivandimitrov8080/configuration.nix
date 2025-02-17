@@ -544,7 +544,7 @@ top@{ moduleWithSystem, inputs, ... }:
             modifier = "Mod4";
             startup = [
               { command = "exec firefox"; }
-              { command = "exec kitty"; }
+              { command = "swaymsg 'workspace 1; exec kitty'"; }
             ];
             assigns = {
               "2" = [ { app_id = "^firefox$"; } ];
