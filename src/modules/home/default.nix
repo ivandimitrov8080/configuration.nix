@@ -54,7 +54,7 @@ top@{ moduleWithSystem, inputs, ... }:
             userEmail = mkForce "ivan@idimitrov.dev";
             signing = mkForce {
               signByDefault = true;
-              key = "ivan@idimitrov.dev";
+              key = "D087 9018 5658 8FCC 84E4  7B01 5332 DF04 4E39 6B13";
             };
           };
           ssh = {
