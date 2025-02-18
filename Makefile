@@ -13,3 +13,6 @@ gaming:
 
 ai:
 	nix run . -- ai
+
+reboot:
+	nix run . -- reboot

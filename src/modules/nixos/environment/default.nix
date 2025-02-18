@@ -21,6 +21,7 @@
       just
       nixos-install-tools
       tshark
+      xin
     ];
     sessionVariables = {
       MAKEFLAGS = "-j 4 -B";

@@ -54,7 +54,7 @@ top@{ moduleWithSystem, inputs, ... }:
             userEmail = mkForce "ivan@idimitrov.dev";
             signing = mkForce {
               signByDefault = true;
-              key = "D087 9018 5658 8FCC 84E4  7B01 5332 DF04 4E39 6B13";
+              key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
             };
           };
           ssh = {
@@ -449,7 +449,7 @@ top@{ moduleWithSystem, inputs, ... }:
             nushell = {
               enable = true;
               environmentVariables = {
-                config = ''{ show_banner: false, completions: { quick: false partial: false algorithm: "prefix" } } '';
+                config = ''{ show_banner: false } '';
               };
               shellAliases = {
                 gcal = ''bash -c "cal $(date +%Y)" '';
