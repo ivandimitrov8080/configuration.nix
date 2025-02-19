@@ -448,8 +448,12 @@ top@{ moduleWithSystem, inputs, ... }:
             };
             nushell = {
               enable = true;
-              environmentVariables = {
-                config = ''{ show_banner: false } '';
+              settings = {
+                show_banner = false;
+                completions.external = {
+                  enable = true;
+                  max_results = 250;
+                };
               };
               shellAliases = {
                 gcal = ''bash -c "cal $(date +%Y)" '';
@@ -471,7 +475,7 @@ top@{ moduleWithSystem, inputs, ... }:
               baseIndex = 1;
               escapeTime = 0;
               keyMode = "vi";
-              shell = "${pkgs.zsh}/bin/zsh";
+              shell = "${pkgs.nushell}/bin/nu";
               terminal = "screen-256color";
               plugins = with pkgs.tmuxPlugins; [
                 tilish
