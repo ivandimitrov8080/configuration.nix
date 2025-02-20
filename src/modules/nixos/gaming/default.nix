@@ -33,6 +33,7 @@ in
     environment.systemPackages = with pkgs; [
       xonotic
       steamcmd
+      minetest
       radeontop
       discord
       (pkgs.makeDesktopItem {
