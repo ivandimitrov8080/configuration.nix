@@ -541,6 +541,7 @@ top@{ moduleWithSystem, inputs, ... }:
             xdg-user-dirs
             xdg-utils
             telegram-desktop
+            volume
           ];
           pointerCursor = {
             name = "phinger-cursors-light";
@@ -591,14 +592,12 @@ top@{ moduleWithSystem, inputs, ... }:
               ];
             };
             keybindings = pkgs.lib.mkOptionDefault {
-              "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-              "Shift+XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-source-mute @DEFAULT_SOURCE@ toggle";
-              "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5%";
-              "Shift+XF86AudioLowerVolume" =
-                "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ -5%";
-              "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5%";
-              "Shift+XF86AudioRaiseVolume" =
-                "exec ${pkgs.pulseaudio}/bin/pactl set-source-volume @DEFAULT_SOURCE@ +5%";
+              "XF86AudioMute" = "exec volume sink toggle";
+              "Shift+XF86AudioMute" = "exec volume source toggle";
+              "XF86AudioLowerVolume" = "exec volume sink down";
+              "Shift+XF86AudioLowerVolume" = "exec volume source down";
+              "XF86AudioRaiseVolume" = "exec volume sink up";
+              "Shift+XF86AudioRaiseVolume" = "exec volume source up";
               "XF86MonBrightnessUp" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
               "XF86MonBrightnessDown" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
               "Alt+Shift+l" = "exec ${pkgs.gtklock}/bin/gtklock";
