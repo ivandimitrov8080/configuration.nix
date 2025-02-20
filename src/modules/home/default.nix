@@ -455,11 +455,25 @@ top@{ moduleWithSystem, inputs, ... }:
                   max_results = 250;
                 };
               };
-              shellAliases = {
+              shellAliases = pkgs.lib.mkForce {
                 gcal = ''bash -c "cal $(date +%Y)" '';
                 la = "ls -al";
                 dev = "nix develop --command $env.SHELL";
+                gd = "git diff --cached";
+                ga = "git add .";
+                gc = "git commit";
               };
+              extraConfig = # nu
+                ''
+                  def gad [] {
+                      git add .
+                      git diff --cached
+                  }
+                  def gac [] {
+                      git add .
+                      git commit
+                  }
+                '';
             };
             kitty.shellIntegration = {
               enableBashIntegration = true;
