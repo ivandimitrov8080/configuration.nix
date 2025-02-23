@@ -843,15 +843,6 @@ top@{ moduleWithSystem, inputs, ... }:
                 }
               '';
           };
-          wpaperd = {
-            enable = true;
-            settings = {
-              default = {
-                path = "${config.xdg.userDirs.pictures}/bg";
-                duration = "10m";
-              };
-            };
-          };
           swaylock = {
             enable = true;
             settings = {
@@ -907,6 +898,15 @@ top@{ moduleWithSystem, inputs, ... }:
           nushell.loginFile.text = ''if (tty) == "/dev/tty1" { sway } '';
         };
         services = {
+          wpaperd = {
+            enable = true;
+            settings = {
+              default = {
+                path = "${config.xdg.userDirs.pictures}/bg";
+                duration = "10m";
+              };
+            };
+          };
           mako = {
             enable = true;
             anchor = "bottom-right";
@@ -914,23 +914,6 @@ top@{ moduleWithSystem, inputs, ... }:
             borderRadius = 20;
           };
           cliphist.enable = true;
-        };
-        systemd.user = {
-          services = {
-            wpaperd = {
-              Install = {
-                WantedBy = [ "graphical-session.target" ];
-              };
-              Unit = {
-                Description = "Modern wallpaper daemon for Wayland";
-                After = "graphical-session-pre.target";
-                PartOf = "graphical-session.target";
-              };
-              Service = {
-                ExecStart = [ "${pkgs.wpaperd}/bin/wpaperd" ];
-              };
-            };
-          };
         };
         xdg.mimeApps.defaultApplications = {
           "image/jpg" = "imv.desktop";
