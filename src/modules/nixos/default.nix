@@ -90,7 +90,7 @@ top@{ inputs, moduleWithSystem, ... }:
         };
         i18n.supportedLocales = [ "all" ];
         time.timeZone = "Europe/Prague";
-        users.defaultUserShell = pkgs.nushell;
+        users.defaultUserShell = pkgs.zsh;
         systemd.network = {
           wait-online.enable = false;
         };
