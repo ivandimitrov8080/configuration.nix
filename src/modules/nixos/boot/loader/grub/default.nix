@@ -32,7 +32,7 @@ in
           };
         efi.canTouchEfiVariables = true;
       };
-      kernelPackages = pkgs.lib.mkDefault pkgs.stable.linuxPackages-libre;
+      kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages-libre;
     };
   };
 }
