@@ -63,6 +63,10 @@ top@{ moduleWithSystem, inputs, ... }:
                 hostname = "10.0.0.1";
                 user = "ivand";
               };
+              vpsfree-root = {
+                hostname = "10.0.0.1";
+                user = "root";
+              };
             };
           };
           neomutt = {

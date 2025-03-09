@@ -49,8 +49,7 @@
                 sudo = false;
                 command = "nixos-rebuild";
                 subcommand = "switch";
-                targetHost = "vpsfree-ivand";
-                useRemoteSudo = true;
+                targetHost = "vpsfree-root";
                 flake = "/home/ivand/src/configuration.nix/#vps";
               }
             ];
