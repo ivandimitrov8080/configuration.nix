@@ -31,11 +31,12 @@ in
       enable = true;
     };
     environment.systemPackages = with pkgs; [
-      xonotic
-      steamcmd
+      airshipper
+      discord
       minetest
       radeontop
-      discord
+      steamcmd
+      xonotic
       (pkgs.makeDesktopItem {
         name = "dota";
         desktopName = "DotA 2";
