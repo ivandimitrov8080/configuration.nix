@@ -466,6 +466,8 @@ top@{ moduleWithSystem, inputs, ... }:
                 gd = "git diff --cached";
                 ga = "git add .";
                 gc = "git commit";
+                cd = "z";
+                cdi = "zi";
               };
               extraConfig = # nu
                 ''
@@ -523,6 +525,11 @@ top@{ moduleWithSystem, inputs, ... }:
                 "--octal-permissions"
                 "--git"
               ];
+            };
+            zoxide = {
+              enable = true;
+              enableZshIntegration = true;
+              enableBashIntegration = true;
             };
           };
       }
