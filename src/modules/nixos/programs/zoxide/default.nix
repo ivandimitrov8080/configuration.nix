@@ -42,7 +42,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    environment.systemPackages = [ cfg.package ];
 
     programs.bash.interactiveShellInit = (
       mkOrder 2000 ''
