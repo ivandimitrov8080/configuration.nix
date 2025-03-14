@@ -407,6 +407,8 @@ top@{ moduleWithSystem, inputs, ... }:
               sc = "systemctl";
               neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
               opacity = "kitten @ set-background-opacity";
+              cd = "z";
+              cdi = "zi";
             };
             sessionVariables = { };
           in
@@ -466,8 +468,6 @@ top@{ moduleWithSystem, inputs, ... }:
                 gd = "git diff --cached";
                 ga = "git add .";
                 gc = "git commit";
-                cd = "z";
-                cdi = "zi";
               };
               extraConfig = # nu
                 ''
