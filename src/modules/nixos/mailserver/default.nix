@@ -34,7 +34,6 @@ in
       hierarchySeparator = "/";
     };
     services = {
-      dovecot2.sieve.extensions = [ "fileinto" ];
       roundcube = {
         enable = true;
         package = pkgs.stable.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
