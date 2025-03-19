@@ -107,7 +107,6 @@ top@{ inputs, moduleWithSystem, ... }:
                 "audio"
                 "bluetooth"
                 "dialout"
-                "flatpak"
                 "input"
                 "kvm"
                 "mlocate"
@@ -117,6 +116,25 @@ top@{ inputs, moduleWithSystem, ... }:
                 "wheel"
               ];
               hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
+            };
+            test = {
+              isNormalUser = true;
+              createHome = true;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "input"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+              ];
+              hashedPassword = "$y$j9T$SRmJu3w8Zm3iBavwpV/wi1$HLAGev7SkLvSlFki09UY6PQ90LOEO3qonmV6ZFgHCm4";
             };
           };
           extraGroups = {
