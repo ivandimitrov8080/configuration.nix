@@ -27,8 +27,14 @@ in
         amdvlk.enable = true;
       };
     };
-    programs.steam = {
-      enable = true;
+    programs = {
+      steam = {
+        enable = true;
+      };
+      obs-studio = {
+        enable = true;
+        plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
+      };
     };
     environment.systemPackages = with pkgs; [
       airshipper
