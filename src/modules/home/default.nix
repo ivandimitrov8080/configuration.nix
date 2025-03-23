@@ -950,20 +950,27 @@ top@{ moduleWithSystem, inputs, ... }:
             profiles.ivand = {
               id = 0;
               search = {
-                default = "DuckDuckGo";
-                privateDefault = "DuckDuckGo";
+                default = "ddg";
+                privateDefault = "ddg";
                 force = true;
               };
-              bookmarks = [
-                {
-                  name = "home-options";
-                  url = "https://nix-community.github.io/home-manager/options.xhtml";
-                }
-                {
-                  name = "nixvim-docs";
-                  url = "https://nix-community.github.io/nixvim/";
-                }
-              ];
+              bookmarks = {
+                force = true;
+                settings = [
+                  {
+                    name = "home-options";
+                    url = "https://nix-community.github.io/home-manager/options.xhtml";
+                  }
+                  {
+                    name = "nixvim-docs";
+                    url = "https://nix-community.github.io/nixvim/";
+                  }
+                  {
+                    name = "noogle";
+                    url = "https://noogle.dev/";
+                  }
+                ];
+              };
               settings = {
                 "general.smoothScroll" = true;
                 "signon.rememberSignons" = false;
