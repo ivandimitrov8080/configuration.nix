@@ -6,5 +6,6 @@
     flake-compat.flake = false;
   };
   outputs =
-    inputs: inputs.configuration.inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./parts ]; };
+    inputs:
+    inputs.configuration.inputs.parts.lib.mkFlake { inherit inputs; } { imports = [ ./parts ]; };
 }
