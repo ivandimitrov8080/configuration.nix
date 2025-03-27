@@ -42,6 +42,7 @@ in
       minetest
       radeontop
       steamcmd
+      umu-launcher
       xonotic
       (pkgs.makeDesktopItem {
         name = "dota";
