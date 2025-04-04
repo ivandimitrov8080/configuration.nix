@@ -10,9 +10,6 @@ let
   essential = with mods; [
     flakeModule
     default
-    {
-      programs.zoxide.enable = true;
-    }
   ];
   rest = [ mods.rest ];
   configWithModules =

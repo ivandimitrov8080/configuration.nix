@@ -41,6 +41,11 @@
           }
         '';
     };
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
     zsh.enable = true;
     nix-ld.enable = true;
   };
