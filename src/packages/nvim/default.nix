@@ -129,7 +129,7 @@ makeNixvim {
         "n"
         "t"
       ];
-      key = "<leader>h";
+      key = "<leader>t";
       action = "<cmd>ToggleTerm<cr>";
       options = {
         silent = true;
@@ -214,6 +214,15 @@ makeNixvim {
         desc = "Show Todo Telescope";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>h";
+      action = "<cmd>HopChar1<cr>";
+      options = {
+        silent = true;
+        desc = "Hop to character in buffer";
+      };
+    }
   ];
   plugins = {
     auto-session.enable = true;
@@ -229,6 +238,7 @@ makeNixvim {
     toggleterm.enable = true;
     ts-autotag.enable = true;
     web-devicons.enable = true;
+    hop.enable = true;
     treesitter = {
       enable = true;
       settings = {
