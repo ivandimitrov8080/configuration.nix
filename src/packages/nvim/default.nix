@@ -223,6 +223,22 @@ makeNixvim {
         desc = "Hop to character in buffer";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>.";
+      action.__raw = "function () Snacks.scratch() end";
+      options = {
+        desc = "Toggle scratch buffer";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>S";
+      action.__raw = "function () Snacks.scratch.select() end";
+      options = {
+        desc = "Select scratch buffer";
+      };
+    }
   ];
   plugins = {
     auto-session.enable = true;
@@ -241,9 +257,16 @@ makeNixvim {
     snacks = {
       enable = true;
       settings = {
-        input = {
-          enabled = true;
-        };
+        input.enabled = true;
+        bigfile.enabled = true;
+        bufdelete.enabled = true;
+        dim.enabled = true;
+        image.enabled = true;
+        notifier.enabled = true;
+        quickfile.enabled = true;
+        scratch.enabled = true;
+        scroll.enabled = true;
+        styles.enabled = true;
       };
     };
     telescope = {
