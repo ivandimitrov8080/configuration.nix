@@ -234,11 +234,18 @@ makeNixvim {
     gitsigns.enable = true;
     luasnip.enable = true;
     nvim-autopairs.enable = true;
-    telescope.enable = true;
     toggleterm.enable = true;
     ts-autotag.enable = true;
     web-devicons.enable = true;
     hop.enable = true;
+    dressing.enable = true;
+    telescope = {
+      enable = true;
+      extensions = {
+        frecency.enable = true;
+        ui-select.enable = true;
+      };
+    };
     treesitter = {
       enable = true;
       settings = {
