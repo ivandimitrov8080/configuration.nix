@@ -238,7 +238,14 @@ makeNixvim {
     ts-autotag.enable = true;
     web-devicons.enable = true;
     hop.enable = true;
-    dressing.enable = true;
+    snacks = {
+      enable = true;
+      settings = {
+        input = {
+          enabled = true;
+        };
+      };
+    };
     telescope = {
       enable = true;
       extensions = {
