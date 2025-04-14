@@ -216,6 +216,15 @@ makeNixvim {
     }
     {
       mode = "n";
+      key = "<leader>tf";
+      action = "<cmd>Telescope file_browser<cr>";
+      options = {
+        silent = true;
+        desc = "Show Telescope file browser";
+      };
+    }
+    {
+      mode = "n";
       key = "<leader>h";
       action = "<cmd>HopChar1<cr>";
       options = {
@@ -272,6 +281,7 @@ makeNixvim {
     telescope = {
       enable = true;
       extensions = {
+        file-browser.enable = true;
         frecency.enable = true;
         ui-select.enable = true;
       };
