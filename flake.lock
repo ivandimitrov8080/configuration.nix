@@ -235,11 +235,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1744600951,
-        "narHash": "sha256-LNAAfQTDXSwtYYlh/v/tMwnCqeQAEHlBC9PgyQK5b/Q=",
+        "lastModified": 1744650422,
+        "narHash": "sha256-m3/FzlNbLzfbZ1F0PUm8oEHNjGgea+bXT5uvAodt4t4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "e980d0e0e216f527ea73cfd12c7b019eceffa7f1",
+        "rev": "273ad32fbb4769ac56e15caccdbdaad2c2e6b88a",
         "type": "github"
       },
       "original": {
@@ -514,17 +514,16 @@
         "nixpkgs-24_11": "nixpkgs-24_11"
       },
       "locked": {
-        "lastModified": 1741983839,
-        "narHash": "sha256-75+RWpJ2OAvWJ+TBLJcR/2k4WhIAVHxGnqiNSxjF7nA=",
+        "lastModified": 1744611752,
+        "narHash": "sha256-5Qm/pHxs8Og1GAxc2gNgc3Em28UPR7R7IYqiaHvZ+8M=",
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "a45385de413941dc6aab2fd7c7a34b96b2bc4fc8",
+        "rev": "7bdf5003c730650cd9f57a3f8beaa5a435c53b2a",
         "type": "gitlab"
       },
       "original": {
         "owner": "simple-nixos-mailserver",
         "repo": "nixos-mailserver",
-        "rev": "a45385de413941dc6aab2fd7c7a34b96b2bc4fc8",
         "type": "gitlab"
       }
     },

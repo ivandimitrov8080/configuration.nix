@@ -20,8 +20,7 @@
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs-unstable";
     # for mailserver config
-    # TODO: make this follow master later
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/a45385de413941dc6aab2fd7c7a34b96b2bc4fc8";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs-unstable";
     # neovim latest version
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
