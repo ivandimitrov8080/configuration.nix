@@ -125,18 +125,6 @@ makeNixvim {
       };
     }
     {
-      mode = [
-        "n"
-        "t"
-      ];
-      key = "<leader>t";
-      action = "<cmd>ToggleTerm<cr>";
-      options = {
-        silent = true;
-        desc = "Open a terminal";
-      };
-    }
-    {
       mode = "n";
       key = "<leader>ff";
       action.__raw = "require('telescope.builtin').find_files";
@@ -259,7 +247,6 @@ makeNixvim {
     gitsigns.enable = true;
     luasnip.enable = true;
     nvim-autopairs.enable = true;
-    toggleterm.enable = true;
     ts-autotag.enable = true;
     web-devicons.enable = true;
     hop.enable = true;
