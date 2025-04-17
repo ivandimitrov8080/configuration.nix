@@ -12,6 +12,31 @@ let
     default
   ];
   rest = [ mods.rest ];
+  wgPeers = [
+    {
+      PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
+      AllowedIPs = [
+        "0.0.0.0/0"
+      ];
+      Endpoint = "37.205.13.29:51820";
+    }
+    {
+      PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
+      AllowedIPs = [ "10.0.0.2/32" ];
+    }
+    {
+      PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
+      AllowedIPs = [ "10.0.0.3/32" ];
+    }
+    {
+      PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
+      AllowedIPs = [ "10.0.0.4/32" ];
+    }
+    {
+      PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
+      AllowedIPs = [ "10.0.0.5/32" ];
+    }
+  ];
   configWithModules =
     {
       hardware ? {
@@ -49,15 +74,7 @@ let
             hotspots.enable = true;
             host.wgPeer = {
               enable = true;
-              peers = [
-                {
-                  PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
-                  AllowedIPs = [
-                    "0.0.0.0/0"
-                  ];
-                  Endpoint = "37.205.13.29:51820";
-                }
-              ];
+              peers = wgPeers;
               address = "10.0.0.2/24";
             };
           }
@@ -76,6 +93,9 @@ let
             vps.enable = true;
             mail.enable = true;
             anonymousDns.enable = true;
+            host.wgPeer = {
+              peers = wgPeers;
+            };
           }
         ];
     };

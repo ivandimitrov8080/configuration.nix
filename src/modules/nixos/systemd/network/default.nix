@@ -8,8 +8,14 @@ let
     mkIf
     mkOption
     mkEnableOption
+    mkMerge
     ;
-  inherit (lib.types) string listOf attrs;
+  inherit (lib.types)
+    string
+    listOf
+    attrs
+    bool
+    ;
   cfg = config.host.wgPeer;
 in
 {
@@ -25,26 +31,30 @@ in
     };
     address = mkOption {
       type = string;
-      default = "10.0.0.1";
+      default = "10.0.0.1/24";
+    };
+    isHub = mkOption {
+      type = bool;
+      default = false;
     };
   };
-  config = mkIf cfg.enable {
-    systemd.network = {
-      netdevs = {
-        "10-wg0" = {
-          netdevConfig = {
-            Kind = "wireguard";
-            Name = "wg0";
-            Description = "Wireguard virtual network device (tunnel)";
-          };
-          wireguardConfig = {
-            PrivateKeyFile = cfg.privateKeyFile;
-            FirewallMark = 6969;
-          };
-          wireguardPeers = cfg.peers;
+  config = mkIf cfg.enable (mkMerge [
+    (mkIf (!cfg.isHub) {
+      systemd.network.netdevs."10-wg0" = {
+        netdevConfig = {
+          Kind = "wireguard";
+          Name = "wg0";
+          Description = "Wireguard virtual network device (tunnel)";
         };
+        wireguardConfig = {
+          PrivateKeyFile = cfg.privateKeyFile;
+          FirewallMark = 6969;
+        };
+        wireguardPeers = cfg.peers;
       };
-      networks.wg0 = {
+    })
+    (mkIf (!cfg.isHub) {
+      systemd.network.networks.wg0 = {
         matchConfig.Name = "wg0";
         networkConfig = {
           Address = cfg.address;
@@ -71,6 +81,32 @@ in
           }
         ];
       };
-    };
-  };
+    })
+    (mkIf cfg.isHub {
+      systemd.network = {
+        enable = true;
+        netdevs = {
+          "10-wg0" = {
+            netdevConfig = {
+              Kind = "wireguard";
+              Name = "wg0";
+              Description = "Wireguard virtual device (tunnel)";
+            };
+            wireguardConfig = {
+              PrivateKeyFile = cfg.privateKeyFile;
+              ListenPort = 51820;
+            };
+            wireguardPeers = cfg.peers;
+          };
+        };
+        networks.wg0 = {
+          matchConfig.Name = "wg0";
+          networkConfig = {
+            IPMasquerade = "both";
+            Address = "10.0.0.1/24";
+          };
+        };
+      };
+    })
+  ]);
 }
