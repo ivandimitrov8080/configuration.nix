@@ -26,9 +26,7 @@ top@{ inputs, ... }:
               top.config.flake.nixosModules.default
               top.config.flake.nixosModules.rest
               {
-                programs.gtklock.enable = true;
                 media.enable = true;
-                swayland.enable = true;
                 hotspots.enable = true;
               }
             ];
