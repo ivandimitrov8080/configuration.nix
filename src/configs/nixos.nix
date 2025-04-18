@@ -127,29 +127,16 @@ let
                     22
                     53
                     993
+                    80 # http
+                    443 # https
                   ];
-                };
-                wlp45s0 = {
-                  allowedTCPPorts = [
-                    22
-                    53
-                    993
+                  allowedUDPPorts = [
+                    80
+                    443
+                    51820 # wireguard
                   ];
                 };
               };
-              allowedTCPPorts = [
-                25 # smtp
-                465 # smtps
-                80 # http
-                443 # https
-              ];
-              allowedUDPPorts = [
-                25
-                465
-                80
-                443
-                51820 # wireguard
-              ];
             };
           }
         ];
