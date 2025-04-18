@@ -36,6 +36,9 @@
     # my website, for extraction into hosts config
     webshite.url = "github:ivandimitrov8080/idimitrov.dev";
     webshite.inputs.configuration.follows = "/";
+    # generators for different formats
+    nixos-generators.url = "github:nix-community/nixos-generators";
+    nixos-generators.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
   outputs =
     inputs:

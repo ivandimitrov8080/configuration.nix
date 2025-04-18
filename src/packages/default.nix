@@ -1,4 +1,4 @@
-{ inputs, ... }:
+top@{ inputs, ... }:
 {
   perSystem =
     { system, pkgs, ... }:
@@ -18,6 +18,21 @@
           themes-gtk = callPackage ./themes/gtk-theme-catppuccin.nix { };
           faenza = callPackage ./faenza { };
           volume = callPackage ./volume { };
+          nova-iso = inputs.nixos-generators.nixosGenerate {
+            inherit system;
+            format = "install-iso";
+            modules = [
+              top.config.flake.nixosModules.flakeModule
+              top.config.flake.nixosModules.default
+              top.config.flake.nixosModules.rest
+              {
+                programs.gtklock.enable = true;
+                media.enable = true;
+                swayland.enable = true;
+                hotspots.enable = true;
+              }
+            ];
+          };
           xin = pkgs.callPackage ./xin {
             hosts = [
               {
