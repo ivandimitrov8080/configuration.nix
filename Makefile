@@ -1,18 +1,21 @@
 default: nova
 
-all: nova vps gaming
+all: nova gaming ai vps
 
 nova:
 	nix run . -- nova
-
-vps:
-	nix run . -- vps
 
 gaming:
 	nix run . -- gaming
 
 ai:
 	nix run . -- ai
+
+vps:
+	nix run . -- vps
+
+iso:
+
 
 reboot:
 	nix run . -- reboot

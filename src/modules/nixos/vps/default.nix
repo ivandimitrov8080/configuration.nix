@@ -75,6 +75,9 @@ in
           ''
             ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
           ''
+          ''
+            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEQeXVL/PeTg4m3caOfed5GvLSGDoo/VS997ZS1vEo7 u0_a167@localhost
+          ''
         ];
       };
       extraGroups = {
