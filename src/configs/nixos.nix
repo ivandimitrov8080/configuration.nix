@@ -80,6 +80,80 @@ let
           }
         ];
     };
+  staraConfig =
+    mods:
+    configWithModules {
+      hardware = hardwareConfigurations.stara;
+      modules =
+        essential
+        ++ rest
+        ++ mods
+        ++ [
+          {
+            programs.gtklock.enable = true;
+            media.enable = true;
+            swayland.enable = true;
+            grubBoot.enable = true;
+            grubBoot.libre = false;
+            hotspots.enable = true;
+            host.wgPeer = {
+              enable = true;
+              peers = wgPeers;
+              address = "10.0.0.4/24";
+            };
+            services.openssh = {
+              enable = true;
+              settings = {
+                PasswordAuthentication = false;
+                PermitRootLogin = "no";
+              };
+            };
+            users.users.ivand.openssh.authorizedKeys.keys = [
+              ''
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEQeXVL/PeTg4m3caOfed5GvLSGDoo/VS997ZS1vEo7 u0_a167@localhost
+              ''
+              ''
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+              ''
+              ''
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICceRu0n7msASov3UNdutUgR7slorMsB16ZTpHJ8bv+Q ivand@nixos
+              ''
+            ];
+            networking.firewall = {
+              enable = true;
+              interfaces = {
+                wg0 = {
+                  allowedTCPPorts = [
+                    22
+                    53
+                    993
+                  ];
+                };
+                wlp45s0 = {
+                  allowedTCPPorts = [
+                    22
+                    53
+                    993
+                  ];
+                };
+              };
+              allowedTCPPorts = [
+                25 # smtp
+                465 # smtps
+                80 # http
+                443 # https
+              ];
+              allowedUDPPorts = [
+                25
+                465
+                80
+                443
+                51820 # wireguard
+              ];
+            };
+          }
+        ];
+    };
   vpsConfig =
     mods:
     configWithModules {
@@ -105,6 +179,7 @@ in
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     ai = novaConfig ([ { ai.enable = true; } ]);
+    stara = staraConfig [ ];
     vps = vpsConfig (
       with mods;
       [

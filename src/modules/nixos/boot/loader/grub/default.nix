@@ -5,12 +5,24 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkEnableOption;
+  inherit (lib)
+    mkIf
+    mkEnableOption
+    mkOption
+    mkDefault
+    ;
+  inherit (lib.types)
+    bool
+    ;
   cfg = config.grubBoot;
 in
 {
   options.grubBoot = {
     enable = mkEnableOption "enable grub config";
+    libre = mkOption {
+      type = bool;
+      default = true;
+    };
   };
   config = mkIf cfg.enable {
     boot = {
@@ -32,7 +44,7 @@ in
           };
         efi.canTouchEfiVariables = true;
       };
-      kernelPackages = pkgs.lib.mkDefault pkgs.linuxPackages-libre;
+      kernelPackages = mkDefault (if cfg.libre then pkgs.linuxPackages-libre else pkgs.linuxPackages);
     };
   };
 }

@@ -36,6 +36,49 @@ _: {
           nixpkgs.hostPlatform = lib.mkForce "x86_64-linux";
           hardware.cpu.intel.updateMicrocode = lib.mkForce false;
         };
+      stara =
+        {
+          lib,
+          modulesPath,
+          config,
+          ...
+        }:
+        {
+          imports = [
+            (modulesPath + "/installer/scan/not-detected.nix")
+          ];
+
+          boot.initrd.availableKernelModules = [
+            "xhci_pci"
+            "ahci"
+            "usb_storage"
+            "sd_mod"
+          ];
+          boot.initrd.kernelModules = [ ];
+          boot.kernelModules = [ "kvm-intel" ];
+          boot.extraModulePackages = [ ];
+
+          fileSystems."/" = {
+            device = "/dev/disk/by-uuid/23cab329-d467-45d1-acc4-8bf43958c1ab";
+            fsType = "btrfs";
+          };
+
+          fileSystems."/boot" = {
+            device = "/dev/disk/by-uuid/ACB8-8C22";
+            fsType = "vfat";
+            options = [
+              "fmask=0022"
+              "dmask=0022"
+            ];
+          };
+
+          networking.useNetworkd = lib.mkDefault true;
+
+          swapDevices = [ ];
+
+          nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+          hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+        };
     };
   };
 }
