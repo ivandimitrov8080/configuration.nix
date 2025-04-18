@@ -29,7 +29,7 @@ let
       AllowedIPs = [ "10.0.0.3/32" ];
     }
     {
-      PublicKey = "1e0mjluqXdLbzv681HlC9B8BfGN8sIXIw3huLyQqwXI=";
+      PublicKey = "1nfOCubuMXC9ZSCvXOIBer9LZoftmXFDFIOia9jr1jY=";
       AllowedIPs = [ "10.0.0.4/32" ];
     }
     {
