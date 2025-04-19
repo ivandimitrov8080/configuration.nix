@@ -54,6 +54,7 @@ in
       address = "10.0.0.1/24";
       isHub = true;
     };
+    host.name = "vpsfree";
 
     #rest - meaning i didnt wanna do it now
     fileSystems."/mnt/export1981" = {
