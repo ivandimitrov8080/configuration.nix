@@ -108,13 +108,10 @@ let
               enable = true;
               settings = {
                 PasswordAuthentication = false;
-                PermitRootLogin = "no";
+                PermitRootLogin = "yes";
               };
             };
             users.users.ivand.openssh.authorizedKeys.keys = [
-              ''
-                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEQeXVL/PeTg4m3caOfed5GvLSGDoo/VS997ZS1vEo7 u0_a167@localhost
-              ''
               ''
                 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
               ''
