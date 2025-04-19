@@ -5,6 +5,7 @@
 }:
 let
   inherit (lib)
+    mkForce
     mkIf
     mkOption
     mkEnableOption
@@ -19,26 +20,35 @@ let
   cfg = config.host.wgPeer;
 in
 {
-  options.host.wgPeer = {
-    enable = mkEnableOption "enable wg0 interface";
-    privateKeyFile = mkOption {
+  options.host = {
+    name = mkOption {
       type = string;
-      default = "/etc/systemd/network/wg0.key";
+      default = "nixos";
     };
-    peers = mkOption {
-      type = listOf attrs;
-      default = [ ];
-    };
-    address = mkOption {
-      type = string;
-      default = "10.0.0.1/24";
-    };
-    isHub = mkOption {
-      type = bool;
-      default = false;
+    wgPeer = {
+      enable = mkEnableOption "enable wg0 interface";
+      privateKeyFile = mkOption {
+        type = string;
+        default = "/etc/systemd/network/wg0.key";
+      };
+      peers = mkOption {
+        type = listOf attrs;
+        default = [ ];
+      };
+      address = mkOption {
+        type = string;
+        default = "10.0.0.1/24";
+      };
+      isHub = mkOption {
+        type = bool;
+        default = false;
+      };
     };
   };
   config = mkIf cfg.enable (mkMerge [
+    {
+      networking.hostName = mkForce config.host.name;
+    }
     (mkIf (!cfg.isHub) {
       systemd.network.netdevs."10-wg0" = {
         netdevConfig = {

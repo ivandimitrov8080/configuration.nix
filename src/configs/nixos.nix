@@ -78,6 +78,7 @@ let
               peers = wgPeers;
               address = "10.0.0.2/24";
             };
+            host.name = "nova";
           }
         ];
     };
@@ -102,6 +103,7 @@ let
               peers = wgPeers;
               address = "10.0.0.4/24";
             };
+            host.name = "stara";
             services.openssh = {
               enable = true;
               settings = {
