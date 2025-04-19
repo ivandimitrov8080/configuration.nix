@@ -19,6 +19,7 @@ let
         "0.0.0.0/0"
       ];
       Endpoint = "37.205.13.29:51820";
+      PersistentKeepalive = 7;
     }
     {
       PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
