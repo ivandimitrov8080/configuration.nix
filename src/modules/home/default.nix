@@ -67,6 +67,10 @@ top@{ moduleWithSystem, inputs, ... }:
                 hostname = "10.0.0.1";
                 user = "root";
               };
+              stara-root = {
+                hostname = "10.0.0.4";
+                user = "root";
+              };
             };
           };
           neomutt = {

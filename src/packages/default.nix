@@ -65,6 +65,14 @@ top@{ inputs, ... }:
                 targetHost = "vpsfree-root";
                 flake = "/home/ivand/src/configuration.nix/#vps";
               }
+              {
+                name = "stara";
+                sudo = false;
+                command = "nixos-rebuild";
+                subcommand = "switch";
+                targetHost = "stara-root";
+                flake = "/home/ivand/src/configuration.nix/#stara";
+              }
             ];
           };
           default = xin;

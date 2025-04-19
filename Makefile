@@ -14,6 +14,9 @@ ai:
 vps:
 	nix run . -- vps
 
+stara:
+	nix run . -- stara
+
 iso:
 
 
