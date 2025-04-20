@@ -137,6 +137,7 @@ let
                     993
                     80 # http
                     443 # https
+                    8080 # open-webui
                   ];
                   allowedUDPPorts = [
                     80
@@ -145,6 +146,9 @@ let
                   ];
                 };
               };
+              allowedTCPPorts = [
+                8080 # open-webui
+              ];
             };
           }
         ];
@@ -177,7 +181,15 @@ in
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     ai = novaConfig ([ { ai.enable = true; } ]);
     stara = staraConfig [ ];
-    stara-ai = staraConfig [ { ai.enable = true; } ];
+    stara-ai = staraConfig [
+      {
+        ai.enable = true;
+        services.open-webui = {
+          enable = true;
+          host = "0.0.0.0";
+        };
+      }
+    ];
     vps = vpsConfig (
       with nixosModules;
       [
