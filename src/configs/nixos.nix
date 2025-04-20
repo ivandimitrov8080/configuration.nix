@@ -7,7 +7,7 @@ let
   system = "x86_64-linux";
   nixosModules = toplevel.config.flake.nixosModules;
   inherit (toplevel.config.flake) hardwareConfigurations;
-  wgPeers = [
+  hub = [
     {
       PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
       AllowedIPs = [
@@ -16,6 +16,8 @@ let
       Endpoint = "37.205.13.29:51820";
       PersistentKeepalive = 7;
     }
+  ];
+  spokes = [
     {
       PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
       AllowedIPs = [ "10.0.0.2/32" ];
@@ -71,7 +73,7 @@ let
             hotspots.enable = true;
             host.wgPeer = {
               enable = true;
-              peers = wgPeers;
+              peers = hub;
               address = "10.0.0.2/24";
             };
             host.name = "nova";
@@ -98,7 +100,7 @@ let
             hotspots.enable = true;
             host.wgPeer = {
               enable = true;
-              peers = wgPeers;
+              peers = hub;
               address = "10.0.0.4/24";
             };
             host.name = "stara";
@@ -163,7 +165,7 @@ let
             mail.enable = true;
             anonymousDns.enable = true;
             host.wgPeer = {
-              peers = wgPeers;
+              peers = spokes;
             };
           }
         ];
