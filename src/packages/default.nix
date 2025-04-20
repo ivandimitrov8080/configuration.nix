@@ -35,7 +35,6 @@ top@{ inputs, ... }:
             hosts = [
               {
                 name = "nova";
-                sudo = true;
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 profile = "nova";
@@ -43,7 +42,6 @@ top@{ inputs, ... }:
               }
               {
                 name = "gaming";
-                sudo = true;
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 profile = "gaming";
@@ -51,7 +49,6 @@ top@{ inputs, ... }:
               }
               {
                 name = "ai";
-                sudo = true;
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 profile = "ai";
@@ -59,7 +56,6 @@ top@{ inputs, ... }:
               }
               {
                 name = "vps";
-                sudo = false;
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 targetHost = "vpsfree-root";
@@ -67,7 +63,6 @@ top@{ inputs, ... }:
               }
               {
                 name = "stara";
-                sudo = false;
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 targetHost = "stara-root";

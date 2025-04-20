@@ -5,13 +5,8 @@ toplevel@{
 }:
 let
   system = "x86_64-linux";
-  mods = toplevel.config.flake.nixosModules;
+  nixosModules = toplevel.config.flake.nixosModules;
   inherit (toplevel.config.flake) hardwareConfigurations;
-  essential = with mods; [
-    flakeModule
-    default
-  ];
-  rest = [ mods.rest ];
   wgPeers = [
     {
       PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
@@ -54,7 +49,6 @@ let
         };
         modules = [
           hardware
-          { networking.hostName = hostname; }
         ] ++ modules;
       }
     );
@@ -63,8 +57,10 @@ let
     configWithModules {
       hardware = hardwareConfigurations.nova;
       modules =
-        essential
-        ++ rest
+        (with nixosModules; [
+          default
+          rest
+        ])
         ++ mods
         ++ [
           {
@@ -87,8 +83,10 @@ let
     configWithModules {
       hardware = hardwareConfigurations.stara;
       modules =
-        essential
-        ++ rest
+        (with nixosModules; [
+          default
+          rest
+        ])
         ++ mods
         ++ [
           {
@@ -153,7 +151,9 @@ let
     mods:
     configWithModules {
       modules =
-        essential
+        (with nixosModules; [
+          default
+        ])
         ++ mods
         ++ [
           {
@@ -176,7 +176,7 @@ in
     ai = novaConfig ([ { ai.enable = true; } ]);
     stara = staraConfig [ ];
     vps = vpsConfig (
-      with mods;
+      with nixosModules;
       [
         vpsadminosModule
         { webshite.enable = true; }

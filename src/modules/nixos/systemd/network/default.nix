@@ -47,7 +47,7 @@ in
   };
   config = mkIf cfg.enable (mkMerge [
     {
-      networking.hostName = mkForce config.host.name;
+      networking.hostName = config.host.name;
     }
     (mkIf (!cfg.isHub) {
       systemd.network.netdevs."10-wg0" = {

@@ -3,7 +3,7 @@ top@{ inputs, moduleWithSystem, ... }:
   flake.nixosModules = {
     default = moduleWithSystem (
       _:
-      { lib, ... }:
+      { lib, config, ... }:
       let
         files = lib.filesystem.listFilesRecursive ./.;
         endsWith =
@@ -18,20 +18,15 @@ top@{ inputs, moduleWithSystem, ... }:
         defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
       in
       {
-        imports = with builtins; filter (x: !((endsWith "nixos/default.nix" x))) defaults;
-      }
-    );
-    flakeModule = moduleWithSystem (
-      _:
-      { pkgs, config, ... }:
-      {
-        imports = with inputs; [
-          hosts.nixosModule
-          home-manager.nixosModules.default
-          webshite.nixosModules.default
-          simple-nixos-mailserver.nixosModule
-          musnix.nixosModules.musnix
-        ];
+        imports =
+          (with builtins; filter (x: !((endsWith "nixos/default.nix" x))) defaults)
+          ++ (with inputs; [
+            hosts.nixosModule
+            home-manager.nixosModules.default
+            webshite.nixosModules.default
+            simple-nixos-mailserver.nixosModule
+            musnix.nixosModules.musnix
+          ]);
         nix.registry = {
           self.flake = inputs.self;
           nixpkgs.flake = inputs.nixpkgs-unstable;
