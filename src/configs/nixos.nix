@@ -177,6 +177,7 @@ in
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     ai = novaConfig ([ { ai.enable = true; } ]);
     stara = staraConfig [ ];
+    stara-ai = staraConfig [ { ai.enable = true; } ];
     vps = vpsConfig (
       with nixosModules;
       [

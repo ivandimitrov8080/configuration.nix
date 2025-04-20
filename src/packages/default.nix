@@ -68,6 +68,14 @@ top@{ inputs, ... }:
                 targetHost = "stara-root";
                 flake = "/home/ivand/src/configuration.nix/#stara";
               }
+              {
+                name = "stara-ai";
+                command = "nixos-rebuild";
+                subcommand = "switch";
+                targetHost = "stara-root";
+                buildHost = "stara-root";
+                flake = "/home/ivand/src/configuration.nix/#stara-ai";
+              }
             ];
           };
           default = xin;
