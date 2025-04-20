@@ -21,6 +21,13 @@
             '';
           };
         };
+        "ai.idimitrov.dev" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://10.0.0.4:8080";
+          };
+        };
       };
     };
     postgresql = {
