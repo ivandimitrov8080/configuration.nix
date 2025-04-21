@@ -27,6 +27,9 @@
           locations."/" = {
             proxyPass = "http://10.0.0.4:8080";
             extraConfig = ''
+              allow 10.0.0.0/8;
+              allow 192.168.0.0/8;
+              deny all;
               proxy_http_version 1.1;
               proxy_set_header Upgrade $http_upgrade;
               proxy_set_header Connection "upgrade";

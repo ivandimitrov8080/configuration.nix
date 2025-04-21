@@ -10,6 +10,7 @@
       "10.0.0.1" = [
         "mail.idimitrov.dev"
         "idimitrov.dev"
+        "ai.idimitrov.dev"
       ];
     };
     useNetworkd = true;
