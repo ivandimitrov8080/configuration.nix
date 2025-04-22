@@ -10,7 +10,6 @@
           "main"
           "brackets"
           "cursor"
-          "root"
           "line"
         ];
       };

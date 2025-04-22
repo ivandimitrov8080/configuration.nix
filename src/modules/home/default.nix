@@ -440,7 +440,6 @@ top@{ moduleWithSystem, inputs, ... }:
                   "main"
                   "brackets"
                   "cursor"
-                  "root"
                   "line"
                 ];
               };
