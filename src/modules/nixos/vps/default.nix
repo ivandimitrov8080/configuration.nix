@@ -30,7 +30,9 @@ in
               22
               53
               993
-              9418
+            ];
+            allowedUDPPorts = [
+              9418 # gitDaemon
             ];
           };
         };
