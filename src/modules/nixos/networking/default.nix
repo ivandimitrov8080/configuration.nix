@@ -8,9 +8,12 @@
     };
     hosts = {
       "10.0.0.1" = [
-        "mail.idimitrov.dev"
-        "idimitrov.dev"
         "ai.idimitrov.dev"
+        "idimitrov.dev"
+        "mail.idimitrov.dev"
+      ];
+      "10.0.0.4" = [
+        "stara.idimitrov.dev"
       ];
     };
     useNetworkd = true;

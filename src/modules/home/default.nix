@@ -60,16 +60,20 @@ top@{ moduleWithSystem, inputs, ... }:
           ssh = {
             matchBlocks = {
               vpsfree-ivand = {
-                hostname = "10.0.0.1";
+                hostname = "idimitrov.dev";
                 user = "ivand";
               };
               vpsfree-root = {
-                hostname = "10.0.0.1";
+                hostname = "idimitrov.dev";
                 user = "root";
               };
               stara-root = {
-                hostname = "10.0.0.4";
+                hostname = "stara.idimitrov.dev";
                 user = "root";
+              };
+              git = {
+                hostname = "idimitrov.dev";
+                user = "git";
               };
             };
           };
