@@ -9,6 +9,7 @@
     hosts = {
       "10.0.0.1" = [
         "ai.idimitrov.dev"
+        "git.idimitrov.dev"
         "idimitrov.dev"
         "mail.idimitrov.dev"
       ];

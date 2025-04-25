@@ -80,10 +80,6 @@ in
           ];
         };
         git = {
-          isNormalUser = true;
-          home = "/home/git";
-          createHome = true;
-          group = "git";
           openssh.authorizedKeys.keys = [
             ''
               ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
@@ -93,10 +89,17 @@ in
       };
       extraGroups = {
         mlocate = { };
-        git = { };
       };
     };
     services = {
+      gitDaemon = {
+        enable = true;
+        repositories = [
+          "/srv/git"
+        ];
+        basePath = "/srv/git";
+        listenAddress = "git.idimitrov.dev";
+      };
       openssh = {
         enable = true;
         settings = {
