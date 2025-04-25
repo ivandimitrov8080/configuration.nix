@@ -64,25 +64,36 @@ in
     };
     users = {
       defaultUserShell = pkgs.zsh;
-      users.ivand = lib.mkForce {
-        isNormalUser = true;
-        hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";
-        extraGroups = [
-          "wheel"
-          "adm"
-          "mlocate"
-        ];
-        openssh.authorizedKeys.keys = [
-          ''
-            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-          ''
-          ''
-            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICEQeXVL/PeTg4m3caOfed5GvLSGDoo/VS997ZS1vEo7 u0_a167@localhost
-          ''
-        ];
+      users = {
+        ivand = lib.mkForce {
+          isNormalUser = true;
+          hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";
+          extraGroups = [
+            "wheel"
+            "adm"
+            "mlocate"
+          ];
+          openssh.authorizedKeys.keys = [
+            ''
+              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+            ''
+          ];
+        };
+        git = {
+          isNormalUser = true;
+          home = "/home/git";
+          createHome = true;
+          group = "git";
+          openssh.authorizedKeys.keys = [
+            ''
+              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+            ''
+          ];
+        };
       };
       extraGroups = {
         mlocate = { };
+        git = { };
       };
     };
     services = {
