@@ -26,13 +26,13 @@ in
       firewall = {
         interfaces = {
           wg0 = {
-            allowedTCPPorts = [
+            allowedTCPPorts = mkForce [
               22
               53
               993
-            ];
-            allowedUDPPorts = [
               9418 # gitDaemon
+            ];
+            allowedUDPPorts = mkForce [
             ];
           };
         };
@@ -84,6 +84,7 @@ in
           ];
         };
         git = {
+          shell = pkgs.nushell;
           openssh.authorizedKeys.keys = [
             ''
               ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
@@ -103,7 +104,7 @@ in
         ];
         basePath = "/srv/git";
         exportAll = true;
-        listenAddress = "git.idimitrov.dev";
+        listenAddress = "idimitrov.dev";
       };
       openssh = {
         enable = true;
