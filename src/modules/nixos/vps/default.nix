@@ -30,6 +30,7 @@ in
               22
               53
               993
+              9418
             ];
           };
         };
@@ -99,6 +100,7 @@ in
           "/srv/git"
         ];
         basePath = "/srv/git";
+        exportAll = true;
         listenAddress = "git.idimitrov.dev";
       };
       openssh = {
