@@ -32,41 +32,42 @@ top@{ inputs, ... }:
             ];
           };
           xin = pkgs.callPackage ./xin {
+            flakePath = "/home/ivand/src/configuration.nix";
             hosts = [
               {
                 name = "nova";
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 profile = "nova";
-                flake = "/home/ivand/src/configuration.nix/#nova";
+                ref = "nova";
               }
               {
                 name = "gaming";
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 profile = "gaming";
-                flake = "/home/ivand/src/configuration.nix/#gaming";
+                ref = "gaming";
               }
               {
                 name = "ai";
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 profile = "ai";
-                flake = "/home/ivand/src/configuration.nix/#ai";
+                ref = "ai";
               }
               {
                 name = "vps";
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 targetHost = "vpsfree-root";
-                flake = "/home/ivand/src/configuration.nix/#vps";
+                ref = "vps";
               }
               {
                 name = "stara";
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 targetHost = "stara-root";
-                flake = "/home/ivand/src/configuration.nix/#stara";
+                ref = "stara";
               }
               {
                 name = "stara-ai";
@@ -74,7 +75,7 @@ top@{ inputs, ... }:
                 subcommand = "switch";
                 targetHost = "stara-root";
                 buildHost = "stara-root";
-                flake = "/home/ivand/src/configuration.nix/#stara-ai";
+                ref = "stara-ai";
               }
             ];
           };

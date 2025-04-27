@@ -31,16 +31,31 @@
             };
           };
         };
-        devShells.default = pkgs.mkShell {
-          buildInputs = [
-            (config.packages.nvim.extend {
-              plugins = {
-                lsp.servers = {
-                  nushell.enable = true;
+        devShells = {
+          default = pkgs.mkShell {
+            buildInputs = [
+              (config.packages.nvim.extend {
+                plugins = {
+                  lsp.servers = {
+                    nushell.enable = true;
+                  };
                 };
-              };
-            })
-          ];
+              })
+            ];
+          };
+          py = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              (config.packages.nvim.extend {
+                plugins = {
+                  lsp.servers = {
+                    pylsp.enable = true;
+                  };
+                };
+              })
+              python3
+            ];
+            shellHook = "exec ${pkgs.zsh}/bin/zsh";
+          };
         };
       };
     };

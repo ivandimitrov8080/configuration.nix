@@ -11,6 +11,10 @@ def "main reboot" [] {
     reboot
 }
 
+def --wrapped "main shell" [ref: string, ...rest] {
+    nix develop $"($flake_path)#($ref)" ...$rest
+}
+
 def main [] {
     $"Usage: todo..."
 }
