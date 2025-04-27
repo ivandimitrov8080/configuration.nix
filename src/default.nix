@@ -56,6 +56,19 @@
             ];
             shellHook = "exec ${pkgs.zsh}/bin/zsh";
           };
+          node = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              (config.packages.nvim.extend {
+                plugins = {
+                  lsp.servers = {
+                    ts_ls.enable = true;
+                  };
+                };
+              })
+              nodejs
+            ];
+            shellHook = "exec ${pkgs.zsh}/bin/zsh";
+          };
         };
       };
     };
