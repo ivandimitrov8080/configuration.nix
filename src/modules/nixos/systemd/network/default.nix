@@ -5,14 +5,13 @@
 }:
 let
   inherit (lib)
-    mkForce
     mkIf
     mkOption
     mkEnableOption
     mkMerge
     ;
   inherit (lib.types)
-    string
+    str
     listOf
     attrs
     bool
@@ -22,13 +21,13 @@ in
 {
   options.host = {
     name = mkOption {
-      type = string;
+      type = str;
       default = "nixos";
     };
     wgPeer = {
       enable = mkEnableOption "enable wg0 interface";
       privateKeyFile = mkOption {
-        type = string;
+        type = str;
         default = "/etc/systemd/network/wg0.key";
       };
       peers = mkOption {
@@ -36,7 +35,7 @@ in
         default = [ ];
       };
       address = mkOption {
-        type = string;
+        type = str;
         default = "10.0.0.1/24";
       };
       isHub = mkOption {
