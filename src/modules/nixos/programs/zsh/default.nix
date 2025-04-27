@@ -30,7 +30,7 @@
         gac = "ga && gc";
         ga = "git add .";
         gc = "git commit";
-        dev = "nix develop --command $SHELL";
+        dev = "nix develop";
         eza = "${pkgs.eza}/bin/eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
         ls = "eza";
         la = "eza --all -a";

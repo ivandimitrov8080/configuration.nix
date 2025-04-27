@@ -408,7 +408,7 @@ top@{ moduleWithSystem, inputs, ... }:
               gac = "ga && gc";
               ga = "git add .";
               gc = "git commit";
-              dev = "nix develop --command $SHELL";
+              dev = "nix develop";
               ls = "eza";
               la = "eza --all -a";
               lt = "eza --git-ignore --all --tree --level=10";
@@ -471,7 +471,7 @@ top@{ moduleWithSystem, inputs, ... }:
               shellAliases = pkgs.lib.mkForce {
                 gcal = ''bash -c "cal $(date +%Y)" '';
                 la = "ls -al";
-                dev = "nix develop --command $env.SHELL";
+                dev = "nix develop";
                 gd = "git diff --cached";
                 ga = "git add .";
                 gc = "git commit";
