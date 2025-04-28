@@ -22,6 +22,16 @@ in
     };
     programs.regreet = {
       enable = true;
+      theme = {
+        package = pkgs.catppuccin-gtk.override {
+          variant = "mocha";
+          size = "compact";
+          accents = [
+            "maroon"
+          ];
+        };
+        name = "catppuccin-mocha-maroon-compact";
+      };
     };
     environment.etc."xdg/wayland-sessions/sway.desktop".source =
       "${pkgs.sway}/share/wayland-sessions/sway.desktop";
