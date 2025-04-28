@@ -70,6 +70,7 @@ let
             media.enable = true;
             swayland.enable = true;
             grubBoot.enable = true;
+            graphicalBoot.enable = true;
             hotspots.enable = true;
             host.wgPeer = {
               enable = true;

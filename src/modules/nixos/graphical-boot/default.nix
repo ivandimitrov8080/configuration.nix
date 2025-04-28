@@ -23,6 +23,8 @@ in
     programs.regreet = {
       enable = true;
     };
+    environment.etc."xdg/wayland-sessions/sway.desktop".source =
+      "${pkgs.sway}/share/wayland-sessions/sway.desktop";
     boot = {
       initrd.systemd.enable = true;
       plymouth = {
