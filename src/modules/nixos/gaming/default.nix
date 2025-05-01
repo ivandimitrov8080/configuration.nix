@@ -66,8 +66,13 @@ in
         icon = ./valheim.jpg;
       })
     ];
-    systemd.network.networks.wg0 = {
-      routingPolicyRules = import ./steam-route-rules.nix;
+    systemd = {
+      network.networks.wg0 = {
+        routingPolicyRules = import ./steam-route-rules.nix;
+      };
+      extraConfig = ''
+        DefaultTimeoutStopSec=5s
+      '';
     };
     home-manager.users.ivand = {
       wayland.windowManager.sway = {
