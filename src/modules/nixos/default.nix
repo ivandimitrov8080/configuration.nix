@@ -3,23 +3,18 @@ top@{ inputs, moduleWithSystem, ... }:
   flake.nixosModules = {
     default = moduleWithSystem (
       _:
-      { lib, config, ... }:
+      {
+        pkgs,
+        lib,
+        config,
+        ...
+      }:
       let
-        files = lib.filesystem.listFilesRecursive ./.;
-        endsWith =
-          e: x:
-          with builtins;
-          let
-            se = toString e;
-            sx = toString x;
-          in
-          (stringLength sx >= stringLength se)
-          && (substring ((stringLength sx) - (stringLength se)) (stringLength sx) sx) == se;
-        defaults = with builtins; (filter (x: endsWith "default.nix" x) files);
+        inherit (import ../../lib { inherit lib; }) endsWith findDefaults;
       in
       {
         imports =
-          (with builtins; filter (x: !((endsWith "nixos/default.nix" x))) defaults)
+          (with builtins; filter (x: !((endsWith "nixos/default.nix" x))) (findDefaults ./.))
           ++ (with inputs; [
             hosts.nixosModule
             home-manager.nixosModules.default
