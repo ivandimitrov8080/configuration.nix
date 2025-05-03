@@ -69,7 +69,7 @@ let
             programs.gtklock.enable = true;
             media.enable = true;
             swayland.enable = true;
-            grubBoot.enable = true;
+            boot.loader.grub.enable = true;
             graphicalBoot.enable = true;
             hotspots.enable = true;
             host.wgPeer = {
@@ -96,8 +96,7 @@ let
             programs.gtklock.enable = true;
             media.enable = true;
             swayland.enable = true;
-            grubBoot.enable = true;
-            grubBoot.libre = false;
+            boot.loader.grub.enable = true;
             hotspots.enable = true;
             host.wgPeer = {
               enable = true;
