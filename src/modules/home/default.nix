@@ -609,7 +609,7 @@ top@{ moduleWithSystem, inputs, ... }:
                 }
               ];
             };
-            keybindings = pkgs.lib.mkDefault {
+            keybindings = pkgs.lib.mkOptionDefault {
               "XF86AudioMute" = "exec volume sink toggle";
               "Shift+XF86AudioMute" = "exec volume source toggle";
               "XF86AudioLowerVolume" = "exec volume sink down";
