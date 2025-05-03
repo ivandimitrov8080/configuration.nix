@@ -390,7 +390,7 @@ top@{ moduleWithSystem, inputs, ... }:
             enableBashIntegration = true;
             enableZshIntegration = true;
             enableNushellIntegration = true;
-            pinentryPackage = pkgs.pinentry-qt;
+            pinentry.package = pkgs.pinentry-qt;
           };
         };
       }
