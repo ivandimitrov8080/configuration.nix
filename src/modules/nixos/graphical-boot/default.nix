@@ -33,8 +33,7 @@ in
         name = "catppuccin-mocha-maroon-compact";
       };
     };
-    environment.etc."xdg/wayland-sessions/sway.desktop".source =
-      "${pkgs.sway}/share/wayland-sessions/sway.desktop";
+    environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.sway}/share" ];
     boot = {
       initrd.systemd.enable = true;
       plymouth = {
