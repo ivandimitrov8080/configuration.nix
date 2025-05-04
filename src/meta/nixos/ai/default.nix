@@ -6,10 +6,10 @@
 }:
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.ai;
+  cfg = config.meta.ai;
 in
 {
-  options.ai = {
+  options.meta.ai = {
     enable = mkEnableOption "enable ai config";
   };
   config = mkIf cfg.enable {

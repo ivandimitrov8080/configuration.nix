@@ -194,11 +194,11 @@ in
   flake.nixosConfigurations = {
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
-    ai = novaConfig ([ { ai.enable = true; } ]);
+    ai = novaConfig ([ { meta.ai.enable = true; } ]);
     stara = staraConfig [ ];
     stara-ai = staraConfig [
       {
-        ai.enable = true;
+        meta.ai.enable = true;
         services.open-webui = {
           enable = true;
           host = "0.0.0.0";
