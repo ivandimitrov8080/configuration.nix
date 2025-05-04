@@ -9,10 +9,10 @@ let
     mkIf
     mkEnableOption
     ;
-  cfg = config.graphicalBoot;
+  cfg = config.meta.graphicalBoot;
 in
 {
-  options.graphicalBoot = {
+  options.meta.graphicalBoot = {
     enable = mkEnableOption "enable graphical boot config";
   };
 

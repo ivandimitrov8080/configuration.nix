@@ -22,6 +22,7 @@ top@{ inputs, moduleWithSystem, ... }:
             simple-nixos-mailserver.nixosModule
             musnix.nixosModules.musnix
             ../../defaults/nixos
+            ../../meta/nixos
           ]);
         nix.registry = {
           self.flake = inputs.self;
