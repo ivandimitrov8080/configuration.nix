@@ -66,7 +66,6 @@ let
         ++ mods
         ++ [
           {
-            programs.gtklock.enable = true;
             media.enable = true;
             swayland.enable = true;
             boot.loader.grub.enable = true;
@@ -79,6 +78,13 @@ let
               address = "10.0.0.2/24";
             };
             host.name = "nova";
+            programs = {
+              git.enable = true;
+              gtklock.enable = true;
+              zoxide.enable = true;
+              zsh.enable = true;
+              nix-ld.enable = true;
+            };
           }
         ];
     };
@@ -94,7 +100,13 @@ let
         ++ mods
         ++ [
           {
-            programs.gtklock.enable = true;
+            programs = {
+              git.enable = true;
+              gtklock.enable = true;
+              zoxide.enable = true;
+              zsh.enable = true;
+              nix-ld.enable = true;
+            };
             media.enable = true;
             swayland.enable = true;
             boot.loader.grub.enable = true;
