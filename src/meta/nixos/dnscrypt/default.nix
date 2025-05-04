@@ -1,10 +1,10 @@
 { config, lib, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.anonymousDns;
+  cfg = config.meta.dnscrypt;
 in
 {
-  options.anonymousDns = {
+  options.meta.dnscrypt = {
     enable = mkEnableOption "enable dnscrypt config";
   };
   config = mkIf cfg.enable {

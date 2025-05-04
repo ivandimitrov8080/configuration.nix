@@ -1,6 +1,4 @@
-{ lib, ... }:
 let
-  inherit (lib) mkDefault;
   routes = [
     {
       server_name = "*";
@@ -9,5 +7,5 @@ let
   ];
 in
 {
-  services.dnscrypt-proxy2.settings.anonymized_dns.routes = mkDefault routes;
+  services.dnscrypt-proxy2.settings.anonymized_dns.routes = routes;
 }

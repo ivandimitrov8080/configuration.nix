@@ -167,7 +167,7 @@ let
             services.postgresql.enable = true;
             vps.enable = true;
             mail.enable = true;
-            anonymousDns.enable = true;
+            meta.dnscrypt.enable = true;
             host.wgPeer = {
               peers = spokes;
             };
