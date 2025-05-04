@@ -508,7 +508,6 @@ top@{ moduleWithSystem, inputs, ... }:
               baseIndex = 1;
               escapeTime = 0;
               keyMode = "vi";
-              shell = "${pkgs.zsh}/bin/zsh";
               terminal = "screen-256color";
               plugins = with pkgs.tmuxPlugins; [
                 tilish
