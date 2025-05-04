@@ -3,5 +3,5 @@ let
   inherit (lib) mkDefault;
 in
 {
-  programs.git.config.saveDirectory = mkDefault "*";
+  programs.git.config.safe.directory = mkDefault "*";
 }
