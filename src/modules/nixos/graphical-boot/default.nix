@@ -35,16 +35,10 @@ in
     };
     environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.sway}/share" ];
     boot = {
+      plymouth.enable = true;
       initrd.systemd.enable = true;
-      plymouth = {
-        enable = true;
-        theme = "rings";
-        themePackages = with pkgs; [
-          adi1090x-plymouth-themes
-        ];
-      };
-      consoleLogLevel = 0;
       initrd.verbose = false;
+      consoleLogLevel = 0;
       kernelParams = [
         "quiet"
         "splash"
