@@ -436,6 +436,7 @@ top@{ moduleWithSystem, inputs, ... }:
                 "cd"
                 "exit"
               ];
+              initExtra = "set -o vi";
             };
             zsh = {
               inherit shellAliases sessionVariables;

@@ -85,7 +85,7 @@ top@{ inputs, moduleWithSystem, ... }:
           "en_GB.UTF-8"
         ];
         time.timeZone = "Europe/Prague";
-        users.defaultUserShell = pkgs.zsh;
+        users.defaultUserShell = pkgs.bash;
         systemd.network = {
           wait-online.enable = false;
         };

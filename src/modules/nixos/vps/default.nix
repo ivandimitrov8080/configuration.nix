@@ -66,7 +66,7 @@ in
       options = [ "nofail" ];
     };
     users = {
-      defaultUserShell = pkgs.zsh;
+      defaultUserShell = pkgs.bash;
       mutableUsers = false;
       users = {
         ivand = lib.mkForce {
