@@ -71,6 +71,7 @@ let
             swayland.enable = true;
             boot.loader.grub.enable = true;
             meta.graphicalBoot.enable = true;
+            meta.shells.enable = true;
             hotspots.enable = true;
             host.wgPeer = {
               enable = true;
@@ -98,6 +99,7 @@ let
             swayland.enable = true;
             boot.loader.grub.enable = true;
             hotspots.enable = true;
+            meta.shells.enable = true;
             host.wgPeer = {
               enable = true;
               peers = hub;
@@ -163,11 +165,12 @@ let
         ++ mods
         ++ [
           {
+            meta.shells.enable = true;
+            meta.dnscrypt.enable = true;
             services.nginx.enable = true;
             services.postgresql.enable = true;
             vps.enable = true;
             mail.enable = true;
-            meta.dnscrypt.enable = true;
             host.wgPeer = {
               peers = spokes;
             };
