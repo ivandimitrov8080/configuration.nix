@@ -35,7 +35,12 @@ top@{ moduleWithSystem, inputs, ... }:
           sessionVariables = {
             EDITOR = "nvim";
           };
-          packages = with pkgs; [ nvim ];
+          packages = with pkgs; [
+            cmatrix
+            nvim
+            xin
+            just
+          ];
           file = {
             ".w3m/config".text = ''
               inline_img_protocol 4
