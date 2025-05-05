@@ -235,11 +235,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746317522,
-        "narHash": "sha256-/jZ4Wd4HHUEWPSlNj48k1E4Mh+1fUbwI/vSlPPIMG3U=",
+        "lastModified": 1746413188,
+        "narHash": "sha256-i6BoiQP0PasExESQHszC0reQHfO6D4aI2GzOwZMOI20=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "621986fed37c5d0cb8df010ed8369694dc47c09b",
+        "rev": "8a318641ac13d3bc0a53651feaee9560f9b2d89a",
         "type": "github"
       },
       "original": {
@@ -255,11 +255,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1746061167,
-        "narHash": "sha256-DBr3ai6lvPrJlKiq0btt+aT7XAxiWJNaKPc7sKFwl+0=",
+        "lastModified": 1746412344,
+        "narHash": "sha256-u7kyCNZ3bm8vfL+IKSkoaN/stnfmbniRFSDTjNqE4Hc=",
         "owner": "StevenBlack",
         "repo": "hosts",
-        "rev": "181b549344d3920a140c9ee48e086d95cdc2a668",
+        "rev": "454f26b5496204fe0b931bb3445a88d4dcf4ca8f",
         "type": "github"
       },
       "original": {
@@ -329,11 +329,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1746342410,
-        "narHash": "sha256-qSooF9nE+j9V4jFaxoZ9275AIQDW6NkldPoCPf8z+BI=",
+        "lastModified": 1746429632,
+        "narHash": "sha256-fFQ1km0rx25MTt7wgDPJ0Jozz3Na4QIrt4QLHjhrUwM=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "c23a482761d1837c1c3206aa0f41103729b1a674",
+        "rev": "2e0d46edd025173ff7d0a00ef6280156eaceca79",
         "type": "github"
       },
       "original": {
@@ -345,11 +345,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1746312479,
-        "narHash": "sha256-FVyTb0baCU9y0jxvn0tyGwHTiLU4SOK+8csD8zPQ+nE=",
+        "lastModified": 1746401792,
+        "narHash": "sha256-qeXv6uYbNy3QqjxRo/MmXLJpxSUr7+7zKUu+RDIcKpY=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "2c1f5a6aa587e02748ffe4f153d96703d861828b",
+        "rev": "40351bbbbe7891db9bdeb0d6c3bd95e2e0309775",
         "type": "github"
       },
       "original": {
@@ -427,11 +427,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1746183838,
-        "narHash": "sha256-kwaaguGkAqTZ1oK0yXeQ3ayYjs8u/W7eEfrFpFfIDFA=",
+        "lastModified": 1746422338,
+        "narHash": "sha256-NTtKOTLQv6dPfRe00OGSywg37A1FYqldS6xiNmqBUYc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bf3287dac860542719fe7554e21e686108716879",
+        "rev": "5b35d248e9206c1f3baf8de6a7683fee126364aa",
         "type": "github"
       },
       "original": {
@@ -443,11 +443,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1746232882,
-        "narHash": "sha256-MHmBH2rS8KkRRdoU/feC/dKbdlMkcNkB5mwkuipVHeQ=",
+        "lastModified": 1746328495,
+        "narHash": "sha256-uKCfuDs7ZM3QpCE/jnfubTg459CnKnJG/LwqEVEdEiw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "7a2622e2c0dbad5c4493cb268aba12896e28b008",
+        "rev": "979daf34c8cacebcd917d540070b52a3c2b9b16e",
         "type": "github"
       },
       "original": {
@@ -466,11 +466,11 @@
         "nuschtosSearch": "nuschtosSearch"
       },
       "locked": {
-        "lastModified": 1746309817,
-        "narHash": "sha256-oqOpTyjdeY+LP+WiU9LxGdZ/bZ9YK7MNzNMDUw98kPM=",
+        "lastModified": 1746387720,
+        "narHash": "sha256-x8k0DKiQYRNaf9Hg+di+WCKxb76zJVWSjKOlPiuc22o=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "c978122396a4208bf1965d346b7456e7256fe70c",
+        "rev": "7d18194a22325f212e17eb876d9c00afcc434113",
         "type": "github"
       },
       "original": {
@@ -622,11 +622,11 @@
     },
     "vpsadminos": {
       "locked": {
-        "lastModified": 1746107253,
-        "narHash": "sha256-kCkxiTnWJ7q5nnSzqrFfdMuR283vGx9WQlvxAPMzQrs=",
+        "lastModified": 1746434968,
+        "narHash": "sha256-ZK957GY9xEdXTlnDwtiWqghEok/n9ZA6oE7iYtLypjU=",
         "owner": "vpsfreecz",
         "repo": "vpsadminos",
-        "rev": "f3b59dd3d6ff2313c584d2a1657b7360e355a58d",
+        "rev": "41cec94f495c9db39050191c7f4abb8665cc3203",
         "type": "github"
       },
       "original": {
