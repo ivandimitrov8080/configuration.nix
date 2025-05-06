@@ -18,7 +18,6 @@ in
         settings = {
           cache = true;
           listen_addresses = [
-            "127.0.0.1:53"
             "10.0.0.1:53"
           ];
         };
