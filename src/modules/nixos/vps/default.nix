@@ -84,7 +84,7 @@ in
           ];
         };
         git = {
-          shell = pkgs.nushell;
+          shell = pkgs.bash;
           openssh.authorizedKeys.keys = [
             ''
               ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
@@ -96,6 +96,7 @@ in
         mlocate = { };
       };
     };
+    programs.git.enable = true;
     services = {
       gitDaemon = {
         enable = true;
