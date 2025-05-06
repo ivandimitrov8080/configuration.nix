@@ -81,9 +81,6 @@ top@{ inputs, moduleWithSystem, ... }:
             };
         };
         i18n.defaultLocale = "en_US.UTF-8";
-        i18n.extraLocales = [
-          "en_GB.UTF-8"
-        ];
         time.timeZone = "Europe/Prague";
         users.defaultUserShell = pkgs.bash;
         systemd.network = {
