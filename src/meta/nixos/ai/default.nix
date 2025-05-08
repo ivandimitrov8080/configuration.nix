@@ -26,6 +26,7 @@ in
     services = {
       ollama = {
         enable = true;
+        host = "0.0.0.0";
         acceleration = "rocm";
         rocmOverrideGfx = "11.0.2";
       };
