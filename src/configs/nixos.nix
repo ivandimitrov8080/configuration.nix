@@ -152,6 +152,7 @@ let
                     80 # http
                     443 # https
                     8080 # open-webui
+                    11434 # ollama
                   ];
                   allowedUDPPorts = [
                     80
