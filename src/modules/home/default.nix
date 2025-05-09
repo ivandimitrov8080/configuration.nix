@@ -395,7 +395,7 @@ top@{ moduleWithSystem, inputs, ... }:
             enableBashIntegration = true;
             enableZshIntegration = true;
             enableNushellIntegration = true;
-            pinentryPackage = pkgs.pinentry-qt;
+            pinentry.package = pkgs.pinentry-qt;
           };
         };
       }
@@ -932,9 +932,11 @@ top@{ moduleWithSystem, inputs, ... }:
           };
           mako = {
             enable = true;
-            anchor = "bottom-right";
-            backgroundColor = "#1E1E2EDD";
-            borderRadius = 20;
+            settings = {
+              anchor = "bottom-right";
+              backgroundColor = "#1E1E2EDD";
+              borderRadius = 20;
+            };
           };
           cliphist.enable = true;
         };
