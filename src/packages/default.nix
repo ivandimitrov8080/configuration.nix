@@ -18,6 +18,7 @@ top@{ inputs, ... }:
           themes-gtk = callPackage ./themes/gtk-theme-catppuccin.nix { };
           faenza = callPackage ./faenza { };
           volume = callPackage ./volume { };
+          avante-nvim = callPackage ./avante-nvim { };
           nova-iso = inputs.nixos-generators.nixosGenerate {
             inherit system;
             format = "install-iso";
