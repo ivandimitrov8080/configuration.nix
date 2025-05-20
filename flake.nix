@@ -9,6 +9,9 @@
     # nvim config helper
     nixvim.url = "github:nix-community/nixvim/nixos-25.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    # for mailserver config
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+    simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
@@ -21,9 +24,6 @@
     # for music production
     musnix.url = "github:musnix/musnix";
     musnix.inputs.nixpkgs.follows = "nixpkgs";
-    # for mailserver config
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-    simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
     # neovim latest version
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
