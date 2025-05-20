@@ -36,7 +36,7 @@ in
     services = {
       roundcube = {
         enable = true;
-        package = pkgs.stable.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
+        package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
         plugins = [
           "persistent_login"
         ];

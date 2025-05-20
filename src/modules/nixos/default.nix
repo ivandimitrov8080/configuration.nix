@@ -26,18 +26,13 @@ top@{ inputs, moduleWithSystem, ... }:
           ]);
         nix.registry = {
           self.flake = inputs.self;
-          nixpkgs.flake = inputs.nixpkgs-unstable;
-          p.flake = inputs.nixpkgs-unstable;
-          stable.flake = inputs.nixpkgs-stable;
+          nixpkgs.flake = inputs.nixpkgs;
+          p.flake = inputs.nixpkgs;
         };
         nixpkgs = {
           config = {
             allowUnfree = false;
             packageOverrides = pkgs: {
-              stable = import inputs.nixpkgs-stable {
-                system = pkgs.system;
-                config = config.nixpkgs.config;
-              };
               fork = import inputs.nixpkgs-fork {
                 system = pkgs.system;
                 config = config.nixpkgs.config;

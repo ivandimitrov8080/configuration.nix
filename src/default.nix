@@ -21,7 +21,7 @@
     {
       config = {
         _module.args = {
-          pkgs = import inputs.nixpkgs-unstable { inherit system; };
+          pkgs = import inputs.nixpkgs { inherit system; };
         };
         treefmt = {
           programs = {
