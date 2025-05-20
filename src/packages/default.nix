@@ -68,6 +68,7 @@ top@{ inputs, ... }:
                 command = "nixos-rebuild";
                 subcommand = "switch";
                 targetHost = "stara-root";
+                buildHost = "stara-root";
                 ref = "stara";
               }
               {

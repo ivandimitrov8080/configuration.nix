@@ -196,13 +196,18 @@ in
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     ai = novaConfig ([ { meta.ai.enable = true; } ]);
-    stara = staraConfig [ ];
-    stara-ai = staraConfig [
+    stara = staraConfig [
       {
         meta.ai.enable = true;
-        services.open-webui = {
-          enable = true;
-          host = "0.0.0.0";
+        services = {
+          open-webui = {
+            enable = true;
+            host = "0.0.0.0";
+          };
+          monero = {
+            enable = true;
+            dataDir = "/data/var/lib/monero";
+          };
         };
       }
     ];
