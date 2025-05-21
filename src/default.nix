@@ -69,6 +69,28 @@
             ];
             shellHook = "exec ${pkgs.zsh}/bin/zsh";
           };
+          rust = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              rustc
+              rust-analyzer
+              rustfmt
+              cargo
+              pkg-config
+              (config.packages.nvim.extend {
+                plugins = {
+                  lsp.servers = {
+                    rust_analyzer = {
+                      installCargo = false;
+                      installRustc = false;
+                    };
+                  };
+                  rustaceanvim = {
+                    enable = true;
+                  };
+                };
+              })
+            ];
+          };
         };
       };
     };
