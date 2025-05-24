@@ -254,6 +254,7 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           services = {
             pipewire.enable = true;
+            dbus.enable = true;
           };
           security = {
             sudo = {
@@ -311,12 +312,15 @@ top@{ inputs, moduleWithSystem, ... }:
             address = "10.0.0.4/24";
           };
           host.name = "stara";
-          services.openssh = {
-            enable = true;
-            settings = {
-              PasswordAuthentication = false;
-              PermitRootLogin = "yes";
+          services = {
+            openssh = {
+              enable = true;
+              settings = {
+                PasswordAuthentication = false;
+                PermitRootLogin = "yes";
+              };
             };
+            dbus.enable = true;
           };
           users.users.ivand.openssh.authorizedKeys.keys = [
             ''
