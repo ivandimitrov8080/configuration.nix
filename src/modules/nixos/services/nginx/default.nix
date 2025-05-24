@@ -1,11 +1,6 @@
 {
   services = {
     nginx = {
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
-      sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
       appendHttpConfig = ''
         client_body_timeout 5s;
         client_header_timeout 5s;
