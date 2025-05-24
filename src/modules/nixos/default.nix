@@ -121,5 +121,60 @@ top@{ inputs, moduleWithSystem, ... }:
         };
       }
     );
+    nova = moduleWithSystem (
+      _:
+      { pkgs, ... }:
+      let
+        hub = [
+          {
+            PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
+            AllowedIPs = [
+              "0.0.0.0/0"
+            ];
+            Endpoint = "37.205.13.29:51820";
+            PersistentKeepalive = 7;
+          }
+        ];
+      in
+      {
+        media.enable = true;
+        swayland.enable = true;
+        boot.loader.grub.enable = true;
+        meta.graphicalBoot.enable = true;
+        meta.shells.enable = true;
+        hotspots.enable = true;
+        host.wgPeer = {
+          enable = true;
+          peers = hub;
+          address = "10.0.0.2/24";
+        };
+        host.name = "nova";
+        programs = {
+          git.enable = true;
+          gtklock.enable = true;
+          zoxide.enable = true;
+          zsh.enable = true;
+          nix-ld.enable = true;
+        };
+        security = {
+          sudo = {
+            extraRules = [
+              {
+                groups = [ "wheel" ];
+                commands = [
+                  {
+                    command = "${pkgs.brightnessctl}/bin/brightnessctl";
+                    options = [ "NOPASSWD" ];
+                  }
+                ];
+              }
+            ];
+          };
+          polkit.enable = true;
+          rtkit.enable = true;
+        };
+      }
+    );
+
   };
 }

@@ -62,31 +62,9 @@ let
         (with nixosModules; [
           default
           rest
+          nova
         ])
-        ++ mods
-        ++ [
-          {
-            media.enable = true;
-            swayland.enable = true;
-            boot.loader.grub.enable = true;
-            meta.graphicalBoot.enable = true;
-            meta.shells.enable = true;
-            hotspots.enable = true;
-            host.wgPeer = {
-              enable = true;
-              peers = hub;
-              address = "10.0.0.2/24";
-            };
-            host.name = "nova";
-            programs = {
-              git.enable = true;
-              gtklock.enable = true;
-              zoxide.enable = true;
-              zsh.enable = true;
-              nix-ld.enable = true;
-            };
-          }
-        ];
+        ++ mods;
     };
   staraConfig =
     mods:
