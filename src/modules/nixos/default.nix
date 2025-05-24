@@ -30,6 +30,60 @@ top@{ inputs, moduleWithSystem, ... }:
           AllowedIPs = [ "10.0.0.5/32" ];
         }
       ];
+      wirelessNetworks = {
+        "Smart-Hostel-2.4" = {
+          psk = "smarttrans.bg";
+        };
+        "Yohohostel2.4G" = {
+          psk = "kaskamaska";
+        };
+        "Nomado_Guest" = {
+          psk = "welcomehome";
+        };
+        "HostelMusala Uni" = {
+          psk = "mhostelm";
+        };
+        "BOUTIQUE APARTMENTS" = {
+          psk = "boutique26";
+        };
+        "Safestay" = {
+          psk = "AlldayrooftopBAR";
+        };
+        "HOSTEL JASMIN 2" = {
+          psk = "Jasmin2024";
+        };
+        "HOME" = {
+          psk = "iloveprague";
+        };
+        "Vodafone-B925" = {
+          psk = "7aGh3FE6pN4p4cu6";
+        };
+        "O2WIFIZ_EXT" = {
+          psk = "iloveprague";
+        };
+        "KOTEKLAN_GUEST" = {
+          psk = "koteklankotek";
+        };
+        "TP-Link_BE7A" = {
+          psk = "84665461";
+        };
+        "Post120" = {
+          psk = "9996663333";
+        };
+        "MOONLIGHT2019" = {
+          psk = "seacrets";
+        };
+        "Kaiser Terrasse" = {
+          psk = "Internet12";
+        };
+        "bumshakalaka" = {
+          psk = "locomotive420";
+        };
+        "ATHENS-HAWKS" = { };
+        "3G" = {
+          hidden = true;
+        };
+      };
     in
     {
       default = moduleWithSystem (
@@ -168,13 +222,29 @@ top@{ inputs, moduleWithSystem, ... }:
           boot.loader.grub.enable = true;
           meta.graphicalBoot.enable = true;
           meta.shells.enable = true;
-          hotspots.enable = true;
           host.wgPeer = {
             enable = true;
             peers = hub;
             address = "10.0.0.2/24";
           };
           host.name = "nova";
+          networking = {
+            hosts = {
+              "10.0.0.1" = [
+                "ai.idimitrov.dev"
+                "git.idimitrov.dev"
+                "idimitrov.dev"
+                "mail.idimitrov.dev"
+              ];
+              "10.0.0.4" = [
+                "stara.idimitrov.dev"
+              ];
+            };
+            wireless = {
+              enable = true;
+              networks = wirelessNetworks;
+            };
+          };
           programs = {
             git.enable = true;
             gtklock.enable = true;
@@ -215,9 +285,25 @@ top@{ inputs, moduleWithSystem, ... }:
             zsh.enable = true;
             nix-ld.enable = true;
           };
+          networking = {
+            hosts = {
+              "10.0.0.1" = [
+                "ai.idimitrov.dev"
+                "git.idimitrov.dev"
+                "idimitrov.dev"
+                "mail.idimitrov.dev"
+              ];
+              "10.0.0.4" = [
+                "stara.idimitrov.dev"
+              ];
+            };
+            wireless = {
+              enable = true;
+              networks = wirelessNetworks;
+            };
+          };
           swayland.enable = true;
           boot.loader.grub.enable = true;
-          hotspots.enable = true;
           meta.shells.enable = true;
           host.wgPeer = {
             enable = true;
