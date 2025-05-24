@@ -53,7 +53,6 @@ top@{ inputs, moduleWithSystem, ... }:
               simple-nixos-mailserver.nixosModule
               musnix.nixosModules.musnix
               ../../defaults/nixos
-              ../../meta/nixos
             ]);
           nix.registry = {
             self.flake = inputs.self;
@@ -165,7 +164,6 @@ top@{ inputs, moduleWithSystem, ... }:
         _:
         { pkgs, ... }:
         {
-          media.enable = true;
           swayland.enable = true;
           boot.loader.grub.enable = true;
           meta.graphicalBoot.enable = true;
@@ -183,6 +181,9 @@ top@{ inputs, moduleWithSystem, ... }:
             zoxide.enable = true;
             zsh.enable = true;
             nix-ld.enable = true;
+          };
+          services = {
+            pipewire.enable = true;
           };
           security = {
             sudo = {
@@ -214,7 +215,6 @@ top@{ inputs, moduleWithSystem, ... }:
             zsh.enable = true;
             nix-ld.enable = true;
           };
-          media.enable = true;
           swayland.enable = true;
           boot.loader.grub.enable = true;
           hotspots.enable = true;

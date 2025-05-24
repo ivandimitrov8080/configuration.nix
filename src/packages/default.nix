@@ -27,7 +27,6 @@ top@{ inputs, ... }:
               top.config.flake.nixosModules.default
               top.config.flake.nixosModules.rest
               {
-                media.enable = true;
                 hotspots.enable = true;
               }
             ];
