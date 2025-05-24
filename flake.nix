@@ -10,7 +10,7 @@
     nixvim.url = "github:nix-community/nixvim/nixos-25.05";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     # for mailserver config
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.05";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
