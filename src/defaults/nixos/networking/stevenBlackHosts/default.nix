@@ -1,13 +1,10 @@
-{ lib, config, ... }:
+{ lib, options, ... }:
 let
-  inherit (lib) mkDefault mkIf hasAttrByPath;
-  hasStevenBlackHosts = hasAttrByPath [
-    "networking"
-    "stevenBlackHosts"
-  ] config.networking;
+  inherit (lib) mkDefault optionalAttrs;
+  hasStevenBlackHosts = options.networking ? stevenBlackHosts;
 in
 {
-  config = mkIf hasStevenBlackHosts {
+  config = optionalAttrs hasStevenBlackHosts {
     networking.stevenBlackHosts.enable = mkDefault true;
     networking.stevenBlackHosts.blockFakenews = mkDefault true;
     networking.stevenBlackHosts.blockGambling = mkDefault true;
