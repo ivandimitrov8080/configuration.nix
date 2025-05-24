@@ -218,10 +218,10 @@ top@{ inputs, moduleWithSystem, ... }:
         _:
         { pkgs, ... }:
         {
-          swayland.enable = true;
           boot.loader.grub.enable = true;
           meta.graphicalBoot.enable = true;
           meta.shells.enable = true;
+          meta.swayland.enable = true;
           host.wgPeer = {
             enable = true;
             peers = hub;
@@ -303,9 +303,9 @@ top@{ inputs, moduleWithSystem, ... }:
               networks = wirelessNetworks;
             };
           };
-          swayland.enable = true;
           boot.loader.grub.enable = true;
           meta.shells.enable = true;
+          meta.swayland.enable = true;
           host.wgPeer = {
             enable = true;
             peers = hub;

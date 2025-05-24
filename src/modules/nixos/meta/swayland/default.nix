@@ -9,10 +9,10 @@ let
     mkIf
     mkEnableOption
     ;
-  cfg = config.swayland;
+  cfg = config.meta.swayland;
 in
 {
-  options.swayland = {
+  options.meta.swayland = {
     enable = mkEnableOption "enable swayland config";
   };
   config = mkIf cfg.enable {
