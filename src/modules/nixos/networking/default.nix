@@ -1,11 +1,6 @@
-{ inputs, ... }:
+{ ... }:
 {
   networking = {
-    stevenBlackHosts = {
-      enable = true;
-      blockFakenews = true;
-      blockGambling = true;
-    };
     hosts = {
       "10.0.0.1" = [
         "ai.idimitrov.dev"
@@ -17,6 +12,5 @@
         "stara.idimitrov.dev"
       ];
     };
-    useNetworkd = true;
   };
 }
