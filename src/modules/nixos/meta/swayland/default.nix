@@ -22,6 +22,7 @@ in
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
       config.sway.default = "wlr";
+      config.common.default = "*";
       wlr = {
         enable = true;
         settings = {
@@ -31,7 +32,6 @@ in
           };
         };
       };
-      config.common.default = "*";
     };
   };
 }
