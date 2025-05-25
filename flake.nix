@@ -21,9 +21,6 @@
     # block shitty servers
     hosts.url = "github:StevenBlack/hosts";
     hosts.inputs.nixpkgs.follows = "nixpkgs";
-    # for music production
-    musnix.url = "github:musnix/musnix";
-    musnix.inputs.nixpkgs.follows = "nixpkgs";
     # neovim latest version
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";

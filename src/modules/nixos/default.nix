@@ -105,7 +105,6 @@ top@{ inputs, moduleWithSystem, ... }:
               home-manager.nixosModules.default
               webshite.nixosModules.default
               simple-nixos-mailserver.nixosModule
-              musnix.nixosModules.musnix
               ../../defaults/nixos
             ]);
           nix.registry = {
