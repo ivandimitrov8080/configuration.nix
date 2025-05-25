@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge mkEnableOption;
+  inherit (lib) mkIf mkMerge mkEnableOption mkForce;
   cfg = config.realtimeMusic;
 in
 {
@@ -14,7 +14,15 @@ in
   };
   config = mkMerge [
     (mkIf cfg.enable {
-      boot.kernelPackages = pkgs.linuxPackages-rt;
+      boot.kernelPackages = pkgs.linuxPackagesFor (
+        pkgs.linuxKernel.kernels.linux_default.override {
+          structuredExtraConfig = with lib.kernel; {
+            PREEMPT = mkForce yes;
+            PREEMPT_RT = mkForce yes;
+          };
+          ignoreConfigErrors = true;
+        }
+      );
       environment.systemPackages = with pkgs; [
         guitarix
         rtcqs
