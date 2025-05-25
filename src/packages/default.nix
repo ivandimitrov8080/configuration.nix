@@ -45,6 +45,13 @@ top@{ inputs, ... }:
                 ref = "ai";
               }
               {
+                name = "music";
+                command = "nixos-rebuild";
+                subcommand = "switch";
+                profile = "music";
+                ref = "music";
+              }
+              {
                 name = "vps";
                 command = "nixos-rebuild";
                 subcommand = "switch";

@@ -66,6 +66,7 @@ in
     nova = novaConfig [ ];
     gaming = novaConfig ([ { gaming.enable = true; } ]);
     ai = novaConfig ([ { meta.ai.enable = true; } ]);
+    music = novaConfig ([ { realtimeMusic.enable = true; } ]);
     stara = staraConfig [ ];
     vps = vpsConfig ([ { webshite.enable = true; } ]);
   };
