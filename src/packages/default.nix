@@ -20,18 +20,6 @@ top@{ inputs, ... }:
           volume = callPackage ./volume { };
           avante-nvim = callPackage ./avante-nvim { };
           rtcqs = callPackage ./rtcqs { };
-          nova-iso = inputs.nixos-generators.nixosGenerate {
-            inherit system;
-            format = "install-iso";
-            modules = [
-              top.config.flake.nixosModules.flakeModule
-              top.config.flake.nixosModules.default
-              top.config.flake.nixosModules.rest
-              {
-                hotspots.enable = true;
-              }
-            ];
-          };
           xin = pkgs.callPackage ./xin {
             flakePath = "/home/ivand/src/configuration.nix";
             hosts = [
