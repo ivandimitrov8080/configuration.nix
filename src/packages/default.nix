@@ -19,6 +19,7 @@ top@{ inputs, ... }:
           faenza = callPackage ./faenza { };
           volume = callPackage ./volume { };
           avante-nvim = callPackage ./avante-nvim { };
+          rtcqs = callPackage ./rtcqs { };
           nova-iso = inputs.nixos-generators.nixosGenerate {
             inherit system;
             format = "install-iso";

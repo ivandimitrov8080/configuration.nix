@@ -15,7 +15,10 @@ in
   config = mkMerge [
     (mkIf cfg.enable {
       boot.kernelPackages = pkgs.linuxPackages-rt;
-      environment.systemPackages = with pkgs; [ guitarix ];
+      environment.systemPackages = with pkgs; [
+        guitarix
+        rtcqs
+      ];
       services.pipewire = {
         jack.enable = true;
         extraConfig = {
