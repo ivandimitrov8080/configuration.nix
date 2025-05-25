@@ -217,7 +217,7 @@ top@{ inputs, moduleWithSystem, ... }:
         _:
         { pkgs, ... }:
         {
-          boot.loader.grub.enable = true;
+          boot.loader.systemd-boot.enable = true;
           meta.graphicalBoot.enable = true;
           meta.shells.enable = true;
           meta.swayland.enable = true;
