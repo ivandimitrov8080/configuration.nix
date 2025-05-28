@@ -939,12 +939,14 @@ top@{ moduleWithSystem, inputs, ... }:
                       pywal16
                       imagemagick
                       swayfx
+                      walogram
                     ];
                     text =
                       # bash
                       ''
                         wal -i "$2"
                         pywalfox update
+                        walogram -i "$2" -B
                       '';
                   }
                 );

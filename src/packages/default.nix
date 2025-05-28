@@ -20,6 +20,7 @@ top@{ inputs, ... }:
           volume = callPackage ./volume { };
           avante-nvim = callPackage ./avante-nvim { };
           rtcqs = callPackage ./rtcqs { };
+          walogram = callPackage ./walogram { };
           xin = pkgs.callPackage ./xin {
             flakePath = "/home/ivand/src/configuration.nix";
             hosts = [
