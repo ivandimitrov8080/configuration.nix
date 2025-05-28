@@ -54,6 +54,10 @@ top@{ moduleWithSystem, inputs, ... }:
           };
         };
         programs = {
+          pywal = {
+            enable = true;
+            package = pkgs.pywal16;
+          };
           git = with pkgs.lib; {
             userName = mkForce "Ivan Kirilov Dimitrov";
             userEmail = mkForce "ivan@idimitrov.dev";
@@ -885,7 +889,6 @@ top@{ moduleWithSystem, inputs, ... }:
               modi = "window,drun,run,ssh,calc";
               show-icons = true;
             };
-            theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
           };
           kitty = {
             enable = true;
@@ -928,6 +931,23 @@ top@{ moduleWithSystem, inputs, ... }:
               default = {
                 path = "${config.xdg.userDirs.pictures}/bg";
                 duration = "10m";
+                exec = pkgs.lib.getExe (
+                  pkgs.writeShellApplication {
+                    name = "wpaperd-wal";
+                    runtimeInputs = with pkgs; [
+                      pywalfox-native
+                      pywal16
+                      imagemagick
+                      swayfx
+                    ];
+                    text =
+                      # bash
+                      ''
+                        wal -i "$2"
+                        pywalfox update
+                      '';
+                  }
+                );
               };
             };
           };
@@ -1086,6 +1106,11 @@ top@{ moduleWithSystem, inputs, ... }:
                 # Stylus
                 "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = {
                   install_url = "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi";
+                  installation_mode = "force_installed";
+                };
+                # Pywalfox
+                "pywalfox@frewacom.org" = {
+                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/pywalfox/latest.xpi";
                   installation_mode = "force_installed";
                 };
               };
