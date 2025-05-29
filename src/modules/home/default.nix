@@ -37,7 +37,6 @@ top@{ moduleWithSystem, inputs, ... }:
           };
           packages = with pkgs; [
             cmatrix
-            nvim
             xin
             just
           ];
