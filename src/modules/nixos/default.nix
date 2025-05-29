@@ -103,8 +103,7 @@ top@{ inputs, moduleWithSystem, ... }:
             ++ (with inputs; [
               hosts.nixosModule
               home-manager.nixosModules.default
-              webshite.nixosModules.default
-              simple-nixos-mailserver.nixosModule
+              wsl.nixosModules.default
               ../../defaults/nixos
             ]);
           nix.registry = {
@@ -114,7 +113,7 @@ top@{ inputs, moduleWithSystem, ... }:
           };
           nixpkgs = {
             config = {
-              allowUnfree = false;
+              allowUnfree = true;
               packageOverrides = pkgs: {
                 fork = import inputs.nixpkgs-fork {
                   system = pkgs.system;
@@ -163,7 +162,6 @@ top@{ inputs, moduleWithSystem, ... }:
                   util
                   swayland
                   web
-                  reminders
                 ];
               };
           };

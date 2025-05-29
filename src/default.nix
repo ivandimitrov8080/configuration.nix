@@ -10,7 +10,7 @@
     ./templates
   ];
   systems = [ "x86_64-linux" ];
-  flake.stateVersion = "24.11";
+  flake.stateVersion = "25.05";
   perSystem =
     {
       system,

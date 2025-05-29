@@ -9,6 +9,10 @@
     # ---
     # Below for extraction
     # ---
+    # manages wsl
+    wsl.url = "github:nix-community/NixOS-WSL";
+    wsl.inputs.nixpkgs.follows = "nixpkgs";
+    wsl.inputs.flake-compat.follows = "flake-compat";
     # manages the home
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
