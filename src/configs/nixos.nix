@@ -63,7 +63,6 @@ let
   wslConfig =
     mods:
     configWithModules {
-      hardware = { };
       modules =
         (with nixosModules; [
           default
@@ -83,6 +82,7 @@ in
     wsl = wslConfig ([
       {
         wsl.enable = true;
+        wsl.defaultUser = "ivand";
         nix.settings.ssl-cert-file = "/opt/nix-zscaler.crt";
         meta.shells.enable = true;
         meta.swayland.enable = true;
