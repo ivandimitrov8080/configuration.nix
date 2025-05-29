@@ -236,6 +236,61 @@ makeNixvim {
         desc = "Select scratch buffer";
       };
     }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>gb";
+      action = "<cmd>Gitsigns blame<cr>";
+      options = {
+        desc = "Git blame";
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>gsh";
+      action = "<cmd>Gitsigns stage_hunk<cr>";
+      options = {
+        desc = "Git stage hunk";
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>grh";
+      action = "<cmd>Gitsigns reset_hunk<cr>";
+      options = {
+        desc = "Git reset hunk";
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>gsb";
+      action = "<cmd>Gitsigns stage_buffer<cr>";
+      options = {
+        desc = "Git stage buffer";
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<leader>grb";
+      action = "<cmd>Gitsigns reset_buffer<cr>";
+      options = {
+        desc = "Git reset buffer";
+      };
+    }
   ];
   plugins = {
     auto-session.enable = true;
