@@ -37,9 +37,20 @@ top@{ moduleWithSystem, inputs, ... }:
           };
           packages = with pkgs; [
             cmatrix
-            nvim
             xin
             just
+            (nvim.extend {
+              colorscheme = "pywal";
+              colorschemes.catppuccin.enable = false;
+              extraPlugins = with pkgs.vimPlugins; [ pywal-nvim ];
+              extraConfigLua =
+                # lua
+                ''
+                  local uv = vim.uv
+                  local signal = uv.new_signal()
+                  uv.signal_start(signal, "sigusr1", function() vim.schedule(function() vim.cmd('colorscheme pywal') end) end)
+                '';
+            })
           ];
           file = {
             ".w3m/config".text = ''
@@ -940,11 +951,13 @@ top@{ moduleWithSystem, inputs, ... }:
                       imagemagick
                       swayfx
                       walogram
+                      procps
                     ];
                     text =
                       # bash
                       ''
                         wal -i "$2"
+                        pkill -SIGUSR1 nvim
                         pywalfox update
                         walogram -i "$2" -B
                       '';

@@ -368,6 +368,5 @@ top@{ inputs, moduleWithSystem, ... }:
           };
         }
       );
-
     };
 }

@@ -300,11 +300,14 @@ makeNixvim {
     comment.enable = true;
     diffview.enable = true;
     gitsigns.enable = true;
+    hop.enable = true;
+    lualine.enable = true;
     luasnip.enable = true;
     nvim-autopairs.enable = true;
+    todo-comments.enable = true;
     ts-autotag.enable = true;
     web-devicons.enable = true;
-    hop.enable = true;
+    which-key.enable = true;
     snacks = {
       enable = true;
       settings = {
@@ -346,8 +349,6 @@ makeNixvim {
         };
       };
     };
-    which-key.enable = true;
-    todo-comments.enable = true;
     lsp = {
       enable = true;
       servers = {
@@ -404,14 +405,6 @@ makeNixvim {
           { name = "path"; }
           { name = "buffer"; }
         ];
-      };
-    };
-    lualine = {
-      enable = true;
-      settings = {
-        options = {
-          theme = "catppuccin";
-        };
       };
     };
   };
