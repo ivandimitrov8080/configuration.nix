@@ -91,6 +91,26 @@
               })
             ];
           };
+          lila = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              zulu
+              coursier
+              sbt
+              nodejs
+              pnpm
+              mongodb
+              mongosh
+              redis
+              (config.packages.nvim.extend {
+                plugins = {
+                  lsp.servers = {
+                    metals.enable = true;
+                    ts_ls.enable = true;
+                  };
+                };
+              })
+            ];
+          };
         };
       };
     };
