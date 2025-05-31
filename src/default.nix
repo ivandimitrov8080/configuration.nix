@@ -54,7 +54,6 @@
               })
               python3
             ];
-            shellHook = "exec ${pkgs.zsh}/bin/zsh";
           };
           node = pkgs.mkShell {
             buildInputs = with pkgs; [
@@ -67,7 +66,20 @@
               })
               nodejs
             ];
-            shellHook = "exec ${pkgs.zsh}/bin/zsh";
+          };
+          web = pkgs.mkShell {
+            buildInputs = with pkgs; [
+              (config.packages.nvim.extend {
+                plugins = {
+                  lsp.servers = {
+                    ts_ls.enable = true;
+                    html.enable = true;
+                    cssls.enable = true;
+                  };
+                };
+              })
+              nodejs
+            ];
           };
           rust = pkgs.mkShell {
             buildInputs = with pkgs; [
