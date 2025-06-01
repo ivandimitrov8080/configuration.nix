@@ -19,6 +19,7 @@
   home = {
     username = "ivand";
     homeDirectory = "/home/ivand";
+    stateVersion = "25.05";
     sessionVariables = {
       EDITOR = "nvim";
     };
@@ -313,7 +314,6 @@
       initExtra = "set -o vi";
     };
     zsh = {
-      inherit shellAliases sessionVariables;
       enable = true;
       dotDir = ".config/zsh";
       defaultKeymap = "viins";
