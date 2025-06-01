@@ -39,7 +39,13 @@ stdenv.mkDerivation rec {
     sed -i '/^constants=/s|.*|constants='"'$out/share/walogram/constants.tdesktop-theme'"'|' $out/bin/${pname}
     patchShebangs $out/bin/${pname}
     wrapProgram $out/bin/${pname} \
-        --prefix PATH : ${ lib.makeBinPath [ zip file uutils-coreutils-noprefix ] }
+        --prefix PATH : ${
+          lib.makeBinPath [
+            zip
+            file
+            uutils-coreutils-noprefix
+          ]
+        }
   '';
 
 }

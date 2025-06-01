@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge mkEnableOption mkForce;
+  inherit (lib)
+    mkIf
+    mkMerge
+    mkEnableOption
+    mkForce
+    ;
   cfg = config.realtimeMusic;
 in
 {

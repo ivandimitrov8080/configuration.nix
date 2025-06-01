@@ -6,7 +6,7 @@
 }:
 makeNixvim {
   enableMan = false;
-  package = package;
+  inherit package;
   viAlias = true;
   globals = {
     mapleader = " ";

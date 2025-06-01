@@ -1,7 +1,5 @@
 {
   writers,
-  lib,
-  hosts ? [ ],
   ...
 }:
 let

@@ -5,7 +5,7 @@ toplevel@{
 }:
 let
   system = "x86_64-linux";
-  nixosModules = toplevel.config.flake.nixosModules;
+  inherit (toplevel.config.flake) nixosModules;
   inherit (toplevel.config.flake) hardwareConfigurations;
   configWithModules =
     {
@@ -13,10 +13,9 @@ let
         nixpkgs.hostPlatform = system;
       },
       modules,
-      hostname ? "nixos",
     }:
     withSystem system (
-      { inputs', pkgs, ... }:
+      { inputs', ... }:
       inputs.nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs inputs';
@@ -64,10 +63,10 @@ in
 {
   flake.nixosConfigurations = {
     nova = novaConfig [ ];
-    gaming = novaConfig ([ { gaming.enable = true; } ]);
-    ai = novaConfig ([ { meta.ai.enable = true; } ]);
-    music = novaConfig ([ { realtimeMusic.enable = true; } ]);
+    gaming = novaConfig [ { gaming.enable = true; } ];
+    ai = novaConfig [ { meta.ai.enable = true; } ];
+    music = novaConfig [ { realtimeMusic.enable = true; } ];
     stara = staraConfig [ ];
-    vps = vpsConfig ([ { webshite.enable = true; } ]);
+    vps = vpsConfig [ { webshite.enable = true; } ];
   };
 }

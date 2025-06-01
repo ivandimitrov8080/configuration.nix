@@ -1,4 +1,4 @@
-top@{ moduleWithSystem, inputs, ... }:
+top@{ moduleWithSystem, ... }:
 {
   flake.homeManagerModules = {
     base = moduleWithSystem (
@@ -1119,7 +1119,7 @@ top@{ moduleWithSystem, inputs, ... }:
       }
     );
     reminders = moduleWithSystem (
-      { ... }:
+      _:
       { pkgs, lib, ... }:
       {
         systemd.user =

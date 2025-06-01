@@ -31,6 +31,6 @@ writers.writeNuBin "xin"
   # nu
   ''
     let flake_path = "${flakePath}"
-    ${concatStringsSep "\n" (map (x: command x) hosts)}
+    ${concatStringsSep "\n" (map command hosts)}
     ${(readFile ./main.nu)}
   ''

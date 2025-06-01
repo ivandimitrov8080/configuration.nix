@@ -89,7 +89,6 @@ top@{ inputs, moduleWithSystem, ... }:
       default = moduleWithSystem (
         _:
         {
-          pkgs,
           lib,
           config,
           ...
@@ -99,7 +98,7 @@ top@{ inputs, moduleWithSystem, ... }:
         in
         {
           imports =
-            (with builtins; filter (x: !((endsWith "nixos/default.nix" x))) (findDefaults ./.))
+            (with builtins; filter (x: !(endsWith "nixos/default.nix" x)) (findDefaults ./.))
             ++ (with inputs; [
               hosts.nixosModule
               home-manager.nixosModules.default
@@ -117,8 +116,8 @@ top@{ inputs, moduleWithSystem, ... }:
               allowUnfree = false;
               packageOverrides = pkgs: {
                 fork = import inputs.nixpkgs-fork {
-                  system = pkgs.system;
-                  config = config.nixpkgs.config;
+                  inherit (pkgs) system;
+                  inherit (config.nixpkgs) config;
                 };
               };
             };
@@ -275,9 +274,7 @@ top@{ inputs, moduleWithSystem, ... }:
         }
       );
       stara = moduleWithSystem (
-        _:
-        { pkgs, ... }:
-        {
+        _: _: {
           programs = {
             git.enable = true;
             gtklock.enable = true;

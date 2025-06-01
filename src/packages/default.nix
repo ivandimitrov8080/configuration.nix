@@ -1,4 +1,4 @@
-top@{ inputs, ... }:
+{ inputs, ... }:
 {
   perSystem =
     { system, pkgs, ... }:
@@ -9,7 +9,7 @@ top@{ inputs, ... }:
         in
         rec {
           nvim = callPackage ./nvim {
-            makeNixvim = inputs.nixvim.legacyPackages.${system}.makeNixvim;
+            inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
             package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
           };
           screenshot = callPackage ./screenshot { };
