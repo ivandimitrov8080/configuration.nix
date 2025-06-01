@@ -41,7 +41,7 @@ top@{ moduleWithSystem, inputs, ... }:
             just
             (nvim.extend {
               colorscheme = "pywal";
-              colorschemes.catppuccin.enable = false;
+              colorschemes.catppuccin.enable = pkgs.lib.mkForce false;
               extraPlugins = with pkgs.vimPlugins; [ pywal-nvim ];
               extraConfigLua =
                 # lua

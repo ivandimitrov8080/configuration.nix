@@ -1,7 +1,7 @@
 {
   inputs = {
     # nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-fork.url = "github:ivandimitrov8080/nixpkgs/fork";
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
@@ -10,13 +10,13 @@
     # Below for extraction
     # ---
     # manages the home
-    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # nvim config helper
-    nixvim.url = "github:nix-community/nixvim/nixos-25.05";
+    nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
     # for mailserver config
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-25.05";
+    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
     # for flake outputs
     parts.url = "github:hercules-ci/flake-parts";
