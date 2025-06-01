@@ -1,6 +1,5 @@
 { pkgs, config, ... }:
 {
-  programs.home-manager.enable = true;
   xdg = {
     enable = true;
     userDirs = with config; {
@@ -23,12 +22,6 @@
     sessionVariables = {
       EDITOR = "nvim";
     };
-    packages = with pkgs; [
-      cmatrix
-      xin
-      just
-      nvim
-    ];
     file = {
       ".w3m/config".text = ''
         inline_img_protocol 4
@@ -42,14 +35,7 @@
     };
   };
   programs = {
-    git = with pkgs.lib; {
-      userName = mkForce "Ivan Kirilov Dimitrov";
-      userEmail = mkForce "ivan@idimitrov.dev";
-      signing = mkForce {
-        signByDefault = true;
-        key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
-      };
-    };
+    home-manager.enable = true;
     ssh = {
       matchBlocks = {
         vpsfree-ivand = {
@@ -173,84 +159,6 @@
     };
     msmtp.enable = true;
     offlineimap.enable = true;
-  };
-  accounts = {
-    calendar = {
-      basePath = ".local/share/calendars";
-      accounts.ivand = {
-        primary = true;
-        khal = {
-          enable = true;
-          color = "light green";
-        };
-      };
-    };
-    email = {
-      maildirBasePath = "mail";
-      accounts = {
-        ivan = rec {
-          primary = true;
-          realName = "Ivan Kirilov Dimitrov";
-          address = "ivan@idimitrov.dev";
-          userName = address;
-          passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
-          msmtp = {
-            enable = true;
-            extraConfig = {
-              auth = "login";
-            };
-          };
-          signature = {
-            text = ''
-              Ivan Dimitrov
-              Software Developer
-              ivan@idimitrov.dev
-            '';
-          };
-          getmail = {
-            enable = true;
-            mailboxes = [ "ALL" ];
-          };
-          gpg = {
-            encryptByDefault = true;
-            signByDefault = true;
-          };
-          smtp = {
-            host = "idimitrov.dev";
-          };
-          imap = {
-            host = "idimitrov.dev";
-          };
-          neomutt = {
-            enable = true;
-            mailboxType = "imap";
-            extraMailboxes = [
-              "Sent"
-              "Drafts"
-              "Trash"
-              "Archive"
-            ];
-          };
-          offlineimap.enable = true;
-        };
-      };
-    };
-  };
-  home = {
-    packages = with pkgs; [
-      openssl
-      mlocate
-      uutils-coreutils-noprefix
-      speedtest-cli
-      deadnix
-      statix
-    ];
-    sessionVariables = {
-      PAGER = "bat";
-      BAT_THEME = "catppuccin-mocha";
-    };
-  };
-  programs = {
     password-store = {
       enable = true;
       package = pkgs.pass.withExtensions (
@@ -265,6 +173,12 @@
     };
     git = {
       enable = true;
+      userName = "Ivan Kirilov Dimitrov";
+      userEmail = "ivan@idimitrov.dev";
+      signing = {
+        signByDefault = true;
+        key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
+      };
       delta.enable = true;
       extraConfig = {
         color.ui = "auto";
@@ -370,18 +284,7 @@
     fd.enable = true;
     ssh.enable = true;
     gpg.enable = true;
-  };
-  services = {
-    gpg-agent = {
-      enable = true;
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableNushellIntegration = true;
-      pinentry.package = pkgs.pinentry-qt;
-    };
-  };
-  programs =
-    let
+    bash = {
       shellAliases = {
         cal = "cal $(date +%Y)";
         GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
@@ -399,231 +302,122 @@
         cd = "z";
         cdi = "zi";
       };
-      sessionVariables = { };
-    in
-    {
-      bash = {
-        inherit shellAliases sessionVariables;
-        enable = true;
-        enableVteIntegration = true;
-        historyControl = [ "erasedups" ];
-        historyIgnore = [
-          "ls"
-          "cd"
-          "exit"
-        ];
-        initExtra = "set -o vi";
-      };
-      zsh = {
-        inherit shellAliases sessionVariables;
-        enable = true;
-        dotDir = ".config/zsh";
-        defaultKeymap = "viins";
-        enableVteIntegration = true;
-        syntaxHighlighting = {
-          enable = true;
-          highlighters = [
-            "main"
-            "brackets"
-            "cursor"
-            "line"
-          ];
-        };
-        autosuggestion = {
-          enable = true;
-          highlight = "fg=cyan";
-          strategy = [
-            "history"
-            "completion"
-            "match_prev_cmd"
-          ];
-        };
-        history.expireDuplicatesFirst = true;
-        historySubstringSearch.enable = true;
-      };
-      nushell = {
-        enable = true;
-        settings = {
-          show_banner = false;
-          completions.external = {
-            enable = true;
-            max_results = 250;
-          };
-        };
-        shellAliases = pkgs.lib.mkForce {
-          gcal = ''bash -c "cal $(date +%Y)" '';
-          la = "ls -al";
-          dev = "nix develop";
-          gd = "git diff --cached";
-          ga = "git add .";
-          gc = "git commit";
-        };
-        extraConfig = # nu
-          ''
-            def gad [] {
-                git add .
-                git diff --cached
-            }
-            def gac [] {
-                git add .
-                git commit
-            }
-          '';
-      };
-      kitty.shellIntegration = {
-        enableBashIntegration = true;
-        enableZshIntegration = true;
-      };
-      yazi = {
-        enableBashIntegration = true;
-        enableZshIntegration = true;
-      };
-      tmux = {
-        enable = true;
-        clock24 = true;
-        baseIndex = 1;
-        escapeTime = 0;
-        keyMode = "vi";
-        terminal = "screen-256color";
-        plugins = with pkgs.tmuxPlugins; [
-          tilish
-          catppuccin
-        ];
-        extraConfig = ''
-          set-option -a terminal-features 'screen-256color:RGB'
-          set -s copy-command 'wl-copy'
-        '';
-      };
-      starship = {
-        enable = true;
-        enableNushellIntegration = true;
-        enableZshIntegration = true;
-        enableBashIntegration = true;
-      };
-      eza = {
-        enable = true;
-        enableZshIntegration = true;
-        enableBashIntegration = true;
-        extraOptions = [
-          "--long"
-          "--header"
-          "--icons"
-          "--smart-group"
-          "--mounts"
-          "--group-directories-first"
-          "--octal-permissions"
-          "--git"
-        ];
-      };
-      zoxide = {
-        enable = true;
-        enableZshIntegration = true;
-        enableBashIntegration = true;
-      };
-    };
-  home = {
-    packages = with pkgs; [
-      audacity
-      gimp
-      grim
-      libnotify
-      libreoffice-qt
-      mupdf
-      slurp
-      transmission_4
-      wl-clipboard
-      xdg-user-dirs
-      xdg-utils
-      telegram-desktop
-      volume
-    ];
-    pointerCursor = {
-      name = "phinger-cursors-light";
-      package = pkgs.phinger-cursors;
-    };
-    sessionVariables = {
-      WLR_RENDERER_ALLOW_SOFTWARE = 1;
-    };
-  };
-  wayland.windowManager.sway = {
-    enable = true;
-    package = pkgs.swayfx;
-    checkConfig = false;
-    systemd.enable = true;
-    wrapperFeatures.gtk = true;
-    config = rec {
-      menu = "rofi -show drun";
-      terminal = "kitty";
-      modifier = "Mod4";
-      startup = [
-        { command = "exec firefox"; }
-        { command = "swaymsg 'workspace 1; exec kitty'"; }
+      enable = true;
+      enableVteIntegration = true;
+      historyControl = [ "erasedups" ];
+      historyIgnore = [
+        "ls"
+        "cd"
+        "exit"
       ];
-      assigns = {
-        "2" = [ { app_id = "^firefox$"; } ];
-      };
-      bars = [ ];
-      gaps = {
-        horizontal = 2;
-        vertical = 2;
-      };
-      window = {
-        titlebar = false;
-        border = 0;
-        commands = [
-          {
-            command = "floating enable; move position center; resize set 30ppt 50ppt;";
-            criteria = {
-              title = "^calendar$";
-            };
-          }
-          {
-            command = "floating enable; move position center; resize set 70ppt 50ppt;";
-            criteria = {
-              title = "^mutt$";
-            };
-          }
+      initExtra = "set -o vi";
+    };
+    zsh = {
+      inherit shellAliases sessionVariables;
+      enable = true;
+      dotDir = ".config/zsh";
+      defaultKeymap = "viins";
+      enableVteIntegration = true;
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+          "cursor"
+          "line"
         ];
       };
-      keybindings = pkgs.lib.mkOptionDefault {
-        "XF86AudioMute" = "exec volume sink toggle";
-        "Shift+XF86AudioMute" = "exec volume source toggle";
-        "XF86AudioLowerVolume" = "exec volume sink down";
-        "Shift+XF86AudioLowerVolume" = "exec volume source down";
-        "XF86AudioRaiseVolume" = "exec volume sink up";
-        "Shift+XF86AudioRaiseVolume" = "exec volume source up";
-        "XF86MonBrightnessUp" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
-        "XF86MonBrightnessDown" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
-        "Alt+Shift+l" = "exec ${pkgs.gtklock}/bin/gtklock";
-        "${modifier}+p" = "exec ${menu}";
-        "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
-        "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
-        "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
-        "${modifier}+c" = "exec kitty --title calendar -- ikhal";
-        "${modifier}+m" = "exec kitty --title mutt -- neomutt";
-        "End" = "exec rofi -show calc";
-        "${modifier}+Shift+r" = "reload";
-        "${modifier}+Shift+c" = "kill";
-        "${modifier}+Shift+q" = "exec ${pkgs.procps}/bin/pkill -9 -u ${config.home.username}";
+      autosuggestion = {
+        enable = true;
+        highlight = "fg=cyan";
+        strategy = [
+          "history"
+          "completion"
+          "match_prev_cmd"
+        ];
       };
-      input = {
-        "*" = {
-          xkb_layout = "us,bg";
-          xkb_options = "grp:win_space_toggle";
-          xkb_variant = ",phonetic";
+      history.expireDuplicatesFirst = true;
+      historySubstringSearch.enable = true;
+    };
+    nushell = {
+      enable = true;
+      settings = {
+        show_banner = false;
+        completions.external = {
+          enable = true;
+          max_results = 250;
         };
       };
+      shellAliases = pkgs.lib.mkForce {
+        gcal = ''bash -c "cal $(date +%Y)" '';
+        la = "ls -al";
+        dev = "nix develop";
+        gd = "git diff --cached";
+        ga = "git add .";
+        gc = "git commit";
+      };
+      extraConfig = # nu
+        ''
+          def gad [] {
+              git add .
+              git diff --cached
+          }
+          def gac [] {
+              git add .
+              git commit
+          }
+        '';
     };
-    extraConfig = ''
-      blur enable
-      shadows enable
-      corner_radius 15
-      default_dim_inactive 0.5
-      assign [class="^cs2$"] 4
-    '';
-    swaynag = { inherit (config.wayland.windowManager.sway) enable; };
-  };
-  programs = {
+    kitty.shellIntegration = {
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+    yazi = {
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+    tmux = {
+      enable = true;
+      clock24 = true;
+      baseIndex = 1;
+      escapeTime = 0;
+      keyMode = "vi";
+      terminal = "screen-256color";
+      plugins = with pkgs.tmuxPlugins; [
+        tilish
+        catppuccin
+      ];
+      extraConfig = ''
+        set-option -a terminal-features 'screen-256color:RGB'
+        set -s copy-command 'wl-copy'
+      '';
+    };
+    starship = {
+      enable = true;
+      enableNushellIntegration = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+    };
+    eza = {
+      enable = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+      extraOptions = [
+        "--long"
+        "--header"
+        "--icons"
+        "--smart-group"
+        "--mounts"
+        "--group-directories-first"
+        "--octal-permissions"
+        "--git"
+      ];
+    };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+      enableBashIntegration = true;
+    };
     waybar = {
       enable = true;
       settings = {
@@ -889,41 +683,6 @@
     bash.profileExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
     zsh.loginExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
     nushell.loginFile.text = ''if (tty) == "/dev/tty1" { sway } '';
-  };
-  services = {
-    wpaperd = {
-      enable = true;
-      settings = {
-        default = {
-          path = "${config.xdg.userDirs.pictures}/bg";
-          duration = "10m";
-        };
-      };
-    };
-    mako = {
-      enable = true;
-      settings = {
-        anchor = "bottom-right";
-        backgroundColor = "#1E1E2EDD";
-        borderRadius = 20;
-      };
-    };
-    cliphist.enable = true;
-  };
-  xdg.mimeApps.defaultApplications = {
-    "image/jpg" = "imv.desktop";
-    "image/jpeg" = "imv.desktop";
-    "image/png" = "imv.desktop";
-    "image/webp" = "imv.desktop";
-    "image/gif" = "imv.desktop";
-    "image/svg+xml" = "imv.desktop";
-    "video/mp4" = "mpv.desktop";
-    "video/mpeg" = "mpv.desktop";
-    "video/ogg" = "mpv.desktop";
-    "video/webm" = "mpv.desktop";
-    "video/x-msvideo" = "mpv.desktop";
-  };
-  programs = {
     browserpass.enable = true;
     firefox = {
       enable = true;
@@ -1075,7 +834,227 @@
       enable = true;
     };
   };
+  accounts = {
+    calendar = {
+      basePath = ".local/share/calendars";
+      accounts.ivand = {
+        primary = true;
+        khal = {
+          enable = true;
+          color = "light green";
+        };
+      };
+    };
+    email = {
+      maildirBasePath = "mail";
+      accounts = {
+        ivan = rec {
+          primary = true;
+          realName = "Ivan Kirilov Dimitrov";
+          address = "ivan@idimitrov.dev";
+          userName = address;
+          passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
+          msmtp = {
+            enable = true;
+            extraConfig = {
+              auth = "login";
+            };
+          };
+          signature = {
+            text = ''
+              Ivan Dimitrov
+              Software Developer
+              ivan@idimitrov.dev
+            '';
+          };
+          getmail = {
+            enable = true;
+            mailboxes = [ "ALL" ];
+          };
+          gpg = {
+            encryptByDefault = true;
+            signByDefault = true;
+          };
+          smtp = {
+            host = "idimitrov.dev";
+          };
+          imap = {
+            host = "idimitrov.dev";
+          };
+          neomutt = {
+            enable = true;
+            mailboxType = "imap";
+            extraMailboxes = [
+              "Sent"
+              "Drafts"
+              "Trash"
+              "Archive"
+            ];
+          };
+          offlineimap.enable = true;
+        };
+      };
+    };
+  };
+  home = {
+    sessionVariables = {
+      PAGER = "bat";
+      BAT_THEME = "catppuccin-mocha";
+    };
+  };
+  services = {
+    gpg-agent = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      enableNushellIntegration = true;
+      pinentry.package = pkgs.pinentry-qt;
+    };
+  };
+  home = {
+    packages = with pkgs; [
+      cmatrix
+      xin
+      just
+      nvim
+      openssl
+      mlocate
+      uutils-coreutils-noprefix
+      speedtest-cli
+      deadnix
+      statix
+      audacity
+      gimp
+      grim
+      libnotify
+      libreoffice-qt
+      mupdf
+      slurp
+      transmission_4
+      wl-clipboard
+      xdg-user-dirs
+      xdg-utils
+      telegram-desktop
+      volume
+    ];
+    pointerCursor = {
+      name = "phinger-cursors-light";
+      package = pkgs.phinger-cursors;
+    };
+    sessionVariables = {
+      WLR_RENDERER_ALLOW_SOFTWARE = 1;
+    };
+  };
+  wayland.windowManager.sway = {
+    enable = true;
+    package = pkgs.swayfx;
+    checkConfig = false;
+    systemd.enable = true;
+    wrapperFeatures.gtk = true;
+    config = rec {
+      menu = "rofi -show drun";
+      terminal = "kitty";
+      modifier = "Mod4";
+      startup = [
+        { command = "exec firefox"; }
+        { command = "swaymsg 'workspace 1; exec kitty'"; }
+      ];
+      assigns = {
+        "2" = [ { app_id = "^firefox$"; } ];
+      };
+      bars = [ ];
+      gaps = {
+        horizontal = 2;
+        vertical = 2;
+      };
+      window = {
+        titlebar = false;
+        border = 0;
+        commands = [
+          {
+            command = "floating enable; move position center; resize set 30ppt 50ppt;";
+            criteria = {
+              title = "^calendar$";
+            };
+          }
+          {
+            command = "floating enable; move position center; resize set 70ppt 50ppt;";
+            criteria = {
+              title = "^mutt$";
+            };
+          }
+        ];
+      };
+      keybindings = pkgs.lib.mkOptionDefault {
+        "XF86AudioMute" = "exec volume sink toggle";
+        "Shift+XF86AudioMute" = "exec volume source toggle";
+        "XF86AudioLowerVolume" = "exec volume sink down";
+        "Shift+XF86AudioLowerVolume" = "exec volume source down";
+        "XF86AudioRaiseVolume" = "exec volume sink up";
+        "Shift+XF86AudioRaiseVolume" = "exec volume source up";
+        "XF86MonBrightnessUp" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
+        "XF86MonBrightnessDown" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+        "Alt+Shift+l" = "exec ${pkgs.gtklock}/bin/gtklock";
+        "${modifier}+p" = "exec ${menu}";
+        "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
+        "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
+        "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
+        "${modifier}+c" = "exec kitty --title calendar -- ikhal";
+        "${modifier}+m" = "exec kitty --title mutt -- neomutt";
+        "End" = "exec rofi -show calc";
+        "${modifier}+Shift+r" = "reload";
+        "${modifier}+Shift+c" = "kill";
+        "${modifier}+Shift+q" = "exec ${pkgs.procps}/bin/pkill -9 -u ${config.home.username}";
+      };
+      input = {
+        "*" = {
+          xkb_layout = "us,bg";
+          xkb_options = "grp:win_space_toggle";
+          xkb_variant = ",phonetic";
+        };
+      };
+    };
+    extraConfig = ''
+      blur enable
+      shadows enable
+      corner_radius 15
+      default_dim_inactive 0.5
+      assign [class="^cs2$"] 4
+    '';
+    swaynag = { inherit (config.wayland.windowManager.sway) enable; };
+  };
+  services = {
+    wpaperd = {
+      enable = true;
+      settings = {
+        default = {
+          path = "${config.xdg.userDirs.pictures}/bg";
+          duration = "10m";
+        };
+      };
+    };
+    mako = {
+      enable = true;
+      settings = {
+        anchor = "bottom-right";
+        backgroundColor = "#1E1E2EDD";
+        borderRadius = 20;
+      };
+    };
+    cliphist.enable = true;
+  };
   xdg.mimeApps.defaultApplications = {
+    "image/jpg" = "imv.desktop";
+    "image/jpeg" = "imv.desktop";
+    "image/png" = "imv.desktop";
+    "image/webp" = "imv.desktop";
+    "image/gif" = "imv.desktop";
+    "image/svg+xml" = "imv.desktop";
+    "video/mp4" = "mpv.desktop";
+    "video/mpeg" = "mpv.desktop";
+    "video/ogg" = "mpv.desktop";
+    "video/webm" = "mpv.desktop";
+    "video/x-msvideo" = "mpv.desktop";
     "text/html" = "firefox.desktop";
     "x-scheme-handler/http" = "firefox.desktop";
     "x-scheme-handler/https" = "firefox.desktop";
