@@ -39,18 +39,7 @@ top@{ moduleWithSystem, inputs, ... }:
             cmatrix
             xin
             just
-            (nvim.extend {
-              colorscheme = "pywal";
-              colorschemes.catppuccin.enable = pkgs.lib.mkForce false;
-              extraPlugins = with pkgs.vimPlugins; [ pywal-nvim ];
-              extraConfigLua =
-                # lua
-                ''
-                  local uv = vim.uv
-                  local signal = uv.new_signal()
-                  uv.signal_start(signal, "sigusr1", function() vim.schedule(function() vim.cmd('colorscheme pywal') end) end)
-                '';
-            })
+            nvim
           ];
           file = {
             ".w3m/config".text = ''
@@ -65,10 +54,6 @@ top@{ moduleWithSystem, inputs, ... }:
           };
         };
         programs = {
-          pywal = {
-            enable = true;
-            package = pkgs.pywal16;
-          };
           git = with pkgs.lib; {
             userName = mkForce "Ivan Kirilov Dimitrov";
             userEmail = mkForce "ivan@idimitrov.dev";
@@ -942,27 +927,6 @@ top@{ moduleWithSystem, inputs, ... }:
               default = {
                 path = "${config.xdg.userDirs.pictures}/bg";
                 duration = "10m";
-                exec = pkgs.lib.getExe (
-                  pkgs.writeShellApplication {
-                    name = "wpaperd-wal";
-                    runtimeInputs = with pkgs; [
-                      pywalfox-native
-                      pywal16
-                      imagemagick
-                      swayfx
-                      walogram
-                      procps
-                    ];
-                    text =
-                      # bash
-                      ''
-                        wal -i "$2"
-                        pkill -SIGUSR1 nvim
-                        pywalfox update
-                        walogram -i "$2" -B
-                      '';
-                  }
-                );
               };
             };
           };
@@ -1121,11 +1085,6 @@ top@{ moduleWithSystem, inputs, ... }:
                 # Stylus
                 "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = {
                   install_url = "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi";
-                  installation_mode = "force_installed";
-                };
-                # Pywalfox
-                "pywalfox@frewacom.org" = {
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/pywalfox/latest.xpi";
                   installation_mode = "force_installed";
                 };
               };
