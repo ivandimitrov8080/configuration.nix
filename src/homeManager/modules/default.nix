@@ -22,6 +22,9 @@
     stateVersion = "25.05";
     sessionVariables = {
       EDITOR = "nvim";
+      WLR_RENDERER_ALLOW_SOFTWARE = 1;
+      PAGER = "bat";
+      BAT_THEME = "catppuccin-mocha";
     };
     file = {
       ".w3m/config".text = ''
@@ -896,12 +899,6 @@
       };
     };
   };
-  home = {
-    sessionVariables = {
-      PAGER = "bat";
-      BAT_THEME = "catppuccin-mocha";
-    };
-  };
   services = {
     gpg-agent = {
       enable = true;
@@ -940,9 +937,6 @@
     pointerCursor = {
       name = "phinger-cursors-light";
       package = pkgs.phinger-cursors;
-    };
-    sessionVariables = {
-      WLR_RENDERER_ALLOW_SOFTWARE = 1;
     };
   };
   wayland.windowManager.sway = {
