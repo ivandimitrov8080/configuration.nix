@@ -6,10 +6,10 @@
 }:
 let
   inherit (lib) mkIf mkEnableOption;
-  cfg = config.gaming;
+  cfg = config.meta.gaming;
 in
 {
-  options.gaming = {
+  options.meta.gaming = {
     enable = mkEnableOption "enable gaming config";
   };
   config = mkIf cfg.enable {
@@ -74,24 +74,6 @@ in
       extraConfig = ''
         DefaultTimeoutStopSec=5s
       '';
-    };
-    home-manager.users.ivand = {
-      wayland.windowManager.sway = {
-        config = {
-          input = {
-            "type:touchpad" = {
-              events = "disabled";
-            };
-          };
-          assigns = {
-            "3" = [
-              { class = "^dota2$"; }
-              { class = "^cs2$"; }
-            ];
-            "9" = [ { class = "^steam$"; } ];
-          };
-        };
-      };
     };
   };
 }
