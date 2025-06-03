@@ -652,6 +652,7 @@
         modi = "window,drun,run,ssh,calc";
         show-icons = true;
       };
+      theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
     };
     kitty = {
       enable = true;
