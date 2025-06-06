@@ -1,9 +1,8 @@
 { lib, pkgs, ... }:
 let
   inherit (lib) mkOverride mkDefault;
-  theme = pkgs.sleek-grub-theme.override {
-    withBanner = "Hello";
-    withStyle = "bigSur";
+  theme = pkgs.catppuccin-grub {
+    flavor = "mocha";
   };
 in
 {
