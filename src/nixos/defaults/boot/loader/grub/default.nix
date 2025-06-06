@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
   inherit (lib) mkOverride mkDefault;
-  theme = pkgs.catppuccin-grub {
+  theme = pkgs.catppuccin-grub.override {
     flavor = "mocha";
   };
 in
