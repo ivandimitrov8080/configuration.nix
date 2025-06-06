@@ -19,7 +19,6 @@ in
   config = mkIf cfg.enable {
     services.greetd.enable = true;
     programs.regreet.enable = true;
-    environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.sway}/share" ];
     boot = {
       plymouth.enable = true;
       initrd.systemd.enable = true;
