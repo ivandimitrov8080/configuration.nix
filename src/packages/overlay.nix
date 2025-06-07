@@ -16,4 +16,5 @@ in
   avante-nvim = callPackage ./avante-nvim { };
   rtcqs = callPackage ./rtcqs { };
   walogram = callPackage ./walogram { };
+  ddlm = callPackage ./ddlm { };
 }
