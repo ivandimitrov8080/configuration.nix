@@ -19,20 +19,10 @@ in
   config = mkIf cfg.enable {
     services.greetd.enable = true;
     services.greetd.settings.default_session = {
-      command = lib.mkDefault "${lib.getExe pkgs.ddlm}";
-      user = "greetd";
+      command = lib.mkDefault "${lib.getExe pkgs.greetd.tuigreet} --time --remember";
     };
     services.kmscon.enable = true;
     services.kmscon.hwRender = true;
-    users.users.greetd = {
-      isNormalUser = false;
-      isSystemUser = true;
-      group = "greetd";
-      extraGroups = [
-        "video"
-      ];
-    };
-    users.groups.greetd = { };
     boot = {
       plymouth.enable = true;
       initrd.systemd.enable = true;
