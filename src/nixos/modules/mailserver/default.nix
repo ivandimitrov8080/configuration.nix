@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable (
     optionalAttrs hasMailserver {
       mailserver = {
-        stateVersion = 1;
+        stateVersion = 3;
         enable = true;
         localDnsResolver = false;
         fqdn = "idimitrov.dev";
