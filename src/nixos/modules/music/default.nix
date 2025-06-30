@@ -9,25 +9,16 @@ let
     mkIf
     mkMerge
     mkEnableOption
-    mkForce
     ;
-  cfg = config.realtimeMusic;
+  cfg = config.meta.music;
 in
 {
-  options.realtimeMusic = {
+  options.meta.music = {
     enable = mkEnableOption "enable music config for realtime audio";
   };
   config = mkMerge [
     (mkIf cfg.enable {
-      boot.kernelPackages = pkgs.linuxPackagesFor (
-        pkgs.linuxKernel.kernels.linux_default.override {
-          structuredExtraConfig = with lib.kernel; {
-            PREEMPT = mkForce yes;
-            PREEMPT_RT = mkForce yes;
-          };
-          ignoreConfigErrors = true;
-        }
-      );
+      boot.kernelPackages = pkgs.linuxPackages_zen;
       environment.systemPackages = with pkgs; [
         guitarix
         rtcqs
