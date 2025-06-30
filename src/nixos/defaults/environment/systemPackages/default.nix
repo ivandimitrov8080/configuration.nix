@@ -1,6 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
-  inherit (lib) mkDefault;
   systemPackages = with pkgs; [
     bat
     cryptsetup
@@ -23,5 +22,5 @@ let
   ];
 in
 {
-  environment.systemPackages = mkDefault systemPackages;
+  environment.systemPackages = systemPackages;
 }
