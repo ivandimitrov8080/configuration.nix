@@ -18,6 +18,7 @@ let
     unzip
     uutils-coreutils-noprefix
     vim
+    wget
     zip
   ];
 in
