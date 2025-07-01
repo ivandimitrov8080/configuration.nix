@@ -677,12 +677,10 @@
     };
     mpv = {
       enable = true;
-      scripts =
-        (with pkgs.mpvScripts; [
-          uosc
-          thumbfast
-        ])
-        ++ (with pkgs.fork.mpvScripts; [ skip-intro ]);
+      scripts = with pkgs.mpvScripts; [
+        uosc
+        thumbfast
+      ];
     };
     bash.profileExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
     zsh.loginExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
