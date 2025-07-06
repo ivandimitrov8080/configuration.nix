@@ -664,8 +664,9 @@
         background_opacity = "0.80";
         background_blur = "1";
         cursor_shape = "beam";
-        allow_remote_control = "yes";
-        dynamic_background_opacity = "yes";
+        allow_remote_control = true;
+        dynamic_background_opacity = true;
+        enable_audio_bell = false;
       };
       themeFile = "Catppuccin-Mocha";
     };
