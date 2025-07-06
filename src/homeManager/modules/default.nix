@@ -988,7 +988,7 @@
         "Shift+XF86AudioRaiseVolume" = "exec volume source up";
         "XF86MonBrightnessUp" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
         "XF86MonBrightnessDown" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
-        "Alt+Shift+l" = "exec ${pkgs.gtklock}/bin/gtklock";
+        "Alt+Shift+l" = "exec ${pkgs.hyprlock}/bin/hyprlock";
         "${modifier}+p" = "exec ${menu}";
         "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
         "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";

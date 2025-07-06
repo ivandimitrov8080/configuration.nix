@@ -18,6 +18,7 @@ in
   config = mkIf cfg.enable {
     hardware.graphics.enable = true;
     security.pam.services.swaylock = { };
+    programs.hyprlock.enable = true;
     environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.sway}/share" ];
     xdg.portal = {
       enable = true;
