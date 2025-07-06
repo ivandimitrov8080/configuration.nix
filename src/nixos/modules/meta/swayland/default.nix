@@ -17,13 +17,14 @@ in
   };
   config = mkIf cfg.enable {
     hardware.graphics.enable = true;
-    security.pam.services.swaylock = { };
     programs.hyprlock.enable = true;
-    environment.sessionVariables.XDG_DATA_DIRS = [ "${pkgs.sway}/share" ];
+    programs.sway.enable = true;
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-      config.sway.default = "wlr";
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
       config.common.default = "*";
       wlr = {
         enable = true;
