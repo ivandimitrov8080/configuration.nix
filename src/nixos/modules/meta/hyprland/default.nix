@@ -16,29 +16,18 @@ in
     enable = mkEnableOption "enable hyprland config";
   };
   config = mkIf cfg.enable {
-    # hardware.graphics.enable = true;
-    # hardware.graphics.extraPackages = with pkgs; [
-    #   intel-media-driver
-    #   intel-vaapi-driver
-    # ];
-    # programs.hyprlock.enable = true;
+    hardware.graphics.enable = true;
+    programs.hyprlock.enable = true;
     programs.hyprland.enable = true;
+    programs.hyprland.withUWSM = true;
+    programs.hyprland.systemd.setPath.enable = true;
     services.seatd.enable = true;
-    # xdg.portal = {
-    #   enable = true;
-    #   extraPortals = with pkgs; [
-    #     xdg-desktop-portal-hyprland
-    #     xdg-desktop-portal-gtk
-    #   ];
-    #   hyprland = {
-    #     enable = true;
-    #     settings = {
-    #       screencast = {
-    #         output_name = "HDMI-A-1";
-    #         max_fps = 60;
-    #       };
-    #     };
-    #   };
-    # };
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
+      ];
+    };
   };
 }
