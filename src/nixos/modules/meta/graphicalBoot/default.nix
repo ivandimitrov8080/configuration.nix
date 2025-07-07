@@ -21,8 +21,6 @@ in
     services.greetd.settings.default_session = {
       command = lib.mkDefault "${lib.getExe pkgs.greetd.tuigreet} --time --remember";
     };
-    services.kmscon.enable = true;
-    services.kmscon.hwRender = true;
     boot = {
       plymouth.enable = true;
       initrd.systemd.enable = true;
