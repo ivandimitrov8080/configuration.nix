@@ -18,9 +18,7 @@ in
 
   config = mkIf cfg.enable {
     services.greetd.enable = true;
-    services.greetd.settings.default_session = {
-      command = lib.mkDefault "${lib.getExe pkgs.greetd.tuigreet} --time --remember";
-    };
+    programs.regreet.enable = true;
     boot = {
       plymouth.enable = true;
       initrd.systemd.enable = true;
