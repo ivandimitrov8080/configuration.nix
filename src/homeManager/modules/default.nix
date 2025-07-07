@@ -751,7 +751,6 @@
         OfferToSaveLogins = false;
         OfferToSaveLoginsDefault = false;
         PasswordManagerEnabled = false;
-        NoDefaultBookmarks = true;
         PopupBlocking.Default = false;
         PromptForDownloadLocation = false;
         TranslateEnabled = false;
