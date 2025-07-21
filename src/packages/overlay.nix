@@ -3,10 +3,6 @@ let
   inherit (prev) callPackage;
 in
 {
-  # nvim = callPackage ./nvim {
-  #   inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
-  #   package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
-  # };
   screenshot = callPackage ./screenshot { };
   themes-rofi = callPackage ./themes/rofi.nix { };
   themes-mutt = callPackage ./themes/mutt.nix { };
