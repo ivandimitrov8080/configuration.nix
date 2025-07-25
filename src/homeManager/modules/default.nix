@@ -445,7 +445,8 @@
           modules-right = [
             "custom/weather"
             "network"
-            "pulseaudio"
+            "wireplumber#sink"
+            "wireplumber#source"
             "battery"
           ];
           "clock#time" = {
@@ -478,20 +479,24 @@
             };
             tooltip = false;
           };
-          pulseaudio = {
-            format = "<span color='#a6e3a1'>{icon}</span> {volume}% | {format_source}";
-            format-muted = "<span color='#f38ba8'>󰝟</span> {volume}% | {format_source}";
-            format-source = "{volume}% <span color='#a6e3a1'></span>";
-            format-source-muted = "{volume}% <span color='#f38ba8'></span>";
-            format-icons = {
-              headphone = "";
-              default = [
-                ""
-                ""
-                ""
-              ];
-            };
-            tooltip = false;
+          "wireplumber#sink" = {
+            node-type = "Audio/Sink";
+            format = "{volume}% <span color='#a6e3a1'>{icon}</span>";
+            format-muted = "{volume}% <span color='#f38ba8'>󰝟</span>";
+            format-icons = [
+              ""
+              ""
+              ""
+            ];
+            max-volume = 200;
+            scroll-step = 0.2;
+          };
+          "wireplumber#source" = {
+            node-type = "Audio/Source";
+            format = "{volume}% <span color='#a6e3a1'></span>";
+            format-muted = "{volume}% <span color='#f38ba8'></span>";
+            max-volume = 200;
+            scroll-step = 0.2;
           };
           network = {
             interval = 1;
