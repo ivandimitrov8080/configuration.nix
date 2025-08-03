@@ -71,9 +71,9 @@ in
       network.networks.wg0 = {
         routingPolicyRules = import ./steam-route-rules.nix;
       };
-      extraConfig = ''
-        DefaultTimeoutStopSec=5s
-      '';
+      settings.Manager = {
+        DefaultTimeoutStopSec = "5s";
+      };
     };
   };
 }
