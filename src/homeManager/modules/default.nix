@@ -318,7 +318,6 @@
     };
     zsh = {
       enable = true;
-      dotDir = ".config/zsh";
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {
