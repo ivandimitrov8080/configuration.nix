@@ -15,10 +15,10 @@ in
 {
   options.meta.music = {
     enable = mkEnableOption "enable music config for realtime audio";
+    realtime = mkEnableOption "enable realtime kernel";
   };
   config = mkMerge [
     (mkIf cfg.enable {
-      boot.kernelPackages = pkgs.linuxPackages_zen;
       environment.systemPackages = with pkgs; [
         guitarix
         rtcqs
@@ -57,6 +57,24 @@ in
           item = "nofile";
           type = "hard";
           value = "99999";
+        }
+      ];
+    })
+    (mkIf cfg.realtime {
+      boot.kernelPackages = pkgs.linuxPackages_latest;
+      boot.kernelPatches = [
+        {
+          name = "realtime-config";
+          patch = null;
+          extraStructuredConfig = with lib.kernel; {
+            PREEMPT = lib.mkForce yes;
+            PREEMPT_VOLUNTARY = lib.mkForce no; # PREEMPT_RT deselects it.
+            PREEMPT_RT = yes;
+            # Fix error: unused option: PREEMPT_RT.
+            EXPERT = yes; # PREEMPT_RT depends on it (in kernel/Kconfig.preempt)
+            # Fix error: unused option: RT_GROUP_SCHED.
+            RT_GROUP_SCHED = lib.mkForce (option no); # Removed by sched-disable-rt-group-sched-on-rt.patch.
+          };
         }
       ];
     })
