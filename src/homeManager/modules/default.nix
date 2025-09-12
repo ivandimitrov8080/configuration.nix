@@ -647,9 +647,9 @@
     };
     rofi = {
       enable = true;
-      package = pkgs.rofi-wayland.override {
+      package = pkgs.rofi.override {
         plugins = with pkgs; [
-          (rofi-calc.override { rofi-unwrapped = rofi-wayland-unwrapped; })
+          rofi-calc
         ];
       };
       extraConfig = {
