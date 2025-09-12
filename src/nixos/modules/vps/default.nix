@@ -105,7 +105,7 @@ in
         ];
         basePath = "/srv/git";
         exportAll = true;
-        listenAddress = "idimitrov.dev";
+        listenAddress = "src.idimitrov.dev";
       };
       openssh = {
         enable = true;
