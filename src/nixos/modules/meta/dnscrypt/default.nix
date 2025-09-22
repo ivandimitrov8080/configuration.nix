@@ -13,7 +13,7 @@ in
       "::1"
     ];
     services = {
-      dnscrypt-proxy2 = {
+      dnscrypt-proxy = {
         enable = true;
         settings = {
           cache = true;

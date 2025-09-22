@@ -13,7 +13,7 @@ let
   ];
 in
 {
-  services.dnscrypt-proxy2.settings = mkDefault {
+  services.dnscrypt-proxy.settings = mkDefault {
     cache = false;
     ipv4_servers = true;
     ipv6_servers = true;
