@@ -405,6 +405,7 @@
       extraConfig = ''
         set-option -a terminal-features 'screen-256color:RGB'
         set -s copy-command 'wl-copy'
+        set -g default-command "''${SHELL}"
       '';
     };
     starship = {
