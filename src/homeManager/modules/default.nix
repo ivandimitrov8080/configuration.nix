@@ -997,25 +997,9 @@
         ];
       };
       keybindings = pkgs.lib.mkOptionDefault {
-        "XF86AudioMute" = "exec volume sink toggle";
-        "Shift+XF86AudioMute" = "exec volume source toggle";
-        "XF86AudioLowerVolume" = "exec volume sink down";
-        "Shift+XF86AudioLowerVolume" = "exec volume source down";
-        "XF86AudioRaiseVolume" = "exec volume sink up";
-        "Shift+XF86AudioRaiseVolume" = "exec volume source up";
-        "XF86MonBrightnessUp" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
-        "XF86MonBrightnessDown" = "exec sudo ${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
-        "Alt+Shift+l" = "exec ${pkgs.hyprlock}/bin/hyprlock";
-        "${modifier}+p" = "exec ${menu}";
-        "${modifier}+Shift+s" = "exec ${pkgs.screenshot}/bin/screenshot screen";
-        "${modifier}+Shift+a" = "exec ${pkgs.screenshot}/bin/screenshot area";
-        "${modifier}+Shift+w" = "exec ${pkgs.screenshot}/bin/screenshot window";
-        "${modifier}+c" = "exec kitty --title calendar -- ikhal";
-        "${modifier}+m" = "exec kitty --title mutt -- neomutt";
-        "End" = "exec rofi -show calc";
         "${modifier}+Shift+r" = "reload";
         "${modifier}+Shift+c" = "kill";
-        "${modifier}+Shift+q" = "exec ${pkgs.procps}/bin/pkill -9 -u ${config.home.username}";
+        "${modifier}+Shift+q" = "exit";
       };
       input = {
         "*" = {
