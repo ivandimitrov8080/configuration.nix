@@ -1047,8 +1047,8 @@
       enable = true;
       settings = {
         anchor = "bottom-right";
-        backgroundColor = "#1E1E2EDD";
-        borderRadius = 20;
+        background-color = "#1E1E2EDD";
+        border-radius = 20;
       };
     };
     cliphist.enable = true;
