@@ -1019,6 +1019,12 @@
     swaynag = { inherit (config.wayland.windowManager.sway) enable; };
   };
   services = {
+    gammastep = {
+      enable = true;
+      latitude = 50.0;
+      longitude = 14.41;
+      tray = true;
+    };
     wpaperd = {
       enable = true;
       settings = {
