@@ -140,7 +140,12 @@
     {
       mode = "v";
       key = "<leader>ff";
-      action.__raw = "require('telescope.builtin').find_files({ default_text = vim.get_visual_selection() })";
+      action.__raw =''
+      function()
+        local text = vim.get_visual_selection()
+        require('telescope.builtin').find_files({ default_text = text })
+      end
+      '';
       options.desc = "Find files";
     }
     {
@@ -152,7 +157,12 @@
     {
       mode = "v";
       key = "<leader>fw";
-      action.__raw = "require('telescope.builtin').live_grep({ default_text = vim.get_visual_selection() })";
+      action.__raw = ''
+        function()
+            local text = vim.get_visual_selection()
+            require('telescope.builtin').live_grep({ default_text = text })
+        end
+      '';
       options.desc = "Find words";
     }
     {
