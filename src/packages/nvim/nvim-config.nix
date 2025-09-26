@@ -124,9 +124,21 @@
       options.desc = "Find files";
     }
     {
+      mode = "v";
+      key = "<leader>ff";
+      action.__raw = "require('telescope.builtin').find_files({ default_text = vim.get_visual_selection() })";
+      options.desc = "Find files";
+    }
+    {
       mode = "n";
       key = "<leader>fw";
       action.__raw = "require('telescope.builtin').live_grep";
+      options.desc = "Find words";
+    }
+    {
+      mode = "v";
+      key = "<leader>fw";
+      action.__raw = "require('telescope.builtin').live_grep({ default_text = vim.get_visual_selection() })";
       options.desc = "Find words";
     }
     {
