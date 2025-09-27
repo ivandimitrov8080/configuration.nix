@@ -96,6 +96,7 @@ mkDefaultAttrs {
         d = "diff --cached";
         p = "push";
         pa = "!git remote | xargs -L1 git push --all";
+        co = "checkout";
       };
     };
     tealdeer = {
