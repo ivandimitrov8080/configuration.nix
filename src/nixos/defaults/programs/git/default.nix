@@ -1,7 +1,3 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  programs.git.config.safe.directory = mkDefault "*";
+_: {
+  programs.git.config.safe.directory = "*";
 }

@@ -1,7 +1,3 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  environment.enableAllTerminfo = mkDefault true;
+_: {
+  environment.enableAllTerminfo = true;
 }

@@ -1,6 +1,5 @@
-{ lib, ... }:
+_:
 let
-  inherit (lib) mkDefault;
   routes = [
     {
       server_name = "*";
@@ -13,7 +12,7 @@ let
   ];
 in
 {
-  services.dnscrypt-proxy.settings = mkDefault {
+  services.dnscrypt-proxy.settings = {
     cache = false;
     ipv4_servers = true;
     ipv6_servers = true;

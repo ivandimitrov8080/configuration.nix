@@ -1,6 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 let
-  inherit (lib) mkDefault;
   shells = with pkgs; [
     bash
     zsh
@@ -8,5 +7,5 @@ let
   ];
 in
 {
-  environment.shells = mkDefault shells;
+  environment.shells = shells;
 }

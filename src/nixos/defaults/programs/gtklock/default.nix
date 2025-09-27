@@ -1,6 +1,5 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  inherit (lib) mkDefault;
   style =
     #css
     ''
@@ -36,6 +35,6 @@ let
   ];
 in
 {
-  programs.gtklock.style = mkDefault style;
-  programs.gtklock.modules = mkDefault modules;
+  programs.gtklock.style = style;
+  programs.gtklock.modules = modules;
 }

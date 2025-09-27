@@ -1,9 +1,5 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  programs.zsh.shellAliases = mkDefault {
+_: {
+  programs.zsh.shellAliases = {
     cal = "cal $(date +%Y)";
     gad = "git add . && git diff --cached";
     gac = "ga && gc";

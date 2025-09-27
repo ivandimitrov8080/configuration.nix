@@ -1,13 +1,9 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  services.nginx.recommendedGzipSettings = mkDefault true;
-  services.nginx.recommendedTlsSettings = mkDefault true;
-  services.nginx.recommendedOptimisation = mkDefault true;
-  services.nginx.recommendedProxySettings = mkDefault true;
-  services.nginx.recommendedUwsgiSettings = mkDefault true;
-  services.nginx.recommendedBrotliSettings = mkDefault true;
-  services.nginx.sslCiphers = mkDefault "AES256+EECDH:AES256+EDH:!aNULL";
+_: {
+  services.nginx.recommendedGzipSettings = true;
+  services.nginx.recommendedTlsSettings = true;
+  services.nginx.recommendedOptimisation = true;
+  services.nginx.recommendedProxySettings = true;
+  services.nginx.recommendedUwsgiSettings = true;
+  services.nginx.recommendedBrotliSettings = true;
+  services.nginx.sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
 }

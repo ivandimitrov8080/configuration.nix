@@ -1,8 +1,4 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  programs.zsh.enableBashCompletion = mkDefault true;
-  programs.zsh.vteIntegration = mkDefault true;
+_: {
+  programs.zsh.enableBashCompletion = true;
+  programs.zsh.vteIntegration = true;
 }

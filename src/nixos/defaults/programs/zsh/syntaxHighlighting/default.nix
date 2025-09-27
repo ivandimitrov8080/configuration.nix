@@ -1,10 +1,6 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  programs.zsh.syntaxHighlighting.enable = mkDefault true;
-  programs.zsh.syntaxHighlighting.highlighters = mkDefault [
+_: {
+  programs.zsh.syntaxHighlighting.enable = true;
+  programs.zsh.syntaxHighlighting.highlighters = [
     "main"
     "brackets"
     "cursor"

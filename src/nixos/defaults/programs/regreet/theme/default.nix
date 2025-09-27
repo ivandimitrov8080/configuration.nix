@@ -1,6 +1,5 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  inherit (lib) mkDefault;
   theme = pkgs.catppuccin-gtk.override {
     variant = "mocha";
     size = "compact";
@@ -10,6 +9,6 @@ let
   };
 in
 {
-  programs.regreet.theme.package = mkDefault theme;
-  programs.regreet.theme.name = mkDefault "catppuccin-mocha-maroon-compact";
+  programs.regreet.theme.package = theme;
+  programs.regreet.theme.name = "catppuccin-mocha-maroon-compact";
 }

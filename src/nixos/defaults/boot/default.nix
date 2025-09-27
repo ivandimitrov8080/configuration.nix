@@ -1,7 +1,4 @@
-{ lib, pkgs, ... }:
-let
-  inherit (lib) mkDefault;
-in
+{ pkgs, ... }:
 {
-  boot.kernelPackages = mkDefault pkgs.linuxPackages_latest-libre;
+  boot.kernelPackages = pkgs.linuxPackages_latest-libre;
 }

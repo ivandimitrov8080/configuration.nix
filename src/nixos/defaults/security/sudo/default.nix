@@ -1,7 +1,3 @@
-{ lib, ... }:
-let
-  inherit (lib) mkDefault;
-in
-{
-  security.sudo.execWheelOnly = mkDefault true;
+_: {
+  security.sudo.execWheelOnly = true;
 }

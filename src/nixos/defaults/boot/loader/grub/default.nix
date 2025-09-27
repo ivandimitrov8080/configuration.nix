@@ -1,14 +1,13 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
-  inherit (lib) mkOverride mkDefault;
   theme = pkgs.catppuccin-grub.override {
     flavor = "mocha";
   };
 in
 {
-  boot.loader.grub.useOSProber = mkDefault true;
-  boot.loader.grub.efiSupport = mkDefault true;
-  boot.loader.grub.device = mkDefault "nodev";
-  boot.loader.grub.theme = mkDefault theme;
-  boot.loader.grub.splashImage = (mkOverride 999) "${theme}/background.png";
+  boot.loader.grub.useOSProber = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.theme = theme;
+  boot.loader.grub.splashImage = "${theme}/background.png";
 }

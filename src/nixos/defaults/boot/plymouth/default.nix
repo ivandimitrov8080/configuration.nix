@@ -1,10 +1,7 @@
-{ lib, pkgs, ... }:
-let
-  inherit (lib) mkDefault;
-in
+{ pkgs, ... }:
 {
-  boot.plymouth.theme = mkDefault "catppuccin-mocha";
-  boot.plymouth.themePackages = mkDefault [
+  boot.plymouth.theme = "catppuccin-mocha";
+  boot.plymouth.themePackages = [
     (pkgs.catppuccin-plymouth.override { variant = "mocha"; })
   ];
 }
