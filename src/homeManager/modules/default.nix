@@ -1,9 +1,30 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}:
+let
+  inherit (lib) mkOverride;
+  mkDefaultAttrs =
+    a:
+    builtins.mapAttrs (
+      n: v:
+      if n == "package" || n == "src" then
+        mkOverride 900 v
+      else if builtins.isAttrs v then
+        mkDefaultAttrs v
+      else if builtins.isFunction v then
+        v
+      else if builtins.isList v then
+        v
+      else
+        mkOverride 900 v
+    ) a;
+in
+mkDefaultAttrs {
   xdg = {
-    enable = true;
-    userDirs = with config; {
-      enable = true;
+    userDirs = with config; ({
       createDirectories = true;
       desktop = "${home.homeDirectory}/dt";
       documents = "${home.homeDirectory}/doc";
@@ -13,29 +34,34 @@
       templates = "${home.homeDirectory}/tpl";
       publicShare = "${home.homeDirectory}/pub";
       music = "${home.homeDirectory}/mus";
-    };
+    });
     mimeApps.enable = true;
+    mimeApps.defaultApplications = {
+      "image/jpg" = "imv.desktop";
+      "image/jpeg" = "imv.desktop";
+      "image/png" = "imv.desktop";
+      "image/webp" = "imv.desktop";
+      "image/gif" = "imv.desktop";
+      "image/svg+xml" = "imv.desktop";
+      "video/mp4" = "mpv.desktop";
+      "video/mpeg" = "mpv.desktop";
+      "video/ogg" = "mpv.desktop";
+      "video/webm" = "mpv.desktop";
+      "video/x-msvideo" = "mpv.desktop";
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
+    };
   };
   home = {
-    username = "ivand";
-    homeDirectory = "/home/ivand";
     stateVersion = "25.05";
     sessionVariables = {
+      PAGER = "bat";
       EDITOR = "nvim";
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
-      PAGER = "bat";
       BAT_THEME = "catppuccin-mocha";
-    };
-    file = {
-      ".w3m/config".text = ''
-        inline_img_protocol 4
-        imgdisplay kitty
-        confirm_qq 0
-        extbrowser ${pkgs.firefox}/bin/firefox
-      '';
-      ".w3m/keymap".text = ''
-        keymap M EXTERN_LINK
-      '';
     };
   };
   programs = {
@@ -55,147 +81,26 @@
           controlPath = "~/.ssh/master-%r@%n:%p";
           controlPersist = "no";
         };
-        vpsfree-ivand = {
-          hostname = "idimitrov.dev";
-          user = "ivand";
-        };
-        vpsfree-root = {
-          hostname = "idimitrov.dev";
-          user = "root";
-        };
-        stara-root = {
-          hostname = "stara.idimitrov.dev";
-          user = "root";
-        };
-        git = {
-          hostname = "idimitrov.dev";
-          user = "git";
-        };
-      };
-    };
-    neomutt = {
-      enable = true;
-      vimKeys = true;
-      sidebar.enable = true;
-      binds = [
-        {
-          map = [
-            "index"
-            "pager"
-          ];
-          key = "\\Cj";
-          action = "sidebar-next";
-        }
-        {
-          map = [
-            "index"
-            "pager"
-          ];
-          key = "\\Ck";
-          action = "sidebar-prev";
-        }
-        {
-          map = [
-            "index"
-            "pager"
-          ];
-          key = "\\Co";
-          action = "sidebar-open";
-        }
-      ];
-      macros =
-        let
-          unsetWait = "<enter-command> unset wait_key<enter>";
-          findHtml = "<view-attachments><search>html<enter>";
-          pipeLynx = "<pipe-message> ${pkgs.w3m}/bin/w3m -T text/html<enter>";
-          setWait = "<enter-command> set wait_key<enter>";
-          exit = "<exit>";
-          archive = "s +Archive<enter>y$";
-        in
-        [
-          {
-            map = [
-              "index"
-              "pager"
-            ];
-            key = "<Return>";
-            action = "${unsetWait}${findHtml}${pipeLynx}${setWait}${exit}";
-          }
-          {
-            map = [
-              "index"
-              "pager"
-            ];
-            key = "A";
-            action = "${archive}";
-          }
-        ];
-      settings = {
-        attach_save_dir = "${config.xdg.userDirs.download}";
-        index_format = ''"%4C | %Z | %{%b %d} | %4c | %20.20L | %s"'';
-      };
-      extraConfig = # neomuttrc
-        ''
-          source ${pkgs.neomutt}/share/neomutt/colorschemes/vombatidae.neomuttrc
-          color normal default default
-          color index default default
-          # Default index colors:
-          color index color231 default ".*"
-          color index_author color118 default ".*"
-          color index_subject color124 default ".*"
-          color index_size color33 default ".*"
-          color index_date color208 default ".*"
-          color index_flags color43 default ".*"
-          color index_number blue default ".*"
-          # New mail is boldened:
-          color index color231 black "~N"
-          color index_author color118 black "~N"
-          color index_subject color124 black "~N"
-          # Tagged mail is highlighted:
-          color index color231 blue "~T"
-          color index_author color118 blue "~T"
-          color index_subject color124 blue "~T"
-          # Flagged mail is highlighted:
-          color index brightgreen default "~F"
-          color index_subject brightgreen default "~F"
-          color index_author brightgreen default "~F"
-        '';
-    };
-    khal = {
-      enable = true;
-      package = pkgs.khal;
-      settings = {
-        default = {
-          default_calendar = "ivand";
-          timedelta = "5d";
-        };
-        view = {
-          agenda_event_format = "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
-        };
       };
     };
     msmtp.enable = true;
     offlineimap.enable = true;
     password-store = {
       enable = true;
-      package = pkgs.pass.withExtensions (
-        e: with e; [
-          pass-otp
-          pass-file
-        ]
+      package = (
+        pkgs.pass.withExtensions (
+          e: with e; [
+            pass-otp
+            pass-file
+          ]
+        )
       );
       settings = {
         PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       };
     };
     git = {
-      enable = true;
-      userName = "Ivan Kirilov Dimitrov";
-      userEmail = "ivan@idimitrov.dev";
-      signing = {
-        signByDefault = true;
-        key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
-      };
+      signing.signByDefault = true;
       delta.enable = true;
       extraConfig = {
         color.ui = "auto";
@@ -211,7 +116,6 @@
       };
     };
     tealdeer = {
-      enable = true;
       settings = {
         display = {
           compact = true;
@@ -222,7 +126,6 @@
       };
     };
     bottom = {
-      enable = true;
       settings = {
         flags = {
           rate = "250ms";
@@ -256,17 +159,14 @@
       };
     };
     fzf = {
-      enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
     nix-index = {
-      enable = true;
       enableZshIntegration = false;
       enableBashIntegration = false;
     };
     bat = {
-      enable = true;
       themes =
         let
           catppuccin = pkgs.fetchFromGitHub {
@@ -295,12 +195,6 @@
           };
         };
     };
-    yazi = {
-      enable = true;
-    };
-    fd.enable = true;
-    ssh.enable = true;
-    gpg.enable = true;
     bash = {
       shellAliases = {
         cal = "cal $(date +%Y)";
@@ -319,7 +213,6 @@
         cd = "z";
         cdi = "zi";
       };
-      enable = true;
       enableVteIntegration = true;
       historyControl = [ "erasedups" ];
       historyIgnore = [
@@ -330,7 +223,6 @@
       initExtra = "set -o vi";
     };
     zsh = {
-      enable = true;
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {
@@ -355,7 +247,6 @@
       historySubstringSearch.enable = true;
     };
     nushell = {
-      enable = true;
       settings = {
         show_banner = false;
         completions.external = {
@@ -363,7 +254,7 @@
           max_results = 250;
         };
       };
-      shellAliases = pkgs.lib.mkForce {
+      shellAliases = {
         gcal = ''bash -c "cal $(date +%Y)" '';
         la = "ls -al";
         dev = "nix develop";
@@ -383,16 +274,11 @@
           }
         '';
     };
-    kitty.shellIntegration = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
     yazi = {
       enableBashIntegration = true;
       enableZshIntegration = true;
     };
     tmux = {
-      enable = true;
       clock24 = true;
       baseIndex = 1;
       escapeTime = 0;
@@ -409,13 +295,11 @@
       '';
     };
     starship = {
-      enable = true;
       enableNushellIntegration = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
     eza = {
-      enable = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
       extraOptions = [
@@ -430,12 +314,10 @@
       ];
     };
     zoxide = {
-      enable = true;
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
     waybar = {
-      enable = true;
       settings = {
         mainBar = {
           layer = "top";
@@ -653,14 +535,12 @@
         '';
     };
     swaylock = {
-      enable = true;
       settings = {
         show-failed-attempts = true;
         image = config.home.homeDirectory + "/.local/state/wpaperd/wallpapers/eDP-1";
       };
     };
     rofi = {
-      enable = true;
       package = pkgs.rofi.override {
         plugins = with pkgs; [
           rofi-calc
@@ -673,7 +553,10 @@
       theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
     };
     kitty = {
-      enable = true;
+      shellIntegration = {
+        enableBashIntegration = true;
+        enableZshIntegration = true;
+      };
       font = {
         package = pkgs.fira-code;
         name = "FiraCodeNFM-Reg";
@@ -689,13 +572,11 @@
       themeFile = "Catppuccin-Mocha";
     };
     imv = {
-      enable = true;
       settings = {
         options.fullscreen = true;
       };
     };
     mpv = {
-      enable = true;
       scripts = with pkgs.mpvScripts; [
         uosc
         thumbfast
@@ -704,10 +585,8 @@
     bash.profileExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
     zsh.loginExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
     nushell.loginFile.text = ''if (tty) == "/dev/tty1" { sway } '';
-    browserpass.enable = true;
     firefox = {
-      enable = true;
-      profiles.ivand = {
+      profiles.default = {
         id = 0;
         search = {
           default = "ddg";
@@ -833,7 +712,6 @@
             installation_mode = "force_installed";
           };
         };
-
         Handlers = {
           schemes = {
             mailto = {
@@ -850,75 +728,9 @@
         };
       };
     };
-    chromium = {
-      enable = true;
-    };
-  };
-  accounts = {
-    calendar = {
-      basePath = ".local/share/calendars";
-      accounts.ivand = {
-        primary = true;
-        khal = {
-          enable = true;
-          color = "light green";
-        };
-      };
-    };
-    email = {
-      maildirBasePath = "mail";
-      accounts = {
-        ivan = rec {
-          primary = true;
-          realName = "Ivan Kirilov Dimitrov";
-          address = "ivan@idimitrov.dev";
-          userName = address;
-          passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
-          msmtp = {
-            enable = true;
-            extraConfig = {
-              auth = "login";
-            };
-          };
-          signature = {
-            text = ''
-              Ivan Dimitrov
-              Software Developer
-              ivan@idimitrov.dev
-            '';
-          };
-          getmail = {
-            enable = true;
-            mailboxes = [ "ALL" ];
-          };
-          gpg = {
-            encryptByDefault = true;
-            signByDefault = true;
-          };
-          smtp = {
-            host = "idimitrov.dev";
-          };
-          imap = {
-            host = "idimitrov.dev";
-          };
-          neomutt = {
-            enable = true;
-            mailboxType = "imap";
-            extraMailboxes = [
-              "Sent"
-              "Drafts"
-              "Trash"
-              "Archive"
-            ];
-          };
-          offlineimap.enable = true;
-        };
-      };
-    };
   };
   services = {
     gpg-agent = {
-      enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
       enableNushellIntegration = true;
@@ -927,7 +739,6 @@
   };
   home = {
     packages = with pkgs; [
-      cmatrix
       xin
       just
       nvim
@@ -957,7 +768,6 @@
     };
   };
   wayland.windowManager.sway = {
-    enable = true;
     package = pkgs.swayfx;
     checkConfig = false;
     systemd.enable = true;
@@ -981,22 +791,8 @@
       window = {
         titlebar = false;
         border = 0;
-        commands = [
-          {
-            command = "floating enable; move position center; resize set 30ppt 50ppt;";
-            criteria = {
-              title = "^calendar$";
-            };
-          }
-          {
-            command = "floating enable; move position center; resize set 70ppt 50ppt;";
-            criteria = {
-              title = "^mutt$";
-            };
-          }
-        ];
       };
-      keybindings = pkgs.lib.mkOptionDefault {
+      keybindings = {
         "${modifier}+Shift+r" = "reload";
         "${modifier}+Shift+c" = "kill";
         "${modifier}+Shift+q" = "exit";
@@ -1019,14 +815,7 @@
     swaynag = { inherit (config.wayland.windowManager.sway) enable; };
   };
   services = {
-    gammastep = {
-      enable = true;
-      latitude = 50.0;
-      longitude = 14.41;
-      tray = true;
-    };
     wpaperd = {
-      enable = true;
       settings = {
         default = {
           path = "${config.xdg.userDirs.pictures}/bg";
@@ -1035,31 +824,11 @@
       };
     };
     mako = {
-      enable = true;
       settings = {
         anchor = "bottom-right";
         background-color = "#1E1E2EDD";
         border-radius = 20;
       };
     };
-    cliphist.enable = true;
-  };
-  xdg.mimeApps.defaultApplications = {
-    "image/jpg" = "imv.desktop";
-    "image/jpeg" = "imv.desktop";
-    "image/png" = "imv.desktop";
-    "image/webp" = "imv.desktop";
-    "image/gif" = "imv.desktop";
-    "image/svg+xml" = "imv.desktop";
-    "video/mp4" = "mpv.desktop";
-    "video/mpeg" = "mpv.desktop";
-    "video/ogg" = "mpv.desktop";
-    "video/webm" = "mpv.desktop";
-    "video/x-msvideo" = "mpv.desktop";
-    "text/html" = "firefox.desktop";
-    "x-scheme-handler/http" = "firefox.desktop";
-    "x-scheme-handler/https" = "firefox.desktop";
-    "x-scheme-handler/about" = "firefox.desktop";
-    "x-scheme-handler/unknown" = "firefox.desktop";
   };
 }
