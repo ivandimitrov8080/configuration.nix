@@ -21,6 +21,7 @@ rec {
     "src"
     "theme"
     "dnscrypt-proxy"
+    "kernelPackages"
   ];
   excludeOpts = [
     "initExtra"
