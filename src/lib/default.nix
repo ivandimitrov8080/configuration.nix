@@ -24,6 +24,7 @@ rec {
   ];
   excludeOpts = [
     "initExtra"
+    "interactiveShellInit"
   ];
   mkDefaultAttrs =
     a:
