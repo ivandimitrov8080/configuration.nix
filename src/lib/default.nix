@@ -16,14 +16,18 @@ rec {
     root:
     with builtins;
     (filter (x: endsWith "default.nix" x) (lib.filesystem.listFilesRecursive root));
+  specialOpts = [
+    "package"
+    "src"
+    "theme"
+    "settings"
+  ];
   mkDefaultAttrs =
     a:
     builtins.mapAttrs (
       n: v:
-      if n == "package" || n == "src" || n == "theme" then
-        mkOverride 900 v
-      else if builtins.isAttrs v then
-        mkDefaultAttrs v
+      if builtins.isAttrs v then
+        if builtins.elem n specialOpts then mkOverride 900 v else mkDefaultAttrs v
       else if builtins.isFunction v then
         v
       else if builtins.isList v then
