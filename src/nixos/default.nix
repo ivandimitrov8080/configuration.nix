@@ -9,7 +9,17 @@ let
   inherit (import ../lib { inherit lib; }) findDefaults mkDefaultAttrs;
   mods = findDefaults ./modules;
   defs = builtins.map (
-    f: mkDefaultAttrs (import f { inherit pkgs lib options config; })
+    f:
+    mkDefaultAttrs (
+      import f {
+        inherit
+          pkgs
+          lib
+          options
+          config
+          ;
+      }
+    )
   ) (findDefaults ./defaults);
 in
 {
