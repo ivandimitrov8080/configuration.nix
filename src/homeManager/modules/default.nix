@@ -24,7 +24,7 @@ let
 in
 mkDefaultAttrs {
   xdg = {
-    userDirs = with config; ({
+    userDirs = with config; {
       createDirectories = true;
       desktop = "${home.homeDirectory}/dt";
       documents = "${home.homeDirectory}/doc";
@@ -34,7 +34,7 @@ mkDefaultAttrs {
       templates = "${home.homeDirectory}/tpl";
       publicShare = "${home.homeDirectory}/pub";
       music = "${home.homeDirectory}/mus";
-    });
+    };
     mimeApps.enable = true;
     mimeApps.defaultApplications = {
       "image/jpg" = "imv.desktop";
@@ -87,14 +87,12 @@ mkDefaultAttrs {
     offlineimap.enable = true;
     password-store = {
       enable = true;
-      package = (
-        pkgs.pass.withExtensions (
+      package = pkgs.pass.withExtensions (
           e: with e; [
             pass-otp
             pass-file
           ]
-        )
-      );
+        );
       settings = {
         PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
       };
@@ -772,7 +770,7 @@ mkDefaultAttrs {
     checkConfig = false;
     systemd.enable = true;
     wrapperFeatures.gtk = true;
-    config = rec {
+    config = {
       menu = "rofi -show drun";
       terminal = "kitty";
       modifier = "Mod4";
