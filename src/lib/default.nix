@@ -1,4 +1,7 @@
 { lib }:
+let
+  inherit (lib) mkOverride;
+in
 rec {
   endsWith =
     e: x:
@@ -13,4 +16,19 @@ rec {
     root:
     with builtins;
     (filter (x: endsWith "default.nix" x) (lib.filesystem.listFilesRecursive root));
+  mkDefaultAttrs =
+    a:
+    builtins.mapAttrs (
+      n: v:
+      if n == "package" || n == "src" then
+        mkOverride 900 v
+      else if builtins.isAttrs v then
+        mkDefaultAttrs v
+      else if builtins.isFunction v then
+        v
+      else if builtins.isList v then
+        v
+      else
+        mkOverride 900 v
+    ) a;
 }
