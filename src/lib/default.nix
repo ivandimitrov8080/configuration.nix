@@ -20,7 +20,7 @@ rec {
     "package"
     "src"
     "theme"
-    "settings"
+    "dnscrypt-proxy"
   ];
   mkDefaultAttrs =
     a:
