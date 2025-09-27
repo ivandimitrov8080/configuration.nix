@@ -792,11 +792,6 @@ mkDefaultAttrs {
         titlebar = false;
         border = 0;
       };
-      keybindings = {
-        "${modifier}+Shift+r" = "reload";
-        "${modifier}+Shift+c" = "kill";
-        "${modifier}+Shift+q" = "exit";
-      };
       input = {
         "*" = {
           xkb_layout = "us,bg";
