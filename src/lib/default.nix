@@ -21,18 +21,22 @@ rec {
     "src"
     "theme"
     "dnscrypt-proxy"
+  ];
+  excludeOpts = [
     "initExtra"
   ];
   mkDefaultAttrs =
     a:
     builtins.mapAttrs (
       n: v:
-      if builtins.isAttrs v then
-        if builtins.elem n specialOpts then mkOverride 900 v else mkDefaultAttrs v
+      if builtins.elem n excludeOpts then
+        v
       else if builtins.isFunction v then
         v
       else if builtins.isList v then
         v
+      else if builtins.isAttrs v then
+        if builtins.elem n specialOpts then mkOverride 900 v else mkDefaultAttrs v
       else
         mkOverride 900 v
     ) a;
