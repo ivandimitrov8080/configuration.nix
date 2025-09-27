@@ -1,20 +1,6 @@
 {
   enableMan = false;
   viAlias = true;
-  extraConfigLuaPre = ''
-    function vim.get_visual_selection()
-    	vim.cmd("noau normal! 'vy'")
-    	local text = vim.fn.getreg("v")
-    	vim.fn.setreg("v", {})
-
-    	text = string.gsub(text, "\n", "")
-    	if #text > 0 then
-    		return text
-    	else
-    		return ""
-    	end
-    end
-  '';
   globals = {
     mapleader = " ";
     maplocalleader = " ";
@@ -140,11 +126,11 @@
     {
       mode = "v";
       key = "<leader>ff";
-      action.__raw =''
-      function()
-        local text = vim.get_visual_selection()
-        require('telescope.builtin').find_files({ default_text = text })
-      end
+      action.__raw = ''
+        function()
+            local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
+            require('telescope.builtin').find_files({ default_text = text[0] or text[1] })
+        end
       '';
       options.desc = "Find files";
     }
@@ -159,8 +145,8 @@
       key = "<leader>fw";
       action.__raw = ''
         function()
-            local text = vim.get_visual_selection()
-            require('telescope.builtin').live_grep({ default_text = text })
+            local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
+            require('telescope.builtin').live_grep({ default_text = text[0] or text[1] })
         end
       '';
       options.desc = "Find words";
