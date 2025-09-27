@@ -5,7 +5,7 @@ let
     ''
       @import "${pkgs.themes-gtk}/mocha.css";
       window {
-         background-image: url("/home/ivand/.local/state/wpaperd/wallpapers/eDP-1");
+         /* background-image: url("/home/ivand/.local/state/wpaperd/wallpapers/eDP-1"); */
          background-size: cover;
          background-repeat: no-repeat;
          background-position: center;
