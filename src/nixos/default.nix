@@ -1,7 +1,16 @@
-{ lib, ... }:
+{
+  pkgs,
+  lib,
+  options,
+  ...
+}:
 let
-  inherit (import ../lib { inherit lib; }) endsWith findDefaults mkDefaultAttrs;
+  inherit (import ../lib { inherit lib; }) findDefaults mkDefaultAttrs;
+  mods = findDefaults ./modules;
+  defs = builtins.map (
+    f: mkDefaultAttrs (import f { inherit pkgs lib options; })
+  ) (findDefaults ./defaults);
 in
-mkDefaultAttrs {
-  imports = with builtins; filter (x: !(endsWith "nixos/default.nix" x)) (findDefaults ./.);
+{
+  imports = mods ++ defs;
 }

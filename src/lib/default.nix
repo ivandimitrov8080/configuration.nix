@@ -20,7 +20,7 @@ rec {
     a:
     builtins.mapAttrs (
       n: v:
-      if n == "package" || n == "src" then
+      if n == "package" || n == "src" || n == "theme" then
         mkOverride 900 v
       else if builtins.isAttrs v then
         mkDefaultAttrs v
