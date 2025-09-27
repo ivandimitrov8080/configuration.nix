@@ -722,28 +722,11 @@ mkDefaultAttrs {
   };
   home = {
     packages = with pkgs; [
-      xin
-      just
-      nvim
       openssl
-      mlocate
-      uutils-coreutils-noprefix
       speedtest-cli
-      deadnix
-      statix
-      audacity
-      gimp
-      grim
-      libnotify
-      libreoffice-qt
-      mupdf
-      slurp
-      transmission_4
-      wl-clipboard
+      uutils-coreutils-noprefix
       xdg-user-dirs
       xdg-utils
-      telegram-desktop
-      volume
     ];
     pointerCursor = {
       name = "phinger-cursors-light";

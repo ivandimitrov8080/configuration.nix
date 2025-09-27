@@ -3,6 +3,7 @@ let
   systemPackages = with pkgs; [
     bat
     cryptsetup
+    deadnix
     fd
     file
     glibc
@@ -14,6 +15,7 @@ let
     procs
     ripgrep
     srm
+    statix
     tshark
     unzip
     uutils-coreutils-noprefix
