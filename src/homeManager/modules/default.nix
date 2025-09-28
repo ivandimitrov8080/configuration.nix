@@ -207,6 +207,28 @@ mkDefaultAttrs {
       initExtra = "set -o vi";
     };
     zsh = {
+      shellAliases = (
+        (
+          if config.programs.eza.enable then
+            {
+              eza = "eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
+              ls = "eza";
+              la = "eza --all -a";
+              lt = "eza --git-ignore --all --tree --level=10";
+            }
+          else
+            { }
+        )
+        // (
+          if config.programs.zoxide.enable then
+            {
+              cd = "z";
+              cdi = "zi";
+            }
+          else
+            { }
+        )
+      );
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {
