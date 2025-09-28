@@ -61,8 +61,6 @@ in
 
     #rest - meaning i didnt wanna do it now
     users = {
-      defaultUserShell = pkgs.bash;
-      mutableUsers = false;
       users = {
         ivand = lib.mkForce {
           isNormalUser = true;
@@ -86,9 +84,6 @@ in
             ''
           ];
         };
-      };
-      extraGroups = {
-        mlocate = { };
       };
     };
     programs.git.enable = true;
