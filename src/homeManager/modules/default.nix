@@ -6,6 +6,27 @@
 }:
 let
   inherit (import ../../lib { inherit lib; }) mkDefaultAttrs;
+  shellAliases =
+    (
+      if config.programs.eza.enable then
+        {
+          eza = "eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
+          ls = "eza";
+          la = "eza --all -a";
+          lt = "eza --git-ignore --all --tree --level=10";
+        }
+      else
+        { }
+    )
+    // (
+      if config.programs.zoxide.enable then
+        {
+          cd = "z";
+          cdi = "zi";
+        }
+      else
+        { }
+    );
 in
 mkDefaultAttrs {
   xdg = {
@@ -180,23 +201,7 @@ mkDefaultAttrs {
         };
     };
     bash = {
-      shellAliases = {
-        cal = "cal $(date +%Y)";
-        GG = "git add . && git commit -m 'GG' && git push --set-upstream origin HEAD";
-        gad = "git add . && git diff --cached";
-        gac = "ga && gc";
-        ga = "git add .";
-        gc = "git commit";
-        dev = "nix develop";
-        ls = "eza";
-        la = "eza --all -a";
-        lt = "eza --git-ignore --all --tree --level=10";
-        sc = "systemctl";
-        neofetch = "${pkgs.fastfetch}/bin/fastfetch -c all.jsonc";
-        opacity = "kitten @ set-background-opacity";
-        cd = "z";
-        cdi = "zi";
-      };
+      shellAliases = shellAliases;
       enableVteIntegration = true;
       historyControl = [ "erasedups" ];
       historyIgnore = [
@@ -207,26 +212,7 @@ mkDefaultAttrs {
       initExtra = "set -o vi";
     };
     zsh = {
-      shellAliases = (
-          if config.programs.eza.enable then
-            {
-              eza = "eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
-              ls = "eza";
-              la = "eza --all -a";
-              lt = "eza --git-ignore --all --tree --level=10";
-            }
-          else
-            { }
-        )
-        // (
-          if config.programs.zoxide.enable then
-            {
-              cd = "z";
-              cdi = "zi";
-            }
-          else
-            { }
-        );
+      shellAliases = shellAliases;
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {
@@ -258,25 +244,7 @@ mkDefaultAttrs {
           max_results = 250;
         };
       };
-      shellAliases = {
-        gcal = ''bash -c "cal $(date +%Y)" '';
-        la = "ls -al";
-        dev = "nix develop";
-        gd = "git diff --cached";
-        ga = "git add .";
-        gc = "git commit";
-      };
-      extraConfig = # nu
-        ''
-          def gad [] {
-              git add .
-              git diff --cached
-          }
-          def gac [] {
-              git add .
-              git commit
-          }
-        '';
+      shellAliases = builtins.removeAttrs shellAliases [ "ls" ];
     };
     yazi = {
       enableBashIntegration = true;
