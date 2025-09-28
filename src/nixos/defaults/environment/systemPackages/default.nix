@@ -19,7 +19,6 @@ let
     tshark
     unzip
     uutils-coreutils-noprefix
-    vim
     wget
     zip
   ];
