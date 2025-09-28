@@ -9,7 +9,7 @@ This repository aims to configure everything I use for all my machines.
 
 ### How to use
 
-In flake.nix:
+In `flake.nix`:
 
 ```nix
 {
@@ -39,6 +39,7 @@ In flake.nix:
                 isNormalUser = true;
                 createHome = true;
                 password = "test";
+                extraGroups = [ "wheel" ];
               };
             }
           ];
