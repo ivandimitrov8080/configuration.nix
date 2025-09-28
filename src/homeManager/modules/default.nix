@@ -208,7 +208,6 @@ mkDefaultAttrs {
     };
     zsh = {
       shellAliases = (
-        (
           if config.programs.eza.enable then
             {
               eza = "eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
@@ -227,8 +226,7 @@ mkDefaultAttrs {
             }
           else
             { }
-        )
-      );
+        );
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {

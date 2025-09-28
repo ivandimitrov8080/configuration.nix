@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ config, ... }:
 {
   programs.zsh.shellAliases = {
     cal = "cal $(date +%Y)";
