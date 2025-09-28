@@ -6,27 +6,30 @@
 }:
 let
   inherit (import ../../lib { inherit lib; }) mkDefaultAttrs;
-  shellAliases =
-    (
-      if config.programs.eza.enable then
-        {
-          eza = "eza '--long' '--header' '--icons' '--smart-group' '--mounts' '--group-directories-first' '--octal-permissions' '--git'";
-          ls = "eza";
-          la = "eza --all -a";
-          lt = "eza --git-ignore --all --tree --level=10";
-        }
-      else
-        { }
-    )
-    // (
-      if config.programs.zoxide.enable then
-        {
-          cd = "z";
-          cdi = "zi";
-        }
-      else
-        { }
-    );
+  shellAliases = {
+    cal = "cal $(date +%Y)";
+    sc = "systemctl";
+    flip = "shuf -r -n 1 -e Heads Tails";
+  }
+  // (
+    if config.programs.eza.enable then
+      {
+        ls = "eza";
+        la = "eza --all -a";
+        lt = "eza --git-ignore --all --tree --level=10";
+      }
+    else
+      { }
+  )
+  // (
+    if config.programs.zoxide.enable then
+      {
+        cd = "z";
+        cdi = "zi";
+      }
+    else
+      { }
+  );
 in
 mkDefaultAttrs {
   xdg = {
@@ -63,6 +66,7 @@ mkDefaultAttrs {
   };
   home = {
     stateVersion = "25.05";
+    shellAliases = shellAliases;
     sessionVariables = {
       PAGER = "bat";
       EDITOR = "nvim";
@@ -201,7 +205,6 @@ mkDefaultAttrs {
         };
     };
     bash = {
-      shellAliases = shellAliases;
       enableVteIntegration = true;
       historyControl = [ "erasedups" ];
       historyIgnore = [
@@ -212,7 +215,6 @@ mkDefaultAttrs {
       initExtra = "set -o vi";
     };
     zsh = {
-      shellAliases = shellAliases;
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {
@@ -244,7 +246,7 @@ mkDefaultAttrs {
           max_results = 250;
         };
       };
-      shellAliases = builtins.removeAttrs shellAliases [ "ls" ];
+      shellAliases = builtins.removeAttrs config.home.shellAliases [ "ls" ];
     };
     yazi = {
       enableBashIntegration = true;

@@ -3,6 +3,7 @@ let
   systemPackages = with pkgs; [
     bat
     cryptsetup
+    eza
     fd
     file
     mlocate
