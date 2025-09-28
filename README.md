@@ -1,6 +1,12 @@
 # NixOS configurations
 
-This repository aims to configure everything I use for all my machines.
+This repository aims to help configure everything I use for all my machines.
+
+### Features
+
+- Defines default values for common utilities aimed at a smoother integration with the rest of the system and a shorter
+  config.
+- The module `meta` abstracts away common use cases where you want to enable more than one thing to achieve your goal.
 
 ### Goals
 
