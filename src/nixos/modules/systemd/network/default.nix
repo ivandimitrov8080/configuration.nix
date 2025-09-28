@@ -16,38 +16,29 @@ let
     attrs
     bool
     ;
-  cfg = config.host.wgPeer;
+  cfg = config.meta.wireguard;
 in
 {
-  options.host = {
-    name = mkOption {
+  options.meta.wireguard = {
+    enable = mkEnableOption "enable wg0 interface";
+    privateKeyFile = mkOption {
       type = str;
-      default = "nixos";
+      default = "/etc/systemd/network/wg0.key";
     };
-    wgPeer = {
-      enable = mkEnableOption "enable wg0 interface";
-      privateKeyFile = mkOption {
-        type = str;
-        default = "/etc/systemd/network/wg0.key";
-      };
-      peers = mkOption {
-        type = listOf attrs;
-        default = [ ];
-      };
-      address = mkOption {
-        type = str;
-        default = "10.0.0.1/24";
-      };
-      isHub = mkOption {
-        type = bool;
-        default = false;
-      };
+    peers = mkOption {
+      type = listOf attrs;
+      default = [ ];
+    };
+    address = mkOption {
+      type = str;
+      default = "10.0.0.1/24";
+    };
+    isHub = mkOption {
+      type = bool;
+      default = false;
     };
   };
   config = mkIf cfg.enable (mkMerge [
-    {
-      networking.hostName = config.host.name;
-    }
     (mkIf (!cfg.isHub) {
       systemd.network.netdevs."10-wg0" = {
         netdevConfig = {
