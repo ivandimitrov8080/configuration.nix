@@ -364,37 +364,6 @@
         };
       };
     };
-    lsp = {
-      enable = true;
-      servers = {
-        nil_ls.enable = true;
-        bashls.enable = true;
-      };
-      onAttach = ''
-        if client.server_capabilities.documentHighlightProvider then
-            vim.api.nvim_create_autocmd("CursorHold", {
-                buffer = bufnr,
-                callback = function()
-                    vim.lsp.buf.document_highlight()
-                end,
-            })
-            vim.api.nvim_create_autocmd("CursorMoved", {
-                buffer = bufnr,
-                callback = function()
-                    vim.lsp.buf.clear_references()
-                end,
-            })
-        end
-      '';
-      capabilities = ''
-        require("cmp_nvim_lsp").default_capabilities()
-      '';
-      keymaps = {
-        lspBuf = {
-          K = "hover";
-        };
-      };
-    };
     cmp = {
       enable = true;
       settings = {
@@ -419,5 +388,34 @@
         ];
       };
     };
+    lsp.enable = true;
+  };
+  lsp = {
+    servers = {
+      nil_ls.enable = true;
+      bashls.enable = true;
+    };
+    onAttach = ''
+      if client.server_capabilities.documentHighlightProvider then
+          vim.api.nvim_create_autocmd("CursorHold", {
+              buffer = bufnr,
+              callback = function()
+                  vim.lsp.buf.document_highlight()
+              end,
+          })
+          vim.api.nvim_create_autocmd("CursorMoved", {
+              buffer = bufnr,
+              callback = function()
+                  vim.lsp.buf.clear_references()
+              end,
+          })
+      end
+    '';
+    keymaps = [
+      {
+        key = "K";
+        lspBufAction = "hover";
+      }
+    ];
   };
 }
