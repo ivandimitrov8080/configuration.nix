@@ -46,7 +46,8 @@ in
           ];
           hostName = "mail.idimitrov.dev";
           extraConfig = ''
-            $config['smtp_host'] = "tls://${config.mailserver.fqdn}";
+            $config['imap_host'] = 'ssl://${config.mailserver.fqdn}:993';
+            $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
             $config['smtp_user'] = "%u";
             $config['smtp_pass'] = "%p";
           '';
@@ -54,6 +55,7 @@ in
         nginx.virtualHosts =
           let
             restrictToVpn = ''
+              allow 127.0.0.1/32;
               allow 10.0.0.2/32;
               allow 10.0.0.3/32;
               allow 10.0.0.4/32;
