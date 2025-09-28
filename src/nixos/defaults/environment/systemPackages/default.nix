@@ -3,11 +3,8 @@ let
   systemPackages = with pkgs; [
     bat
     cryptsetup
-    deadnix
     fd
     file
-    glibc
-    gnumake
     mlocate
     nixos-install-tools
     openssh
@@ -15,7 +12,6 @@ let
     procs
     ripgrep
     srm
-    statix
     tshark
     unzip
     uutils-coreutils-noprefix
