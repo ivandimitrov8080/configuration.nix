@@ -60,11 +60,6 @@ in
     host.name = "vpsfree";
 
     #rest - meaning i didnt wanna do it now
-    fileSystems."/mnt/export1981" = {
-      device = "172.16.128.47:/nas/5490";
-      fsType = "nfs";
-      options = [ "nofail" ];
-    };
     users = {
       defaultUserShell = pkgs.bash;
       mutableUsers = false;
