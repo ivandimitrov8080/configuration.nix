@@ -93,10 +93,10 @@ mkDefaultAttrs {
         };
       };
     };
-    msmtp.enable = true;
-    offlineimap.enable = true;
+    msmtp.enable = false;
+    offlineimap.enable = false;
     password-store = {
-      enable = true;
+      enable = false;
       package = pkgs.pass.withExtensions (
         e: with e; [
           pass-otp
