@@ -26,6 +26,17 @@
                 home-manager.nixosModules.default
               ];
 
+              home-manager = {
+                useUserPackages = true;
+                useGlobalPkgs = true;
+                users.test =
+                  { ... }:
+                  {
+                    imports = [ configuration.homeManagerModules.default ];
+                    programs.tmux.enable = true;
+                  };
+              };
+
               nixpkgs.hostPlatform = system;
               meta.shells.enable = true;
               users.users.test = {
