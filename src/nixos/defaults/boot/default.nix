@@ -1,4 +1,4 @@
 { pkgs, ... }:
 {
-  boot.kernelPackages = pkgs.linuxPackages_latest-libre;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 }
