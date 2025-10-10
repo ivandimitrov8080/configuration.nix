@@ -22,10 +22,7 @@ in
     };
     hardware = {
       graphics.enable = true;
-      amdgpu = {
-        initrd.enable = true;
-        amdvlk.enable = true;
-      };
+      amdgpu.initrd.enable = true;
     };
     programs = {
       steam = {
