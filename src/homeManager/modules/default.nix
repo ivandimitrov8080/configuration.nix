@@ -7,7 +7,6 @@
 let
   inherit (import ../../lib { inherit lib; }) mkDefaultAttrs;
   shellAliases = {
-    cal = "cal $(date +%Y)";
     sc = "systemctl";
     flip = "shuf -r -n 1 -e Heads Tails";
   }
@@ -66,7 +65,7 @@ mkDefaultAttrs {
   };
   home = {
     stateVersion = "25.05";
-    shellAliases = shellAliases;
+    shell.enableShellIntegration = true;
     sessionVariables = {
       PAGER = "bat";
       EDITOR = "nvim";
@@ -167,14 +166,6 @@ mkDefaultAttrs {
         ];
       };
     };
-    fzf = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-    };
-    nix-index = {
-      enableZshIntegration = false;
-      enableBashIntegration = false;
-    };
     bat = {
       themes =
         let
@@ -205,6 +196,7 @@ mkDefaultAttrs {
         };
     };
     bash = {
+      shellAliases = shellAliases;
       enableVteIntegration = true;
       historyControl = [ "erasedups" ];
       historyIgnore = [
@@ -215,6 +207,7 @@ mkDefaultAttrs {
       initExtra = "set -o vi";
     };
     zsh = {
+      shellAliases = shellAliases;
       defaultKeymap = "viins";
       enableVteIntegration = true;
       syntaxHighlighting = {
@@ -246,11 +239,9 @@ mkDefaultAttrs {
           max_results = 250;
         };
       };
-      shellAliases = builtins.removeAttrs config.home.shellAliases [ "ls" ];
-    };
-    yazi = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
+      shellAliases = (builtins.removeAttrs shellAliases [ "ls" ]) // {
+        la = "ls -al";
+      };
     };
     tmux = {
       clock24 = true;
@@ -268,14 +259,7 @@ mkDefaultAttrs {
         set -g default-command "''${SHELL}"
       '';
     };
-    starship = {
-      enableNushellIntegration = true;
-      enableZshIntegration = true;
-      enableBashIntegration = true;
-    };
     eza = {
-      enableZshIntegration = true;
-      enableBashIntegration = true;
       extraOptions = [
         "--long"
         "--header"
@@ -286,10 +270,6 @@ mkDefaultAttrs {
         "--octal-permissions"
         "--git"
       ];
-    };
-    zoxide = {
-      enableZshIntegration = true;
-      enableBashIntegration = true;
     };
     waybar = {
       settings = {
@@ -527,10 +507,6 @@ mkDefaultAttrs {
       theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
     };
     kitty = {
-      shellIntegration = {
-        enableBashIntegration = true;
-        enableZshIntegration = true;
-      };
       font = {
         package = pkgs.fira-code;
         name = "FiraCodeNFM-Reg";
@@ -705,9 +681,6 @@ mkDefaultAttrs {
   };
   services = {
     gpg-agent = {
-      enableBashIntegration = true;
-      enableZshIntegration = true;
-      enableNushellIntegration = true;
       pinentry.package = pkgs.pinentry-qt;
     };
   };

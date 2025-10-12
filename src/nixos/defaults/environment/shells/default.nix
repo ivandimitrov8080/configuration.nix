@@ -6,7 +6,6 @@ let
     nushell
   ];
   shellAliases = {
-    cal = "cal $(date +%Y)";
     sc = "systemctl";
     flip = "shuf -r -n 1 -e Heads Tails";
   }
@@ -32,6 +31,7 @@ let
   );
 in
 {
+  environment.systemPackages = shells;
   environment.shells = shells;
   environment.shellAliases = shellAliases;
 }
