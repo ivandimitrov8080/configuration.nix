@@ -19,6 +19,7 @@ in
     hardware.graphics.enable = true;
     programs.hyprlock.enable = true;
     programs.sway.enable = true;
+    programs.sway.wrapperFeatures.gtk = true;
     xdg.portal = {
       enable = true;
       extraPortals = with pkgs; [

@@ -15,7 +15,7 @@ let
 in
 {
   options.meta.bingwp = {
-    enable = mkEnableOption "enable swayland config";
+    enable = mkEnableOption "enable bingwp config";
     downloadDir = mkOption {
       type = str;
       default = "/var/pic";
