@@ -530,6 +530,7 @@ mkDefaultAttrs {
       scripts = with pkgs.mpvScripts; [
         uosc
         thumbfast
+        eisa01.simplehistory
       ];
     };
     bash.profileExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
