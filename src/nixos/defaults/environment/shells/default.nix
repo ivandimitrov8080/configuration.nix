@@ -4,6 +4,7 @@ let
     bash
     zsh
     nushell
+    xonsh
   ];
   shellAliases = {
     sc = "systemctl";
