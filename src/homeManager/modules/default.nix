@@ -737,8 +737,7 @@ mkDefaultAttrs {
       blur enable
       shadows enable
       corner_radius 15
-      default_dim_inactive 0.5
-      assign [class="^cs2$"] 4
+      default_dim_inactive 0.2
     '';
     swaynag = { inherit (config.wayland.windowManager.sway) enable; };
   };
