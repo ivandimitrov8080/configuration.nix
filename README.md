@@ -22,3 +22,6 @@ Run the following for more info:
 nix flake show github:ivandimitrov8080/configuration.nix
 ```
 
+### Wishlist
+
+- [Options search](https://github.com/NuschtOS/search)
