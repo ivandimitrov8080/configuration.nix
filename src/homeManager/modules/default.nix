@@ -108,21 +108,21 @@ mkDefaultAttrs {
     };
     git = {
       signing.signByDefault = true;
-      delta.enable = true;
-      extraConfig = {
+      settings = {
+        alias = {
+          a = "add .";
+          c = "commit";
+          d = "diff --cached";
+          p = "push";
+          pa = "!git remote | xargs -L1 git push --all";
+          co = "checkout";
+        };
         color.ui = "auto";
         pull.rebase = true;
         push.autoSetupRemote = true;
       };
-      aliases = {
-        a = "add .";
-        c = "commit";
-        d = "diff --cached";
-        p = "push";
-        pa = "!git remote | xargs -L1 git push --all";
-        co = "checkout";
-      };
     };
+    delta.enableGitIntegration = true;
     tealdeer = {
       settings = {
         display = {
