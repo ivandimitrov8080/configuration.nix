@@ -12,9 +12,10 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+      wg = import ./wireguard { inherit pkgs configuration; };
     in
     {
-      packages.${system}.default = (import ./wireguard { inherit pkgs configuration; }).driverInteractive;
-      checks.${system}.default = import ./wireguard { inherit pkgs configuration; };
+      packages.${system}.default = wg.driverInteractive;
+      checks.${system}.default = wg;
     };
 }
