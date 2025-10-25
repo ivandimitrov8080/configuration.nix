@@ -12,6 +12,7 @@ pkgs.testers.runNixOSTest {
       { pkgs, ... }:
       {
         imports = [ mod ];
+        networking.firewall.allowedUDPPorts = [ 51820 ];
         meta.wireguard = {
           enable = true;
           isHub = true;
@@ -68,9 +69,9 @@ pkgs.testers.runNixOSTest {
   };
 
   testScript = ''
-    hub.wait_for_unit("multi-user.target")
-    spoke1.wait_for_unit("multi-user.target")
-    spoke2.wait_for_unit("multi-user.target")
+    hub.wait_for_unit("default.target")
+    spoke1.wait_for_unit("default.target")
+    spoke2.wait_for_unit("default.target")
 
     spoke1.succeed("ping -c1 10.0.0.1")
     spoke2.succeed("ping -c1 10.0.0.1")
