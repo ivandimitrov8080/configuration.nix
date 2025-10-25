@@ -6,7 +6,6 @@ let
     eza
     fd
     file
-    mlocate
     nixos-install-tools
     openssh
     openssl

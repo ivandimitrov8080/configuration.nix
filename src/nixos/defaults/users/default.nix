@@ -1,6 +1,5 @@
 { pkgs, ... }:
 {
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.bash;
   users.mutableUsers = false;
-  users.extraGroups.mlocate = { };
 }

@@ -1,5 +1,4 @@
 { pkgs, configuration, ... }:
-
 let
   hubPub = builtins.readFile ./hub.pub;
   spoke1Pub = builtins.readFile ./spoke1.pub;
