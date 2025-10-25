@@ -14,8 +14,7 @@
       pkgs = import nixpkgs { inherit system; };
     in
     {
-      checks.${system} = {
-        default = import ./wireguard { inherit pkgs configuration; };
-      };
+      packages.${system}.default = (import ./wireguard { inherit pkgs configuration; }).driverInteractive;
+      checks.${system}.default = import ./wireguard { inherit pkgs configuration; };
     };
 }
