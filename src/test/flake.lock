@@ -1,5 +1,16 @@
 {
   "nodes": {
+    "configuration": {
+      "locked": {
+        "path": "git+file://./../../..",
+        "type": "path"
+      },
+      "original": {
+        "path": "git+file://./../../..",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1761114652,
@@ -18,6 +29,7 @@
     },
     "root": {
       "inputs": {
+        "configuration": "configuration",
         "nixpkgs": "nixpkgs"
       }
     }

@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    configuration.url = "git+file://./../../flake.nix";
+    configuration.url = "git+file://./../../..";
   };
   outputs =
     {
