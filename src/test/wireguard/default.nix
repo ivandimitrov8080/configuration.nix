@@ -69,10 +69,9 @@ pkgs.testers.runNixOSTest {
   };
 
   testScript = ''
-    hub.wait_for_unit("default.target")
-    spoke1.wait_for_unit("default.target")
-    spoke2.wait_for_unit("default.target")
+    start_all()
 
+    hub.wait_for_unit("default.target")
     spoke1.succeed("ping -c1 10.0.0.1")
     spoke2.succeed("ping -c1 10.0.0.1")
     hub.succeed("ping -c1 10.0.0.2")
