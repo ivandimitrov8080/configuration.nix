@@ -9,12 +9,14 @@ let
     mkOption
     mkEnableOption
     mkMerge
+    types
     ;
   inherit (lib.types)
     str
     listOf
     attrs
     bool
+    either
     ;
   cfg = config.meta.wireguard;
 in
@@ -22,7 +24,7 @@ in
   options.meta.wireguard = {
     enable = mkEnableOption "enable wg0 interface";
     privateKeyFile = mkOption {
-      type = str;
+      type = either str types.path;
       default = "/etc/systemd/network/wg0.key";
     };
     peers = mkOption {
@@ -39,6 +41,9 @@ in
     };
   };
   config = mkIf cfg.enable (mkMerge [
+    ({
+
+    })
     (mkIf (!cfg.isHub) {
       systemd.network.netdevs."10-wg0" = {
         netdevConfig = {
@@ -47,7 +52,7 @@ in
           Description = "Wireguard virtual network device (tunnel)";
         };
         wireguardConfig = {
-          PrivateKeyFile = cfg.privateKeyFile;
+          PrivateKeyFile = builtins.toString cfg.privateKeyFile;
           FirewallMark = 6969;
         };
         wireguardPeers = cfg.peers;
@@ -97,7 +102,7 @@ in
               Description = "Wireguard virtual device (tunnel)";
             };
             wireguardConfig = {
-              PrivateKeyFile = cfg.privateKeyFile;
+              PrivateKeyFile = builtins.toString cfg.privateKeyFile;
               ListenPort = 51820;
             };
             wireguardPeers = cfg.peers;
