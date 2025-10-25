@@ -41,9 +41,6 @@ in
     };
   };
   config = mkIf cfg.enable (mkMerge [
-    ({
-
-    })
     (mkIf (!cfg.isHub) {
       systemd.network.netdevs."10-wg0" = {
         netdevConfig = {

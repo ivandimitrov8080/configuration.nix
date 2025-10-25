@@ -68,9 +68,9 @@ pkgs.testers.runNixOSTest {
   };
 
   testScript = ''
-    hub.wait_for_unit("network-online.target")
-    spoke1.wait_for_unit("network-online.target")
-    spoke2.wait_for_unit("network-online.target")
+    hub.wait_for_unit("multi-user.target")
+    spoke1.wait_for_unit("multi-user.target")
+    spoke2.wait_for_unit("multi-user.target")
 
     spoke1.succeed("ping -c1 10.0.0.1")
     spoke2.succeed("ping -c1 10.0.0.1")
