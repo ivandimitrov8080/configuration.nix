@@ -123,6 +123,14 @@ mkDefaultAttrs {
       };
     };
     delta.enableGitIntegration = true;
+    gh = {
+      settings = {
+        git_protocol = "ssh";
+        prefer_editor_prompt = "enabled";
+        color_labels = "enabled";
+        aliases = { };
+      };
+    };
     tealdeer = {
       settings = {
         display = {
