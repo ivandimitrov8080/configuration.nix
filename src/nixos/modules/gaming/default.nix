@@ -28,42 +28,14 @@ in
       steam = {
         enable = true;
         extraCompatPackages = with pkgs; [ proton-ge-bin ];
+        extraPackages = with pkgs; [ gamescope ];
       };
       obs-studio = {
         enable = true;
         plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
       };
     };
-    environment.systemPackages = with pkgs; [
-      airshipper
-      discord
-      minetest
-      radeontop
-      steamcmd
-      umu-launcher
-      xonotic
-      (pkgs.makeDesktopItem {
-        name = "dota";
-        desktopName = "DotA 2";
-        exec = "${pkgs.steam}/bin/steam steam://rungameid/570";
-        terminal = false;
-        icon = "${pkgs.faenza}/Delft/apps/96/dota2.svg";
-      })
-      (pkgs.makeDesktopItem {
-        name = "cs2";
-        desktopName = "Counter Strike 2";
-        exec = "${pkgs.steam}/bin/steam steam://rungameid/730";
-        terminal = false;
-        icon = "${pkgs.faenza}/Delft/apps/96/csgo.svg";
-      })
-      (pkgs.makeDesktopItem {
-        name = "valheim";
-        desktopName = "Valheim";
-        exec = "${pkgs.steam}/bin/steam steam://rungameid/892970";
-        terminal = false;
-        icon = ./valheim.jpg;
-      })
-    ];
+    environment.systemPackages = with pkgs; [ umu-launcher ] ++ desktopItems;
     systemd = {
       network.networks.wg0 = {
         routingPolicyRules = import ./steam-route-rules.nix;
