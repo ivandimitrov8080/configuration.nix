@@ -536,9 +536,7 @@ mkDefaultAttrs {
     };
     mpv = {
       scripts = with pkgs.mpvScripts; [
-        eisa01.simplehistory
         eisa01.smartskip
-        eisa01.undoredo
         thumbfast
         uosc
       ];
