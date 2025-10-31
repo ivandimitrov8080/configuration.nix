@@ -323,6 +323,54 @@
         desc = "Git reset buffer";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>dn";
+      action.__raw = "require'dap'.continue";
+      options = {
+        desc = "Debug - resume";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>do";
+      action.__raw = "require'dap'.step_over";
+      options = {
+        desc = "Debug - step over";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>di";
+      action.__raw = "require'dap'.step_into";
+      options = {
+        desc = "Debug - step into";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>dt";
+      action.__raw = "require'dap'.toggle_breakpoint";
+      options = {
+        desc = "Debug - toggle breakpoint";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>drt";
+      action.__raw = "require'dap'.repl.toggle";
+      options = {
+        desc = "Debug - repl - toggle";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>ddt";
+      action.__raw = "require'dapui'.toggle";
+      options = {
+        desc = "Debug - dapui - toggle";
+      };
+    }
   ];
   plugins = {
     auto-session.enable = true;
@@ -340,6 +388,9 @@
     ts-autotag.enable = true;
     web-devicons.enable = true;
     which-key.enable = true;
+    dap.enable = true;
+    dap-ui.enable = true;
+    dap-virtual-text.enable = true;
     snacks = {
       enable = true;
       settings = {
