@@ -13,4 +13,6 @@ in
   rtcqs = callPackage ./rtcqs { };
   walogram = callPackage ./walogram { };
   ddlm = callPackage ./ddlm { };
+  vscode-java-debug = callPackage ./vscode-java-debug { };
+  vscode-java-test = callPackage ./vscode-java-test { };
 }
