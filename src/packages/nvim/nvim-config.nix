@@ -119,6 +119,23 @@
     }
     {
       mode = "n";
+      key = "/";
+      action.__raw = "require('telescope.builtin').current_buffer_fuzzy_find";
+      options.desc = "Search current buffer";
+    }
+    {
+      mode = "v";
+      key = "/";
+      action.__raw = ''
+        function()
+            local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
+            require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text[0] or text[1] })
+        end
+      '';
+      options.desc = "Current buffer fuzzy find";
+    }
+    {
+      mode = "n";
       key = "<leader>ff";
       action.__raw = "require('telescope.builtin').find_files";
       options.desc = "Find files";
