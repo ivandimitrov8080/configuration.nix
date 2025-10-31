@@ -100,6 +100,24 @@ rec {
             };
           };
         };
+        keymaps = [
+          {
+            mode = "n";
+            key = "<leader>jtc";
+            action.__raw = "require'jdtls'.test_class";
+            options = {
+              desc = "Jdtls - test class";
+            };
+          }
+          {
+            mode = "n";
+            key = "<leader>jtm";
+            action.__raw = "require'jdtls'.test_nearest_method";
+            options = {
+              desc = "Jdtls - test nearest method";
+            };
+          }
+        ];
       };
       c = nvim.extend {
         lsp.servers.ccls.enable = true;
