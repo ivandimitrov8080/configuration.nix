@@ -1,6 +1,6 @@
 { lib }:
 let
-  inherit (lib) mkOverride;
+  inherit (lib) mkOverride recurseIntoAttrs;
 in
 rec {
   endsWith =
@@ -43,4 +43,57 @@ rec {
       else
         mkOverride 900 v
     ) a;
+  wrapNixvim =
+    nvim:
+    recurseIntoAttrs {
+      default = nvim;
+      java = nvim.extend {
+        plugins = {
+          jdtls = {
+            enable = true;
+            settings = {
+              cmd = [
+                "jdtls"
+                "-data"
+                {
+                  __raw = ''os.getenv("HOME") .. "/.cache/jdtls/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')'';
+                }
+              ];
+            };
+          };
+          dap.enable = true;
+          dap-ui.enable = true;
+          dap-virtual-text.enable = true;
+        };
+      };
+      c = nvim.extend {
+        lsp.servers.ccls.enable = true;
+      };
+      haskell = nvim.extend {
+        lsp.servers.hls.enable = true;
+        plugins.haskell-scope-highlighting.enable = true;
+      };
+      scala = nvim.extend {
+        lsp.servers.metals.enable = true;
+      };
+      rust = nvim.extend {
+        plugins.rustaceanvim.enable = true;
+      };
+      web = nvim.extend {
+        lsp.servers = {
+          ts_ls.enable = true;
+          svelte.enable = true;
+          html.enable = true;
+          cssls.enable = true;
+          jsonls.enable = true;
+          tailwindcss.enable = true;
+        };
+      };
+      python = nvim.extend {
+        lsp.servers.pylsp.enable = true;
+      };
+      lua = nvim.extend {
+        lsp.servers.emmylua_ls.enable = true;
+      };
+    };
 }
