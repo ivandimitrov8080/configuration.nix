@@ -32,6 +32,12 @@
       };
     };
   };
+  extraConfigLuaPre = ''
+    local function get_visual_select()
+        local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
+        return text[0] or text[1]
+    end
+  '';
   keymaps = [
     {
       mode = [
@@ -128,8 +134,7 @@
       key = "/";
       action.__raw = ''
         function()
-            local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
-            require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text[0] or text[1] })
+            require('telescope.builtin').current_buffer_fuzzy_find({ default_text = get_visual_select() })
         end
       '';
       options.desc = "Current buffer fuzzy find";
@@ -145,8 +150,7 @@
       key = "<leader>ff";
       action.__raw = ''
         function()
-            local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
-            require('telescope.builtin').find_files({ default_text = text[0] or text[1] })
+            require('telescope.builtin').find_files({ default_text = get_visual_select() })
         end
       '';
       options.desc = "Find files";
@@ -162,8 +166,7 @@
       key = "<leader>fw";
       action.__raw = ''
         function()
-            local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
-            require('telescope.builtin').live_grep({ default_text = text[0] or text[1] })
+            require('telescope.builtin').live_grep({ default_text = get_visual_select() })
         end
       '';
       options.desc = "Find words";
@@ -369,6 +372,22 @@
       action.__raw = "require'dapui'.toggle";
       options = {
         desc = "Debug - dapui - toggle";
+      };
+    }
+    {
+      mode = "n";
+      key = "<leader>de";
+      action.__raw = "require'dapui'.eval";
+      options = {
+        desc = "Debug - dapui - eval";
+      };
+    }
+    {
+      mode = "v";
+      key = "<leader>de";
+      action.__raw = "function() require'dapui'.eval(get_visual_select()) end";
+      options = {
+        desc = "Debug - dapui - eval";
       };
     }
   ];
