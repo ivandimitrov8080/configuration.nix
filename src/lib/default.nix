@@ -56,7 +56,10 @@ rec {
                 "jdtls"
                 "-data"
                 {
-                  __raw = ''os.getenv("HOME") .. "/.cache/jdtls/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')'';
+                  __raw = "os.getenv('HOME') .. '/.cache/jdtls/' .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')";
+                }
+                {
+                  __raw = "os.getenv('LOMBOK_JAR') ~= nil and '--jvm-arg=-javaagent:' .. os.getenv('LOMBOK_JAR') or ''";
                 }
               ];
             };
