@@ -401,7 +401,6 @@
     gitsigns.enable = true;
     hop.enable = true;
     lualine.enable = true;
-    luasnip.enable = true;
     nvim-autopairs.enable = true;
     todo-comments.enable = true;
     ts-autotag.enable = true;
@@ -410,6 +409,13 @@
     dap.enable = true;
     dap-ui.enable = true;
     dap-virtual-text.enable = true;
+    friendly-snippets.enable = true;
+    luasnip = {
+      enable = true;
+      fromLua = [ ];
+      fromSnipmate = [ ];
+      fromVscode = [ ];
+    };
     snacks = {
       enable = true;
       settings = {
@@ -454,7 +460,9 @@
     cmp = {
       enable = true;
       settings = {
-        snippet.expand = "function(args) vim.snippet.expand(args.body) end";
+        snippet.expand = {
+          __raw = "function(args) vim.snippet.expand(args.body) end";
+        };
         mapping = {
           __raw = ''
             cmp.mapping.preset.insert({
@@ -469,9 +477,9 @@
         };
         sources = [
           { name = "nvim_lsp"; }
-          { name = "luasnip"; }
           { name = "path"; }
           { name = "buffer"; }
+          { name = "luasnip"; }
         ];
       };
     };
