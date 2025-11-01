@@ -45,9 +45,10 @@ rec {
     ) a;
   wrapNixvim =
     nvim:
-    recurseIntoAttrs {
+    recurseIntoAttrs rec {
       default = nvim;
-      java = nvim.extend {
+      main = nvim.extend (import ../packages/nvim/nvim-config.nix);
+      java = main.extend {
         extraConfigLuaPre = ''
           local function find_jdtls_plugins()
             local function split(inputstr, sep)
@@ -119,20 +120,20 @@ rec {
           }
         ];
       };
-      c = nvim.extend {
+      c = main.extend {
         lsp.servers.ccls.enable = true;
       };
-      haskell = nvim.extend {
+      haskell = main.extend {
         lsp.servers.hls.enable = true;
         plugins.haskell-scope-highlighting.enable = true;
       };
-      scala = nvim.extend {
+      scala = main.extend {
         lsp.servers.metals.enable = true;
       };
-      rust = nvim.extend {
+      rust = main.extend {
         plugins.rustaceanvim.enable = true;
       };
-      web = nvim.extend {
+      web = main.extend {
         lsp.servers = {
           ts_ls.enable = true;
           svelte.enable = true;
@@ -142,10 +143,10 @@ rec {
           tailwindcss.enable = true;
         };
       };
-      python = nvim.extend {
+      python = main.extend {
         lsp.servers.pylsp.enable = true;
       };
-      lua = nvim.extend {
+      lua = main.extend {
         lsp.servers.emmylua_ls.enable = true;
       };
     };

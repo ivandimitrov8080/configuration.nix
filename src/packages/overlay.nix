@@ -1,6 +1,7 @@
 _final: prev:
 let
   inherit (prev) callPackage;
+  hasNixvim = prev ? nixvim;
 in
 {
   screenshot = callPackage ./screenshot { };
@@ -16,3 +17,11 @@ in
   vscode-java-debug = callPackage ./vscode-java-debug { };
   vscode-java-test = callPackage ./vscode-java-test { };
 }
+// (prev.lib.optionalAttrs hasNixvim (
+  let
+    thisLib = import ../lib { inherit (prev) lib; };
+  in
+  {
+    nixvim = thisLib.wrapNixvim prev.nixvim;
+  }
+))
