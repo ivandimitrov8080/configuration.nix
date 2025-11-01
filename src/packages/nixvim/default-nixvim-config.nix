@@ -23,13 +23,11 @@ pkgs: {
       flavour = "mocha";
       transparent_background = true;
       integrations = {
-        cmp = true;
         gitsigns = true;
         treesitter = true;
-        telescope = {
-          enabled = true;
-        };
+        telescope.enabled = true;
         markdown = true;
+        blink_cmp = true;
       };
     };
   };
@@ -380,8 +378,6 @@ pkgs: {
   plugins = {
     auto-session.enable = true;
     barbar.enable = true;
-    cmp-nvim-lsp.enable = true;
-    cmp-spell.enable = true;
     comment.enable = true;
     diffview.enable = true;
     gitsigns.enable = true;
@@ -449,38 +445,74 @@ pkgs: {
         };
       };
     };
-    copilot-lua.enable = true;
-    cmp = {
+    blink-emoji.enable = true;
+    blink-copilot.enable = true;
+    blink-cmp = {
       enable = true;
       settings = {
-        snippet.expand = {
-          __raw = "function(args) vim.snippet.expand(args.body) end";
+        keymap = {
+          preset = "none";
+          "<C-Space>" = {
+            __raw = "{ function(cmp) cmp.show({ providers = { 'lsp' } }) end }";
+          };
+          "<C-c>" = {
+            __raw = "{ function(cmp) cmp.show({ providers = { 'copilot' } }) end }";
+          };
+          "<CR>" = [
+            "accept"
+            "fallback"
+          ];
+          "<C-k>" = [
+            "select_prev"
+            "fallback"
+          ];
+          "<C-j>" = [
+            "select_next"
+            "fallback"
+          ];
+          "<Up>" = [
+            "select_prev"
+            "fallback"
+          ];
+          "<Down>" = [
+            "select_next"
+            "fallback"
+          ];
         };
-        mapping = {
-          __raw = ''
-            cmp.mapping.preset.insert({
-              ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-              ['<C-f>'] = cmp.mapping.scroll_docs(4),
-              ['<C-Space>'] = cmp.mapping.complete(),
-              ['<CR>'] = cmp.mapping.confirm({ select = true }),
-              ['<C-k>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'});
-              ['<C-j>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'});
-            })
-          '';
+        snippets.preset = "luasnip";
+        sources = {
+          providers = {
+            emoji = {
+              module = "blink-emoji";
+              name = "Emoji";
+              score_offset = 15;
+            };
+            copilot = {
+              async = true;
+              module = "blink-copilot";
+              name = "copilot";
+              score_offset = 100;
+              # Optional configurations
+              opts = {
+                max_completions = 3;
+                max_attempts = 4;
+                kind = "Copilot";
+                debounce = 750;
+                auto_refresh = {
+                  backward = true;
+                  forward = true;
+                };
+              };
+            };
+          };
+          default = [
+            "lsp"
+            "path"
+            "snippets"
+            "buffer"
+            "emoji"
+          ];
         };
-        sources = [
-          { name = "buffer"; }
-          { name = "treesitter"; }
-          { name = "copilot"; }
-          { name = "emoji"; }
-          { name = "git"; }
-          { name = "luasnip"; }
-          { name = "nerdfont"; }
-          { name = "nvim_lsp"; }
-          { name = "nvim_lsp_document_symbol"; }
-          { name = "nvim_lsp_signature_help"; }
-          { name = "path"; }
-        ];
       };
     };
     lsp.enable = true;
