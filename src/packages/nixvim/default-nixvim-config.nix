@@ -1,4 +1,4 @@
-prev: {
+pkgs: {
   enableMan = false;
   viAlias = true;
   globals = {
@@ -389,7 +389,7 @@ prev: {
       fromLua = [ ];
       fromSnipmate = [
         { }
-        { paths = "${prev.vimPlugins.vim-snippets}/snippets"; }
+        { paths = "${pkgs.vimPlugins.vim-snippets}/snippets"; }
       ];
       fromVscode = [ ];
       filetypeExtend = {

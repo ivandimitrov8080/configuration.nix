@@ -17,11 +17,6 @@ in
   vscode-java-debug = callPackage ./vscode-java-debug { };
   vscode-java-test = callPackage ./vscode-java-test { };
 }
-// (prev.lib.optionalAttrs hasNixvim (
-  let
-    thisLib = import ../lib { inherit (prev) lib; };
-  in
-  {
-    nixvim = thisLib.wrapNixvim prev;
-  }
-))
+// (prev.lib.optionalAttrs hasNixvim {
+  nixvim = callPackage ./nixvim { nixvim = prev.nixvim; };
+})
