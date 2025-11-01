@@ -203,33 +203,6 @@
     }
     {
       mode = "n";
-      key = "<leader>la";
-      action.__raw = "vim.lsp.buf.code_action";
-      options = {
-        silent = true;
-        desc = "LSP Code action";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>lr";
-      action.__raw = "vim.lsp.buf.rename";
-      options = {
-        silent = true;
-        desc = "LSP Rename";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>lf";
-      action.__raw = "vim.lsp.buf.format";
-      options = {
-        silent = true;
-        desc = "Format buffer";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>tt";
       action = "<cmd>TodoTelescope<cr>";
       options = {
@@ -510,6 +483,18 @@
       {
         key = "K";
         lspBufAction = "hover";
+      }
+      {
+        key = "<leader>la";
+        lspBufAction = "code_action";
+      }
+      {
+        key = "<leader>lr";
+        lspBufAction = "rename";
+      }
+      {
+        key = "<leader>lf";
+        lspBufAction = "format";
       }
     ];
   };
