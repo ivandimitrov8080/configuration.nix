@@ -22,6 +22,6 @@ in
     thisLib = import ../lib { inherit (prev) lib; };
   in
   {
-    nixvim = thisLib.wrapNixvim prev.nixvim;
+    nixvim = thisLib.wrapNixvim prev;
   }
 ))

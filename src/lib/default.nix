@@ -44,10 +44,10 @@ rec {
         mkOverride 900 v
     ) a;
   wrapNixvim =
-    nvim:
+    prev:
     recurseIntoAttrs rec {
-      default = nvim;
-      main = nvim.extend (import ../packages/nvim/nvim-config.nix);
+      default = prev.nixvim;
+      main = prev.nixvim.extend (import ../packages/nvim/nvim-config.nix prev);
       java = main.extend {
         extraConfigLuaPre = ''
           local function find_jdtls_plugins()

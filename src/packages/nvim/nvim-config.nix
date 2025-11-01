@@ -1,4 +1,4 @@
-{
+prev: {
   enableMan = false;
   viAlias = true;
   globals = {
@@ -15,6 +15,7 @@
     hlsearch = false;
     autoread = true;
     expandtab = true;
+    spell = true;
   };
   colorschemes.catppuccin = {
     enable = true;
@@ -386,8 +387,14 @@
     luasnip = {
       enable = true;
       fromLua = [ ];
-      fromSnipmate = [ ];
+      fromSnipmate = [
+        { }
+        { paths = "${prev.vimPlugins.vim-snippets}/snippets"; }
+      ];
       fromVscode = [ ];
+      filetypeExtend = {
+        sh = [ "bash" ];
+      };
     };
     snacks = {
       enable = true;
@@ -451,6 +458,7 @@
         };
         sources = [
           { name = "buffer"; }
+          { name = "treesitter"; }
           { name = "copilot"; }
           { name = "emoji"; }
           { name = "git"; }
