@@ -119,6 +119,13 @@ rec {
             };
           }
         ];
+        extraPlugins = with prev.vimPlugins; [ sonarlint-nvim ];
+        extraConfigLuaPost = ''
+          require('sonarlint').setup({
+            filetypes = { 'java' }
+            server.cmd = { '${prev.sonarlint-ls}/bin/sonarlint-ls', '-stdio' },
+          })
+        '';
       };
       c = main.extend {
         lsp.servers.ccls.enable = true;
