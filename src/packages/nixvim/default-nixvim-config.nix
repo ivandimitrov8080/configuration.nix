@@ -198,6 +198,18 @@ pkgs: {
     }
     {
       mode = "n";
+      key = "gO";
+      action.__raw = "require('telescope.builtin').lsp_document_symbols";
+      options.desc = "Document symbols";
+    }
+    {
+      mode = "n";
+      key = "<leader>gO";
+      action.__raw = "require('telescope.builtin').lsp_workspace_symbols";
+      options.desc = "Workspace symbols";
+    }
+    {
+      mode = "n";
       key = "<leader>e";
       action.__raw = "vim.diagnostic.open_float";
       options.desc = "Open diagnostics";
