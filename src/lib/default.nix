@@ -61,7 +61,7 @@ rec {
               return t
             end
             local jdtls_plugins = { }
-            local jdtls_plugins_path = os.getenv("JDTLS_PLUGINS")
+            local jdtls_plugins_path = os.getenv("JDTLS_PLUGINS") or ""
             for _, s in ipairs(split(jdtls_plugins_path, ":")) do
               local java_test_bundles = vim.split(vim.fn.glob(s .. "/server/*.jar", 1), "\n")
               local excluded = {
