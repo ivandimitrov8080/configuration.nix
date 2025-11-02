@@ -58,6 +58,22 @@ main.extend (
           desc = "Jdtls - test nearest method";
         };
       }
+      {
+        mode = "n";
+        key = "<leader>jtg";
+        action.__raw = "require'jdtls.tests'.generate";
+        options = {
+          desc = "Jdtls - organize imports";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>lo";
+        action.__raw = "require'jdtls'.organize_imports";
+        options = {
+          desc = "Jdtls - organize imports";
+        };
+      }
     ];
     extraPlugins = with pkgs.vimPlugins; [ sonarlint-nvim ];
     extraConfigLuaPost = ''
