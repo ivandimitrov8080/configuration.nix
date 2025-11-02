@@ -75,12 +75,5 @@ main.extend (
         };
       }
     ];
-    extraPlugins = with pkgs.vimPlugins; [ sonarlint-nvim ];
-    extraConfigLuaPost = ''
-      require('sonarlint').setup({
-        filetypes = { 'java' },
-        server = { cmd = { '${pkgs.sonarlint-ls}/bin/sonarlint-ls', '-stdio' } }
-      })
-    '';
   }
 )
