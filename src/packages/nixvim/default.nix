@@ -33,7 +33,18 @@ recurseIntoAttrs rec {
     };
   };
   python = main.extend {
-    lsp.servers.pylsp.enable = true;
+    plugins.lsp.servers.pylsp = {
+      enable = true;
+      settings = {
+        plugins = {
+          rope.enabled = true;
+          rope_autoimport.enabled = true;
+          rope_autoimport.memory = true;
+          rope_copletion.enabled = true;
+          black.enabled = true;
+        };
+      };
+    };
   };
   lua = main.extend {
     lsp.servers.emmylua_ls.enable = true;
