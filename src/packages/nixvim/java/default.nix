@@ -44,7 +44,7 @@ main.extend (
     keymaps = [
       {
         mode = "n";
-        key = "<leader>jtc";
+        key = "<leader>ltc";
         action.__raw = "require'jdtls'.test_class";
         options = {
           desc = "Jdtls - test class";
@@ -52,7 +52,7 @@ main.extend (
       }
       {
         mode = "n";
-        key = "<leader>jtm";
+        key = "<leader>ltm";
         action.__raw = "require'jdtls'.test_nearest_method";
         options = {
           desc = "Jdtls - test nearest method";
@@ -60,7 +60,7 @@ main.extend (
       }
       {
         mode = "n";
-        key = "<leader>jtg";
+        key = "<leader>ltg";
         action.__raw = "require'jdtls.tests'.generate";
         options = {
           desc = "Jdtls - organize imports";
