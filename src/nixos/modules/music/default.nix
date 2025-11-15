@@ -67,7 +67,7 @@ in
         {
           name = "realtime-config";
           patch = null;
-          extraStructuredConfig = with lib.kernel; {
+          structuredExtraConfig = with lib.kernel; {
             PREEMPT = lib.mkForce yes;
             PREEMPT_VOLUNTARY = lib.mkForce no; # PREEMPT_RT deselects it.
             PREEMPT_RT = yes;
