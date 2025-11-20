@@ -719,9 +719,6 @@ mkDefaultAttrs {
         { command = "exec firefox"; }
         { command = "swaymsg 'workspace 1; exec kitty'"; }
       ];
-      assigns = {
-        "2" = [ { app_id = "^firefox$"; } ];
-      };
       bars = [ ];
       gaps = {
         horizontal = 2;
