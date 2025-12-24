@@ -43,6 +43,30 @@ pkgs: {
         "n"
         "v"
       ];
+      key = "<PageUp>";
+      action = "<Nop>";
+      options = {
+        silent = true;
+        desc = "Don't map PageUp/PageDown.";
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
+      key = "<PageDown>";
+      action = "<Nop>";
+      options = {
+        silent = true;
+        desc = "Don't map PageUp/PageDown.";
+      };
+    }
+    {
+      mode = [
+        "n"
+        "v"
+      ];
       key = "<Space>";
       action = "<Nop>";
       options = {
