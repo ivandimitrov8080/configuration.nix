@@ -14,7 +14,6 @@ recurseIntoAttrs rec {
   c = main.extend { lsp.servers.ccls.enable = true; };
   haskell = main.extend {
     lsp.servers.hls.enable = true;
-    plugins.haskell-scope-highlighting.enable = true;
   };
   scala = main.extend {
     lsp.servers.metals.enable = true;
