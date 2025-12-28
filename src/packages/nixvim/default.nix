@@ -32,9 +32,10 @@ recurseIntoAttrs rec {
           ];
         };
         infoview = {
+          autoopen = true;
           horizontal_position = "top";
           indicators = "always";
-          separate_tab = true;
+          separate_tab = false;
         };
         lsp = {
           enable = true;
@@ -44,6 +45,7 @@ recurseIntoAttrs rec {
           enable = false;
         };
         stderr = {
+          enable = true;
           on_lines = {
             __raw = "function(lines) vim.notify(lines) end";
           };
