@@ -10,7 +10,6 @@ in
   themes-gtk = callPackage ./themes/gtk-theme-catppuccin.nix { };
   faenza = callPackage ./faenza { };
   volume = callPackage ./volume { };
-  avante-nvim = callPackage ./avante-nvim { };
   rtcqs = callPackage ./rtcqs { };
   walogram = callPackage ./walogram { };
   ddlm = callPackage ./ddlm { };
