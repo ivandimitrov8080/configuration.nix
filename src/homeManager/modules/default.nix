@@ -218,6 +218,7 @@ mkDefaultAttrs {
       shellAliases = shellAliases;
       defaultKeymap = "viins";
       enableVteIntegration = true;
+      dotDir = "${config.xdg.configHome}/zsh";
       syntaxHighlighting = {
         enable = true;
         highlighters = [
