@@ -35,7 +35,10 @@ in
         plugins = with pkgs.obs-studio-plugins; [ wlrobs ];
       };
     };
-    environment.systemPackages = with pkgs; [ umu-launcher ];
+    environment.systemPackages = with pkgs; [
+      umu-launcher
+      discord
+    ];
     systemd = {
       network.networks.wg0 = {
         routingPolicyRules = import ./steam-route-rules.nix;
