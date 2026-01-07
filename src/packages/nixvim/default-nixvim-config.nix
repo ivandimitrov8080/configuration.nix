@@ -582,4 +582,13 @@ pkgs: {
       }
     ];
   };
+  dependencies = {
+    tree-sitter.enable = true;
+  };
+  extraPackages = with pkgs; [
+    ghostscript_headless
+    tectonic
+    sqlite
+    rg
+  ];
 }
