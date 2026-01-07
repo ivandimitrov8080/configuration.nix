@@ -589,6 +589,6 @@ pkgs: {
     ghostscript_headless
     tectonic
     sqlite
-    rg
+    ripgrep
   ];
 }
