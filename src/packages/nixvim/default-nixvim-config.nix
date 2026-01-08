@@ -454,21 +454,9 @@ pkgs: {
     };
     treesitter = {
       enable = true;
-      settings = {
-        highlight = {
-          enable = true;
-          disable = [ "text" ];
-        };
-        incremental_selection = {
-          enable = true;
-          keymaps = {
-            init_selection = "<C-a>";
-            node_incremental = "<C-a>";
-            scope_incremental = "<C-s>";
-            node_decremental = "<C-d>";
-          };
-        };
-      };
+      highlight.enable = true;
+      indent.enable = true;
+      folding.enable = true;
     };
     blink-emoji.enable = true;
     blink-copilot.enable = true;
@@ -590,5 +578,6 @@ pkgs: {
     tectonic
     sqlite
     ripgrep
+    inotify-tools
   ];
 }
