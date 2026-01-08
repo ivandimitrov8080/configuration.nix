@@ -456,7 +456,6 @@ pkgs: {
       enable = true;
       highlight.enable = true;
       indent.enable = true;
-      folding.enable = true;
     };
     blink-emoji.enable = true;
     blink-copilot.enable = true;
