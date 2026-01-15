@@ -29,6 +29,7 @@ pkgs: {
         telescope.enabled = true;
         markdown = true;
         blink_cmp = true;
+        render_markdown = true;
       };
     };
   };
