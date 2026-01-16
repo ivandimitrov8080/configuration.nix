@@ -732,21 +732,6 @@ pkgs: {
 
           vim.api.nvim_create_user_command("DocsViewToggle", M.toggle, { nargs = 0 })
           vim.api.nvim_create_user_command("DocsViewUpdate", M.update, { nargs = 0 })
-          local group = vim.api.nvim_create_augroup("DocsViewRenderMarkdown", { clear = true })
-          local function is_docs_view_buffer(b)
-            return vim.api.nvim_buf_is_valid(b) and vim.api.nvim_buf_get_name(b) == "Docs View"
-          end
-          vim.api.nvim_create_autocmd("FileType", {
-            group = group,
-            pattern = "markdown",
-            callback = function(ev)
-              if is_docs_view_buffer(ev.buf) then
-                pcall(vim.cmd, "RenderMarkdown enable")
-              else
-                pcall(vim.cmd, "RenderMarkdown disable")
-              end
-            end,
-          })
         end
         return M
       '';
