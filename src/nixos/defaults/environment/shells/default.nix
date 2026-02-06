@@ -30,9 +30,13 @@ let
     else
       { }
   );
+  environmentVariables = {
+    SYSTEMD_LESS = "FRXMK";
+  };
 in
 {
   environment.systemPackages = shells;
   environment.shells = shells;
   environment.shellAliases = shellAliases;
+  environment.variables = environmentVariables;
 }
