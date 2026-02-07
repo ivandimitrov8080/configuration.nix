@@ -33,6 +33,7 @@ in
 mkDefaultAttrs {
   xdg = {
     userDirs = with config; {
+      enable = true;
       createDirectories = true;
       desktop = "${home.homeDirectory}/dt";
       documents = "${home.homeDirectory}/doc";
