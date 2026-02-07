@@ -9,7 +9,7 @@ in
   };
   config = mkIf cfg.enable {
     networking.nameservers = [
-      "10.0.0.1:53"
+      "10.0.0.1"
     ];
     services = {
       resolved = {
