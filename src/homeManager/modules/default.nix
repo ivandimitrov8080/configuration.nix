@@ -746,7 +746,7 @@ mkDefaultAttrs {
         "XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
         "alt+shift+l" = "exec swaylock";
-        "${modifier}+p" = "exec rofi -show drun";
+        "${modifier}+p" = "exec env rofi -show drun";
         "${modifier}+shift+s" = "exec screenshot screen";
         "${modifier}+shift+a" = "exec screenshot area";
         "${modifier}+shift+w" = "exec screenshot window";
