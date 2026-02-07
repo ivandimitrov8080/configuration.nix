@@ -26,6 +26,7 @@ rec {
   excludeOpts = [
     "initExtra"
     "interactiveShellInit"
+    "keybindings"
   ];
   mkDefaultAttrs =
     a:

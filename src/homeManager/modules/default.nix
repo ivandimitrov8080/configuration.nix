@@ -712,7 +712,7 @@ mkDefaultAttrs {
     checkConfig = false;
     systemd.enable = true;
     wrapperFeatures.gtk = true;
-    config = {
+    config = rec {
       menu = "rofi -show drun";
       terminal = "kitty";
       modifier = "Mod4";
@@ -735,6 +735,22 @@ mkDefaultAttrs {
           xkb_options = "grp:win_space_toggle";
           xkb_variant = ",phonetic";
         };
+      };
+      keybindings = lib.mkOptionDefault {
+        "XF86AudioMute" = "exec volume sink toggle";
+        "Shift+XF86AudioMute" = "exec volume source toggle";
+        "XF86AudioLowerVolume" = "exec volume sink down";
+        "Shift+XF86AudioLowerVolume" = "exec volume source down";
+        "XF86AudioRaiseVolume" = "exec volume sink up";
+        "Shift+XF86AudioRaiseVolume" = "exec volume source up";
+        "XF86MonBrightnessUp" = "exec brightnessctl set 10%+";
+        "XF86MonBrightnessDown" = "exec brightnessctl set 10%-";
+        "alt+shift+l" = "exec swaylock";
+        "${modifier}+p" = "exec rofi -show drun";
+        "${modifier}+shift+s" = "exec screenshot screen";
+        "${modifier}+shift+a" = "exec screenshot area";
+        "${modifier}+shift+w" = "exec screenshot window";
+        "end" = "exec rofi -show calc";
       };
     };
     extraConfig = ''
