@@ -9,19 +9,24 @@ in
   };
   config = mkIf cfg.enable {
     networking.nameservers = [
-      "10.0.0.1"
+      "127.0.0.1"
     ];
     services = {
       resolved = {
         enable = true;
-        dnssec = "true";
-        dnsovertls = "true";
+        settings = {
+          Resolve = {
+            DNSSEC = true;
+            DNSOverTLS = true;
+          };
+        };
       };
       dnscrypt-proxy = {
         enable = true;
         settings = {
           cache = true;
           listen_addresses = [
+            "127.0.0.1:53"
             "10.0.0.1:53"
           ];
         };
