@@ -9,7 +9,7 @@ in
   };
   config = mkIf cfg.enable {
     networking.nameservers = [
-      "10.0.0.1#5300"
+      "10.0.0.1"
     ];
     services = {
       resolved = {
@@ -18,6 +18,7 @@ in
           Resolve = {
             DNSSEC = true;
             DNSOverTLS = true;
+            DNSStubListener = "no";
           };
         };
       };
@@ -26,7 +27,7 @@ in
         settings = {
           cache = true;
           listen_addresses = [
-            "10.0.0.1:5300"
+            "10.0.0.1:53"
           ];
         };
       };
