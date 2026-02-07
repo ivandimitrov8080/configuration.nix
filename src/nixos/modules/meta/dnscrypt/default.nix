@@ -12,6 +12,11 @@ in
       "10.0.0.1:53"
     ];
     services = {
+      resolved = {
+        enable = true;
+        dnssec = "true";
+        dnsovertls = "true";
+      };
       dnscrypt-proxy = {
         enable = true;
         settings = {
