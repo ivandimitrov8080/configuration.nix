@@ -9,7 +9,7 @@ in
   };
   config = mkIf cfg.enable {
     networking.nameservers = [
-      "127.0.0.1"
+      "10.0.0.1:5300"
     ];
     services = {
       resolved = {
@@ -26,8 +26,7 @@ in
         settings = {
           cache = true;
           listen_addresses = [
-            "127.0.0.1:53"
-            "10.0.0.1:53"
+            "10.0.0.1:5300"
           ];
         };
       };
