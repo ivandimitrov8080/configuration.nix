@@ -58,6 +58,7 @@ recurseIntoAttrs rec {
   };
   rust = main.extend {
     plugins.rustaceanvim.enable = true;
+    lsp.servers.tombi.enable = true;
   };
   web = main.extend {
     lsp.servers = {
