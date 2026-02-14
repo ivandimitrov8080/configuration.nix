@@ -1047,7 +1047,7 @@ mkDefaultAttrs {
             installation_mode = "force_installed";
           };
           # Vim-like keybinds
-          "tridactyl.vim.betas@cmcaine.co.uk" = {
+          "tridactyl.vim@cmcaine.co.uk" = {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/tridactyl-vim/latest.xpi";
             installation_mode = "force_installed";
           };
