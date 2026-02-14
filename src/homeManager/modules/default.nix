@@ -1097,6 +1097,10 @@ mkDefaultAttrs {
         bind j scrollline 4
         bind k scrollline -4
         bind b fillcmdline bmarks
+        bind <Tab> tabnext
+        bind <S-Tab> tabprev
+        bind x tabclose
+        unbind d
       '';
     };
   };
