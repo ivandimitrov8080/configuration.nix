@@ -1091,6 +1091,13 @@ mkDefaultAttrs {
       name = "phinger-cursors-light";
       package = pkgs.phinger-cursors;
     };
+    file = {
+      ".tridactylrc".text = ''
+        set smoothscroll true
+        bind j scrollline 4
+        bind k scrollline -4
+      '';
+    };
   };
   wayland.windowManager.sway = {
     package = pkgs.swayfx;
