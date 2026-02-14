@@ -1096,6 +1096,7 @@ mkDefaultAttrs {
         set smoothscroll true
         bind j scrollline 4
         bind k scrollline -4
+        bind b fillcmdline bmarks
       '';
     };
   };
