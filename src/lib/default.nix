@@ -27,6 +27,7 @@ rec {
     "initExtra"
     "interactiveShellInit"
     "keybindings"
+    "extraConfig"
   ];
   mkDefaultAttrs =
     a:

@@ -256,11 +256,9 @@ mkDefaultAttrs {
       shellAliases = (builtins.removeAttrs shellAliases [ "ls" ]) // {
         la = "ls -al";
       };
-      extraConfig =
-        #nu
-        ''
-          def l [...args] { ls -la $args | sort-by name | sort-by type | sort-by readonly }
-        '';
+      extraConfig = lib.mkAfter ''
+        def l [...args] { ls -al | select name type readonly mode num_links inode user group size created accessed modified | sort-by name | sort-by type }
+      '';
     };
     tmux = {
       clock24 = true;
