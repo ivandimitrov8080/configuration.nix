@@ -256,6 +256,11 @@ mkDefaultAttrs {
       shellAliases = (builtins.removeAttrs shellAliases [ "ls" ]) // {
         la = "ls -al";
       };
+      extraConfig =
+        #nu
+        ''
+          def l [...args] { ls -la $args | sort-by name | sort-by type | sort-by readonly }
+        '';
     };
     tmux = {
       clock24 = true;
