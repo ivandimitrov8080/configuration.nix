@@ -248,6 +248,10 @@ mkDefaultAttrs {
           enable = true;
           max_results = 250;
         };
+        history.file_format = "sqlite";
+        edit_mode = "vi";
+        buffer_editor = config.home.sessionVariables.EDITOR;
+        use_kitty_protocol = config.programs.kitty.enable;
       };
       shellAliases = (builtins.removeAttrs shellAliases [ "ls" ]) // {
         la = "ls -al";
