@@ -429,6 +429,22 @@ pkgs: {
     friendly-snippets.enable = true;
     blink-emoji.enable = true;
     blink-copilot.enable = true;
+    conform-nvim = {
+      enable = true;
+      settings = {
+        formatters_by_ft = {
+          nu = [ "nufmt" ];
+        };
+        formatters = {
+          nufmt = {
+            command = pkgs.lib.getExe pkgs.nufmt;
+            args = [ "--stdin" ];
+            stdin = true;
+          };
+        };
+        default_format_opts.lsp_format = "fallback";
+      };
+    };
     luasnip = {
       enable = true;
       fromLua = [ ];
@@ -554,6 +570,7 @@ pkgs: {
     servers = {
       nil_ls.enable = true;
       bashls.enable = true;
+      nushell.enable = true;
     };
     onAttach = ''
       if client.server_capabilities.documentHighlightProvider then
@@ -582,7 +599,7 @@ pkgs: {
       }
       {
         key = "<leader>lf";
-        lspBufAction = "format";
+        action.__raw = "function() require('conform').format({async = true, lsp_fallback = true}) end";
       }
     ];
   };
