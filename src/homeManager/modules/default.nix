@@ -241,6 +241,10 @@ mkDefaultAttrs {
       history.expireDuplicatesFirst = true;
       historySubstringSearch.enable = true;
     };
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
+    };
     nushell = {
       plugins = with pkgs.nushellPlugins; [
         dbus
