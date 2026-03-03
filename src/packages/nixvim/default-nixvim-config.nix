@@ -425,10 +425,10 @@ pkgs: {
     hop.enable = true;
     lualine.enable = true;
     mini-icons.enable = true;
-    mini-icons.mockDevIcons = true;
     nvim-autopairs.enable = true;
     todo-comments.enable = true;
     ts-autotag.enable = true;
+    web-devicons.enable = true;
     which-key.enable = true;
     conform-nvim = {
       enable = true;
