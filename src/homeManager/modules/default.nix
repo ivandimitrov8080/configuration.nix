@@ -247,7 +247,6 @@ mkDefaultAttrs {
     };
     nushell = {
       plugins = with pkgs.nushellPlugins; [
-        dbus
         formats
         gstat
         highlight
