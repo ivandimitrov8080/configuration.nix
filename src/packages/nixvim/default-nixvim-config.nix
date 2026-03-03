@@ -426,6 +426,7 @@ pkgs: {
     lualine.enable = true;
     mini-icons.enable = true;
     nvim-autopairs.enable = true;
+    sqlite-lua.enable = true;
     todo-comments.enable = true;
     ts-autotag.enable = true;
     web-devicons.enable = true;
