@@ -242,6 +242,15 @@ mkDefaultAttrs {
       historySubstringSearch.enable = true;
     };
     nushell = {
+      plugins = with pkgs.nushellPlugins; [
+        dbus
+        formats
+        gstat
+        highlight
+        net
+        polars
+        query
+      ];
       settings = {
         show_banner = false;
         completions.external = {
