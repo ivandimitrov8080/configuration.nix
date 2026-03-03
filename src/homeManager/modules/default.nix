@@ -250,7 +250,6 @@ mkDefaultAttrs {
         formats
         gstat
         highlight
-        net
         polars
         query
       ];
