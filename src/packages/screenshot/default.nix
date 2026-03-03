@@ -1,16 +1,18 @@
 {
-  writeShellApplication,
+  writers,
   sway-contrib,
   xdg-user-dirs,
-  uutils-coreutils-noprefix,
+  lib,
   ...
 }:
-writeShellApplication {
-  name = "screenshot";
-  runtimeInputs = [
-    sway-contrib.grimshot
-    xdg-user-dirs
-    uutils-coreutils-noprefix
+writers.writeNuBin "screenshot" {
+  makeWrapperArgs = [
+    "--prefix"
+    "PATH"
+    ":"
+    "${lib.makeBinPath [
+      sway-contrib.grimshot
+      xdg-user-dirs
+    ]}"
   ];
-  text = builtins.readFile ./main.sh;
-}
+} (builtins.readFile ./screenshot.nu)
