@@ -283,6 +283,7 @@ mkDefaultAttrs {
       ];
       extraConfig = ''
         set-option -a terminal-features 'screen-256color:RGB'
+        set-option -g focus-events on
         set -s copy-command 'wl-copy'
         set -g default-command "''${SHELL}"
       '';

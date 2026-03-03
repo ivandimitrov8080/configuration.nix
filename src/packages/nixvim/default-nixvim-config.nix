@@ -413,22 +413,23 @@ pkgs: {
   plugins = {
     auto-session.enable = true;
     barbar.enable = true;
+    blink-copilot.enable = true;
+    blink-emoji.enable = true;
     comment.enable = true;
+    dap-ui.enable = true;
+    dap-virtual-text.enable = true;
+    dap.enable = true;
     diffview.enable = true;
+    friendly-snippets.enable = true;
     gitsigns.enable = true;
     hop.enable = true;
     lualine.enable = true;
+    mini-icons.enable = true;
+    mini-icons.mockDevIcons = true;
     nvim-autopairs.enable = true;
     todo-comments.enable = true;
     ts-autotag.enable = true;
-    web-devicons.enable = true;
     which-key.enable = true;
-    dap.enable = true;
-    dap-ui.enable = true;
-    dap-virtual-text.enable = true;
-    friendly-snippets.enable = true;
-    blink-emoji.enable = true;
-    blink-copilot.enable = true;
     conform-nvim = {
       enable = true;
       settings = {
@@ -612,6 +613,7 @@ pkgs: {
     sqlite
     ripgrep
     inotify-tools
+    tree-sitter
   ];
   extraConfigLua = ''
     require("docs-view").setup {
