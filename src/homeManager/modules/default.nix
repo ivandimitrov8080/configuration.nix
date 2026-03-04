@@ -249,7 +249,6 @@ mkDefaultAttrs {
       plugins = with pkgs.nushellPlugins; [
         formats
         gstat
-        highlight
         polars
         query
       ];
