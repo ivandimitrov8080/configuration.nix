@@ -445,6 +445,14 @@ pkgs: {
         desc = "Debug - dapui - eval";
       };
     }
+    {
+      mode = "n";
+      key = "<leader>of";
+      action = "<cmd>e flake.nix<cr>";
+      options = {
+        desc = "Open project flake.nix";
+      };
+    }
   ];
   plugins = {
     auto-session.enable = true;
