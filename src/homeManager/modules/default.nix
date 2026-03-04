@@ -65,7 +65,7 @@ mkDefaultAttrs {
     };
   };
   home = {
-    stateVersion = "25.11";
+    stateVersion = "26.05";
     shell.enableShellIntegration = true;
     sessionVariables = {
       PAGER = "bat";
