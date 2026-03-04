@@ -38,6 +38,12 @@ pkgs: {
         local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
         return text[0] or text[1]
     end
+    local function get_last_search_history(title)
+        local h = require("telescope").extensions.smart_history.smart_history()
+        local p = { prompt_title = title, cwd = vim.loop.cwd() }
+        h:_pre_get(nil, p)
+        return h.content[#h.content] or ""
+    end
   '';
   keymaps = [
     {
@@ -160,7 +166,15 @@ pkgs: {
     {
       mode = "n";
       key = "/";
-      action.__raw = "require('telescope.builtin').current_buffer_fuzzy_find";
+      action.__raw = ''
+        function()
+            local title = "Current Buffer Fuzzy"
+            require("telescope.builtin").current_buffer_fuzzy_find({
+              prompt_title = title,
+              default_text = get_last_search_history(title),
+            })
+        end
+      '';
       options.desc = "Search current buffer";
     }
     {
@@ -178,8 +192,11 @@ pkgs: {
       key = "<leader>ff";
       action.__raw = ''
         function()
-            require("telescope.builtin").find_files()
-            pcall(require("telescope.actions").cycle_history_prev, vim.api.nvim_get_current_buf())
+            local title = "Find Files"
+            require("telescope.builtin").find_files({
+              prompt_title = title,
+              default_text = get_last_search_history(title),
+            })
         end
       '';
       options.desc = "Find files";
@@ -199,8 +216,11 @@ pkgs: {
       key = "<leader>fw";
       action.__raw = ''
         function()
-            require("telescope.builtin").live_grep()
-            pcall(require("telescope.actions").cycle_history_prev, vim.api.nvim_get_current_buf())
+            local title = "Live Grep"
+            require("telescope.builtin").live_grep({
+              prompt_title = title,
+              default_text = get_last_search_history(title),
+            })
         end
       '';
       options.desc = "Find words";
@@ -486,10 +506,33 @@ pkgs: {
     };
     telescope = {
       enable = true;
+      enabledExtensions = [ "smart_history" ];
       extensions = {
         file-browser.enable = true;
         frecency.enable = true;
         ui-select.enable = true;
+      };
+      settings = {
+        defaults = {
+          history = {
+            path.__raw = ''vim.fn.stdpath("data") .. "/telescope_history.sqlite3" '';
+            limit = 100;
+          };
+          mappings = {
+            i = {
+              "<C-k>".__raw =
+                "function(prompt_bufnr) require('telescope.actions').move_selection_previous(prompt_bufnr) end";
+              "<C-j>".__raw =
+                "function(prompt_bufnr) require('telescope.actions').move_selection_next(prompt_bufnr) end";
+            };
+            n = {
+              "<C-k>".__raw =
+                "function(prompt_bufnr) require('telescope.actions').cycle_history_prev(prompt_bufnr) end";
+              "<C-j>".__raw =
+                "function(prompt_bufnr) require('telescope.actions').cycle_history_next(prompt_bufnr) end";
+            };
+          };
+        };
       };
     };
     treesitter = {
@@ -618,6 +661,7 @@ pkgs: {
   dependencies = {
     tree-sitter.enable = true;
   };
+  extraPlugins = with pkgs.vimPlugins; [ telescope-smart-history-nvim ];
   extraPackages = with pkgs; [
     ghostscript_headless
     tectonic
