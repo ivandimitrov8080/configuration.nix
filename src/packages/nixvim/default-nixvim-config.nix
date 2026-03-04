@@ -179,7 +179,7 @@ pkgs: {
       action.__raw = ''
         function()
             require("telescope.builtin").find_files()
-            require("telescope.actions").cycle_history_prev(vim.api.nvim_get_current_buf())
+            pcall(require("telescope.actions").cycle_history_prev, vim.api.nvim_get_current_buf())
         end
       '';
       options.desc = "Find files";
@@ -200,7 +200,7 @@ pkgs: {
       action.__raw = ''
         function()
             require("telescope.builtin").live_grep()
-            require("telescope.actions").cycle_history_prev(vim.api.nvim_get_current_buf())
+            pcall(require("telescope.actions").cycle_history_prev, vim.api.nvim_get_current_buf())
         end
       '';
       options.desc = "Find words";
