@@ -34,6 +34,8 @@ pkgs: {
     };
   };
   extraConfigLuaPre = ''
+    local actions = require("telescope.actions")
+    local action_state = require("telescope.actions.state")
     local function get_visual_select()
         local text = vim.fn.getregion(vim.fn.getpos('v'), vim.fn.getpos('.'), { type = vim.fn.mode() })
         return text[0] or text[1]
@@ -45,8 +47,8 @@ pkgs: {
         return h.content[#h.content] or ""
     end
     local function update_search_register(prompt_bufnr)
-        vim.fn.setreg("/", require("telescope.actions.state").get_current_line())
-        require('telescope.actions').close(prompt_bufnr)
+        vim.fn.setreg("/", action_state.get_current_line())
+        actions.select_default(prompt_bufnr)
     end
   '';
   keymaps = [
