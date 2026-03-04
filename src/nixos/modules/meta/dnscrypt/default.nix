@@ -18,7 +18,6 @@ in
           Resolve = {
             DNSSEC = true;
             DNSOverTLS = true;
-            DNSStubListener = "no";
           };
         };
       };
