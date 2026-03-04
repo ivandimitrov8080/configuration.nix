@@ -12,15 +12,7 @@ in
       "10.0.0.1"
     ];
     services = {
-      resolved = {
-        enable = true;
-        settings = {
-          Resolve = {
-            DNSSEC = true;
-            DNSOverTLS = true;
-          };
-        };
-      };
+      resolved.enable = true;
       dnscrypt-proxy = {
         enable = true;
         settings = {
