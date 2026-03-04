@@ -12,7 +12,14 @@ in
       "10.0.0.1"
     ];
     services = {
-      resolved.enable = true;
+      resolved = {
+        enable = true;
+        settings = {
+          Resolve = {
+            FallbackDNS = [ "10.0.0.1" ];
+          };
+        };
+      };
       dnscrypt-proxy = {
         enable = true;
         settings = {
