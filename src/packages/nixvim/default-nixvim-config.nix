@@ -44,6 +44,10 @@ pkgs: {
         h:_pre_get(nil, p)
         return h.content[#h.content] or ""
     end
+    local function update_search_register(prompt_bufnr)
+        vim.fn.setreg("/", require("telescope.actions.state").get_current_line())
+        require('telescope.actions').close(prompt_bufnr)
+    end
   '';
   keymaps = [
     {
@@ -520,12 +524,14 @@ pkgs: {
           };
           mappings = {
             i = {
+              "<CR>".__raw = "function(prompt_bufnr) update_search_register(prompt_bufnr) end";
               "<C-k>".__raw =
                 "function(prompt_bufnr) require('telescope.actions').move_selection_previous(prompt_bufnr) end";
               "<C-j>".__raw =
                 "function(prompt_bufnr) require('telescope.actions').move_selection_next(prompt_bufnr) end";
             };
             n = {
+              "<CR>".__raw = "function(prompt_bufnr) update_search_register(prompt_bufnr) end";
               "<C-k>".__raw =
                 "function(prompt_bufnr) require('telescope.actions').cycle_history_prev(prompt_bufnr) end";
               "<C-j>".__raw =
