@@ -13,7 +13,6 @@ in
     enable = mkEnableOption "enable gaming config";
   };
   config = mkIf cfg.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) (import ./unfree.nix);
     boot = {
       kernelPackages = pkgs.linuxPackages_zen;
       kernelParams = [
