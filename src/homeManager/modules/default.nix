@@ -531,6 +531,9 @@ mkDefaultAttrs {
       extraConfig = {
         modi = "window,drun,run,ssh,calc";
         show-icons = true;
+        drun = {
+          show-actions = true;
+        };
       };
       theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
     };
