@@ -1132,10 +1132,6 @@ mkDefaultAttrs {
       menu = "rofi -show drun";
       terminal = "kitty";
       modifier = "Mod4";
-      startup = [
-        { command = "exec firefox"; }
-        { command = "swaymsg 'workspace 1; exec kitty'"; }
-      ];
       bars = [ ];
       gaps = {
         horizontal = 2;
