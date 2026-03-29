@@ -151,6 +151,10 @@
         PermitRootLogin = "no";
       };
     };
+    roundcube = {
+      package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
+      plugins = [ "persistent_login" ];
+    };
   };
   programs = {
     zsh = {
