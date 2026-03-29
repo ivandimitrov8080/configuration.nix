@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -16,9 +17,23 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.greetd.enable = true;
-    programs.regreet.enable = true;
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session =
+          let
+            greeter = lib.getExe pkgs.ndlm;
+            session = "--session ${pkgs.swayfx}/bin/swayfx";
+            themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
+          in
+          {
+            command = lib.mkForce "${greeter} ${session} ${themeFile}";
+            user = "greeter";
+          };
+      };
+    };
     boot = {
+      loader.grub.enable = true;
       plymouth.enable = true;
       initrd.systemd.enable = true;
       initrd.verbose = false;
@@ -31,6 +46,13 @@ in
         "rd.systemd.show_status=false"
         "rd.udev.log_level=3"
         "udev.log_priority=3"
+      ];
+    };
+    users.users.greeter = {
+      extraGroups = [
+        "video"
+        "input"
+        "render"
       ];
     };
   };

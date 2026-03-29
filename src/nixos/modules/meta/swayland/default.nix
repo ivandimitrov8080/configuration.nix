@@ -18,6 +18,7 @@ in
   config = mkIf cfg.enable {
     hardware.graphics.enable = true;
     programs.sway.enable = true;
+    programs.sway.package = pkgs.swayfx;
     programs.sway.wrapperFeatures.gtk = true;
     xdg.portal = {
       enable = true;
@@ -35,6 +36,37 @@ in
           };
         };
       };
+    };
+    environment.systemPackages = with pkgs; [
+      audacity
+      brightnessctl
+      gimp
+      grim
+      libnotify
+      libreoffice-qt
+      mupdf
+      pwvucontrol
+      screenshot
+      slurp
+      wl-clipboard
+      volume
+    ];
+    security = {
+      sudo = {
+        extraRules = [
+          {
+            groups = [ "wheel" ];
+            commands = [
+              {
+                command = "${pkgs.brightnessctl}/bin/brightnessctl";
+                options = [ "NOPASSWD" ];
+              }
+            ];
+          }
+        ];
+      };
+      polkit.enable = true;
+      rtkit.enable = true;
     };
   };
 }

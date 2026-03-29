@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 let
@@ -64,8 +65,29 @@ mkDefaultAttrs {
       BAT_THEME = "catppuccin-mocha";
     };
   };
+  accounts = {
+    calendar.basePath = ".local/share/calendars";
+    email.maildirBasePath = ".local/share/mail";
+  };
   programs = {
     home-manager.enable = true;
+    taskwarrior.package = pkgs.taskwarrior3;
+    opencode = {
+      settings = {
+        theme = "catppuccin";
+        autoshare = false;
+        autoupdate = false;
+        mcp = {
+          mcp-nixos = {
+            enabled = true;
+            type = "local";
+            command = [
+              "${pkgs.mcp-nixos}/bin/mcp-nixos"
+            ];
+          };
+        };
+      };
+    };
     ssh = {
       enableDefaultConfig = false;
       matchBlocks = {
@@ -83,10 +105,7 @@ mkDefaultAttrs {
         };
       };
     };
-    msmtp.enable = false;
-    offlineimap.enable = false;
     password-store = {
-      enable = false;
       package = pkgs.pass.withExtensions (
         e: with e; [
           pass-otp
@@ -1118,7 +1137,7 @@ mkDefaultAttrs {
     checkConfig = false;
     systemd.enable = true;
     wrapperFeatures.gtk = true;
-    config = rec {
+    config = (rec {
       menu = "rofi -show drun";
       terminal = "kitty";
       modifier = "Mod4";
@@ -1130,6 +1149,13 @@ mkDefaultAttrs {
       window = {
         titlebar = false;
         border = 0;
+      };
+      startup = [
+        { command = "exec firefox"; }
+        { command = "swaymsg 'workspace 1; exec kitty'"; }
+      ];
+      assigns = {
+        "2" = [ { app_id = "^firefox$"; } ];
       };
       input = {
         "*" = {
@@ -1154,7 +1180,21 @@ mkDefaultAttrs {
         "${modifier}+shift+w" = "exec screenshot window";
         "end" = "exec rofi -show calc";
       };
-    };
+    })
+    // (lib.optionalAttrs ((builtins.hasAttr "meta" osConfig) && osConfig.meta.gaming.enable) {
+      input = {
+        "type:touchpad" = {
+          events = "disabled";
+        };
+      };
+      assigns = {
+        "3" = [
+          { class = "^dota2$"; }
+          { class = "^cs2$"; }
+        ];
+        "9" = [ { class = "^steam$"; } ];
+      };
+    });
     extraConfig = ''
       blur enable
       shadows enable

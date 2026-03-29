@@ -43,6 +43,8 @@
         };
     };
   };
+  i18n.defaultLocale = "en_US.UTF-8";
+  systemd.network.wait-online.enable = false;
   environment = {
     systemPackages = with pkgs; [
       bat
