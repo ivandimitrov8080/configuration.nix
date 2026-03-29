@@ -142,6 +142,15 @@
       pulse.enable = true;
       jack.enable = true;
     };
+    openssh = {
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        AuthenticationMethods = "publickey";
+        AllowGroups = [ "ssh" ];
+        PermitRootLogin = "no";
+      };
+    };
   };
   programs = {
     zsh = {
