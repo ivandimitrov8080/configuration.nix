@@ -11,16 +11,6 @@ let
     flip = "shuf -r -n 1 -e Heads Tails";
   }
   // (
-    if config.programs.eza.enable then
-      {
-        ls = "eza";
-        la = "eza --all -a";
-        lt = "eza --git-ignore --all --tree --level=10";
-      }
-    else
-      { }
-  )
-  // (
     if config.programs.zoxide.enable then
       {
         cd = "z";
