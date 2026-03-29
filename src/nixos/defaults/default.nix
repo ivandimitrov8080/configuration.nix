@@ -165,6 +165,24 @@
         "INC_APPEND_HISTORY"
         "SHARE_HISTORY"
       ];
+      syntaxHighlighting = {
+        enable = true;
+        highlighters = [
+          "main"
+          "brackets"
+          "cursor"
+          "line"
+        ];
+      };
+      autosuggestions = {
+        enable = true;
+        highlightStyle = "fg=cyan";
+        strategy = [
+          "history"
+          "completion"
+          "match_prev_cmd"
+        ];
+      };
     };
     zoxide = {
       enableBashIntegration = true;
