@@ -63,6 +63,8 @@
       uutils-coreutils-noprefix
       wget
       zip
+      nushell
+      xonsh
     ];
     shells = with pkgs; [
       bash
