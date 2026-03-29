@@ -15,7 +15,6 @@
   };
   security.sudo.execWheelOnly = true;
   users = {
-    defaultUserShell = pkgs.nushell;
     mutableUsers = false;
   };
   boot = {
