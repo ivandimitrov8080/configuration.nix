@@ -164,6 +164,7 @@
       setOptions = [
         "INC_APPEND_HISTORY"
         "SHARE_HISTORY"
+        "VI"
       ];
       syntaxHighlighting = {
         enable = true;
