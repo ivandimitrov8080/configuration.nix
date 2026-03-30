@@ -1118,6 +1118,7 @@ mkDefaultAttrs {
     pointerCursor = {
       name = "phinger-cursors-light";
       package = pkgs.phinger-cursors;
+      sway.enable = config.wayland.windowManager.sway.enable;
     };
     file = {
       ".tridactylrc".text = ''
