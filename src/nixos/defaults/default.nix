@@ -34,7 +34,6 @@
           };
         in
         {
-          useOSProber = true;
           efiSupport = true;
           device = "nodev";
           theme = grubTheme;
