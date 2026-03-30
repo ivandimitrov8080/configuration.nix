@@ -1180,20 +1180,6 @@ mkDefaultAttrs {
         "${modifier}+shift+w" = "exec screenshot window";
         "end" = "exec rofi -show calc";
       };
-    })
-    // (lib.optionalAttrs ((builtins.hasAttr "meta" osConfig) && osConfig.meta.gaming.enable) {
-      input = {
-        "type:touchpad" = {
-          events = "disabled";
-        };
-      };
-      assigns = {
-        "3" = [
-          { class = "^dota2$"; }
-          { class = "^cs2$"; }
-        ];
-        "9" = [ { class = "^steam$"; } ];
-      };
     });
     extraConfig = ''
       blur enable
