@@ -12,7 +12,7 @@ in
   volume = callPackage ./volume { };
   rtcqs = callPackage ./rtcqs { };
   walogram = callPackage ./walogram { };
-  ddlm = callPackage ./ddlm { };
+  ndlm = callPackage ./ndlm { };
   vscode-java-debug = callPackage ./vscode-java-debug { };
   vscode-java-test = callPackage ./vscode-java-test { };
 }
