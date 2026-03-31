@@ -67,6 +67,7 @@ mkDefaultAttrs {
   };
   accounts = {
     calendar.basePath = ".local/share/calendars";
+    contact.basePath = ".local/share/contacts";
     email.maildirBasePath = ".local/share/mail";
   };
   programs = {
