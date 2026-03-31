@@ -125,6 +125,7 @@ mkDefaultAttrs {
         };
         messages = {
           d = ":read<Enter>:move Trash<Enter>";
+          s = ":read<Enter>:move Junk<Enter>";
           q = ":quit<Enter>";
           j = ":next<Enter>";
           k = ":prev<Enter>";
@@ -151,6 +152,7 @@ mkDefaultAttrs {
         };
         view = {
           d = ":move Trash<Enter>";
+          s = ":move Junk<Enter>";
           "/" = ":toggle-key-passthrough<Enter>/";
           q = ":close<Enter>";
           f = ":forward<Enter>";
