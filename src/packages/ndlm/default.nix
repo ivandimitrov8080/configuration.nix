@@ -4,6 +4,7 @@
   pkg-config,
   cairo,
   pango,
+  lib,
   ...
 }:
 rustPlatform.buildRustPackage rec {
@@ -27,4 +28,10 @@ rustPlatform.buildRustPackage rec {
     allowBuiltinFetchGit = true;
   };
   cargoHash = null;
+  meta = {
+    description = "Not (so) dummy login manager";
+    homepage = "https://github.com/ivandimitrov8080/ndlm";
+    license = lib.licenses.mit;
+    mainProgram = pname;
+  };
 }
