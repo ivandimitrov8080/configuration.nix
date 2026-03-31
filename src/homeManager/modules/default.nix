@@ -71,7 +71,17 @@ mkDefaultAttrs {
   };
   programs = {
     home-manager.enable = true;
-    taskwarrior.package = pkgs.taskwarrior3;
+    taskwarrior = {
+      package = pkgs.taskwarrior3;
+      config = {
+        confirmation = false;
+        default = {
+          project = "misc";
+          priority = "M";
+          due = "+7days";
+        };
+      };
+    };
     w3m.enable = config.programs.aerc.enable;
     khard.enable = config.programs.aerc.enable;
     offlineimap.enable = config.programs.aerc.enable;
