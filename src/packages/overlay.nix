@@ -13,8 +13,6 @@ in
   rtcqs = callPackage ./rtcqs { };
   walogram = callPackage ./walogram { };
   ndlm = callPackage ./ndlm { };
-  vscode-java-debug = callPackage ./vscode-java-debug { };
-  vscode-java-test = callPackage ./vscode-java-test { };
 }
 // (prev.lib.optionalAttrs hasNixvim {
   nixvim = callPackage ./nixvim { nixvim = prev.nixvim; };

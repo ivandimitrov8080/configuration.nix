@@ -7,8 +7,8 @@
 let
   thisLib = import ../../../lib { inherit lib; };
   inherit (thisLib) endsWith findJars;
-  vscode-java-debug = pkgs.callPackage ../../vscode-java-debug { };
-  vscode-java-test = pkgs.callPackage ../../vscode-java-test { };
+  vscode-java-debug = pkgs.vscode-extensions.vscjava.vscode-java-debug;
+  vscode-java-test = pkgs.vscode-extensions.vscjava.vscode-java-test;
 in
 main.extend (
   let
