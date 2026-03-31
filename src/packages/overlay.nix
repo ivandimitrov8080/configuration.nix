@@ -5,9 +5,7 @@ let
 in
 {
   screenshot = callPackage ./screenshot { };
-  themes-rofi = callPackage ./themes/rofi.nix { };
-  themes-mutt = callPackage ./themes/mutt.nix { };
-  themes-gtk = callPackage ./themes/gtk-theme-catppuccin.nix { };
+  themes = callPackage ./themes { };
   faenza = callPackage ./faenza { };
   volume = callPackage ./volume { };
   rtcqs = callPackage ./rtcqs { };

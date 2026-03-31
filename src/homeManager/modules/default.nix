@@ -416,7 +416,7 @@ mkDefaultAttrs {
       };
       style = # css
         ''
-          @import "${pkgs.themes-gtk}/mocha.css";
+          @import "${pkgs.themes.gtk}/mocha.css";
           * {
               font-family: FontAwesome, 'Fira Code';
               font-size: 13px;
@@ -542,7 +542,7 @@ mkDefaultAttrs {
         show-icons = true;
         show-actions = true;
       };
-      theme = "${pkgs.themes-rofi}/rounded-nord-dark.rasi";
+      theme = "${pkgs.themes.rofi}/rounded-nord-dark.rasi";
     };
     kitty = {
       font = {
