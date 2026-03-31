@@ -74,6 +74,7 @@ mkDefaultAttrs {
     taskwarrior.package = pkgs.taskwarrior3;
     w3m.enable = config.programs.aerc.enable;
     khard.enable = config.programs.aerc.enable;
+    offlineimap.enable = config.programs.aerc.enable;
     aerc = {
       stylesets = {
         catppuccin-mocha = builtins.readFile "${pkgs.themes.aerc}/catppuccin-mocha";
