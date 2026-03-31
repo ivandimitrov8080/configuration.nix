@@ -1,7 +1,7 @@
-{ pkgs, ... }:
-pkgs.stdenv.mkDerivation {
+{ stdenv, fetchFromGitHub, ... }:
+stdenv.mkDerivation {
   name = "mutt-themes";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "altercation";
     repo = "mutt-colors-solarized";
     rev = "3b23c55eb43849975656dd89e3f35dacd2b93e69";

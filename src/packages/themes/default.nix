@@ -7,7 +7,8 @@ let
   inherit (lib) recurseIntoAttrs;
 in
 recurseIntoAttrs {
-  rofi = callPackage ./rofi.nix { };
-  mutt = callPackage ./mutt.nix { };
+  aerc = callPackage ./aerc.nix { };
   gtk = callPackage ./gtk-theme-catppuccin.nix { };
+  mutt = callPackage ./mutt.nix { };
+  rofi = callPackage ./rofi.nix { };
 }

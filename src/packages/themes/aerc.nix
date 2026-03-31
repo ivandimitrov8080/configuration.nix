@@ -1,11 +1,11 @@
 { stdenv, fetchFromGitHub, ... }:
 stdenv.mkDerivation {
-  name = "gtk-themes";
+  name = "catppuccin-aerc";
   src = fetchFromGitHub {
     owner = "catppuccin";
-    repo = "waybar";
-    rev = "ee8ed32b4f63e9c417249c109818dcc05a2e25da";
-    hash = "sha256-za0y6hcN2rvN6Xjf31xLRe4PP0YyHu2i454ZPjr+lWA=";
+    repo = "aerc";
+    rev = "3580c723ee071e512d5e41bf88cea837b4f23746";
+    hash = "sha256-jYFk8eZ3um5S7DxiGbGHGa05/HkxYYrqUX8cEhNEEu0=";
   };
   phases = [
     "unpackPhase"
@@ -13,6 +13,6 @@ stdenv.mkDerivation {
   ];
   installPhase = ''
     mkdir -p $out
-    cp ./themes/* $out
+    cp dist/* $out
   '';
 }

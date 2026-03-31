@@ -1,7 +1,7 @@
-{ pkgs, ... }:
-pkgs.stdenv.mkDerivation {
+{ stdenv, fetchFromGitHub, ... }:
+stdenv.mkDerivation {
   name = "rofi-themes-collection";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "newmanls";
     repo = "rofi-themes-collection";
     rev = "c8239a45edced3502894e1716a8b661fdea8f1c9";
