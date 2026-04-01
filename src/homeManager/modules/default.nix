@@ -64,6 +64,20 @@ mkDefaultAttrs {
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
       BAT_THEME = "catppuccin-mocha";
     };
+    file = {
+      ".vit/config.ini".text = ''
+        [taskwarrior]
+        taskrc = ~/.config/task/taskrc
+        [vit]
+        default_keybindings = vi
+        confirmation = False
+        mouse = True
+        abort_backspace = True
+        focus_on_add = True
+        [keybinding]
+        q = {ACTION_QUIT}
+      '';
+    };
   };
   accounts = {
     calendar.basePath = ".local/share/calendars";
