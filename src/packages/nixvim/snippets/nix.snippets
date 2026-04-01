@@ -2,3 +2,14 @@ snippet attr "name = { ... };"
     ${1:name} = {
         ${2}
     };
+
+snippet sttr "name = '''';"
+    ${1:name} = ''
+        ${2}
+    '';
+
+snippet lttr "name = with a; [];"
+    ${1:name} = with ${2:a}; [];
+
+snippet vttr "name = v;"
+    ${1:name} = ${2:v};
