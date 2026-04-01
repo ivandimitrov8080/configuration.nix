@@ -554,7 +554,6 @@ pkgs: {
     treesitter = {
       enable = true;
       highlight.enable = true;
-      indent.enable = true;
     };
     blink-cmp = {
       enable = true;
