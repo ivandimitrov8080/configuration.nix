@@ -587,6 +587,29 @@ pkgs: {
             "fallback"
           ];
         };
+        completion = {
+          accept = {
+            auto_brackets = {
+              enabled = true;
+              semantic_token_resolution = {
+                enabled = true;
+              };
+            };
+          };
+          documentation.auto_show = true;
+          ghost_text.enabled = true;
+          menu = {
+            draw = {
+              columns.__raw = ''
+                {
+                  { "label", "label_description", gap = 1 },
+                  { "kind_icon", "kind" }
+                }
+              '';
+            };
+          };
+        };
+        signature.enabled = true;
         snippets.preset = "luasnip";
         sources = {
           providers = {
