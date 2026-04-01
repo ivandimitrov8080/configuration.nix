@@ -496,6 +496,7 @@ pkgs: {
       fromSnipmate = [
         { }
         { paths = "${pkgs.vimPlugins.vim-snippets}/snippets"; }
+        { paths = ./snippets; }
       ];
       fromVscode = [ { } ];
       filetypeExtend = {
