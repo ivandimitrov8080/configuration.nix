@@ -492,12 +492,12 @@ pkgs: {
     };
     luasnip = {
       enable = true;
-      fromLua = [ ];
+      fromLua = [ { } ];
       fromSnipmate = [
         { }
         { paths = "${pkgs.vimPlugins.vim-snippets}/snippets"; }
       ];
-      fromVscode = [ ];
+      fromVscode = [ { } ];
       filetypeExtend = {
         sh = [ "bash" ];
       };
