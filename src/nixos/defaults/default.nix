@@ -50,7 +50,10 @@
       eza
       fd
       file
+      inetutils
       nixos-install-tools
+      nmap
+      nushell
       openssh
       openssl
       procs
@@ -60,9 +63,8 @@
       unzip
       uutils-coreutils-noprefix
       wget
-      zip
-      nushell
       xonsh
+      zip
     ];
     shells = with pkgs; [
       bash
