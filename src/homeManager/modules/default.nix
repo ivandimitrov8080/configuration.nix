@@ -736,6 +736,10 @@ mkDefaultAttrs {
           force = true;
           settings = [
             {
+              name = "nixos-options";
+              url = "https://nixos.org/manual/nixos/unstable/options.html";
+            }
+            {
               name = "home-options";
               url = "https://nix-community.github.io/home-manager/options.xhtml";
             }
