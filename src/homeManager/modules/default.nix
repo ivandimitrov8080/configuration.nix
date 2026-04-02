@@ -330,6 +330,9 @@ mkDefaultAttrs {
       };
     };
     bat = {
+      config = {
+        plain = true;
+      };
       themes =
         let
           catppuccin = pkgs.fetchFromGitHub {
