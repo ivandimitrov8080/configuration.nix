@@ -614,15 +614,19 @@ pkgs: {
         snippets.preset = "luasnip";
         sources = {
           providers = {
+            lsp.score_offset = 100;
+            snippets.score_offset = 100;
+            path.score_offset = 100;
+            dictionary.score_offset = 50;
+            buffer.score_offset = 50;
+            emoji.score_offset = 50;
             emoji = {
               module = "blink-emoji";
               name = "Emoji";
-              score_offset = 15;
             };
             dictionary = {
               module = "blink-cmp-dictionary";
               name = "Dict";
-              score_offset = 100;
               min_keyword_length = 3;
               opts = {
                 dictionary_files = [ "${pkgs.english-words}/words_alpha.txt" ];
@@ -631,11 +635,11 @@ pkgs: {
           };
           default = [
             "lsp"
-            "path"
             "snippets"
+            "path"
+            "dictionary"
             "buffer"
             "emoji"
-            "dictionary"
           ];
         };
       };
