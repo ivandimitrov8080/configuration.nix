@@ -73,6 +73,7 @@ mkDefaultAttrs {
         mouse = True
         abort_backspace = True
         focus_on_add = True
+        wait = False
         [keybinding]
         q = {ACTION_QUIT}
       '';
