@@ -715,13 +715,14 @@ pkgs: {
     }
   '';
   extraFiles = {
+    #TODO: fix textDocument/hover when buffer does not support it
     "lua/docs-view.lua".text =
       # lua
       ''
         local M = {}
         local cfg = {}
         local buf, win, prev_win, autocmd
-        local get_clients
+        local get_clients = vim.lsp.get_clients()
 
         M.update = function()
           if not win or not vim.api.nvim_win_is_valid(win) then
@@ -827,20 +828,6 @@ pkgs: {
           }
 
           cfg = vim.tbl_extend("force", default_cfg, user_cfg)
-
-          if vim.fn.has("nvim-0.11.0") then
-            get_clients = function()
-              return vim.lsp.get_clients()
-            end
-          elseif vim.fn.has("nvim-0.8.0") then
-            get_clients = function()
-              return vim.lsp.get_active_clients()
-            end
-          else
-            get_clients = function()
-              return vim.lsp.buf_get_clients(0)
-            end
-          end
 
           vim.api.nvim_create_user_command("DocsViewToggle", M.toggle, { nargs = 0 })
           vim.api.nvim_create_user_command("DocsViewUpdate", M.update, { nargs = 0 })
