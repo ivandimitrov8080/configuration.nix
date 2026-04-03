@@ -74,6 +74,7 @@ mkDefaultAttrs {
         abort_backspace = True
         focus_on_add = True
         wait = False
+        row_stripping = False
         [keybinding]
         q = {ACTION_QUIT}
       '';
