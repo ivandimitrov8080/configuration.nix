@@ -458,6 +458,7 @@ pkgs: {
     auto-session.enable = true;
     barbar.enable = true;
     blink-emoji.enable = true;
+    blink-cmp-dictionary.enable = true;
     comment.enable = true;
     dap-ui.enable = true;
     dap-virtual-text.enable = true;
@@ -618,6 +619,15 @@ pkgs: {
               name = "Emoji";
               score_offset = 15;
             };
+            dictionary = {
+              module = "blink-cmp-dictionary";
+              name = "Dict";
+              score_offset = 100;
+              min_keyword_length = 3;
+              opts = {
+                dictionary_files = [ "${pkgs.english-words}/words_alpha.txt" ];
+              };
+            };
           };
           default = [
             "lsp"
@@ -625,6 +635,7 @@ pkgs: {
             "snippets"
             "buffer"
             "emoji"
+            "dictionary"
           ];
         };
       };
@@ -684,12 +695,14 @@ pkgs: {
   };
   extraPlugins = with pkgs.vimPlugins; [ telescope-smart-history-nvim ];
   extraPackages = with pkgs; [
+    fzf
     ghostscript_headless
-    tectonic
-    sqlite
-    ripgrep
     inotify-tools
+    ripgrep
+    sqlite
+    tectonic
     tree-sitter
+    wordnet
   ];
   extraConfigLua = ''
     require("docs-view").setup {

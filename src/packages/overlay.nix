@@ -11,6 +11,7 @@ in
   rtcqs = callPackage ./rtcqs { };
   walogram = callPackage ./walogram { };
   ndlm = callPackage ./ndlm { };
+  english-words = callPackage ./english-words { };
 }
 // (prev.lib.optionalAttrs hasNixvim {
   nixvim = callPackage ./nixvim { nixvim = prev.nixvim; };
