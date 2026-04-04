@@ -627,7 +627,7 @@ pkgs: {
             dictionary = {
               module = "blink-cmp-dictionary";
               name = "Dict";
-              min_keyword_length = 3;
+              min_keyword_length = 4;
               opts = {
                 dictionary_files = [ "${pkgs.english-words}/words_alpha.txt" ];
               };
