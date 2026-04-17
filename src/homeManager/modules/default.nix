@@ -220,8 +220,10 @@ mkDefaultAttrs {
       };
     };
     opencode = {
-      settings = {
+      tui = {
         theme = "catppuccin";
+      };
+      settings = {
         autoshare = false;
         autoupdate = false;
         mcp = {
