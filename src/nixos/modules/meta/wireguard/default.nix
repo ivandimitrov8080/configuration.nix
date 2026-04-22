@@ -46,6 +46,10 @@ in
       type = str;
       default = "10.0.0.1/24";
     };
+    dns = mkOption {
+      type = str;
+      default = "10.0.0.1";
+    };
     peers = mkOption {
       type = listOf attrs;
       default = [ ];
@@ -71,7 +75,7 @@ in
           networkConfig = {
             Address = cfg.address;
             DNSDefaultRoute = true;
-            DNS = "10.0.0.1";
+            DNS = cfg.dns;
             Domains = "~.";
           };
           routingPolicyRules = [
