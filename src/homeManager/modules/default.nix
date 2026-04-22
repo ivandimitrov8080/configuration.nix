@@ -103,10 +103,10 @@ mkDefaultAttrs {
     offlineimap.enable = config.programs.aerc.enable;
     aerc = {
       stylesets = {
-        catppuccin-mocha = builtins.readFile "${pkgs.themes.aerc}/catppuccin-mocha";
-        catppuccin-macchiato = builtins.readFile "${pkgs.themes.aerc}/catppuccin-macchiato";
-        catppuccin-frappe = builtins.readFile "${pkgs.themes.aerc}/catppuccin-frappe";
-        catppuccin-latte = builtins.readFile "${pkgs.themes.aerc}/catppuccin-latte";
+        catppuccin-mocha = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-mocha";
+        catppuccin-macchiato = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-macchiato";
+        catppuccin-frappe = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-frappe";
+        catppuccin-latte = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-latte";
       };
       extraConfig = {
         general.unsafe-accounts-conf = true;
@@ -568,7 +568,7 @@ mkDefaultAttrs {
       };
       style = # css
         ''
-          @import "${pkgs.themes.gtk}/mocha.css";
+          @import "${pkgs.metaThemes.gtk}/mocha.css";
           * {
               font-family: FontAwesome, 'Fira Code';
               font-size: 13px;
@@ -694,7 +694,7 @@ mkDefaultAttrs {
         show-icons = true;
         show-actions = true;
       };
-      theme = "${pkgs.themes.rofi}/rounded-nord-dark.rasi";
+      theme = "${pkgs.metaThemes.rofi}/rounded-nord-dark.rasi";
     };
     kitty = {
       font = {
