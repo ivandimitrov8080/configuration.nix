@@ -723,9 +723,6 @@ mkDefaultAttrs {
         uosc
       ];
     };
-    bash.profileExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
-    zsh.loginExtra = ''[ "$(tty)" = "/dev/tty1" ] && exec sway '';
-    nushell.loginFile.text = ''if (tty) == "/dev/tty1" { sway } '';
     firefox = {
       package = pkgs.firefox.override {
         nativeMessagingHosts = [
