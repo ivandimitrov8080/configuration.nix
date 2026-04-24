@@ -17,6 +17,7 @@ pkgs: {
     expandtab = true;
     spell = true;
     sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions";
+    winborder = "rounded";
   };
   colorschemes.catppuccin = {
     enable = true;
@@ -699,4 +700,18 @@ pkgs: {
     tree-sitter
     wordnet
   ];
+  extraConfigLua = ''
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = "rounded",
+      max_width = 90,
+      max_height = 25,
+    })
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = "rounded",
+      max_width = 90,
+      max_height = 15,
+    })
+    vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment" })
+  '';
 }
