@@ -23,7 +23,7 @@ in
         default_session =
           let
             greeter = lib.getExe pkgs.ndlm;
-            session = "--session ${pkgs.swayfx}/bin/swayfx";
+            session = "--session ${pkgs.swayfx}/bin/sway";
             themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
           in
           {
