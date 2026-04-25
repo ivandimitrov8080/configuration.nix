@@ -23,11 +23,10 @@ in
         default_session =
           let
             greeter = lib.getExe pkgs.ndlm;
-            session = "--session ${pkgs.swayfx}/bin/sway";
             themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
           in
           {
-            command = lib.mkForce "${greeter} ${session} ${themeFile}";
+            command = lib.mkForce "${greeter} ${themeFile}";
             user = "greeter";
           };
       };
