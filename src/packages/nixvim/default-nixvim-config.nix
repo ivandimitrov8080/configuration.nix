@@ -19,6 +19,10 @@ pkgs: {
     sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions";
     winborder = "rounded";
   };
+  clipboard = {
+    register = "unnamedplus";
+    providers.wl-copy.enable = true;
+  };
   colorschemes.catppuccin = {
     enable = true;
     settings = {
