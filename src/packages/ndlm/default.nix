@@ -13,8 +13,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "ivandimitrov8080";
     repo = "ndlm";
-    rev = "1c2b9bc4b9ec15ebd4f50d75c1f51a281fbcaef5";
-    hash = "sha256-ty6Q2epYQSOmuSPMvF0dp6M9rfsnNmEWPiaLrzfFBIA=";
+    rev = "31cc3cb95a89b6bb18c09a82fea724f04544655c";
+    hash = "sha256-MjjF+sS1A3yEQAw3rsW7jYHkPHrZewZCp4XqZ6AH5jA=";
   };
   nativeBuildInputs = [
     pkg-config
