@@ -553,7 +553,7 @@ mkDefaultAttrs {
             format = "{}°";
             tooltip = true;
             interval = 3600;
-            exec = "${pkgs.wttrbar}/bin/wttrbar --location Prague";
+            exec = "${pkgs.wttrbar}/bin/wttrbar";
             return-type = "json";
           };
           "sway/workspaces" = {
