@@ -724,12 +724,12 @@ mkDefaultAttrs {
       ];
     };
     firefox = {
-      package = pkgs.firefox.override {
+      package = pkgs.firefox-devedition.override {
         nativeMessagingHosts = [
           pkgs.tridactyl-native
         ];
       };
-      profiles.default = {
+      profiles.dev-edition-default = {
         id = 0;
         search = {
           default = "ddg";
