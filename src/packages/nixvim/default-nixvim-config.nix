@@ -96,7 +96,7 @@ pkgs: {
     {
       mode = "n";
       key = "<Tab>";
-      action = "<cmd>BufferNext<cr>";
+      action.__raw = "function() require('bufferline').cycle(1) end";
       options = {
         silent = true;
         desc = "Switch tabs forwards";
@@ -105,7 +105,7 @@ pkgs: {
     {
       mode = "n";
       key = "<S-Tab>";
-      action = "<cmd>BufferPrevious<cr>";
+      action.__raw = "function() require('bufferline').cycle(-1) end";
       options = {
         silent = true;
         desc = "Switch tabs backwards";
@@ -452,7 +452,7 @@ pkgs: {
   ];
   plugins = {
     auto-session.enable = true;
-    barbar.enable = true;
+    bufferline.enable = true;
     blink-emoji.enable = true;
     blink-cmp-dictionary.enable = true;
     comment.enable = true;
