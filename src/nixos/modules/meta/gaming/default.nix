@@ -37,7 +37,6 @@ in
     environment.systemPackages = with pkgs; [
       umu-launcher
       discord
-      lutris
     ];
     systemd = {
       network.networks.wg0 = {
