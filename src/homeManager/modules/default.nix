@@ -55,7 +55,7 @@ mkDefaultAttrs {
     };
   };
   home = {
-    stateVersion = "26.05";
+    stateVersion = lib.trivial.release;
     shell.enableShellIntegration = true;
     sessionVariables = {
       PAGER = "bat";
