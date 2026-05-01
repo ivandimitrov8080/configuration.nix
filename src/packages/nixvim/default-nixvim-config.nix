@@ -659,22 +659,38 @@ pkgs: {
       bashls.enable = true;
       nushell.enable = true;
     };
-    onAttach = ''
-      if client.server_capabilities.documentHighlightProvider then
-          vim.api.nvim_create_autocmd("CursorHold", {
-              buffer = bufnr,
-              callback = function()
-                  vim.lsp.buf.document_highlight()
-              end,
-          })
-          vim.api.nvim_create_autocmd("CursorMoved", {
-              buffer = bufnr,
-              callback = function()
-                  vim.lsp.buf.clear_references()
-              end,
-          })
-      end
-    '';
+    onAttach =
+      # lua
+      ''
+        if client.server_capabilities.documentHighlightProvider then
+            vim.api.nvim_create_autocmd("CursorHold", {
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.document_highlight()
+                end,
+            })
+            vim.api.nvim_create_autocmd("CursorMoved", {
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.clear_references()
+                end,
+            })
+        end
+        if client.server_capabilities.hoverProvider then
+            vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.with(vim.lsp.handlers.hover, {
+              border = "rounded",
+              max_width = 90,
+              max_height = 25,
+            })
+        end
+        if client.server_capabilities.signatureHelpProvider then
+            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.with(vim.lsp.handlers.signature_help, {
+              border = "rounded",
+              max_width = 90,
+              max_height = 15,
+            })
+        end
+      '';
     keymaps = [
       {
         key = "<leader>la";
@@ -705,16 +721,6 @@ pkgs: {
     wordnet
   ];
   extraConfigLua = ''
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.with(vim.lsp.handlers.hover, {
-      border = "rounded",
-      max_width = 90,
-      max_height = 25,
-    })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.with(vim.lsp.handlers.signature_help, {
-      border = "rounded",
-      max_width = 90,
-      max_height = 15,
-    })
     vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
     vim.api.nvim_set_hl(0, "FloatBorder", { link = "Comment" })
   '';
