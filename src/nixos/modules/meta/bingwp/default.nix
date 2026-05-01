@@ -32,7 +32,7 @@ in
         bingwp = {
           wantedBy = [ "timers.target" ];
           timerConfig = {
-            OnCalendar = "*-*-* 10:00:00";
+            OnCalendar = "*-*-* 13:00:00";
             Persistent = true;
           };
         };
