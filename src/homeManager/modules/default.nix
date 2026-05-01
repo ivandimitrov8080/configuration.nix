@@ -1305,8 +1305,8 @@ mkDefaultAttrs {
         border = 0;
       };
       startup = [
-        { command = "exec firefox"; }
-        { command = "swaymsg 'workspace 1; exec kitty'"; }
+        { command = "exec ${lib.getExe config.programs.firefox.package}"; }
+        { command = "swaymsg 'workspace 1; exec ${terminal}'"; }
       ];
       assigns = {
         "2" = [ { app_id = "^firefox$"; } ];
