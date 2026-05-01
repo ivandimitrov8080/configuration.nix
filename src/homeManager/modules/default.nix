@@ -1309,7 +1309,7 @@ mkDefaultAttrs {
         { command = "swaymsg 'workspace 1; exec ${terminal}'"; }
       ];
       assigns = {
-        "2" = [ { app_id = "^firefox$"; } ];
+        "2" = [ { app_id = "^${config.programs.firefox.package.meta.mainProgram}$"; } ];
       };
       input = {
         "*" = {
