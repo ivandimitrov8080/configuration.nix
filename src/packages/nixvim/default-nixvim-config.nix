@@ -676,20 +676,6 @@ pkgs: {
                 end,
             })
         end
-        if client.server_capabilities.hoverProvider and vim.lsp.buf then
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.with(vim.lsp.handlers.hover, {
-              border = "rounded",
-              max_width = 90,
-              max_height = 25,
-            })
-        end
-        if client.server_capabilities.signatureHelpProvider and vim.lsp.buf then
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.with(vim.lsp.handlers.signature_help, {
-              border = "rounded",
-              max_width = 90,
-              max_height = 15,
-            })
-        end
       '';
     keymaps = [
       {
