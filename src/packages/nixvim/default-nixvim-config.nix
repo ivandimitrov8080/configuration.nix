@@ -705,12 +705,12 @@ pkgs: {
     wordnet
   ];
   extraConfigLua = ''
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.with(vim.lsp.handlers.hover, {
       border = "rounded",
       max_width = 90,
       max_height = 25,
     })
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.buf.with(vim.lsp.handlers.signature_help, {
       border = "rounded",
       max_width = 90,
       max_height = 15,
