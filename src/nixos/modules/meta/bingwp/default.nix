@@ -38,13 +38,37 @@ in
         };
       };
       services = {
-        bingwp = {
-          description = "Download bing image of the day";
-          script = ''
-            ${pkgs.nushell}/bin/nu -c "http get ('https://bing.com' + ((http get https://www.bing.com/HPImageArchive.aspx?format=js&n=1).images.0.url)) | save  ('/var/pic' | path join ( [ (date now | format date '%Y-%m-%d'), '.jpeg' ] | str join ))"
-            ${pkgs.nushell}/bin/nu -c "${pkgs.toybox}/bin/ln -sf (ls /var/pic | where type == file | get name | sort | last) /var/pic/latest.jpeg"
-          '';
-        };
+        bingwp =
+          let
+            outDir = "/var/pic";
+            exec =
+              pkgs.writers.writeNuBin "exec"
+                {
+                  makeWrapperArgs = [
+                    "--prefix"
+                    "PATH"
+                    ":"
+                    "${lib.makeBinPath [ pkgs.toybox ]}"
+                  ];
+                }
+                # nu
+                ''
+                  let file = (http get --raw $"https://bing.com((http get https://www.bing.com/HPImageArchive.aspx?format=js&n=1).images.0.url)")
+                  let fname = $"${outDir}/(date now | format date '%Y-%m-%d').jpeg"
+                  $file | save --raw $fname
+                  ln -sf $fname ${outDir}/latest.jpeg
+                '';
+          in
+          {
+            description = "Download bing image of the day";
+            after = [ "network-online.target" ];
+            wants = [ "network-online.target" ];
+            serviceConfig = {
+              Type = "oneshot";
+              ReadWritePaths = [ outDir ];
+              ExecStart = "${exec}/bin/exec";
+            };
+          };
       };
     };
   };
