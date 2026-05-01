@@ -141,10 +141,10 @@ pkgs: {
     {
       mode = "n";
       key = "<leader>x";
-      action = "<cmd>BufferClose<cr>";
+      action = "<cmd>bd<cr>";
       options = {
         silent = true;
-        desc = "Close current buffer";
+        desc = "Delete current buffer";
       };
     }
     {
