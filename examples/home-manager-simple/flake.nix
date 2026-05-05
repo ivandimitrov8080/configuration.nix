@@ -8,7 +8,6 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       configuration,
       home-manager,

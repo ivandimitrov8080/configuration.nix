@@ -14,5 +14,5 @@ in
   english-words = callPackage ./english-words { };
 }
 // (prev.lib.optionalAttrs hasNixvim {
-  nixvim = callPackage ./nixvim { nixvim = prev.nixvim; };
+  nixvim = callPackage ./nixvim { inherit (prev) nixvim; };
 })

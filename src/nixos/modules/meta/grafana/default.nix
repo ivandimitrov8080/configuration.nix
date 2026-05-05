@@ -71,7 +71,7 @@ in
           server = {
             http_addr = "127.0.0.1";
             http_port = 34321;
-            domain = cfg.domain;
+            inherit (cfg) domain;
             root_url = "https://${cfg.domain}/";
             serve_from_sub_path = false;
           };

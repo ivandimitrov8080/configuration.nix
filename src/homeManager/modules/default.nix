@@ -64,6 +64,16 @@ mkDefaultAttrs {
       BAT_THEME = "catppuccin-mocha";
     };
     file = {
+      ".tridactylrc".text = ''
+        set smoothscroll true
+        bind j scrollline 4
+        bind k scrollline -4
+        bind b fillcmdline bmarks
+        bind <Tab> tabnext
+        bind <S-Tab> tabprev
+        bind x tabclose
+        unbind d
+      '';
       ".vit/config.ini".text = ''
         [taskwarrior]
         taskrc = ~/.config/task/taskrc
@@ -366,7 +376,7 @@ mkDefaultAttrs {
         };
     };
     bash = {
-      shellAliases = shellAliases;
+      inherit shellAliases;
       enableVteIntegration = true;
       historyControl = [ "erasedups" ];
       historyIgnore = [
@@ -377,7 +387,7 @@ mkDefaultAttrs {
       initExtra = "set -o vi";
     };
     zsh = {
-      shellAliases = shellAliases;
+      inherit shellAliases;
       defaultKeymap = "viins";
       enableVteIntegration = true;
       dotDir = "${config.xdg.configHome}/zsh";
@@ -424,7 +434,7 @@ mkDefaultAttrs {
         buffer_editor = config.home.sessionVariables.EDITOR;
         use_kitty_protocol = config.programs.kitty.enable;
       };
-      shellAliases = (builtins.removeAttrs shellAliases [ "ls" ]) // {
+      shellAliases = (removeAttrs shellAliases [ "ls" ]) // {
         la = "ls -al";
       };
       extraConfig = lib.mkAfter ''
@@ -1273,25 +1283,13 @@ mkDefaultAttrs {
       package = pkgs.phinger-cursors;
       sway.enable = config.wayland.windowManager.sway.enable;
     };
-    file = {
-      ".tridactylrc".text = ''
-        set smoothscroll true
-        bind j scrollline 4
-        bind k scrollline -4
-        bind b fillcmdline bmarks
-        bind <Tab> tabnext
-        bind <S-Tab> tabprev
-        bind x tabclose
-        unbind d
-      '';
-    };
   };
   wayland.windowManager.sway = {
     package = pkgs.swayfx;
     checkConfig = false;
     systemd.enable = true;
     wrapperFeatures.gtk = true;
-    config = (rec {
+    config = rec {
       menu = "rofi -show drun";
       terminal = "kitty";
       modifier = "Mod4";
@@ -1334,7 +1332,7 @@ mkDefaultAttrs {
         "${modifier}+shift+w" = "exec screenshot window";
         "end" = "exec rofi -show calc";
       };
-    });
+    };
     extraConfig = ''
       blur enable
       shadows enable
