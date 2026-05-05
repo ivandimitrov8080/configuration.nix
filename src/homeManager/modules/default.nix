@@ -57,6 +57,11 @@ mkDefaultAttrs {
   home = {
     stateVersion = lib.trivial.release;
     shell.enableShellIntegration = true;
+    pointerCursor = {
+      name = "phinger-cursors-light";
+      package = pkgs.phinger-cursors;
+      sway.enable = config.wayland.windowManager.sway.enable;
+    };
     sessionVariables = {
       PAGER = "bat";
       EDITOR = "nvim";
@@ -1268,20 +1273,6 @@ mkDefaultAttrs {
   services = {
     gpg-agent = {
       pinentry.package = pkgs.pinentry-qt;
-    };
-  };
-  home = {
-    packages = with pkgs; [
-      openssl
-      speedtest-cli
-      uutils-coreutils-noprefix
-      xdg-user-dirs
-      xdg-utils
-    ];
-    pointerCursor = {
-      name = "phinger-cursors-light";
-      package = pkgs.phinger-cursors;
-      sway.enable = config.wayland.windowManager.sway.enable;
     };
   };
   wayland.windowManager.sway = {
