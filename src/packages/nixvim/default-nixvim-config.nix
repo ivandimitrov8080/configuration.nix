@@ -656,6 +656,11 @@ pkgs: {
   lsp = {
     servers = {
       nixd.enable = true;
+      nixd.settings = {
+        nixd = {
+          formatting.command = "${pkgs.nixfmt}/bin/nixfmt";
+        };
+      };
       bashls.enable = true;
       nushell.enable = true;
     };
