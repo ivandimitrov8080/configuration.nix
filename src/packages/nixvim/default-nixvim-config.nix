@@ -655,7 +655,7 @@ pkgs: {
   };
   lsp = {
     servers = {
-      nil_ls.enable = true;
+      nixd.enable = true;
       bashls.enable = true;
       nushell.enable = true;
     };
