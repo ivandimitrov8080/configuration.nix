@@ -703,6 +703,7 @@ pkgs: {
     fzf
     ghostscript_headless
     inotify-tools
+    nixfmt
     ripgrep
     sqlite
     tectonic

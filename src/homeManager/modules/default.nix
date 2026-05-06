@@ -101,7 +101,6 @@ mkDefaultAttrs {
     email.maildirBasePath = ".local/share/mail";
   };
   programs = {
-    home-manager.enable = true;
     taskwarrior = {
       package = pkgs.taskwarrior3;
       config = {
