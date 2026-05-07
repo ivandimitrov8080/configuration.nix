@@ -67,6 +67,7 @@ mkDefaultAttrs {
       EDITOR = "nvim";
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
       BAT_THEME = "catppuccin-mocha";
+      QT_QPA_PLATFORM = "wayland";
     };
     file = {
       ".tridactylrc".text = ''
