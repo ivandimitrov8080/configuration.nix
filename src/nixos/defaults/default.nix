@@ -18,7 +18,6 @@
     mutableUsers = false;
   };
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
     plymouth = {
       theme = "catppuccin-mocha";
       themePackages = [
