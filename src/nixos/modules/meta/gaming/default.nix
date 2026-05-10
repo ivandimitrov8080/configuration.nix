@@ -39,9 +39,6 @@ in
       discord
     ];
     systemd = {
-      network.networks.wg0 = {
-        routingPolicyRules = import ./steam-route-rules.nix;
-      };
       settings.Manager = {
         DefaultTimeoutStopSec = "5s";
       };
