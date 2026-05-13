@@ -32,11 +32,11 @@ let
   isCurrentHub = any (peer: isHub peer && isCurrent peer) cfg.peers;
   isCurrentSpoke = !isCurrentHub;
   hubPeers = filter (peer: !(isCurrent peer)) cfg.peers;
-  spokePeers = filter isHub cfg.peers;
-  endpoints = map (x: {
-    To = "${rmPort x.Endpoint}/32";
+  hubs = filter isHub cfg.peers;
+  endpoints = map (hub: {
+    To = "${rmPort hub.Endpoint}/32";
     Priority = 5;
-  }) (filter (x: x ? Endpoint) cfg.peers);
+  }) hubs;
 in
 {
   options.meta.wireguard = {
@@ -71,7 +71,7 @@ in
             PrivateKeyFile = toString cfg.privateKeyFile;
             FirewallMark = 6969;
           };
-          wireguardPeers = spokePeers;
+          wireguardPeers = hubs;
         };
         networks.wg0 = {
           matchConfig.Name = "wg0";
