@@ -22,16 +22,19 @@ let
     any
     filter
     split
-    map
     ;
   cfg = config.meta.wireguard;
   addr = cfg.address;
-  ipv4 = x: (elemAt (split "/" x) 0);
-  endpoint = x: (elemAt (split ":" x) 0);
-  isHub = any (x: x ? Endpoint && (any (y: (ipv4 y) == (ipv4 addr)) x.AllowedIPs)) cfg.peers;
-  peers = filter (x: !(any (y: (ipv4 y) == (ipv4 addr)) x.AllowedIPs)) cfg.peers;
+  rmSubnetMask = x: (elemAt (split "/" x) 0);
+  rmPort = x: (elemAt (split ":" x) 0);
+  isHub = peer: peer ? Endpoint;
+  isCurrent = peer: (any (ip: (rmSubnetMask ip) == (rmSubnetMask addr)) peer.AllowedIPs);
+  isCurrentHub = any (peer: isHub peer && isCurrent peer) cfg.peers;
+  isCurrentSpoke = !isCurrentHub;
+  hubPeers = filter (peer: !(isCurrent peer)) cfg.peers;
+  spokePeers = filter isHub cfg.peers;
   endpoints = map (x: {
-    To = "${endpoint x.Endpoint}/32";
+    To = "${rmPort x.Endpoint}/32";
     Priority = 5;
   }) (filter (x: x ? Endpoint) cfg.peers);
 in
@@ -56,7 +59,7 @@ in
     };
   };
   config = mkIf cfg.enable (mkMerge [
-    (mkIf (!isHub) {
+    (mkIf isCurrentSpoke {
       systemd.network = {
         netdevs."10-wg0" = {
           netdevConfig = {
@@ -65,10 +68,10 @@ in
             Description = "Wireguard virtual network device (tunnel)";
           };
           wireguardConfig = {
-            PrivateKeyFile = builtins.toString cfg.privateKeyFile;
+            PrivateKeyFile = toString cfg.privateKeyFile;
             FirewallMark = 6969;
           };
-          wireguardPeers = peers;
+          wireguardPeers = spokePeers;
         };
         networks.wg0 = {
           matchConfig.Name = "wg0";
@@ -104,7 +107,7 @@ in
         };
       };
     })
-    (mkIf isHub {
+    (mkIf isCurrentHub {
       systemd.network = {
         enable = true;
         netdevs = {
@@ -115,10 +118,10 @@ in
               Description = "Wireguard virtual device (tunnel)";
             };
             wireguardConfig = {
-              PrivateKeyFile = builtins.toString cfg.privateKeyFile;
+              PrivateKeyFile = toString cfg.privateKeyFile;
               ListenPort = 51820;
             };
-            wireguardPeers = peers;
+            wireguardPeers = hubPeers;
           };
         };
         networks.wg0 = {
