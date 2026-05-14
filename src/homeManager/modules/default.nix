@@ -241,6 +241,7 @@ mkDefaultAttrs {
       settings = {
         autoshare = false;
         autoupdate = false;
+        lsp = true;
         mcp = {
           mcp-nixos = {
             enabled = true;
