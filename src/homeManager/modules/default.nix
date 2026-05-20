@@ -47,11 +47,11 @@ mkDefaultAttrs {
       "video/ogg" = "mpv.desktop";
       "video/webm" = "mpv.desktop";
       "video/x-msvideo" = "mpv.desktop";
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
+      "text/html" = "${config.programs.firefox.package.pname}.desktop";
+      "x-scheme-handler/http" = "${config.programs.firefox.package.pname}.desktop";
+      "x-scheme-handler/https" = "${config.programs.firefox.package.pname}.desktop";
+      "x-scheme-handler/about" = "${config.programs.firefox.package.pname}.desktop";
+      "x-scheme-handler/unknown" = "${config.programs.firefox.package.pname}.desktop";
     };
   };
   home = {
