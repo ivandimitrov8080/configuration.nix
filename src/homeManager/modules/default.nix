@@ -68,6 +68,7 @@ mkDefaultAttrs {
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
       BAT_THEME = "catppuccin-mocha";
       QT_QPA_PLATFORM = "wayland";
+      _JAVA_AWT_WM_NONREPARENTING = 1;
     };
     file = {
       ".tridactylrc".text = ''
