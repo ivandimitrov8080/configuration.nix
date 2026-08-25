@@ -64,7 +64,7 @@ mkDefaultAttrs {
     };
     sessionVariables = {
       PAGER = "bat";
-      EDITOR = "nvim";
+      EDITOR = "emacsclient";
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
       BAT_THEME = "catppuccin-mocha";
       QT_QPA_PLATFORM = "wayland";
@@ -1294,20 +1294,6 @@ mkDefaultAttrs {
       window = {
         titlebar = false;
         border = 0;
-      };
-      startup = [
-        { command = "exec ${lib.getExe config.programs.firefox.package}"; }
-        { command = "swaymsg 'workspace 1; exec ${terminal}'"; }
-      ];
-      assigns = {
-        "2" = [ { app_id = "^${config.programs.firefox.package.meta.mainProgram}$"; } ];
-      };
-      input = {
-        "*" = {
-          xkb_layout = "us,bg";
-          xkb_options = "grp:win_space_toggle";
-          xkb_variant = ",phonetic";
-        };
       };
       keybindings = lib.mkOptionDefault {
         "XF86AudioMute" = "exec volume sink toggle";
