@@ -706,7 +706,7 @@ mkDefaultAttrs {
           rofi-calc
         ];
       };
-      extraConfig = {
+      settings = {
         modi = "window,drun,run,ssh,calc";
         show-icons = true;
         show-actions = true;
