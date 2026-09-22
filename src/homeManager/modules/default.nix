@@ -64,7 +64,6 @@ mkDefaultAttrs {
     };
     sessionVariables = {
       PAGER = "bat";
-      EDITOR = "emacsclient";
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
       BAT_THEME = "catppuccin-mocha";
       QT_QPA_PLATFORM = "wayland";
@@ -438,7 +437,6 @@ mkDefaultAttrs {
         };
         history.file_format = "sqlite";
         edit_mode = "vi";
-        buffer_editor = config.home.sessionVariables.EDITOR;
         use_kitty_protocol = config.programs.kitty.enable;
       };
       shellAliases = (removeAttrs shellAliases [ "ls" ]) // {
