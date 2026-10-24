@@ -38,13 +38,10 @@ in
       };
     };
     environment.systemPackages = with pkgs; [
-      audacity
       brightnessctl
       gimp
       grim
       libnotify
-      libreoffice-qt
-      mupdf
       pwvucontrol
       screenshot
       slurp
