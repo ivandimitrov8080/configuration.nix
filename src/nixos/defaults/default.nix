@@ -18,26 +18,12 @@
     mutableUsers = false;
   };
   boot = {
-    plymouth = {
-      theme = "catppuccin-mocha";
-      themePackages = [
-        (pkgs.catppuccin-plymouth.override { variant = "mocha"; })
-      ];
-    };
     loader = {
       efi.canTouchEfiVariables = true;
-      grub =
-        let
-          grubTheme = pkgs.catppuccin-grub.override {
-            flavor = "mocha";
-          };
-        in
-        {
-          efiSupport = true;
-          device = "nodev";
-          theme = grubTheme;
-          splashImage = "${grubTheme}/background.png";
-        };
+      grub = {
+        efiSupport = true;
+        device = "nodev";
+      };
     };
   };
   i18n.defaultLocale = "en_US.UTF-8";

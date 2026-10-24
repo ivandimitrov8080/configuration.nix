@@ -5,7 +5,6 @@ let
 in
 {
   screenshot = callPackage ./screenshot { };
-  metaThemes = callPackage ./themes { };
   faenza = callPackage ./faenza { };
   volume = callPackage ./volume { };
   rtcqs = callPackage ./rtcqs { };

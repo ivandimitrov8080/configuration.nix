@@ -65,7 +65,6 @@ mkDefaultAttrs {
     sessionVariables = {
       PAGER = "bat";
       WLR_RENDERER_ALLOW_SOFTWARE = 1;
-      BAT_THEME = "catppuccin-mocha";
       QT_QPA_PLATFORM = "wayland";
       _JAVA_AWT_WM_NONREPARENTING = 1;
     };
@@ -116,143 +115,6 @@ mkDefaultAttrs {
     w3m.enable = config.programs.aerc.enable;
     khard.enable = config.programs.aerc.enable;
     offlineimap.enable = config.programs.aerc.enable;
-    aerc = {
-      stylesets = {
-        catppuccin-mocha = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-mocha";
-        catppuccin-macchiato = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-macchiato";
-        catppuccin-frappe = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-frappe";
-        catppuccin-latte = builtins.readFile "${pkgs.metaThemes.aerc}/catppuccin-latte";
-      };
-      extraConfig = {
-        general.unsafe-accounts-conf = true;
-        ui = {
-          border-char-vertical = "│";
-          border-char-horizontal = "─";
-          styleset-name = "catppuccin-macchiato";
-        };
-        viewer = {
-          pager = "less -Rc";
-          alternatives = "text/plain,text/html";
-        };
-        filters = {
-          "text/plain" = "wrap -w 100 | colorize";
-          "text/html" = "html | colorize";
-          ".headers" = "colorize";
-        };
-        compose = {
-          address-book-cmd = "khard email --remove-first-line --parsable %s";
-        };
-      };
-      extraBinds = {
-        global = {
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-          "<C-t>" = ":term<Enter>";
-          "?" = ":help keys<Enter>";
-          "<C-c>" = ":quit -f<Enter>";
-          "<C-q>" = ":quit<Enter>";
-          "<C-z>" = ":suspend<Enter>";
-        };
-        messages = {
-          d = ":read<Enter>:move Trash<Enter>";
-          s = ":read<Enter>:move Junk<Enter>";
-          q = ":quit<Enter>";
-          j = ":next<Enter>";
-          k = ":prev<Enter>";
-          g = ":select 0<Enter>";
-          G = ":select -1<Enter>";
-          v = ":mark -t<Enter>";
-          V = ":mark -v<Enter>";
-          a = ":archive flat<Enter>";
-          m = ":compose<Enter>";
-          r = ":reply -aq<Enter>";
-          "/" = ":search<space>";
-          "\\" = ":filter<space>";
-          n = ":next-result<Enter>";
-          N = ":prev-result<Enter>";
-          "<C-d>" = ":next 50%<Enter>";
-          "<C-u>" = ":prev 50%<Enter>";
-          "<Enter>" = ":view<Enter>";
-          "<Esc>" = ":clear<Enter>";
-          J = ":next-folder<Enter>";
-          K = ":prev-folder<Enter>";
-        };
-        "messages:folder=Drafts" = {
-          "<Enter>" = ":recall<Enter>";
-        };
-        view = {
-          d = ":move Trash<Enter>";
-          s = ":move Junk<Enter>";
-          "/" = ":toggle-key-passthrough<Enter>/";
-          q = ":close<Enter>";
-          f = ":forward<Enter>";
-          r = ":reply -aq<Enter>";
-          a = ":archive flat<Enter>";
-          H = ":toggle-headers<Enter>";
-          "<C-j>" = ":next-part<Enter>";
-          "<C-k>" = ":prev-part<Enter>";
-          J = ":next<Enter>";
-          K = ":prev<Enter>";
-        };
-        "view::passthrough" = {
-          "$noinherit" = true;
-          "$ex" = "<C-x>";
-          "<Esc>" = ":toggle-key-passthrough<Enter>";
-        };
-        compose = {
-          "$noinherit" = true;
-          "$ex" = "<C-x>";
-          "$complete" = "<C-o>";
-          "<tab>" = ":next-field<Enter>";
-          "<backtab>" = ":prev-field<Enter>";
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-        };
-        "compose::editor" = {
-          "$noinherit" = true;
-          "$ex" = "<C-x>";
-          "<C-Down>" = ":next-field<Enter>";
-          "<C-Up>" = ":prev-field<Enter>";
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-        };
-        "compose::review" = {
-          y = ":send<Enter>";
-          n = ":abort<Enter>";
-          x = ":encrypt<Enter>";
-          v = ":preview<Enter>";
-          p = ":postpone<Enter>";
-          e = ":edit<Enter>";
-          a = ":attach<space>";
-          d = ":detach<space>";
-        };
-        terminal = {
-          "$noinherit" = true;
-          "$ex" = "<C-x>";
-          "<C-p>" = ":prev-tab<Enter>";
-          "<C-n>" = ":next-tab<Enter>";
-        };
-      };
-    };
-    opencode = {
-      tui = {
-        theme = "catppuccin";
-      };
-      settings = {
-        autoshare = false;
-        autoupdate = false;
-        lsp = true;
-        mcp = {
-          mcp-nixos = {
-            enabled = true;
-            type = "local";
-            command = [
-              "${pkgs.mcp-nixos}/bin/mcp-nixos"
-            ];
-          };
-        };
-      };
-    };
     ssh = {
       enableDefaultConfig = false;
       settings = {
@@ -353,33 +215,6 @@ mkDefaultAttrs {
       config = {
         plain = true;
       };
-      themes =
-        let
-          catppuccin = pkgs.fetchFromGitHub {
-            owner = "catppuccin";
-            repo = "bat";
-            rev = "82e7ca555f805b53d2b377390e4ab38c20282e83";
-            sha256 = "sha256-/Ob9iCVyjJDBCXlss9KwFQTuxybmSSzYRBZxOT10PZg=";
-          };
-        in
-        {
-          catppuccin-mocha = {
-            src = catppuccin;
-            file = "themes/Catppuccin Mocha.tmTheme";
-          };
-          catppuccin-macchiato = {
-            src = catppuccin;
-            file = "themes/Catppuccin Macchiato.tmTheme";
-          };
-          catppuccin-frappe = {
-            src = catppuccin;
-            file = "themes/Catppuccin Frappe.tmTheme";
-          };
-          catppuccin-latte = {
-            src = catppuccin;
-            file = "themes/Catppuccin Latte.tmTheme";
-          };
-        };
     };
     bash = {
       inherit shellAliases;
@@ -581,116 +416,7 @@ mkDefaultAttrs {
         enable = true;
         targets = [ "sway-session.target" ];
       };
-      style = # css
-        ''
-          @import "${pkgs.metaThemes.gtk}/mocha.css";
-          * {
-              font-family: FontAwesome, 'Fira Code';
-              font-size: 13px;
-          }
-
-          window#waybar {
-              background-color: alpha(@base, 0.1);
-              border-bottom: 2px solid alpha(@sky, 0.5);
-              color: @rosewater;
-          }
-
-          #workspaces button {
-              padding: 0 5px;
-              background-color: alpha(@base, 0.85);
-              color: @text;
-              font-weight: 900;
-              border-radius: 6px;
-          }
-
-          #workspaces button:hover {
-              background: @mantle;
-          }
-
-          #workspaces button.focused {
-              background-color: alpha(@crust, 0.85);
-              box-shadow: inset 0 -2px @sky;
-          }
-
-          #workspaces button.urgent {
-              background-color: alpha(@red, 0.85);
-          }
-
-          #clock,
-          #battery,
-          #cpu,
-          #memory,
-          #disk,
-          #temperature,
-          #backlight,
-          #network,
-          #pulseaudio,
-          #wireplumber,
-          #custom-media,
-          #tray,
-          #mode,
-          #idle_inhibitor,
-          #scratchpad,
-          #power-profiles-daemon,
-          #mpd,
-          #custom-weather {
-              padding: 0 1em;
-              color: @text;
-              font-weight: 900;
-              background-color: alpha(@base, 0.85);
-              border-radius: 9999px;
-          }
-
-          #clock.week {
-            margin-right: 0px;
-            color: @peach;
-            border-radius: 9999px 0px 0px 9999px;
-          }
-
-          #clock.year {
-            margin: 0px;
-            padding: 0px;
-            color: @pink;
-            border-radius: 0px;
-          }
-
-          #clock.time {
-            margin-left: 0px;
-            color: @sky;
-            border-radius: 0px 9999px 9999px 0px;
-          }
-
-          #battery.charging, #battery.plugged {
-              color: @green;
-          }
-
-          #battery.discharging {
-              color: @yellow;
-          }
-
-          #battery.warning:not(.charging) {
-              background-color: alpha(@red, 0.85);
-              color: @crust;
-          }
-
-          /* Using steps() instead of linear as a timing function to limit cpu usage */
-          #battery.critical:not(.charging) {
-              color: @crust;
-              animation-name: blink;
-              animation-duration: 1s;
-              animation-timing-function: steps(12);
-              animation-iteration-count: infinite;
-              animation-direction: alternate;
-          }
-
-          @keyframes blink {
-              0% { background-color: alpha(@mauve, 0.85); }
-              25% { background-color: alpha(@red, 0.85); }
-              50% { background-color: alpha(@maroon, 0.85); }
-              75% { background-color: alpha(@peach, 0.85); }
-              100% { background-color: alpha(@mauve, 0.85); }
-          }
-        '';
+      style = builtins.readFile ./waybar/main.css;
     };
     swaylock = {
       settings = {
@@ -709,7 +435,6 @@ mkDefaultAttrs {
         show-icons = true;
         show-actions = true;
       };
-      theme = "${pkgs.catppuccin.override { variant = "mocha"; }}/rofi/catppuccin-mocha.rasi";
     };
     kitty = {
       font = {
@@ -724,7 +449,6 @@ mkDefaultAttrs {
         dynamic_background_opacity = true;
         enable_audio_bell = false;
       };
-      themeFile = "Catppuccin-Mocha";
     };
     imv = {
       settings = {

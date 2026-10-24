@@ -1,0 +1,92 @@
+* {
+    font-family: FontAwesome, 'Fira Code';
+    font-size: 13px;
+}
+window#waybar {
+    background-color: alpha(@base, 0.1);
+    border-bottom: 2px solid alpha(@sky, 0.5);
+    color: @rosewater;
+}
+#workspaces button {
+    padding: 0 5px;
+    background-color: alpha(@base, 0.85);
+    color: @text;
+    font-weight: 900;
+    border-radius: 6px;
+}
+#workspaces button:hover {
+    background: @mantle;
+}
+#workspaces button.focused {
+    background-color: alpha(@crust, 0.85);
+    box-shadow: inset 0 -2px @sky;
+}
+#workspaces button.urgent {
+    background-color: alpha(@red, 0.85);
+}
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd,
+#custom-weather {
+    padding: 0 1em;
+    color: @text;
+    font-weight: 900;
+    background-color: alpha(@base, 0.85);
+    border-radius: 9999px;
+}
+#clock.week {
+  margin-right: 0px;
+  color: @peach;
+  border-radius: 9999px 0px 0px 9999px;
+}
+#clock.year {
+  margin: 0px;
+  padding: 0px;
+  color: @pink;
+  border-radius: 0px;
+}
+#clock.time {
+  margin-left: 0px;
+  color: @sky;
+  border-radius: 0px 9999px 9999px 0px;
+}
+#battery.charging, #battery.plugged {
+    color: @green;
+}
+#battery.discharging {
+    color: @yellow;
+}
+#battery.warning:not(.charging) {
+    background-color: alpha(@red, 0.85);
+    color: @crust;
+}
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+    color: @crust;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-timing-function: steps(12);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+@keyframes blink {
+    0% { background-color: alpha(@mauve, 0.85); }
+    25% { background-color: alpha(@red, 0.85); }
+    50% { background-color: alpha(@maroon, 0.85); }
+    75% { background-color: alpha(@peach, 0.85); }
+    100% { background-color: alpha(@mauve, 0.85); }
+}
