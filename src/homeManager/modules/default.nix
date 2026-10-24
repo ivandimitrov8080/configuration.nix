@@ -499,7 +499,6 @@ mkDefaultAttrs {
         settings = {
           "general.smoothScroll" = true;
           "signon.rememberSignons" = false;
-          "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
           "layout.frame_rate" = 60;
           "browser.newtabpage.activity-stream.feeds.telemetry" = false;
           "browser.newtabpage.activity-stream.telemetry" = false;
