@@ -32,7 +32,7 @@ in
       };
     };
     boot = {
-      loader.grub.enable = true;
+      loader.limine.enable = true;
       plymouth.enable = true;
       initrd.systemd.enable = true;
       initrd.verbose = false;
