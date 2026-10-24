@@ -709,7 +709,7 @@ mkDefaultAttrs {
         show-icons = true;
         show-actions = true;
       };
-      theme = "${pkgs.metaThemes.rofi}/rounded-nord-dark.rasi";
+      theme = "${pkgs.catppuccin.override { variant = "mocha"; }}/rofi/catppuccin-mocha.rasi";
     };
     kitty = {
       font = {
