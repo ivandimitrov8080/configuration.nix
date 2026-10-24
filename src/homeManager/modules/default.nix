@@ -417,7 +417,7 @@ mkDefaultAttrs {
         targets = [ "sway-session.target" ];
       };
       style = ''
-        @import ${config.xdg.configHome}/waybar/catppuccin.css
+        @import ${config.xdg.configHome}/waybar/catppuccin.css;
         ${builtins.readFile ./waybar/main.css}
       '';
     };
