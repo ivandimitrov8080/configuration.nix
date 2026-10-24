@@ -416,7 +416,10 @@ mkDefaultAttrs {
         enable = true;
         targets = [ "sway-session.target" ];
       };
-      style = builtins.readFile ./waybar/main.css;
+      style = ''
+        @import ${config.xdg.configHome}/waybar/catppuccin.css
+        ${builtins.readFile ./waybar/main.css}
+      '';
     };
     swaylock = {
       settings = {
