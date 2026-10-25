@@ -34,8 +34,6 @@ in
     boot = {
       loader.limine.enable = true;
       plymouth.enable = true;
-      initrd.systemd.enable = true;
-      initrd.verbose = false;
       consoleLogLevel = 0;
       kernelParams = [
         "quiet"
