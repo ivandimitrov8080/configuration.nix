@@ -8,7 +8,6 @@ in
   faenza = callPackage ./faenza { };
   volume = callPackage ./volume { };
   rtcqs = callPackage ./rtcqs { };
-  walogram = callPackage ./walogram { };
   ndlm = callPackage ./ndlm { };
   english-words = callPackage ./english-words { };
   askpass = callPackage ./askpass { };
