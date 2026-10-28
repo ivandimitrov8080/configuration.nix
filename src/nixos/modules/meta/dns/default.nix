@@ -30,11 +30,9 @@ let
         meta oifname "lo" accept
 
         # Allow dns only to the configured resolvers
-    ${concatMapStringsSep "\n" (
-      server: ''
-            ip daddr ${server} udp dport 53 accept
-            ip daddr ${server} tcp dport 53 accept''
-    ) cfg.servers}
+    ${concatMapStringsSep "\n" (server: ''
+      ip daddr ${server} udp dport 53 accept
+      ip daddr ${server} tcp dport 53 accept'') cfg.servers}
 
         # Block DNS to anywhere else
         udp dport 53 drop

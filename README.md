@@ -18,6 +18,7 @@ This repository aims to help configure everything I use for all my machines.
 Check [examples](./examples) folder.
 
 Run the following for more info:
+
 ```bash
 nix flake show github:ivandimitrov8080/configuration.nix
 ```

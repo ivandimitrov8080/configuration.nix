@@ -63,9 +63,7 @@ in
     shellAliases =
       values.shellAliases
       // (if config.programs.zoxide.enable then values.zoxideAliases else { })
-      // (
-        if builtins.elem pkgs.eza config.environment.systemPackages then values.ezaAliases else { }
-      );
+      // (if builtins.elem pkgs.eza config.environment.systemPackages then values.ezaAliases else { });
     variables = {
       SYSTEMD_LESS = "FRXMK";
     };

@@ -39,7 +39,10 @@ let
         if isHub then
           [ "${peer.ip}/32" ]
         else if peer.endpoint != null then
-          [ "0.0.0.0/0" "${peer.ip}/32" ]
+          [
+            "0.0.0.0/0"
+            "${peer.ip}/32"
+          ]
         else
           [ "${peer.ip}/32" ];
     }

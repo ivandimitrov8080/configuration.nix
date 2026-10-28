@@ -13,7 +13,12 @@
   ...
 }:
 let
-  inherit (lib) mkIf mkMerge mkOption types;
+  inherit (lib)
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   cfg = config.meta.host;
 
   # The overlay lives in this flake, so it can be referenced without going

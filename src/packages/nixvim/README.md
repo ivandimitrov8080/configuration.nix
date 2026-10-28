@@ -1,5 +1,3 @@
-
-
 ### Wishlist
 
 - jdtls: download sources

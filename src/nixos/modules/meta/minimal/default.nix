@@ -172,9 +172,9 @@ in
       kmonad = mkIf kmonadCfg.enable {
         enable = true;
         keyboards.laptop = {
-          device = kmonadCfg.device;
+          inherit (kmonadCfg) device;
           defcfg.enable = true;
-          config = kmonadCfg.config;
+          inherit (kmonadCfg) config;
         };
       };
     };

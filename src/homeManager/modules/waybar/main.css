@@ -1,5 +1,5 @@
 * {
-    font-family: FontAwesome, 'Fira Code';
+    font-family: FontAwesome, "Fira Code";
     font-size: 13px;
 }
 window#waybar {
@@ -49,22 +49,23 @@ window#waybar {
     border-radius: 9999px;
 }
 #clock.week {
-  margin-right: 0px;
-  color: @peach;
-  border-radius: 9999px 0px 0px 9999px;
+    margin-right: 0px;
+    color: @peach;
+    border-radius: 9999px 0px 0px 9999px;
 }
 #clock.year {
-  margin: 0px;
-  padding: 0px;
-  color: @pink;
-  border-radius: 0px;
+    margin: 0px;
+    padding: 0px;
+    color: @pink;
+    border-radius: 0px;
 }
 #clock.time {
-  margin-left: 0px;
-  color: @sky;
-  border-radius: 0px 9999px 9999px 0px;
+    margin-left: 0px;
+    color: @sky;
+    border-radius: 0px 9999px 9999px 0px;
 }
-#battery.charging, #battery.plugged {
+#battery.charging,
+#battery.plugged {
     color: @green;
 }
 #battery.discharging {
@@ -84,9 +85,19 @@ window#waybar {
     animation-direction: alternate;
 }
 @keyframes blink {
-    0% { background-color: alpha(@mauve, 0.85); }
-    25% { background-color: alpha(@red, 0.85); }
-    50% { background-color: alpha(@maroon, 0.85); }
-    75% { background-color: alpha(@peach, 0.85); }
-    100% { background-color: alpha(@mauve, 0.85); }
+    0% {
+        background-color: alpha(@mauve, 0.85);
+    }
+    25% {
+        background-color: alpha(@red, 0.85);
+    }
+    50% {
+        background-color: alpha(@maroon, 0.85);
+    }
+    75% {
+        background-color: alpha(@peach, 0.85);
+    }
+    100% {
+        background-color: alpha(@mauve, 0.85);
+    }
 }

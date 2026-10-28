@@ -7,8 +7,7 @@
 let
   inherit (import ../../lib { inherit lib; }) mkDefaultAttrs values;
   shellAliases =
-    values.shellAliases
-    // (if config.programs.zoxide.enable then values.zoxideAliases else { });
+    values.shellAliases // (if config.programs.zoxide.enable then values.zoxideAliases else { });
 in
 mkDefaultAttrs {
   xdg = {
