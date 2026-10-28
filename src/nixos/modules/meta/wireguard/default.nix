@@ -1,3 +1,7 @@
+# Wireguard mesh. Peers are host data (public keys, addresses, endpoints) and
+# live next to the host that needs them; everything derived from them
+# (AllowedIPs, Endpoint/PersistentKeepalive, hub vs. spoke layout) is computed
+# here. DNS wiring is owned by meta.dns, not by this module.
 {
   lib,
   config,
@@ -6,60 +10,115 @@
 let
   inherit (lib)
     mkIf
-    mkOption
-    mkEnableOption
     mkMerge
+    mkEnableOption
+    mkOption
+    optionalAttrs
+    mapAttrsToList
+    filter
+    elemAt
+    split
     types
     ;
-  inherit (lib.types)
-    str
-    listOf
-    attrs
-    either
-    ;
-  inherit (builtins)
-    elemAt
-    any
-    filter
-    split
-    ;
   cfg = config.meta.wireguard;
-  addr = cfg.address;
-  rmSubnetMask = x: (elemAt (split "/" x) 0);
-  rmPort = x: (elemAt (split ":" x) 0);
-  isHub = peer: peer ? Endpoint;
-  isCurrent = peer: (any (ip: (rmSubnetMask ip) == (rmSubnetMask addr)) peer.AllowedIPs);
-  isCurrentHub = any (peer: isHub peer && isCurrent peer) cfg.peers;
-  isCurrentSpoke = !isCurrentHub;
-  hubPeers = filter (peer: !(isCurrent peer)) cfg.peers;
-  hubs = filter isHub cfg.peers;
-  endpoints = map (hub: {
-    To = "${rmPort hub.Endpoint}/32";
-    Priority = 5;
-  }) hubs;
+
+  rmPort = x: elemAt (split ":" x) 0;
+
+  peers = mapAttrsToList (name: peer: peer // { inherit name; }) cfg.peers;
+  me = cfg.peers.${cfg.self} or null;
+  isHub = me != null && me.endpoint != null;
+  hubs = filter (peer: peer.endpoint != null) peers;
+  others = filter (peer: peer.name != cfg.self) peers;
+
+  # A hub is routed everything; spokes are routed their single /32.
+  toNetworkdPeer =
+    peer:
+    {
+      PublicKey = peer.publicKey;
+      AllowedIPs =
+        if isHub then
+          [ "${peer.ip}/32" ]
+        else if peer.endpoint != null then
+          [ "0.0.0.0/0" "${peer.ip}/32" ]
+        else
+          [ "${peer.ip}/32" ];
+    }
+    // optionalAttrs (peer.endpoint != null) { Endpoint = peer.endpoint; }
+    // optionalAttrs (peer.persistentKeepalive != null) {
+      PersistentKeepalive = peer.persistentKeepalive;
+    };
+
+  hubDns =
+    if cfg.dns != null then
+      cfg.dns
+    else if hubs == [ ] then
+      null
+    else
+      (lib.head hubs).ip;
 in
 {
   options.meta.wireguard = {
-    enable = mkEnableOption "enable wg0 interface";
+    enable = mkEnableOption "enable the wg0 interface";
+
+    self = mkOption {
+      type = types.str;
+      default = "";
+      description = "Key of this host in meta.wireguard.peers.";
+    };
+
     privateKeyFile = mkOption {
-      type = either str types.path;
+      type = types.either types.str types.path;
       default = "/etc/systemd/network/wg0.key";
+      description = "Private key of this host.";
     };
+
     address = mkOption {
-      type = str;
+      type = types.str;
       default = "10.0.0.1/24";
+      description = "Address of this host on the wireguard network.";
     };
+
     dns = mkOption {
-      type = str;
-      default = "10.0.0.1";
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+        Per-link DNS handed to systemd-networkd. Defaults to the address of
+        the hub peer.
+      '';
     };
+
     peers = mkOption {
-      type = listOf attrs;
-      default = [ ];
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            ip = mkOption {
+              type = types.str;
+              description = "Address of the peer inside the wireguard network.";
+            };
+            publicKey = mkOption {
+              type = types.str;
+              description = "Public key of the peer.";
+            };
+            endpoint = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = "host:port; set on hubs only.";
+            };
+            persistentKeepalive = mkOption {
+              type = types.nullOr types.int;
+              default = null;
+              description = "PersistentKeepalive in seconds, usually set on the hub entry.";
+            };
+          };
+        }
+      );
+      default = { };
+      description = "All peers of the mesh, including this host.";
     };
   };
+
   config = mkIf cfg.enable (mkMerge [
-    (mkIf isCurrentSpoke {
+    (mkIf (!isHub) {
       systemd.network = {
         netdevs."10-wg0" = {
           netdevConfig = {
@@ -71,14 +130,16 @@ in
             PrivateKeyFile = toString cfg.privateKeyFile;
             FirewallMark = 6969;
           };
-          wireguardPeers = hubs;
+          wireguardPeers = map toNetworkdPeer hubs;
         };
         networks.wg0 = {
           matchConfig.Name = "wg0";
           networkConfig = {
             Address = cfg.address;
             DNSDefaultRoute = true;
-            DNS = cfg.dns;
+          }
+          // optionalAttrs (hubDns != null) {
+            DNS = hubDns;
             Domains = "~.";
           };
           routingPolicyRules = [
@@ -97,7 +158,10 @@ in
               Priority = 5;
             }
           ]
-          ++ endpoints;
+          ++ map (hub: {
+            To = "${rmPort hub.endpoint}/32";
+            Priority = 5;
+          }) hubs;
           routes = [
             {
               Destination = "0.0.0.0/0";
@@ -107,22 +171,21 @@ in
         };
       };
     })
-    (mkIf isCurrentHub {
+
+    (mkIf isHub {
       systemd.network = {
         enable = true;
-        netdevs = {
-          "10-wg0" = {
-            netdevConfig = {
-              Kind = "wireguard";
-              Name = "wg0";
-              Description = "Wireguard virtual device (tunnel)";
-            };
-            wireguardConfig = {
-              PrivateKeyFile = toString cfg.privateKeyFile;
-              ListenPort = 51820;
-            };
-            wireguardPeers = hubPeers;
+        netdevs."10-wg0" = {
+          netdevConfig = {
+            Kind = "wireguard";
+            Name = "wg0";
+            Description = "Wireguard virtual device (tunnel)";
           };
+          wireguardConfig = {
+            PrivateKeyFile = toString cfg.privateKeyFile;
+            ListenPort = 51820;
+          };
+          wireguardPeers = map toNetworkdPeer others;
         };
         networks.wg0 = {
           matchConfig.Name = "wg0";

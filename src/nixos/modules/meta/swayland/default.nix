@@ -16,17 +16,14 @@ in
     enable = mkEnableOption "enable swayland config";
   };
   config = mkIf cfg.enable {
-    hardware.graphics.enable = true;
+    meta.graphics.enable = true;
     programs.sway.enable = true;
     programs.sway.package = pkgs.swayfx;
     programs.sway.wrapperFeatures.gtk = true;
     xdg.portal = {
-      enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
       ];
-      config.common.default = "*";
       wlr = {
         enable = true;
         settings = {

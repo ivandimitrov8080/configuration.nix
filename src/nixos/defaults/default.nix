@@ -4,6 +4,9 @@
   lib,
   ...
 }:
+let
+  inherit (import ../../lib { inherit lib; }) values;
+in
 {
   nix = {
     extraOptions = "experimental-features = nix-command flakes";
@@ -57,30 +60,12 @@
       nushell
       xonsh
     ];
-    shellAliases = {
-      sc = "systemctl";
-      flip = "shuf -r -n 1 -e Heads Tails";
-    }
-    // (
-      if config.programs.zoxide.enable then
-        {
-          cd = "z";
-          cdi = "zi";
-        }
-      else
-        { }
-    )
-    // (
-      if builtins.elem pkgs.eza config.environment.systemPackages then
-        {
-          eza = "eza --long --header --icons --smart-group --mounts --group-directories-first --octal-permissions --git";
-          le = "eza";
-          la = "eza --all -a";
-          lt = "eza --git-ignore --all --tree --level=10";
-        }
-      else
-        { }
-    );
+    shellAliases =
+      values.shellAliases
+      // (if config.programs.zoxide.enable then values.zoxideAliases else { })
+      // (
+        if builtins.elem pkgs.eza config.environment.systemPackages then values.ezaAliases else { }
+      );
     variables = {
       SYSTEMD_LESS = "FRXMK";
     };
@@ -88,7 +73,6 @@
   networking.useNetworkd = true;
   services = {
     dnscrypt-proxy.settings = {
-      cache = false;
       ipv4_servers = true;
       ipv6_servers = true;
       dnscrypt_servers = true;
@@ -97,7 +81,6 @@
       require_dnssec = true;
       require_nolog = true;
       require_nofilter = true;
-      listen_addresses = [ "127.0.0.1:53" ];
       anonymized_dns.routes = [
         {
           server_name = "*";
@@ -147,28 +130,15 @@
     zsh = {
       enableBashCompletion = true;
       vteIntegration = true;
-      setOptions = [
-        "INC_APPEND_HISTORY"
-        "SHARE_HISTORY"
-        "VI"
-      ];
+      setOptions = values.zsh.setOptions;
       syntaxHighlighting = {
         enable = true;
-        highlighters = [
-          "main"
-          "brackets"
-          "cursor"
-          "line"
-        ];
+        highlighters = values.zsh.highlighters;
       };
       autosuggestions = {
         enable = true;
-        highlightStyle = "fg=cyan";
-        strategy = [
-          "history"
-          "completion"
-          "match_prev_cmd"
-        ];
+        highlightStyle = values.zsh.highlightStyle;
+        strategy = values.zsh.autosuggestionStrategy;
       };
     };
     zoxide = {

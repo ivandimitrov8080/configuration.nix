@@ -5,20 +5,10 @@
   ...
 }:
 let
-  inherit (import ../../lib { inherit lib; }) mkDefaultAttrs;
-  shellAliases = {
-    sc = "systemctl";
-    flip = "shuf -r -n 1 -e Heads Tails";
-  }
-  // (
-    if config.programs.zoxide.enable then
-      {
-        cd = "z";
-        cdi = "zi";
-      }
-    else
-      { }
-  );
+  inherit (import ../../lib { inherit lib; }) mkDefaultAttrs values;
+  shellAliases =
+    values.shellAliases
+    // (if config.programs.zoxide.enable then values.zoxideAliases else { });
 in
 mkDefaultAttrs {
   xdg = {
@@ -47,17 +37,15 @@ mkDefaultAttrs {
       "video/ogg" = "mpv.desktop";
       "video/webm" = "mpv.desktop";
       "video/x-msvideo" = "mpv.desktop";
-      "text/html" = "${config.programs.firefox.package.pname}.desktop";
-      "x-scheme-handler/http" = "${config.programs.firefox.package.pname}.desktop";
-      "x-scheme-handler/https" = "${config.programs.firefox.package.pname}.desktop";
-      "x-scheme-handler/about" = "${config.programs.firefox.package.pname}.desktop";
-      "x-scheme-handler/unknown" = "${config.programs.firefox.package.pname}.desktop";
+      # text/html and the x-scheme-handlers are host data: each host picks its
+      # own browser (nova: ladybird, iso: none), so they are set there.
     };
   };
   home = {
     stateVersion = lib.trivial.release;
     shell.enableShellIntegration = true;
     pointerCursor = {
+      enable = true;
       name = "phinger-cursors-light";
       package = pkgs.phinger-cursors;
       sway.enable = config.wayland.windowManager.sway.enable;
@@ -234,21 +222,12 @@ mkDefaultAttrs {
       dotDir = "${config.xdg.configHome}/zsh";
       syntaxHighlighting = {
         enable = true;
-        highlighters = [
-          "main"
-          "brackets"
-          "cursor"
-          "line"
-        ];
+        highlighters = values.zsh.highlighters;
       };
       autosuggestion = {
         enable = true;
-        highlight = "fg=cyan";
-        strategy = [
-          "history"
-          "completion"
-          "match_prev_cmd"
-        ];
+        highlight = values.zsh.highlightStyle;
+        strategy = values.zsh.autosuggestionStrategy;
       };
       history.expireDuplicatesFirst = true;
       historySubstringSearch.enable = true;
@@ -299,16 +278,7 @@ mkDefaultAttrs {
       '';
     };
     eza = {
-      extraOptions = [
-        "--long"
-        "--header"
-        "--icons"
-        "--smart-group"
-        "--mounts"
-        "--group-directories-first"
-        "--octal-permissions"
-        "--git"
-      ];
+      extraOptions = values.ezaFlags;
     };
     waybar = {
       settings = {
