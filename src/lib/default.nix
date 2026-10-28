@@ -6,18 +6,6 @@ rec {
   # Plain shared values (aliases, flags, ...) used by both module trees.
   values = import ./data.nix;
 
-  endsWith =
-    e: x:
-    with builtins;
-    let
-      se = toString e;
-      sx = toString x;
-    in
-    (stringLength sx >= stringLength se)
-    && (substring ((stringLength sx) - (stringLength se)) (stringLength sx) sx) == se;
-  find = e: root: with builtins; (filter (x: endsWith e x) (lib.filesystem.listFilesRecursive root));
-  findDefaults = root: find "default.nix" root;
-  findJars = root: find ".jar" root;
   specialOpts = [
     "package"
     "src"

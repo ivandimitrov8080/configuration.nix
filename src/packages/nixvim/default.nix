@@ -78,7 +78,7 @@ recurseIntoAttrs rec {
           rope.enabled = true;
           rope_autoimport.enabled = true;
           rope_autoimport.memory = true;
-          rope_copletion.enabled = true;
+          rope_completion.enabled = true;
           black.enabled = true;
         };
       };

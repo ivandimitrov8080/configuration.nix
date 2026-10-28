@@ -6,8 +6,7 @@
   ...
 }:
 let
-  inherit (import ../lib { inherit lib; }) findDefaults mkDefaultAttrs;
-  mods = findDefaults ./modules;
+  inherit (import ../lib { inherit lib; }) mkDefaultAttrs;
   defs = mkDefaultAttrs (
     import ./defaults {
       inherit
@@ -20,5 +19,18 @@ let
   );
 in
 {
-  imports = mods ++ [ defs ];
+  imports = [
+    ./modules/meta/bingwp
+    ./modules/meta/dns
+    ./modules/meta/grafana
+    ./modules/meta/graphicalBoot
+    ./modules/meta/graphics
+    ./modules/meta/host
+    ./modules/meta/hyprland
+    ./modules/meta/minimal
+    ./modules/meta/shells
+    ./modules/meta/swayland
+    ./modules/meta/wireguard
+    defs
+  ];
 }

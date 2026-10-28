@@ -42,6 +42,15 @@ in
   options.meta.minimal = {
     enable = mkEnableOption "the shared developer baseline";
 
+    workstation = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Enable the desktop/laptop parts of the baseline. Installer images set
+        this to false to keep meta.minimal actually minimal.
+      '';
+    };
+
     kmonad = {
       enable = mkOption {
         type = types.bool;
@@ -158,8 +167,9 @@ in
         nss
         pango
       ];
-      ladybird.enable = true;
     };
+
+    programs.ladybird.enable = mkIf cfg.workstation true;
 
     services = {
       pipewire.enable = true;
@@ -167,9 +177,12 @@ in
       locate.enable = true;
       resolved.enable = true;
       guix.enable = true;
-      libretranslate.enable = true;
-      transmission.enable = true;
-      kmonad = mkIf kmonadCfg.enable {
+      libretranslate.enable = mkIf cfg.workstation true;
+      transmission = mkIf cfg.workstation {
+        enable = true;
+        package = pkgs.transmission_4;
+      };
+      kmonad = mkIf (cfg.workstation && kmonadCfg.enable) {
         enable = true;
         keyboards.laptop = {
           inherit (kmonadCfg) device;
@@ -179,9 +192,9 @@ in
       };
     };
 
-    hardware.uinput.enable = kmonadCfg.enable;
+    hardware.uinput.enable = cfg.workstation && kmonadCfg.enable;
 
-    meta = {
+    meta = mkIf cfg.workstation {
       graphicalBoot.enable = mkDefault true;
       shells.enable = mkDefault true;
       swayland.enable = mkDefault true;

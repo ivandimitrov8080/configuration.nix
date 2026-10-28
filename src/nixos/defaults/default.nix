@@ -19,6 +19,7 @@ in
   security.sudo.execWheelOnly = true;
   users = {
     mutableUsers = false;
+    groups.ssh = { };
   };
   boot = {
     loader = {

@@ -41,7 +41,6 @@ mkDefaultAttrs {
     };
   };
   home = {
-    stateVersion = lib.trivial.release;
     shell.enableShellIntegration = true;
     pointerCursor = {
       enable = true;

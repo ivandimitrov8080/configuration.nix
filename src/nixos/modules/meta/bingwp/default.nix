@@ -40,7 +40,7 @@ in
       services = {
         bingwp =
           let
-            outDir = "/var/pic";
+            outDir = cfg.downloadDir;
             exec =
               pkgs.writers.writeNuBin "exec"
                 {

@@ -1,75 +1,36 @@
-# Per-host wiring that used to be copy-pasted into every host flake's
-# modules.nix: platform, overlay stack, registry pins, stateVersion and the
-# default login shell. Hosts only supply data via meta.host.*.
-#
-# `inputs` comes from the host flake's specialArgs. It is optional so that the
-# module stays evaluable in contexts that have no flake inputs (the vps
-# integration test imports nixosModules.default directly).
+# Per-host data that the shared modules need: stateVersion and the public
+# address. The platform, overlay stack and registry pins are set directly by
+# each host flake, because only the host knows its inputs.
 {
   pkgs,
   lib,
   config,
-  inputs ? { },
   ...
 }:
 let
-  inherit (lib)
-    mkIf
-    mkMerge
-    mkOption
-    types
-    ;
+  inherit (lib) mkOption types;
   cfg = config.meta.host;
-
-  # The overlay lives in this flake, so it can be referenced without going
-  # through the host's inputs.
-  configurationOverlay = import ../../../../overlays;
 in
 {
   options.meta.host = {
-    platform = mkOption {
+    stateVersion = mkOption {
       type = types.str;
-      default = "x86_64-linux";
-      description = "nixpkgs.hostPlatform of this host.";
-    };
-
-    overlays = mkOption {
-      type = types.listOf types.unspecified;
-      default = [ ];
+      default = "26.05";
       description = ''
-        Host specific overlays, applied before the configuration.nix overlay.
-        Anything that needs a flake input the host owns (emacs-overlay, the
-        host's own package overlay, ...) belongs here, because only the host
-        knows its inputs.
+        NixOS stateVersion of this host. This is deliberately data supplied by
+        each host and must not follow the nixpkgs release.
       '';
     };
 
-    registry.enable = mkOption {
-      type = types.bool;
-      default = inputs ? self && inputs ? nixpkgs;
-      description = ''
-        Pin this host's flake and nixpkgs in nix.registry. Enabled
-        automatically when the host passes its flake inputs.
-      '';
+    publicAddress = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = "Public IP address of this host, when it has one.";
     };
   };
 
-  config = mkMerge [
-    {
-      nixpkgs = {
-        hostPlatform = cfg.platform;
-        overlays = cfg.overlays ++ [ configurationOverlay ];
-      };
-      system.stateVersion = lib.trivial.release;
-      users.defaultUserShell = pkgs.nushell;
-    }
-
-    (mkIf cfg.registry.enable {
-      nix.registry = {
-        self.flake = inputs.self;
-        nixpkgs.flake = inputs.nixpkgs;
-        p.flake = inputs.nixpkgs;
-      };
-    })
-  ];
+  config = {
+    system.stateVersion = cfg.stateVersion;
+    users.defaultUserShell = pkgs.nushell;
+  };
 }

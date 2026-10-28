@@ -11,11 +11,9 @@ pkgs.python3.pkgs.buildPythonApplication rec {
   # library, and isn't readily fixable.  rtcqs_gui offers no functionality
   # that isn't offered by the command-line utility rtcqs.
   #
-  # We set 'pythonRuntimeDepsCheck = "true"' in order to skip the Nix
-  # dependency checking that causes it to find a dependency on PySimpleGUI
-  # (run the UNIX "true" command rather than the default command), making
-  # the build complete rather than erroring out.
-  pythonRuntimeDepsCheckHook = "true";
+  # The runtime dependency check would otherwise discover PySimpleGUI and fail
+  # the build. Disable it instead of replacing the hook with the `true` binary.
+  pythonRuntimeDepsCheck = false;
 
   buildInputs = [ pkgs.python3.pkgs.setuptools ];
 
