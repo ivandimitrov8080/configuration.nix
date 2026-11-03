@@ -44,9 +44,13 @@ in
     };
     boot = {
       loader = {
-        limine.enable = true;
-        # Limine owns boot here; do not leave the shared GRUB defaults active.
-        grub.enable = false;
+        timeout = 1;
+        limine = {
+          enable = true;
+          extraConfig = ''
+            quiet: yes
+          '';
+        };
       };
       plymouth.enable = true;
       consoleLogLevel = 0;
