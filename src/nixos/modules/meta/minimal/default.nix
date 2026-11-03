@@ -191,6 +191,9 @@ in
         };
       };
     };
+    systemd.services.transmission.serviceConfig = mkIf cfg.workstation {
+      Type = lib.mkForce "simple";
+    };
 
     hardware.uinput.enable = cfg.workstation && kmonadCfg.enable;
 
