@@ -1,12 +1,7 @@
 {
   pkgs,
-  config,
-  lib,
   ...
 }:
-let
-  inherit (import ../../lib { inherit lib; }) values;
-in
 {
   nix = {
     extraOptions = "experimental-features = nix-command flakes";
@@ -34,37 +29,18 @@ in
   systemd.network.wait-online.enable = false;
   environment = {
     systemPackages = with pkgs; [
-      bat
       cryptsetup
-      eza
-      fd
-      file
-      inetutils
       nixos-install-tools
-      nmap
-      nushell
-      openssh
-      openssl
-      procs
-      ripgrep
-      srm
-      tshark
-      unzip
-      uutils-coreutils-noprefix
-      wget
-      xonsh
-      zip
     ];
     shells = with pkgs; [
       bash
       zsh
       nushell
-      xonsh
     ];
-    shellAliases =
-      values.shellAliases
-      // (if config.programs.zoxide.enable then values.zoxideAliases else { })
-      // (if builtins.elem pkgs.eza config.environment.systemPackages then values.ezaAliases else { });
+    shellAliases = {
+      sc = "systemctl";
+      flip = "shuf -r -n 1 -e Heads Tails";
+    };
     variables = {
       SYSTEMD_LESS = "FRXMK";
     };
@@ -129,16 +105,6 @@ in
     zsh = {
       enableBashCompletion = true;
       vteIntegration = true;
-      setOptions = values.zsh.setOptions;
-      syntaxHighlighting = {
-        enable = true;
-        highlighters = values.zsh.highlighters;
-      };
-      autosuggestions = {
-        enable = true;
-        highlightStyle = values.zsh.highlightStyle;
-        strategy = values.zsh.autosuggestionStrategy;
-      };
     };
     zoxide = {
       enableBashIntegration = true;

@@ -5,9 +5,7 @@
   ...
 }:
 let
-  inherit (import ../../lib { inherit lib; }) mkDefaultAttrs values;
-  shellAliases =
-    values.shellAliases // (if config.programs.zoxide.enable then values.zoxideAliases else { });
+  inherit (import ../../lib { inherit lib; }) mkDefaultAttrs;
 in
 mkDefaultAttrs {
   xdg = {
@@ -209,18 +207,8 @@ mkDefaultAttrs {
       ];
     };
     zsh = {
-      inherit shellAliases;
       enableVteIntegration = true;
       dotDir = "${config.xdg.configHome}/zsh";
-      syntaxHighlighting = {
-        enable = true;
-        highlighters = values.zsh.highlighters;
-      };
-      autosuggestion = {
-        enable = true;
-        highlight = values.zsh.highlightStyle;
-        strategy = values.zsh.autosuggestionStrategy;
-      };
       history.expireDuplicatesFirst = true;
       historySubstringSearch.enable = true;
     };
@@ -242,10 +230,9 @@ mkDefaultAttrs {
           max_results = 250;
         };
         history.file_format = "sqlite";
-        edit_mode = "vi";
         use_kitty_protocol = config.programs.kitty.enable;
       };
-      shellAliases = (removeAttrs shellAliases [ "ls" ]) // {
+      shellAliases = {
         la = "ls -al";
       };
       extraConfig = lib.mkAfter ''
@@ -268,9 +255,6 @@ mkDefaultAttrs {
         set -s copy-command 'wl-copy'
         set -g default-command "''${SHELL}"
       '';
-    };
-    eza = {
-      extraOptions = values.ezaFlags;
     };
     waybar = {
       settings = {
