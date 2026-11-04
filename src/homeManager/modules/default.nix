@@ -50,32 +50,6 @@ mkDefaultAttrs {
       QT_QPA_PLATFORM = "wayland";
       _JAVA_AWT_WM_NONREPARENTING = 1;
     };
-    file = {
-      ".tridactylrc".text = ''
-        set smoothscroll true
-        bind j scrollline 4
-        bind k scrollline -4
-        bind b fillcmdline bmarks
-        bind <Tab> tabnext
-        bind <S-Tab> tabprev
-        bind x tabclose
-        unbind d
-      '';
-      ".vit/config.ini".text = ''
-        [taskwarrior]
-        taskrc = ~/.config/task/taskrc
-        [vit]
-        default_keybindings = vi
-        confirmation = False
-        mouse = True
-        abort_backspace = True
-        focus_on_add = True
-        wait = False
-        row_stripping = False
-        [keybinding]
-        q = {ACTION_QUIT}
-      '';
-    };
   };
   accounts = {
     calendar.basePath = ".local/share/calendars";
@@ -212,10 +186,6 @@ mkDefaultAttrs {
       history.expireDuplicatesFirst = true;
       historySubstringSearch.enable = true;
     };
-    carapace = {
-      enable = true;
-      enableNushellIntegration = true;
-    };
     nushell = {
       plugins = with pkgs.nushellPlugins; [
         formats
@@ -243,7 +213,6 @@ mkDefaultAttrs {
       clock24 = true;
       baseIndex = 1;
       escapeTime = 0;
-      keyMode = "vi";
       terminal = "screen-256color";
       plugins = with pkgs.tmuxPlugins; [
         tilish
