@@ -145,11 +145,5 @@ in
       enableZshIntegration = true;
     };
     git.config.safe.directory = "*";
-    bash = {
-      interactiveShellInit = ''
-        ${lib.optionalString config.programs.bash.blesh.enable "set -o vi"}
-      '';
-      blesh.enable = true;
-    };
   };
 }

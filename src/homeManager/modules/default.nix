@@ -201,15 +201,12 @@ mkDefaultAttrs {
       };
     };
     bash = {
-      inherit shellAliases;
-      enableVteIntegration = true;
       historyControl = [ "erasedups" ];
       historyIgnore = [
         "ls"
         "cd"
         "exit"
       ];
-      initExtra = "set -o vi";
     };
     zsh = {
       inherit shellAliases;
