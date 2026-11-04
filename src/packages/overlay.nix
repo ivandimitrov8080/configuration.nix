@@ -7,7 +7,6 @@ in
   screenshot = callPackage ./screenshot { };
   faenza = callPackage ./faenza { };
   volume = callPackage ./volume { };
-  rtcqs = callPackage ./rtcqs { };
   ndlm = callPackage ./ndlm { };
   english-words = callPackage ./english-words { };
   askpass = callPackage ./askpass { };

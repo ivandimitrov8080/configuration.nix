@@ -1,6 +1,3 @@
-# The "developer machine" baseline: tooling, fonts, nix-ld, kmonad and the meta
-# modules a graphical host wants. iso.nix and nova.nix used to carry a ~120 line
-# copy of this each, differing only in the OPTIONS_JSON_* variables.
 {
   pkgs,
   lib,

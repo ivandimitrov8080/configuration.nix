@@ -3,7 +3,6 @@ let
   inherit (lib) mkDefault mkOverride;
 in
 rec {
-  # Plain shared values (aliases, flags, ...) used by both module trees.
   values = import ./data.nix;
 
   specialOpts = [

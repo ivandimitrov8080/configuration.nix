@@ -1,6 +1,3 @@
-# Per-host data that the shared modules need: stateVersion and the public
-# address. The platform, overlay stack and registry pins are set directly by
-# each host flake, because only the host knows its inputs.
 {
   pkgs,
   lib,

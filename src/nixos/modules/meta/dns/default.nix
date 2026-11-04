@@ -1,7 +1,3 @@
-# Single owner for "where does DNS come from". Replaces the duplicated
-# networking.nameservers / services.resolved / services.dnscrypt-proxy settings
-# that were spread over the old meta.dnscrypt module, the host wireguard
-# modules and the vps integration test.
 {
   lib,
   config,
@@ -20,8 +16,6 @@ let
 
   listenAddress = "${cfg.listen.address}:${toString cfg.listen.port}";
 
-  # Everything but the configured resolvers is dropped, so a stray
-  # resolv.conf/dnscrypt/doh client cannot bypass the tunnel.
   egressRules = ''
     table inet filter {
       chain output {

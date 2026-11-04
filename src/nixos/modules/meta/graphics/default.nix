@@ -1,6 +1,3 @@
-# The graphics stack shared by every graphical environment. meta.swayland and
-# meta.hyprland used to duplicate hardware.graphics.enable and the base
-# xdg.portal block; they now only add their own portal.
 {
   lib,
   config,

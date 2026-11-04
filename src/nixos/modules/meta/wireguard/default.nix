@@ -1,7 +1,3 @@
-# Wireguard mesh. Peers are host data (public keys, addresses, endpoints) and
-# live next to the host that needs them; everything derived from them
-# (AllowedIPs, Endpoint/PersistentKeepalive, hub vs. spoke layout) is computed
-# here. DNS wiring is owned by meta.dns, not by this module.
 {
   lib,
   config,
@@ -30,7 +26,6 @@ let
   hubs = filter (peer: peer.endpoint != null) peers;
   others = filter (peer: peer.name != cfg.self) peers;
 
-  # A hub is routed everything; spokes are routed their single /32.
   toNetworkdPeer =
     peer:
     {
