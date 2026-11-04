@@ -22,7 +22,6 @@ in
   imports = [
     ./modules/meta/bingwp
     ./modules/meta/dns
-    ./modules/meta/grafana
     ./modules/meta/graphicalBoot
     ./modules/meta/graphics
     ./modules/meta/host
