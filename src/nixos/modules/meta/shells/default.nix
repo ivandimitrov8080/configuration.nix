@@ -40,7 +40,6 @@ in
         uutils-coreutils-noprefix
         wget
         zip
-
       ];
       shellAliases = {
         eza = "eza --long --header --icons --smart-group --mounts --group-directories-first --octal-permissions --git";
