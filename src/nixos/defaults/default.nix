@@ -10,6 +10,7 @@
         "auto-allocate-uids"
         "nix-command"
         "flakes"
+        "cgroups"
       ];
       auto-allocate-uids = true;
       trusted-users = [ "@wheel" ];
