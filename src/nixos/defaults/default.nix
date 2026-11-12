@@ -4,8 +4,14 @@
 }:
 {
   nix = {
-    extraOptions = "experimental-features = nix-command flakes";
     settings = {
+      extra-system-features = [ "uid-range" ];
+      experimental-features = [
+        "auto-allocate-uids"
+        "nix-command"
+        "flakes"
+      ];
+      auto-allocate-uids = true;
       trusted-users = [ "@wheel" ];
       auto-optimise-store = true;
       max-jobs = "auto";
