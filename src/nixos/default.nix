@@ -20,16 +20,16 @@ let
 in
 {
   imports = [
-    ./modules/meta/bingwp
-    ./modules/meta/dns
-    ./modules/meta/graphicalBoot
-    ./modules/meta/graphics
-    ./modules/meta/host
-    ./modules/meta/hyprland
-    ./modules/meta/minimal
-    ./modules/meta/shells
-    ./modules/meta/swayland
-    ./modules/meta/wireguard
+    ./modules/custom/bingwp
+    ./modules/custom/dns
+    ./modules/custom/graphicalBoot
+    ./modules/custom/graphics
+    ./modules/custom/host
+    ./modules/custom/hyprland
+    ./modules/custom/minimal
+    ./modules/custom/shells
+    ./modules/custom/swayland
+    ./modules/custom/wireguard
     defs
   ];
 }
