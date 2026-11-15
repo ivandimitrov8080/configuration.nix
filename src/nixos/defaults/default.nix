@@ -5,14 +5,10 @@
 {
   nix = {
     settings = {
-      extra-system-features = [ "uid-range" ];
       experimental-features = [
-        "auto-allocate-uids"
         "nix-command"
         "flakes"
-        "cgroups"
       ];
-      auto-allocate-uids = true;
       trusted-users = [ "@wheel" ];
       auto-optimise-store = true;
       max-jobs = "auto";
