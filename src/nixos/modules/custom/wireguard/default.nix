@@ -28,6 +28,11 @@ in
       type = types.str;
       default = null;
     };
+    peers = mkOption {
+      description = "wg peers name, public key, allowed ips";
+      type = types.list;
+      default = [];
+    };
   };
   config = mkMerge [
     (mkIf cfg.killswitch {
