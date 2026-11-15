@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   ...
 }:
 let
@@ -30,7 +29,7 @@ in
     };
     peers = mkOption {
       description = "wg peers name, public key, allowed ips";
-      type = types.list;
+      type = types.listOf types.attrs;
       default = [];
     };
   };
