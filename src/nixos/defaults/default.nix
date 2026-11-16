@@ -80,10 +80,6 @@
       recommendedUwsgiSettings = true;
       recommendedBrotliSettings = true;
       sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
-      appendHttpConfig = ''
-        client_body_timeout 5s;
-        client_header_timeout 5s;
-      '';
     };
     pipewire = {
       alsa.enable = true;
